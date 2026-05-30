@@ -8,11 +8,20 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <link rel="stylesheet" href="../style.css">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐍</text></svg>">
+    <script>
+        (function() {
+            var theme = localStorage.getItem('theme');
+            if (theme === 'light' || (!theme && window.matchMedia('(prefers-color-scheme: light)').matches)) {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
 </head>
 <body>
     <nav class="top-nav">
         <a href="../index.html">⬅ Kembali ke Index</a>
         <span class="title-nav">Modul 1: Variabel &amp; Tipe Data</span>
+        <button class="theme-toggle" id="themeToggle" aria-label="Ganti tema">🌙</button>
     </nav>
     <div class="container">
         <h1>Modul 1: Variabel & Tipe Data</h1>
@@ -264,6 +273,25 @@
         <a href="02-string.html">🧵 String »</a>
     </nav>
     </div>
-    <script>document.querySelectorAll('pre code').forEach(b=>hljs.highlightElement(b));</script>
+    <script>
+        document.querySelectorAll('pre code').forEach(function(b){hljs.highlightElement(b);});
+
+        (function() {
+            var btn = document.getElementById('themeToggle');
+            if (!btn) return;
+            var html = document.documentElement;
+            function updateBtn() {
+                btn.textContent = html.getAttribute('data-theme') === 'light' ? '☀️' : '🌙';
+            }
+            updateBtn();
+            btn.addEventListener('click', function() {
+                var current = html.getAttribute('data-theme');
+                var next = current === 'light' ? 'dark' : 'light';
+                html.setAttribute('data-theme', next);
+                localStorage.setItem('theme', next);
+                updateBtn();
+            });
+        })();
+    </script>
 </body>
 </html>

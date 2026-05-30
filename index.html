@@ -6,6 +6,14 @@
     <link rel="stylesheet" href="style.css">
     <title>Belajar Python — Untuk Guru Informatika</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐍</text></svg>">
+    <script>
+        (function() {
+            var theme = localStorage.getItem('theme');
+            if (theme === 'light' || (!theme && window.matchMedia('(prefers-color-scheme: light)').matches)) {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
     <style>
         :root {
             --bg: #0d1117;
@@ -20,6 +28,19 @@
             --accent-purple: #bc8cff;
         }
 
+        [data-theme="light"] {
+            --bg: #ffffff;
+            --bg-card: #f6f8fa;
+            --bg-hover: #eef1f5;
+            --border: #d0d7de;
+            --text: #1f2328;
+            --text-muted: #656d76;
+            --accent: #0969da;
+            --accent-green: #1a7f37;
+            --accent-orange: #9a6700;
+            --accent-purple: #8250df;
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
@@ -27,6 +48,7 @@
             background: var(--bg);
             color: var(--text);
             line-height: 1.6;
+            transition: background 0.3s ease, color 0.3s ease;
         }
 
         .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
@@ -196,6 +218,33 @@
 
         hr.divider { border: none; border-top: 1px solid var(--border); margin: 0.5rem 0; }
 
+        .top-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.6rem 1.5rem;
+            background: var(--bg);
+            border-bottom: 1px solid var(--border);
+            transition: background 0.3s ease, border-color 0.3s ease;
+        }
+        .top-nav .title-nav { font-weight: 600; font-size: 0.95rem; }
+        .theme-toggle {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 0.3rem 0.6rem;
+            cursor: pointer;
+            font-size: 1.2rem;
+            line-height: 1;
+            color: var(--text);
+            transition: background 0.2s, border-color 0.2s;
+        }
+        .theme-toggle:hover { background: var(--bg-hover); border-color: var(--accent); }
+
+        @media (max-width: 768px) {
+            .top-nav { padding: 0.5rem 1rem; }
+        }
+
         @media (max-width: 768px) {
             .hero h1 { font-size: 1.8rem; }
             .two-col { grid-template-columns: 1fr; gap: 0; }
@@ -214,6 +263,11 @@
     </style>
 </head>
 <body>
+
+<nav class="top-nav">
+    <span class="title-nav">🐍 Belajar Python</span>
+    <button class="theme-toggle" id="themeToggle" aria-label="Ganti tema">🌙</button>
+</nav>
 
 <div class="container">
 
@@ -247,6 +301,11 @@
                 <p style="color:var(--text-muted); font-size:0.95rem;">
                     Ditulis dengan pendekatan <em>learning by doing</em> &mdash; banyak contoh kode,
                     latihan, dan projek nyata yang relevan dengan dunia pendidikan.
+                </p>
+                <br>
+                <p style="color:var(--text-muted); font-size:0.95rem;">
+                    <strong style="color:var(--text);">Natedekaka</strong> &mdash; Ayah tiga anak, Guru Informatika,
+                    Spesialis Administrasi Server, Pengembang Web, &amp; Linux Enthusiast.
                 </p>
             </div>
             <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:10px; padding:1.25rem;">
@@ -460,10 +519,29 @@
 
 <footer>
     <div class="container">
-        <p>🐍 <strong>Belajar Python</strong> &mdash; Untuk Guru Informatika &bull; Omarchy Linux</p>
-        <p style="margin-top:0.4rem;">Ditulis oleh Sisyphus &mdash; dari guru, untuk guru</p>
+        <p>🐍 <strong>Belajar Python</strong> &mdash; Untuk Guru Informatika &bull; Omarchy-nate</p>
+        <p style="margin-top:0.4rem;">Ditulis oleh Sisyphus-natedekaka &mdash; dari guru, untuk guru</p>
     </div>
 </footer>
+
+<script>
+(function() {
+    var btn = document.getElementById('themeToggle');
+    if (!btn) return;
+    var html = document.documentElement;
+    function updateBtn() {
+        btn.textContent = html.getAttribute('data-theme') === 'light' ? '☀️' : '🌙';
+    }
+    updateBtn();
+    btn.addEventListener('click', function() {
+        var current = html.getAttribute('data-theme');
+        var next = current === 'light' ? 'dark' : 'light';
+        html.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+        updateBtn();
+    });
+})();
+</script>
 
 </body>
 </html>

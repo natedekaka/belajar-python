@@ -14,6 +14,30 @@
     --accent-purple: #bc8cff;
     --link: #58a6ff;
     --code-bg: #1c2333;
+    --toggle-bg: #21262d;
+    --toggle-hover: #30363d;
+}
+
+[data-theme="light"] {
+    --bg: #ffffff;
+    --bg-card: #f6f8fa;
+    --bg-hover: #eef1f5;
+    --border: #d0d7de;
+    --text: #1f2328;
+    --text-muted: #656d76;
+    --accent: #0969da;
+    --accent-green: #1a7f37;
+    --accent-orange: #9a6700;
+    --accent-purple: #8250df;
+    --link: #0969da;
+    --code-bg: #eef1f5;
+    --toggle-bg: #eef1f5;
+    --toggle-hover: #d0d7de;
+}
+
+/* Smooth transitions for theme switching */
+body, .top-nav, .card, .modul-nav a, blockquote, pre, code, th, td, .link-item, .roadmap-step, .badge, hr {
+    transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -57,6 +81,25 @@ body {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+/* Theme toggle button */
+.theme-toggle {
+    background: var(--toggle-bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    line-height: 1;
+    padding: 0.35rem 0.5rem;
+    color: var(--text-muted);
+    flex-shrink: 0;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+.theme-toggle:hover {
+    background: var(--toggle-hover);
+    border-color: var(--accent);
+    color: var(--text);
 }
 
 /* ===== MODUL NAVIGATION (prev/next) ===== */

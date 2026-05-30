@@ -67,16 +67,44 @@ def make_template(index_path, style_path, is_modul=False, modul_slug=None):
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <link rel="stylesheet" href="{style_path}">
     {FAVICON}
+    <script>
+        (function() {{
+            var theme = localStorage.getItem('theme');
+            if (theme === 'light' || (!theme && window.matchMedia('(prefers-color-scheme: light)').matches)) {{
+                document.documentElement.setAttribute('data-theme', 'light');
+            }}
+        }})();
+    </script>
 </head>
 <body>
     <nav class="top-nav">
         <a href="{index_path}">⬅ Kembali ke Index</a>
         <span class="title-nav">__TITLE__</span>
+        <button class="theme-toggle" id="themeToggle" aria-label="Ganti tema">🌙</button>
     </nav>
     <div class="container">
 __CONTENT__{nav_html}
     </div>
-    <script>document.querySelectorAll('pre code').forEach(b=>hljs.highlightElement(b));</script>
+    <script>
+        document.querySelectorAll('pre code').forEach(function(b){{hljs.highlightElement(b);}});
+
+        (function() {{
+            var btn = document.getElementById('themeToggle');
+            if (!btn) return;
+            var html = document.documentElement;
+            function updateBtn() {{
+                btn.textContent = html.getAttribute('data-theme') === 'light' ? '☀️' : '🌙';
+            }}
+            updateBtn();
+            btn.addEventListener('click', function() {{
+                var current = html.getAttribute('data-theme');
+                var next = current === 'light' ? 'dark' : 'light';
+                html.setAttribute('data-theme', next);
+                localStorage.setItem('theme', next);
+                updateBtn();
+            }});
+        }})();
+    </script>
 </body>
 </html>"""
     return tmpl
