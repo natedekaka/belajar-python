@@ -1,0 +1,225 @@
+/* ===== Belajar Python — Shared Styles ===== */
+/* Dark theme for all content pages */
+
+:root {
+    --bg: #0d1117;
+    --bg-card: #161b22;
+    --bg-hover: #1c2333;
+    --border: #30363d;
+    --text: #e6edf3;
+    --text-muted: #8b949e;
+    --accent: #58a6ff;
+    --accent-green: #3fb950;
+    --accent-orange: #d29922;
+    --accent-purple: #bc8cff;
+    --link: #58a6ff;
+    --code-bg: #1c2333;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+}
+
+.container {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+}
+
+/* ===== TOP NAVIGATION ===== */
+.top-nav {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 1.5rem;
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+.top-nav a {
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+.top-nav a:hover { text-decoration: underline; }
+.top-nav .title-nav {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-left: auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* ===== MODUL NAVIGATION (prev/next) ===== */
+.modul-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+.modul-nav .modul-nav-center {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+}
+.modul-nav a {
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--bg-card);
+    transition: border-color 0.2s, background 0.2s;
+    white-space: nowrap;
+}
+.modul-nav a:hover {
+    border-color: var(--accent);
+    background: var(--bg-hover);
+}
+.modul-nav .modul-nav-disabled {
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+/* ===== TYPOGRAPHY ===== */
+h1 { font-size: 2rem; font-weight: 700; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); }
+h2 { font-size: 1.5rem; font-weight: 600; margin-top: 2rem; margin-bottom: 0.75rem; }
+h3 { font-size: 1.2rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.5rem; }
+h4 { font-size: 1.05rem; font-weight: 600; margin-top: 1.25rem; margin-bottom: 0.5rem; }
+p { margin-bottom: 1rem; color: var(--text-muted); }
+strong { color: var(--text); }
+a { color: var(--link); }
+
+/* ===== LISTS ===== */
+ul, ol { margin-bottom: 1rem; padding-left: 1.5rem; color: var(--text-muted); }
+li { margin-bottom: 0.3rem; }
+
+/* ===== BLOCKQUOTE ===== */
+blockquote {
+    border-left: 4px solid var(--accent);
+    padding: 0.75rem 1rem;
+    margin: 1rem 0;
+    background: rgba(88,166,255,0.06);
+    border-radius: 0 6px 6px 0;
+    color: var(--text-muted);
+}
+blockquote p { margin-bottom: 0; }
+
+/* ===== DIVIDER ===== */
+hr { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+
+/* ===== TABLES ===== */
+.table-wrapper {
+    overflow-x: auto;
+    margin: 1rem 0;
+    -webkit-overflow-scrolling: touch;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    min-width: 400px;
+}
+th, td { padding: 0.5rem 0.75rem; border: 1px solid var(--border); text-align: left; }
+th { background: var(--bg-card); font-weight: 600; }
+td { color: var(--text-muted); }
+
+/* ===== CODE ===== */
+code {
+    font-family: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+    font-size: 0.85em;
+    background: var(--code-bg);
+    padding: 0.15em 0.4em;
+    border-radius: 4px;
+    color: rgb(255, 198, 109);
+    word-break: break-word;
+}
+pre {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 1rem 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+pre code { background: none; padding: 0; font-size: 0.85rem; line-height: 1.6; color: inherit; word-break: normal; }
+
+/* ===== IMAGES ===== */
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 6px;
+    margin: 1rem 0;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .container { padding: 1.25rem 1rem 3rem; }
+    h1 { font-size: 1.6rem; }
+    h2 { font-size: 1.3rem; }
+    h3 { font-size: 1.1rem; }
+    
+    .top-nav { padding: 0.6rem 1rem; flex-wrap: wrap; }
+    .top-nav .title-nav { font-size: 0.78rem; }
+    
+    .modul-nav { flex-direction: column; align-items: stretch; text-align: center; }
+    .modul-nav a { text-align: center; }
+    
+    table { font-size: 0.8rem; }
+    th, td { padding: 0.4rem 0.5rem; }
+    
+    pre { padding: 0.75rem; font-size: 0.8rem; }
+}
+
+@media (max-width: 480px) {
+    .container { padding: 1rem 0.75rem 2.5rem; }
+    h1 { font-size: 1.35rem; }
+    h2 { font-size: 1.15rem; }
+    body { font-size: 0.95rem; }
+    
+    .top-nav { gap: 0.5rem; }
+    .top-nav a { font-size: 0.82rem; }
+    
+    .modul-nav a { font-size: 0.82rem; padding: 0.4rem 0.75rem; }
+}
+
+/* ===== PRINT ===== */
+@media print {
+    body {
+        background: #fff;
+        color: #000;
+        line-height: 1.5;
+        font-size: 11pt;
+    }
+    .top-nav { display: none; }
+    .modul-nav { display: none; }
+    .container { max-width: 100%; padding: 0.5in; }
+    h1, h2, h3, h4 { color: #000; border-bottom-color: #ccc; }
+    p, li, td, blockquote { color: #333; }
+    strong { color: #000; }
+    a { color: #0066cc; text-decoration: underline; }
+    pre, code { background: #f5f5f5; color: #333; border-color: #ddd; }
+    pre { break-inside: avoid; }
+    blockquote { border-left-color: #0066cc; background: #f9f9f9; color: #333; }
+    table { font-size: 9pt; }
+    th { background: #f0f0f0; color: #000; }
+    td { color: #333; }
+    img { max-width: 100% !important; }
+    hr { border-top-color: #ccc; }
+    .table-wrapper { overflow: visible; }
+    table { min-width: 0; }
+}

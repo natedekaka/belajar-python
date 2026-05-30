@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modul 12: OOP Dasar (Object-Oriented Programming) — Belajar Python</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐍</text></svg>">
+</head>
+<body>
+    <nav class="top-nav">
+        <a href="../index.html">⬅ Kembali ke Index</a>
+        <span class="title-nav">Modul 12: OOP Dasar (Object-Oriented Programming)</span>
+    </nav>
+    <div class="container">
+        <h1>Modul 12: OOP Dasar (Object-Oriented Programming)</h1>
+        
+        <h2>🏆 Target Pemahaman</h2>
+        
+        <p>Setelah modul ini, kamu bisa:</p>
+        <ul><li>Menjelaskan <strong>Class</strong> dan <strong>Object</strong> ke murid dengan analogi</li><li>Membuat class sendiri dengan atribut dan method</li><li>Memahami <code>__init__</code> (constructor) dan <code>self</code></li><li>Menggunakan <strong>inheritance</strong> sederhana</li><li>Memahami <strong>encapsulation</strong> dasar</li></ul>
+        
+        <hr>
+        
+        <h2>1. Analogi: Class itu Cetakan, Object itu Kue</h2>
+        
+        <p>Ini cara paling mudah ngajar OOP ke murid:</p>
+        
+        <blockquote><p><strong>Class</strong> = cetakan kue. <strong>Object</strong> = kue yang sudah jadi.</p></blockquote>
+        
+        <pre><code>      Cetakan (Class)                Kue (Object)
+           ┌──────────────────┐          ┌──────────────────┐
+           │ Bentuk: Bintang   │          │ ★ Bintang ke-1   │
+           │ Warna: (isi nanti)│   →     │ Warna: Merah      │
+           │ Rasa: (isi nanti) │          │ Rasa: Coklat      │
+           └──────────────────┘          ├──────────────────┤
+                                          │ ★ Bintang ke-2   │
+                                          │ Warna: Biru       │
+                                          │ Rasa: Vanilla     │
+                                          └──────────────────┘</code></pre>
+        
+        <ul><li><strong>Class</strong> = blueprint / cetakan — mendefinisikan <strong>atribut</strong> (data) dan <strong>method</strong> (fungsi)</li><li><strong>Object</strong> = instance dari class — wujud nyata dengan data spesifik</li></ul>
+        
+        <h2>2. Class Sederhana</h2>
+        
+        <pre><code class="language-python"># Definisi class
+        class Siswa:
+            &quot;&quot;&quot;Class untuk merepresentasikan siswa&quot;&quot;&quot;
+            pass  # Isi dulu kosong
+        
+        # Membuat object dari class
+        s1 = Siswa()
+        s2 = Siswa()
+        
+        print(type(s1))  # &lt;class &#x27;__main__.Siswa&#x27;&gt;
+        print(s1)        # &lt;__main__.Siswa object at 0x...&gt;</code></pre>
+        
+        <blockquote><p>💡 <code>pass</code> digunakan saat class belum punya isi (placeholder).</p></blockquote>
+        
+        <h2>3. Menambah Atribut</h2>
+        
+        <p>Atribut = <strong>data</strong> yang dimiliki object.</p>
+        
+        <pre><code class="language-python">class Siswa:
+            pass
+        
+        # Membuat object
+        s1 = Siswa()
+        s2 = Siswa()
+        
+        # Menambah atribut secara manual (kurang praktis)
+        s1.nama = &quot;Budi Santoso&quot;
+        s1.kelas = &quot;XII IPA 1&quot;
+        s1.nilai = 85
+        
+        s2.nama = &quot;Ani Wijaya&quot;
+        s2.kelas = &quot;XII IPA 1&quot;
+        s2.nilai = 92
+        
+        print(f&quot;{s1.nama} - {s1.kelas} - {s1.nilai}&quot;)
+        print(f&quot;{s2.nama} - {s2.kelas} - {s2.nilai}&quot;)</code></pre>
+        
+        <p>Cara diatas <strong>kurang praktis</strong> — kita harus ngetik manual setiap kali. Solusi: <code>__init__</code></p>
+        
+        <h2>4. __init__ — Constructor (Paling Penting!)</h2>
+        
+        <p><code>__init__</code> adalah method spesial yang otomatis dipanggil saat object dibuat. Digunakan untuk <strong>mengisi data awal</strong>.</p>
+        
+        <pre><code class="language-python">class Siswa:
+            def __init__(self, nama, kelas, nilai):
+                &quot;&quot;&quot;Constructor: dipanggil otomatis saat bikin object&quot;&quot;&quot;
+                self.nama = nama    # self.nama = atribut
+                self.kelas = kelas  # parameter &#x27;nama&#x27; = input
+                self.nilai = nilai
+            
+            def perkenalan(self):
+                &quot;&quot;&quot;Method: fungsi yang dimiliki object&quot;&quot;&quot;
+                return f&quot;Halo, saya {self.nama} dari {self.kelas}&quot;
+        
+        # Membuat object — __init__ dipanggil otomatis
+        s1 = Siswa(&quot;Budi Santoso&quot;, &quot;XII IPA 1&quot;, 85)
+        s2 = Siswa(&quot;Ani Wijaya&quot;, &quot;XII IPA 1&quot;, 92)
+        
+        # Akses atribut
+        print(s1.nama)     # Budi Santoso
+        print(s2.nilai)    # 92
+        
+        # Panggil method
+        print(s1.perkenalan())  # Halo, saya Budi Santoso dari XII IPA 1</code></pre>
+        
+        <h3>Penjelasan <code>self</code></h3>
+        
+        <ul><li><code>self</code> adalah <strong>referensi ke object itu sendiri</strong></li><li>Wajib sebagai parameter <strong>pertama</strong> di setiap method</li><li>Kamu tidak perlu mengirim <code>self</code> saat memanggil — Python otomatis</li></ul>
+        
+        <pre><code class="language-python"># Di dalam class, &#x27;self&#x27; merujuk ke object yang sedang diproses
+        s1 = Siswa(&quot;Budi&quot;, &quot;XII IPA 1&quot;, 85)
+        # Saat __init__ jalan, self = s1
+        # Jadi: self.nama = &quot;Budi&quot; → s1.nama = &quot;Budi&quot;</code></pre>
+        
+        <blockquote><p>🏆 <strong>Poin ngajar:</strong> <code>self</code> itu seperti kata "saya" — setiap object bicara tentang dirinya sendiri.</p></blockquote>
+        
+        <h2>5. Method — Fungsi di Dalam Class</h2>
+        
+        <p>Method adalah fungsi yang <strong>dimiliki oleh object</strong>.</p>
+        
+        <pre><code class="language-python">class Siswa:
+            def __init__(self, nama, kelas, nilai):
+                self.nama = nama
+                self.kelas = kelas
+                self.nilai = nilai
+                self.aktif = True  # Default semua aktif
+            
+            def perkenalan(self):
+                return f&quot;{self.nama} dari {self.kelas}&quot;
+            
+            def info_nilai(self):
+                return f&quot;Nilai {self.nama}: {self.nilai}&quot;
+            
+            def lulus(self):
+                return self.nilai &gt;= 75
+            
+            def nonaktifkan(self):
+                self.aktif = False
+                return f&quot;{self.nama} telah dinonaktifkan&quot;
+            
+            def __str__(self):
+                &quot;&quot;&quot;Method spesial: representasi string object&quot;&quot;&quot;
+                return f&quot;Siswa({self.nama}, {self.kelas}, {self.nilai})&quot;
+        
+        # Test
+        s = Siswa(&quot;Budi&quot;, &quot;XII IPA 1&quot;, 85)
+        print(s.perkenalan())       # Budi dari XII IPA 1
+        print(s.info_nilai())       # Nilai Budi: 85
+        print(s.lulus())            # True
+        print(s)                    # Siswa(Budi, XII IPA 1, 85)
+        print(s.nonaktifkan())      # Budi telah dinonaktifkan
+        print(s.aktif)              # False</code></pre>
+        
+        <h3>Method Spesial (Magic Methods)</h3>
+        
+        <table>
+        <tr><th>Method</th><th>Kegunaan</th></tr>
+        <tr><td><code>__init__(self, ...)</code></td><td>Constructor — inisialisasi object</td></tr>
+        <tr><td><code>__str__(self)</code></td><td>Representasi string (dipanggil oleh <code>print()</code>)</td></tr>
+        <tr><td><code>__len__(self)</code></td><td>Dipanggil oleh <code>len(object)</code></td></tr>
+        <tr><td><code>__repr__(self)</code></td><td>Representasi untuk debugging</td></tr>
+        </table>
+        
+        <pre><code class="language-python">class Buku:
+            def __init__(self, judul, penulis, halaman):
+                self.judul = judul
+                self.penulis = penulis
+                self.halaman = halaman
+            
+            def __str__(self):
+                return f&quot;&#x27;{self.judul}&#x27; oleh {self.penulis}&quot;
+            
+            def __len__(self):
+                return self.halaman
+        
+        b = Buku(&quot;Python untuk Guru&quot;, &quot;Sisyphus&quot;, 200)
+        print(b)    # &#x27;Python untuk Guru&#x27; oleh Sisyphus
+        print(len(b))  # 200</code></pre>
+        
+        <h2>6. Class Variable vs Instance Variable</h2>
+        
+        <h3>Instance Variable — milik masing-masing object</h3>
+        
+        <pre><code class="language-python">class Siswa:
+            def __init__(self, nama, nilai):
+                self.nama = nama      # Instance variable — berbeda tiap object
+                self.nilai = nilai
+        
+        s1 = Siswa(&quot;Budi&quot;, 85)
+        s2 = Siswa(&quot;Ani&quot;, 92)
+        print(s1.nama)  # Budi
+        print(s2.nama)  # Ani — beda!</code></pre>
+        
+        <h3>Class Variable — milik semua object (sama)</h3>
+        
+        <pre><code class="language-python">class Siswa:
+            # Class variable — SAMA untuk semua object
+            sekolah = &quot;SMA Negeri 1&quot;
+            tahun_ajaran = &quot;2025/2026&quot;
+            
+            def __init__(self, nama, nilai):
+                self.nama = nama
+                self.nilai = nilai
+            
+            def info(self):
+                return f&quot;{self.nama} - {self.sekolah} - {self.nilai}&quot;
+        
+        s1 = Siswa(&quot;Budi&quot;, 85)
+        s2 = Siswa(&quot;Ani&quot;, 92)
+        
+        print(s1.info())  # Budi - SMA Negeri 1 - 85
+        print(s2.info())  # Ani - SMA Negeri 1 - 92
+        
+        # Ubah class variable
+        Siswa.sekolah = &quot;SMA Negeri 2&quot;
+        print(s1.info())  # Budi - SMA Negeri 2 - 85 — berubah semua!</code></pre>
+        
+        <h2>7. Inheritance (Pewarisan)</h2>
+        
+        <p>Inheritance = <strong>class anak mewarisi atribut & method dari class induk</strong>.</p>
+        
+        <pre><code class="language-python"># Class induk (parent)
+        class AnggotaSekolah:
+            def __init__(self, nama, umur):
+                self.nama = nama
+                self.umur = umur
+            
+            def perkenalan(self):
+                return f&quot;Halo, saya {self.nama}, umur {self.umur}&quot;
+            
+            def __str__(self):
+                return f&quot;{self.nama} ({self.umur})&quot;
+        
+        # Class anak (child) — mewarisi AnggotaSekolah
+        class Siswa(AnggotaSekolah):
+            def __init__(self, nama, umur, kelas, nilai):
+                super().__init__(nama, umur)  # Panggil constructor parent
+                self.kelas = kelas
+                self.nilai = nilai
+            
+            def lulus(self):
+                return self.nilai &gt;= 75
+            
+            # Override method perkenalan
+            def perkenalan(self):
+                return f&quot;Halo, saya {self.nama}, siswa kelas {self.kelas}&quot;
+        
+        # Class anak lain
+        class Guru(AnggotaSekolah):
+            def __init__(self, nama, umur, mapel):
+                super().__init__(nama, umur)
+                self.mapel = mapel
+            
+            def mengajar(self):
+                return f&quot;{self.nama} mengajar {self.mapel}&quot;
+        
+        # Test
+        s = Siswa(&quot;Budi&quot;, 17, &quot;XII IPA 1&quot;, 85)
+        g = Guru(&quot;Pak Ahmad&quot;, 35, &quot;Matematika&quot;)
+        
+        print(s.perkenalan())        # Halo, saya Budi, siswa kelas XII IPA 1
+        print(g.perkenalan())        # Halo, saya Pak Ahmad, umur 35 (dari parent)
+        print(g.mengajar())          # Pak Ahmad mengajar Matematika
+        print(s.lulus())             # True
+        print(isinstance(s, Siswa))  # True
+        print(isinstance(s, AnggotaSekolah))  # True — karena warisan!</code></pre>
+        
+        <h3>Kenapa Inheritance?</h3>
+        
+        <pre><code class="language-python"># Tanpa inheritance — duplikasi kode
+        class Siswa:
+            def __init__(self, nama, umur, kelas):
+                self.nama = nama
+                self.umur = umur
+                self.kelas = kelas
+        
+        class Guru:
+            def __init__(self, nama, umur, mapel):
+                self.nama = nama
+                self.umur = umur
+                self.mapel = mapel
+            # ↑ Duplikasi! nama dan umur di kedua class
+        
+        # Dengan inheritance — kode lebih kering
+        class AnggotaSekolah:
+            def __init__(self, nama, umur):
+                self.nama = nama
+                self.umur = umur
+        
+        class Siswa(AnggotaSekolah):
+            def __init__(self, nama, umur, kelas):
+                super().__init__(nama, umur)
+                self.kelas = kelas
+        
+        class Guru(AnggotaSekolah):
+            def __init__(self, nama, umur, mapel):
+                super().__init__(nama, umur)
+                self.mapel = mapel</code></pre>
+        
+        <h2>8. Encapsulation Sederhana</h2>
+        
+        <p>Encapsulation = <strong>menyembunyikan data</strong> internal object. Di Python, dikasih tahu dengan <strong>underscore</strong>.</p>
+        
+        <pre><code class="language-python">class RekeningBank:
+            def __init__(self, pemilik, saldo_awal):
+                self.pemilik = pemilik
+                self._saldo = saldo_awal     # _ = &quot;protected&quot; (sebaiknya tidak langsung diakses)
+                self.__pin = &quot;1234&quot;          # __ = &quot;private&quot; (name mangling)
+            
+            def cek_saldo(self):
+                &quot;&quot;&quot;Method publik — akses yang aman&quot;&quot;&quot;
+                return f&quot;Saldo {self.pemilik}: Rp{self._saldo:,}&quot;
+            
+            def setor(self, jumlah):
+                if jumlah &gt; 0:
+                    self._saldo += jumlah
+                    return f&quot;Setor Rp{jumlah:,} berhasil&quot;
+                return &quot;Jumlah tidak valid&quot;
+            
+            def tarik(self, jumlah, pin):
+                if pin != self.__pin:
+                    return &quot;PIN salah!&quot;
+                if jumlah &gt; self._saldo:
+                    return &quot;Saldo tidak mencukupi&quot;
+                self._saldo -= jumlah
+                return f&quot;Tarik Rp{jumlah:,} berhasil&quot;
+        
+        r = RekeningBank(&quot;Budi&quot;, 1000000)
+        print(r.cek_saldo())         # Saldo Budi: Rp1,000,000
+        print(r.setor(500000))       # Setor Rp500,000 berhasil
+        print(r.tarik(200000, &quot;1234&quot;))  # Tarik Rp200,000 berhasil
+        print(r.tarik(999999999, &quot;0000&quot;))  # PIN salah!
+        
+        # Akses langsung — &quot;bisa&quot; tapi tidak disarankan
+        print(r._saldo)   # 1300000 — bisa, tapi tandanya internal
+        # print(r.__pin)  # ❌ AttributeError — name mangling!</code></pre>
+        
+        <blockquote><p>💡 <strong>Di Python:</strong> Tidak ada <code>private</code> sejati. <code>_</code> dan <code>__</code> adalah <strong>konvensi</strong> (kesepakatan programmer) untuk bilang: "ini internal, jangan disentuh dari luar."</p></blockquote>
+        
+        <hr>
+        
+        <h2>🧪 Latihan Modul 12</h2>
+        
+        <h3>Latihan 1: Class Buku Perpustakaan</h3>
+        
+        <pre><code class="language-python"># Buat class Buku dengan:
+        # Atribut: judul, penulis, tahun, dipinjam (bool, default False)
+        # Method:
+        #   info() → return string informasi buku
+        #   pinjam() → set dipinjam=True, return &quot;Buku dipinjam&quot;
+        #   kembalikan() → set dipinjam=False, return &quot;Buku dikembalikan&quot;
+        # __str__ → representasi string
+        
+        # Buat 3 object buku, pinjam 1 buku, tampilkan info semua</code></pre>
+        
+        <h3>Latihan 2: Class NilaiSiswa</h3>
+        
+        <pre><code class="language-python"># Buat class NilaiSiswa dengan:
+        # Atribut: nama, mtk, ipa, ing, bahasa
+        # Method:
+        #   rata_rata() → return float
+        #   grade() → return A/B/C/D/E
+        #   lulus() → True/False (rata-rata &gt;= 75)
+        #   laporan() → string laporan lengkap (format rapi)
+        #
+        # Buat 5 object, tampilkan laporan masing-masing</code></pre>
+        
+        <h3>Latihan 3: Inheritance — Hewan</h3>
+        
+        <pre><code class="language-python"># Class induk: Hewan
+        #   __init__(self, nama, umur)
+        #   bersuara() → return &quot;...&quot;
+        #
+        # Class anak: Kucing (miaow), Anjing (guk guk), Bebek (kwek kwek)
+        #   override method bersuara()
+        #
+        # Buat list berisi berbagai hewan
+        # Loop dan panggil bersuara() masing-masing
+        # (Ini contoh POLYMORPHISM — beda class, method sama, hasil beda)</code></pre>
+        
+        <h3>Latihan 4: Sistem Sekolah Mini</h3>
+        
+        <pre><code class="language-python"># Buat sistem kelas dengan:
+        # - class AnggotaSekolah (induk)
+        # - class Siswa (anak) — tambah: kelas, daftar_nilai
+        # - class Guru (anak) — tambah: mapel, ruangan
+        #
+        # Method di Siswa:
+        #   tambah_nilai(mapel, nilai)
+        #   rata_rata()
+        #   laporan()
+        #
+        # Method di Guru:
+        #   info_mengajar()
+        #
+        # Buat 3 siswa dan 2 guru, simpan di list, tampilkan semua info</code></pre>
+        
+        <hr>
+        
+        <h2>✅ Checklist Paham</h2>
+        
+        <ul><li>[ ] Saya bisa jelasin beda Class vs Object dengan analogi</li><li>[ ] Saya bisa bikin class dengan <code>__init__</code> dan method</li><li>[ ] Saya paham <code>self</code> — merujuk ke object sendiri</li><li>[ ] Saya bisa bikin inheritance (<code>class Anak(Ibu):</code>)</li><li>[ ] Saya paham <code>super().__init__()</code> untuk panggil constructor parent</li><li>[ ] Saya paham konsep class variable vs instance variable</li><li>[ ] Saya paham encapsulation (<code>_</code> untuk protected)</li></ul>
+        
+        <p><strong>Kalau semua checklist tercentang → lanjut ke Modul 13 (Proyek Akhir).</strong></p>
+        
+    <nav class="modul-nav">
+        <a href="11-list-comprehension.html">« 🌀 List Comprehension</a>
+        <span class="modul-nav-center">⬅ <a href="../index.html">Index</a></span>
+        <a href="13-proyek-akhir.html">🏆 Proyek Akhir »</a>
+    </nav>
+    </div>
+    <script>document.querySelectorAll('pre code').forEach(b=>hljs.highlightElement(b));</script>
+</body>
+</html>

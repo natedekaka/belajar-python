@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modul 13: Proyek Akhir — Aplikasi CLI Manajemen Nilai Sekolah — Belajar Python</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐍</text></svg>">
+</head>
+<body>
+    <nav class="top-nav">
+        <a href="../index.html">⬅ Kembali ke Index</a>
+        <span class="title-nav">Modul 13: Proyek Akhir — Aplikasi CLI Manajemen Nilai Sekolah</span>
+    </nav>
+    <div class="container">
+        <h1>Modul 13: Proyek Akhir — Aplikasi CLI Manajemen Nilai Sekolah</h1>
+        
+        <h2>🏆 Tujuan</h2>
+        
+        <p>Mengaplikasikan <strong>semua materi</strong> yang sudah dipelajari (dari Modul 1 sampai Modul 12) dalam satu proyek nyata. Proyek ini bisa langsung kamu gunakan di sekolah.</p>
+        
+        <hr>
+        
+        <h2>📋 Spesifikasi Aplikasi</h2>
+        
+        <p><strong>Nama:</strong> <code>sistem_nilai.py</code>  </p>
+        <p><strong>Tipe:</strong> Command Line Interface (CLI)  </p>
+        <p><strong>Fitur:</strong></p>
+        <ol><li>Manajemen data siswa (tambah, lihat, cari, hapus)</li><li>Input nilai per mata pelajaran</li><li>Hitung rata-rata dan grade otomatis</li><li>Cetak laporan rapor per siswa</li><li>Cetak statistik kelas</li><li>Simpan & baca data dari file CSV/JSON</li><li>Ranking siswa</li></ol>
+        
+        <hr>
+        
+        <h2>📁 Struktur Proyek</h2>
+        
+        <pre><code>proyek-akhir/
+        ├── main.py                # Entry point — menu utama
+        ├── models.py              # Class-class: Siswa, Kelas
+        ├── utils.py               # Fungsi utilitas (hitungan, format)
+        ├── data/                  # Folder penyimpanan data
+        │   ├── siswa.csv
+        │   └── kelas.json
+        └── README.md              # Dokumentasi</code></pre>
+        
+        <hr>
+        
+        <h2>🧱 Langkah 1: Models (models.py)</h2>
+        
+        <p>Buat class-class yang merepresentasikan data.</p>
+        
+        <h3>Class MataPelajaran</h3>
+        
+        <pre><code class="language-python"># models.py
+        
+        class MataPelajaran:
+            &quot;&quot;&quot;Mata pelajaran dengan nama dan nilai&quot;&quot;&quot;
+            def __init__(self, nama: str, nilai: float = 0):
+                self.nama = nama
+                self.nilai = nilai
+            
+            def __str__(self):
+                return f&quot;{self.nama}: {self.nilai}&quot;
+            
+            def lulus(self) -&gt; bool:
+                return self.nilai &gt;= 75</code></pre>
+        
+        <h3>Class Siswa</h3>
+        
+        <pre><code class="language-python">class Siswa:
+            &quot;&quot;&quot;Data lengkap seorang siswa&quot;&quot;&quot;
+            def __init__(self, nis: str, nama: str, kelas: str):
+                self.nis = nis
+                self.nama = nama
+                self.kelas = kelas
+                self.mapel: dict[str, MataPelajaran] = {}  # {nama_mapel: objek}
+            
+            def tambah_nilai(self, nama_mapel: str, nilai: float):
+                &quot;&quot;&quot;Tambah atau update nilai mata pelajaran&quot;&quot;&quot;
+                if nilai &lt; 0 or nilai &gt; 100:
+                    raise ValueError(f&quot;Nilai {nilai} tidak valid (0-100)&quot;)
+                self.mapel[nama_mapel] = MataPelajaran(nama_mapel, nilai)
+            
+            def get_nilai_list(self) -&gt; list[float]:
+                &quot;&quot;&quot;Return list semua nilai&quot;&quot;&quot;
+                return [m.nilai for m in self.mapel.values()]
+            
+            def rata_rata(self) -&gt; float:
+                &quot;&quot;&quot;Hitung rata-rata nilai&quot;&quot;&quot;
+                nilai_list = self.get_nilai_list()
+                if not nilai_list:
+                    return 0.0
+                return sum(nilai_list) / len(nilai_list)
+            
+            def grade(self) -&gt; str:
+                &quot;&quot;&quot;Grade berdasarkan rata-rata&quot;&quot;&quot;
+                rata = self.rata_rata()
+                if rata &gt;= 90:
+                    return &quot;A&quot;
+                elif rata &gt;= 80:
+                    return &quot;B&quot;
+                elif rata &gt;= 70:
+                    return &quot;C&quot;
+                elif rata &gt;= 60:
+                    return &quot;D&quot;
+                else:
+                    return &quot;E&quot;
+            
+            def lulus(self) -&gt; bool:
+                &quot;&quot;&quot;Lulus kalau rata-rata &gt;= 75 dan tidak ada nilai &lt; 60&quot;&quot;&quot;
+                if self.rata_rata() &lt; 75:
+                    return False
+                for n in self.get_nilai_list():
+                    if n &lt; 60:
+                        return False
+                return True
+            
+            def to_dict(self) -&gt; dict:
+                &quot;&quot;&quot;Konversi ke dictionary (untuk JSON)&quot;&quot;&quot;
+                return {
+                    &quot;nis&quot;: self.nis,
+                    &quot;nama&quot;: self.nama,
+                    &quot;kelas&quot;: self.kelas,
+                    &quot;nilai&quot;: {nama: m.nilai for nama, m in self.mapel.items()}
+                }
+            
+            @classmethod
+            def from_dict(cls, data: dict):
+                &quot;&quot;&quot;Buat object dari dictionary (dari JSON)&quot;&quot;&quot;
+                s = cls(data[&quot;nis&quot;], data[&quot;nama&quot;], data[&quot;kelas&quot;])
+                for nama_mapel, nilai in data.get(&quot;nilai&quot;, {}).items():
+                    s.tambah_nilai(nama_mapel, nilai)
+                return s
+            
+            def __str__(self):
+                return f&quot;{self.nis} | {self.nama:15} | {self.kelas:10} | Rata: {self.rata_rata():.1f} | Grade: {self.grade()}&quot;</code></pre>
+        
+        <h3>Class Kelas</h3>
+        
+        <pre><code class="language-python">class Kelas:
+            &quot;&quot;&quot;Kumpulan siswa dalam satu kelas&quot;&quot;&quot;
+            def __init__(self, nama_kelas: str = &quot;&quot;):
+                self.nama_kelas = nama_kelas
+                self.daftar_siswa: dict[str, Siswa] = {}  # {nis: Siswa}
+            
+            def tambah_siswa(self, siswa: Siswa):
+                if siswa.nis in self.daftar_siswa:
+                    raise ValueError(f&quot;Siswa dengan NIS {siswa.nis} sudah ada!&quot;)
+                self.daftar_siswa[siswa.nis] = siswa
+            
+            def cari_siswa(self, keyword: str) -&gt; list[Siswa]:
+                &quot;&quot;&quot;Cari siswa berdasarkan nama atau NIS&quot;&quot;&quot;
+                hasil = []
+                for s in self.daftar_siswa.values():
+                    if keyword.lower() in s.nama.lower() or keyword == s.nis:
+                        hasil.append(s)
+                return hasil
+            
+            def hapus_siswa(self, nis: str) -&gt; bool:
+                if nis in self.daftar_siswa:
+                    del self.daftar_siswa[nis]
+                    return True
+                return False
+            
+            def ranking(self) -&gt; list[Siswa]:
+                &quot;&quot;&quot;Urutkan siswa berdasarkan rata-rata (tertinggi ke terendah)&quot;&quot;&quot;
+                return sorted(self.daftar_siswa.values(), 
+                             key=lambda s: s.rata_rata(), 
+                             reverse=True)
+            
+            def statistik(self) -&gt; dict:
+                &quot;&quot;&quot;Statistik kelas&quot;&quot;&quot;
+                if not self.daftar_siswa:
+                    return {}
+                
+                rata_list = [s.rata_rata() for s in self.daftar_siswa.values()]
+                lulus = sum(1 for s in self.daftar_siswa.values() if s.lulus())
+                
+                return {
+                    &quot;total_siswa&quot;: len(self.daftar_siswa),
+                    &quot;rata_kelas&quot;: sum(rata_list) / len(rata_list),
+                    &quot;tertinggi&quot;: max(rata_list),
+                    &quot;terendah&quot;: min(rata_list),
+                    &quot;lulus&quot;: lulus,
+                    &quot;tidak_lulus&quot;: len(self.daftar_siswa) - lulus
+                }
+            
+            def to_dict(self) -&gt; dict:
+                return {
+                    &quot;nama_kelas&quot;: self.nama_kelas,
+                    &quot;siswa&quot;: [s.to_dict() for s in self.daftar_siswa.values()]
+                }
+            
+            @classmethod
+            def from_dict(cls, data: dict):
+                k = cls(data[&quot;nama_kelas&quot;])
+                for s_data in data[&quot;siswa&quot;]:
+                    k.tambah_siswa(Siswa.from_dict(s_data))
+                return k</code></pre>
+        
+        <hr>
+        
+        <h2>⚙️ Langkah 2: Utilitas (utils.py)</h2>
+        
+        <pre><code class="language-python"># utils.py
+        import csv
+        import json
+        import os
+        
+        # Warna ANSI untuk terminal (biar cantik)
+        class Warna:
+            HIJAU = &#x27;\033[92m&#x27;
+            KUNING = &#x27;\033[93m&#x27;
+            MERAH = &#x27;\033[91m&#x27;
+            BIRU = &#x27;\033[94m&#x27;
+            UNGU = &#x27;\033[95m&#x27;
+            BOLD = &#x27;\033[1m&#x27;
+            END = &#x27;\033[0m&#x27;
+        
+        def bersihkan_layar():
+            &quot;&quot;&quot;Bersihkan terminal&quot;&quot;&quot;
+            os.system(&#x27;clear&#x27; if os.name == &#x27;posix&#x27; else &#x27;cls&#x27;)
+        
+        def tampilkan_header(judul: str):
+            &quot;&quot;&quot;Tampilkan header dengan garis&quot;&quot;&quot;
+            print(f&quot;\n{Warna.BOLD}{Warna.BIRU}{&#x27;=&#x27;*50}{Warna.END}&quot;)
+            print(f&quot;{Warna.BOLD}{judul.center(50)}{Warna.END}&quot;)
+            print(f&quot;{Warna.BOLD}{Warna.BIRU}{&#x27;=&#x27;*50}{Warna.END}\n&quot;)
+        
+        def tampilkan_menu(judul: str, opsi: list[str]) -&gt; str:
+            &quot;&quot;&quot;Tampilkan menu dan minta input pilihan&quot;&quot;&quot;
+            tampilkan_header(judul)
+            for i, o in enumerate(opsi, 1):
+                print(f&quot;  {Warna.KUNING}{i}.{Warna.END} {o}&quot;)
+            print(f&quot;  {Warna.KUNING}0.{Warna.END} Kembali/Keluar&quot;)
+            print()
+            return input(f&quot;{Warna.BOLD}Pilihan [0-{len(opsi)}]: {Warna.END}&quot;).strip()
+        
+        def minta_angka(pesan: str, min_v=0, max_v=100) -&gt; float:
+            &quot;&quot;&quot;Minta input angka dengan validasi&quot;&quot;&quot;
+            while True:
+                try:
+                    nilai = float(input(pesan))
+                    if min_v &lt;= nilai &lt;= max_v:
+                        return nilai
+                    print(f&quot;{Warna.MERAH}Nilai harus antara {min_v}-{max_v}!{Warna.END}&quot;)
+                except ValueError:
+                    print(f&quot;{Warna.MERAH}Input harus angka!{Warna.END}&quot;)
+        
+        def simpan_csv(siswa_list: list[Siswa], filename: str):
+            &quot;&quot;&quot;Simpan data siswa ke CSV&quot;&quot;&quot;
+            # Kumpulkan semua mapel yang ada
+            semua_mapel = set()
+            for s in siswa_list:
+                semua_mapel.update(s.mapel.keys())
+            semua_mapel = sorted(semua_mapel)
+            
+            header = [&quot;NIS&quot;, &quot;Nama&quot;, &quot;Kelas&quot;] + semua_mapel + [&quot;Rata-rata&quot;, &quot;Grade&quot;]
+            
+            with open(filename, &quot;w&quot;, newline=&quot;&quot;) as f:
+                writer = csv.writer(f)
+                writer.writerow(header)
+                for s in siswa_list:
+                    row = [s.nis, s.nama, s.kelas]
+                    for m in semua_mapel:
+                        if m in s.mapel:
+                            row.append(s.mapel[m].nilai)
+                        else:
+                            row.append(&quot;&quot;)
+                    row.append(f&quot;{s.rata_rata():.1f}&quot;)
+                    row.append(s.grade())
+                    writer.writerow(row)
+            
+            print(f&quot;{Warna.HIJAU}Data disimpan ke {filename}{Warna.END}&quot;)
+        
+        def simpan_json(kelas: &#x27;Kelas&#x27;, filename: str):
+            &quot;&quot;&quot;Simpan data kelas ke JSON&quot;&quot;&quot;
+            with open(filename, &quot;w&quot;) as f:
+                json.dump(kelas.to_dict(), f, indent=2)
+            print(f&quot;{Warna.HIJAU}Data disimpan ke {filename}{Warna.END}&quot;)
+        
+        def baca_json(filename: str):
+            &quot;&quot;&quot;Baca data dari JSON&quot;&quot;&quot;
+            try:
+                with open(filename, &quot;r&quot;) as f:
+                    return json.load(f)
+            except FileNotFoundError:
+                return None</code></pre>
+        
+        <hr>
+        
+        <h2>🎮 Langkah 3: Main Program (main.py)</h2>
+        
+        <pre><code class="language-python">#!/usr/bin/env python3
+        &quot;&quot;&quot;Sistem Manajemen Nilai Sekolah — CLI App&quot;&quot;&quot;
+        
+        from models import Siswa, Kelas
+        from utils import *
+        
+        def menu_utama(kelas: Kelas):
+            &quot;&quot;&quot;Menu utama aplikasi&quot;&quot;&quot;
+            while True:
+                pilihan = tampilkan_menu(&quot;🏫 SISTEM MANAJEMEN NILAI SEKOLAH&quot;, [
+                    &quot;Manajemen Siswa&quot;,
+                    &quot;Input Nilai&quot;,
+                    &quot;Laporan &amp; Ranking&quot;,
+                    &quot;Statistik Kelas&quot;,
+                    &quot;Simpan Data&quot;,
+                    &quot;Muat Data&quot;
+                ])
+                
+                if pilihan == &quot;0&quot;:
+                    print(f&quot;\n{Warna.HIJAU}Terima kasih! Sampai jumpa. 👋{Warna.END}&quot;)
+                    break
+                elif pilihan == &quot;1&quot;:
+                    menu_siswa(kelas)
+                elif pilihan == &quot;2&quot;:
+                    menu_nilai(kelas)
+                elif pilihan == &quot;3&quot;:
+                    menu_laporan(kelas)
+                elif pilihan == &quot;4&quot;:
+                    tampilkan_statistik(kelas)
+                elif pilihan == &quot;5&quot;:
+                    menu_simpan(kelas)
+                elif pilihan == &quot;6&quot;:
+                    menu_muat(kelas)
+                else:
+                    print(f&quot;{Warna.MERAH}Pilihan tidak valid!{Warna.END}&quot;)
+        
+        def menu_siswa(kelas: Kelas):
+            &quot;&quot;&quot;Menu manajemen siswa&quot;&quot;&quot;
+            while True:
+                pilihan = tampilkan_menu(&quot;👨‍🎓 MANAJEMEN SISWA&quot;, [
+                    &quot;Tambah Siswa&quot;,
+                    &quot;Lihat Semua Siswa&quot;,
+                    &quot;Cari Siswa&quot;,
+                    &quot;Hapus Siswa&quot;
+                ])
+                
+                if pilihan == &quot;0&quot;:
+                    break
+                elif pilihan == &quot;1&quot;:
+                    tambah_siswa(kelas)
+                elif pilihan == &quot;2&quot;:
+                    lihat_semua_siswa(kelas)
+                elif pilihan == &quot;3&quot;:
+                    cari_siswa(kelas)
+                elif pilihan == &quot;4&quot;:
+                    hapus_siswa(kelas)
+        
+        def tambah_siswa(kelas: Kelas):
+            &quot;&quot;&quot;Tambah siswa baru&quot;&quot;&quot;
+            tampilkan_header(&quot;TAMBAH SISWA&quot;)
+            
+            nis = input(&quot;NIS: &quot;).strip()
+            if not nis:
+                print(f&quot;{Warna.MERAH}NIS tidak boleh kosong!{Warna.END}&quot;)
+                return
+            
+            if nis in kelas.daftar_siswa:
+                print(f&quot;{Warna.MERAH}Siswa dengan NIS &#x27;{nis}&#x27; sudah ada!{Warna.END}&quot;)
+                return
+            
+            nama = input(&quot;Nama lengkap: &quot;).strip().title()
+            if not nama:
+                print(f&quot;{Warna.MERAH}Nama tidak boleh kosong!{Warna.END}&quot;)
+                return
+            
+            nama_kelas = input(&quot;Kelas: &quot;).strip().upper()
+            
+            siswa = Siswa(nis, nama, nama_kelas)
+            kelas.tambah_siswa(siswa)
+            print(f&quot;{Warna.HIJAU}Siswa &#x27;{nama}&#x27; berhasil ditambahkan! ✅{Warna.END}&quot;)
+        
+        def lihat_semua_siswa(kelas: Kelas):
+            &quot;&quot;&quot;Tampilkan semua siswa&quot;&quot;&quot;
+            tampilkan_header(f&quot;DAFTAR SISWA ({len(kelas.daftar_siswa)})&quot;)
+            
+            if not kelas.daftar_siswa:
+                print(f&quot;{Warna.KUNING}Belum ada data siswa.{Warna.END}&quot;)
+                return
+            
+            print(f&quot;{Warna.BOLD}{&#x27;NIS&#x27;:8} | {&#x27;Nama&#x27;:20} | {&#x27;Kelas&#x27;:12} | {&#x27;Rata-rata&#x27;:9} | Grade{Warna.END}&quot;)
+            print(&quot;-&quot; * 65)
+            
+            for s in kelas.daftar_siswa.values():
+                warna = Warna.HIJAU if s.lulus() else Warna.MERAH
+                print(f&quot;{warna}{s.nis:8} | {s.nama:20} | {s.kelas:12} | {s.rata_rata():&gt;8.1f} | {s.grade()}{Warna.END}&quot;)
+            
+            input(f&quot;\n{Warna.KUNING}Tekan ENTER untuk kembali...{Warna.END}&quot;)
+        
+        def cari_siswa(kelas: Kelas):
+            &quot;&quot;&quot;Cari siswa berdasarkan NIS atau nama&quot;&quot;&quot;
+            tampilkan_header(&quot;🔍 CARI SISWA&quot;)
+            
+            keyword = input(&quot;Masukkan NIS atau nama: &quot;).strip()
+            if not keyword:
+                return
+            
+            hasil = kelas.cari_siswa(keyword)
+            
+            if not hasil:
+                print(f&quot;{Warna.MERAH}Siswa tidak ditemukan.{Warna.END}&quot;)
+                return
+            
+            print(f&quot;\nDitemukan {len(hasil)} siswa:&quot;)
+            for s in hasil:
+                print(f&quot;\n  {Warna.BOLD}NIS:{Warna.END}   {s.nis}&quot;)
+                print(f&quot;  {Warna.BOLD}Nama:{Warna.END}  {s.nama}&quot;)
+                print(f&quot;  {Warna.BOLD}Kelas:{Warna.END} {s.kelas}&quot;)
+                print(f&quot;  {Warna.BOLD}Nilai:{Warna.END}&quot;)
+                for m in s.mapel.values():
+                    status = &quot;✅&quot; if m.lulus() else &quot;❌&quot;
+                    print(f&quot;    {m.nama:15}: {m.nilai:&gt;5} {status}&quot;)
+                print(f&quot;  {Warna.BOLD}Rata:{Warna.END}   {s.rata_rata():.1f} | Grade: {s.grade()}&quot;)
+            
+            input(f&quot;\n{Warna.KUNING}Tekan ENTER untuk kembali...{Warna.END}&quot;)
+        
+        def hapus_siswa(kelas: Kelas):
+            &quot;&quot;&quot;Hapus siswa&quot;&quot;&quot;
+            tampilkan_header(&quot;HAPUS SISWA&quot;)
+            
+            nis = input(&quot;Masukkan NIS siswa yang akan dihapus: &quot;).strip()
+            
+            if kelas.hapus_siswa(nis):
+                print(f&quot;{Warna.HIJAU}Siswa dengan NIS &#x27;{nis}&#x27; berhasil dihapus.{Warna.END}&quot;)
+            else:
+                print(f&quot;{Warna.MERAH}Siswa dengan NIS &#x27;{nis}&#x27; tidak ditemukan.{Warna.END}&quot;)
+        
+        def menu_nilai(kelas: Kelas):
+            &quot;&quot;&quot;Menu input nilai&quot;&quot;&quot;
+            tampilkan_header(&quot;📝 INPUT NILAI&quot;)
+            
+            if not kelas.daftar_siswa:
+                print(f&quot;{Warna.KUNING}Belum ada data siswa. Tambah siswa dulu!{Warna.END}&quot;)
+                return
+            
+            nis = input(&quot;NIS siswa: &quot;).strip()
+            if nis not in kelas.daftar_siswa:
+                print(f&quot;{Warna.MERAH}Siswa dengan NIS &#x27;{nis}&#x27; tidak ditemukan.{Warna.END}&quot;)
+                return
+            
+            siswa = kelas.daftar_siswa[nis]
+            print(f&quot;\nInput nilai untuk: {Warna.BOLD}{siswa.nama}{Warna.END}&quot;)
+            
+            while True:
+                print(f&quot;\nNilai saat ini:&quot;)
+                for m in siswa.mapel.values():
+                    print(f&quot;  {m.nama}: {m.nilai}&quot;)
+                
+                nama_mapel = input(f&quot;\nNama mata pelajaran (atau kosongkan untuk selesai): &quot;).strip().title()
+                if not nama_mapel:
+                    break
+                
+                try:
+                    nilai = minta_angka(f&quot;Nilai {nama_mapel} (0-100): &quot;)
+                    siswa.tambah_nilai(nama_mapel, nilai)
+                    print(f&quot;{Warna.HIJAU}Nilai {nama_mapel} = {nilai} tersimpan!{Warna.END}&quot;)
+                except ValueError as e:
+                    print(f&quot;{Warna.MERAH}Error: {e}{Warna.END}&quot;)
+        
+        def menu_laporan(kelas: Kelas):
+            &quot;&quot;&quot;Tampilkan laporan dan ranking&quot;&quot;&quot;
+            pilihan = tampilkan_menu(&quot;📊 LAPORAN &amp; RANKING&quot;, [
+                &quot;Rapor Individual&quot;,
+                &quot;Ranking Kelas&quot;,
+                &quot;Cetak Semua Rapor&quot;,
+                &quot;Export ke CSV&quot;
+            ])
+            
+            if pilihan == &quot;0&quot;:
+                return
+            elif pilihan == &quot;1&quot;:
+                tampilkan_rapor(kelas)
+            elif pilihan == &quot;2&quot;:
+                tampilkan_ranking(kelas)
+            elif pilihan == &quot;3&quot;:
+                cetak_semua_rapor(kelas)
+            elif pilihan == &quot;4&quot;:
+                simpan_csv(list(kelas.daftar_siswa.values()), &quot;data/laporan_nilai.csv&quot;)
+        
+        def tampilkan_rapor(kelas: Kelas):
+            &quot;&quot;&quot;Tampilkan rapor seorang siswa&quot;&quot;&quot;
+            tampilkan_header(&quot;📄 RAPOR SISWA&quot;)
+            
+            nis = input(&quot;NIS siswa: &quot;).strip()
+            if nis not in kelas.daftar_siswa:
+                print(f&quot;{Warna.MERAH}Siswa tidak ditemukan.{Warna.END}&quot;)
+                return
+            
+            s = kelas.daftar_siswa[nis]
+            
+            print(f&quot;\n{Warna.BOLD}{&#x27;=&#x27;*50}{Warna.END}&quot;)
+            print(f&quot;{Warna.BOLD}           RAPOR SISWA{Warna.END}&quot;)
+            print(f&quot;{Warna.BOLD}{&#x27;=&#x27;*50}{Warna.END}&quot;)
+            print(f&quot;  NIS          : {s.nis}&quot;)
+            print(f&quot;  Nama         : {s.nama}&quot;)
+            print(f&quot;  Kelas        : {s.kelas}&quot;)
+            print(f&quot;  {&#x27;-&#x27;*40}&quot;)
+            print(f&quot;  {&#x27;Mata Pelajaran&#x27;:20} {&#x27;Nilai&#x27;:&gt;8} {&#x27;Status&#x27;:&gt;10}&quot;)
+            print(f&quot;  {&#x27;-&#x27;*40}&quot;)
+            
+            for m in s.mapel.values():
+                status = &quot;✅ Lulus&quot; if m.lulus() else &quot;❌ Tidak&quot;
+                print(f&quot;  {m.nama:20} {m.nilai:&gt;8.1f} {status:&gt;10}&quot;)
+            
+            print(f&quot;  {&#x27;-&#x27;*40}&quot;)
+            print(f&quot;  {&#x27;Rata-rata&#x27;:20} {s.rata_rata():&gt;8.1f} {&#x27;Grade &#x27; + s.grade():&gt;10}&quot;)
+            status_lulus = f&quot;{Warna.HIJAU}✅ LULUS{Warna.END}&quot; if s.lulus() else f&quot;{Warna.MERAH}❌ TIDAK LULUS{Warna.END}&quot;
+            print(f&quot;  {&#x27;Status&#x27;:20} {status_lulus}&quot;)
+            print(f&quot;{Warna.BOLD}{&#x27;=&#x27;*50}{Warna.END}\n&quot;)
+            
+            input(f&quot;{Warna.KUNING}Tekan ENTER untuk kembali...{Warna.END}&quot;)
+        
+        def tampilkan_ranking(kelas: Kelas):
+            &quot;&quot;&quot;Tampilkan ranking berdasarkan rata-rata&quot;&quot;&quot;
+            tampilkan_header(&quot;🏆 RANKING SISWA&quot;)
+            
+            if not kelas.daftar_siswa:
+                print(f&quot;{Warna.KUNING}Belum ada data siswa.{Warna.END}&quot;)
+                return
+            
+            ranking = kelas.ranking()
+            
+            print(f&quot;{Warna.BOLD}{&#x27;Rank&#x27;:5} | {&#x27;NIS&#x27;:8} | {&#x27;Nama&#x27;:20} | {&#x27;Kelas&#x27;:10} | {&#x27;Rata&#x27;:7} | Grade | Status{Warna.END}&quot;)
+            print(&quot;-&quot; * 75)
+            
+            medali = [&quot;🥇&quot;, &quot;🥈&quot;, &quot;🥉&quot;]
+            for i, s in enumerate(ranking, 1):
+                rank_str = f&quot;{medali[i-1]}&quot; if i &lt;= 3 else f&quot;{i:&gt;4}.&quot;
+                status = &quot;✅&quot; if s.lulus() else &quot;❌&quot;
+                print(f&quot;{rank_str} | {s.nis:8} | {s.nama:20} | {s.kelas:10} | {s.rata_rata():&gt;6.1f} |  {s.grade()}   |  {status}&quot;)
+            
+            input(f&quot;\n{Warna.KUNING}Tekan ENTER untuk kembali...{Warna.END}&quot;)
+        
+        def cetak_semua_rapor(kelas: Kelas):
+            &quot;&quot;&quot;Cetak rapor semua siswa&quot;&quot;&quot;
+            for s in kelas.daftar_siswa.values():
+                print(f&quot;\n{Warna.BOLD}{&#x27;=&#x27;*50}{Warna.END}&quot;)
+                print(f&quot;  NIS: {s.nis}  |  {s.nama:20}  |  {s.kelas}&quot;)
+                print(f&quot;  {&#x27;-&#x27;*40}&quot;)
+                for m in s.mapel.values():
+                    print(f&quot;  {m.nama:20}: {m.nilai}&quot;)
+                print(f&quot;  {&#x27;-&#x27;*40}&quot;)
+                print(f&quot;  Rata-rata: {s.rata_rata():.1f}  |  Grade: {s.grade()}  |  {&#x27;LULUS&#x27; if s.lulus() else &#x27;TIDAK LULUS&#x27;}&quot;)
+        
+        def tampilkan_statistik(kelas: Kelas):
+            &quot;&quot;&quot;Tampilkan statistik kelas&quot;&quot;&quot;
+            tampilkan_header(&quot;📈 STATISTIK KELAS&quot;)
+            
+            if not kelas.daftar_siswa:
+                print(f&quot;{Warna.KUNING}Belum ada data siswa.{Warna.END}&quot;)
+                return
+            
+            stat = kelas.statistik()
+            
+            print(f&quot;  {Warna.BOLD}Total Siswa:{Warna.END}     {stat[&#x27;total_siswa&#x27;]}&quot;)
+            print(f&quot;  {Warna.BOLD}Rata-rata Kelas:{Warna.END} {stat[&#x27;rata_kelas&#x27;]:.1f}&quot;)
+            print(f&quot;  {Warna.BOLD}Nilai Tertinggi:{Warna.END} {stat[&#x27;tertinggi&#x27;]:.1f}&quot;)
+            print(f&quot;  {Warna.BOLD}Nilai Terendah:{Warna.END}  {stat[&#x27;terendah&#x27;]:.1f}&quot;)
+            print(f&quot;  {Warna.BOLD}Lulus:{Warna.END}            {Warna.HIJAU}{stat[&#x27;lulus&#x27;]}{Warna.END}&quot;)
+            print(f&quot;  {Warna.BOLD}Tidak Lulus:{Warna.END}      {Warna.MERAH}{stat[&#x27;tidak_lulus&#x27;]}{Warna.END}&quot;)
+            
+            # Distribusi grade
+            grade_count = {&quot;A&quot;: 0, &quot;B&quot;: 0, &quot;C&quot;: 0, &quot;D&quot;: 0, &quot;E&quot;: 0}
+            for s in kelas.daftar_siswa.values():
+                grade_count[s.grade()] += 1
+            print(f&quot;\n  {Warna.BOLD}Distribusi Grade:{Warna.END}&quot;)
+            for g, c in grade_count.items():
+                if c &gt; 0:
+                    print(f&quot;    Grade {g}: {c} siswa {&#x27;█&#x27; * c}&quot;)
+            
+            input(f&quot;\n{Warna.KUNING}Tekan ENTER untuk kembali...{Warna.END}&quot;)
+        
+        def menu_simpan(kelas: Kelas):
+            &quot;&quot;&quot;Menu simpan data&quot;&quot;&quot;
+            pilihan = tampilkan_menu(&quot;💾 SIMPAN DATA&quot;, [
+                &quot;Simpan ke CSV&quot;,
+                &quot;Simpan ke JSON&quot;
+            ])
+            
+            if pilihan == &quot;0&quot;:
+                return
+            elif pilihan == &quot;1&quot;:
+                simpan_csv(list(kelas.daftar_siswa.values()), &quot;data/laporan_nilai.csv&quot;)
+            elif pilihan == &quot;2&quot;:
+                simpan_json(kelas, &quot;data/kelas.json&quot;)
+        
+        def menu_muat(kelas: Kelas):
+            &quot;&quot;&quot;Menu muat data&quot;&quot;&quot;
+            global kelas_global
+            tampilkan_header(&quot;📂 MUAT DATA&quot;)
+            
+            filename = &quot;data/kelas.json&quot;
+            data = baca_json(filename)
+            
+            if data is None:
+                print(f&quot;{Warna.MERAH}File &#x27;{filename}&#x27; tidak ditemukan.{Warna.END}&quot;)
+                return
+            
+            kelas_global = Kelas.from_dict(data)
+            print(f&quot;{Warna.HIJAU}Data berhasil dimuat! {len(kelas_global.daftar_siswa)} siswa.{Warna.END}&quot;)
+        
+        # === MAIN ===
+        if __name__ == &quot;__main__&quot;:
+            # Inisialisasi folder data
+            os.makedirs(&quot;data&quot;, exist_ok=True)
+            
+            # Coba muat data otomatis
+            kelas_global = Kelas(&quot;XII IPA 1&quot;)
+            data = baca_json(&quot;data/kelas.json&quot;)
+            if data:
+                kelas_global = Kelas.from_dict(data)
+                print(f&quot;{Warna.HIJAU}Data otomatis dimuat: {len(kelas_global.daftar_siswa)} siswa.{Warna.END}&quot;)
+            else:
+                print(f&quot;{Warna.KUNING}Data baru akan dibuat.{Warna.END}&quot;)
+            
+            # Tambah data contoh
+            if not kelas_global.daftar_siswa:
+                s1 = Siswa(&quot;1001&quot;, &quot;Budi Santoso&quot;, &quot;XII IPA 1&quot;)
+                s1.tambah_nilai(&quot;Matematika&quot;, 85)
+                s1.tambah_nilai(&quot;IPA&quot;, 90)
+                s1.tambah_nilai(&quot;Bahasa Inggris&quot;, 78)
+                s1.tambah_nilai(&quot;PPKn&quot;, 80)
+                kelas_global.tambah_siswa(s1)
+                
+                s2 = Siswa(&quot;1002&quot;, &quot;Ani Wijaya&quot;, &quot;XII IPA 1&quot;)
+                s2.tambah_nilai(&quot;Matematika&quot;, 92)
+                s2.tambah_nilai(&quot;IPA&quot;, 88)
+                s2.tambah_nilai(&quot;Bahasa Inggris&quot;, 95)
+                s2.tambah_nilai(&quot;PPKn&quot;, 85)
+                kelas_global.tambah_siswa(s2)
+                
+                s3 = Siswa(&quot;1003&quot;, &quot;Citra Dewi&quot;, &quot;XII IPA 1&quot;)
+                s3.tambah_nilai(&quot;Matematika&quot;, 76)
+                s3.tambah_nilai(&quot;IPA&quot;, 80)
+                s3.tambah_nilai(&quot;Bahasa Inggris&quot;, 82)
+                s3.tambah_nilai(&quot;PPKn&quot;, 78)
+                kelas_global.tambah_siswa(s3)
+                
+                print(f&quot;{Warna.KUNING}Data contoh ditambahkan.{Warna.END}&quot;)
+            
+            try:
+                menu_utama(kelas_global)
+            except KeyboardInterrupt:
+                print(f&quot;\n\n{Warna.KUNING}Program dihentikan. Data terakhir disimpan.{Warna.END}&quot;)
+                simpan_json(kelas_global, &quot;data/kelas.json&quot;)</code></pre>
+        
+        <hr>
+        
+        <h2>🚀 Cara Menjalankan</h2>
+        
+        <pre><code class="language-bash"># Masuk ke folder proyek
+        cd ~/belajar-python
+        mkdir -p proyek-akhir
+        cd proyek-akhir
+        
+        # Install semua file
+        # (copy kode di atas ke file masing-masing)
+        
+        # Jalankan
+        python main.py</code></pre>
+        
+        <hr>
+        
+        <h2>🧪 Latihan Pengembangan Lanjutan</h2>
+        
+        <p>Setelah proyek dasar selesai, coba kembangkan sendiri:</p>
+        
+        <ol><li><strong>Filter per kelas</strong> — dukungan multiple kelas (X IPA 1, X IPA 2, dll)</li><li><strong>Export PDF</strong> — gunakan library <code>reportlab</code> atau <code>fpdf</code></li><li><strong>Grafik</strong> — pakai <code>matplotlib</code> untuk visualisasi distribusi nilai</li><li><strong>Database</strong> — ganti penyimpanan JSON ke SQLite (<code>import sqlite3</code>)</li><li><strong>Web App</strong> — ubah jadi web app dengan <code>Flask</code></li><li><strong>Autentikasi</strong> — login guru dengan password</li></ol>
+        
+        <hr>
+        
+        <h2>🎯 Checklist Proyek Selesai</h2>
+        
+        <ul><li>[ ] Semua modul Python (Models, Utils, Main) berfungsi</li><li>[ ] Bisa tambah, lihat, cari, hapus siswa</li><li>[ ] Bisa input nilai per mata pelajaran</li><li>[ ] Rata-rata dan grade otomatis terhitung</li><li>[ ] Ranking siswa berdasarkan rata-rata</li><li>[ ] Statistik kelas lengkap</li><li>[ ] Data bisa disimpan dan dimuat kembali (CSV & JSON)</li><li>[ ] Program tidak crash di situasi tak terduga (try/except)</li><li>[ ] Tampilan rapi di terminal</li></ul>
+        
+        <hr>
+        
+        <h2>🏁 SELAMAT! Kamu sudah menyelesaikan seluruh materi!</h2>
+        
+        <p>Dari <strong>Modul 0 sampai Modul 13</strong>, sekarang kamu sudah:</p>
+        <ul><li>✅ Mengerti Python dari nol</li><li>✅ Bisa membuat aplikasi CLI sendiri</li><li>✅ Memiliki bahan ajar lengkap buat ngajar</li><li>✅ Tau cara mengelola data siswa secara digital</li></ul>
+        
+        <p><strong>Langkah selanjutnya:</strong> Mulai ngajar! Materi ini bisa kamu pakai langsung untuk mengajar siswa.</p>
+        
+        <p>Kalau ada bagian yang kurang jelas atau mau dikembangkan, tinggal bilang saja.</p>
+        
+    <nav class="modul-nav">
+        <a href="12-oop-dasar.html">« 🧱 OOP Dasar</a>
+        <span class="modul-nav-center">⬅ <a href="../index.html">Index</a></span>
+        <span class="modul-nav-disabled">Selesai »</span>
+    </nav>
+    </div>
+    <script>document.querySelectorAll('pre code').forEach(b=>hljs.highlightElement(b));</script>
+</body>
+</html>

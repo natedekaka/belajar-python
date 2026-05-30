@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Cheat Sheet — Cetak 1 Halaman (Bolak-Balik) — Belajar Python</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐍</text></svg>">
+</head>
+<body>
+    <nav class="top-nav">
+        <a href="index.html">⬅ Kembali ke Index</a>
+        <span class="title-nav">Python Cheat Sheet — Cetak 1 Halaman (Bolak-Balik)</span>
+    </nav>
+    <div class="container">
+        <h1>🐍 Python Cheat Sheet — Cetak 1 Halaman (Bolak-Balik)</h1>
+        
+        <h2>📌 Tipe Data & Variabel</h2>
+        
+        <table>
+        <tr><th>Tipe</th><th>Contoh</th><th>Keterangan</th></tr>
+        <tr><td><code>int</code></td><td><code>x = 5</code></td><td>Bilangan bulat</td></tr>
+        <tr><td><code>float</code></td><td><code>y = 3.14</code></td><td>Bilangan desimal</td></tr>
+        <tr><td><code>str</code></td><td><code>nama = &quot;Budi&quot;</code></td><td>Teks</td></tr>
+        <tr><td><code>bool</code></td><td><code>aktif = True</code></td><td>True / False</td></tr>
+        </table>
+        
+        <pre><code class="language-python"># Cek tipe
+        type(x)          # &lt;class &#x27;int&#x27;&gt;
+        
+        # Casting
+        int(&quot;5&quot;)         # String → int
+        str(5)           # int → string
+        float(&quot;3.14&quot;)    # String → float
+        
+        # Input (selalu return string)
+        umur = int(input(&quot;Umur: &quot;))</code></pre>
+        
+        <h2>📌 String</h2>
+        
+        <pre><code class="language-python">s = &quot;Python Programming&quot;
+        s[0]           # &#x27;P&#x27; — index 0
+        s[-1]          # &#x27;n&#x27; — dari belakang
+        s[0:6]         # &#x27;Python&#x27; — slicing
+        s[::-1]        # &#x27;gnimmargorP nohtyP&#x27; — balik!
+        
+        s.lower()      # &#x27;python programming&#x27;
+        s.upper()      # &#x27;PYTHON PROGRAMMING&#x27;
+        s.strip()      # Hapus spasi pinggir
+        s.split()      # [&#x27;Python&#x27;, &#x27;Programming&#x27;]
+        &quot;-&quot;.join([&quot;a&quot;,&quot;b&quot;])  # &#x27;a-b&#x27;
+        s.replace(&quot;P&quot;, &quot;J&quot;)  # &#x27;Jython&#x27;
+        len(s)         # 18
+        &quot;Python&quot; in s  # True
+        
+        f&quot;Halo {nama}, umur {umur}&quot;  # f-string 🔥</code></pre>
+        
+        <h2>📌 List & Tuple</h2>
+        
+        <pre><code class="language-python"># List — bisa diubah
+        listku = [1, 2, 3]
+        listku.append(4)       # [1,2,3,4]
+        listku.insert(0, 0)    # [0,1,2,3,4]
+        listku.remove(2)       # Hapus angka 2
+        x = listku.pop()       # Ambil &amp; hapus akhir
+        listku.sort()          # Urutkan
+        len(listku)            # Panjang
+        listku[::-1]           # Balik
+        
+        # Tuple — tidak bisa diubah
+        tup = (1, 2, 3)
+        a, b, c = tup          # Unpack</code></pre>
+        
+        <h2>📌 Dictionary</h2>
+        
+        <pre><code class="language-python">d = {&quot;nama&quot;: &quot;Budi&quot;, &quot;nilai&quot;: 85}
+        d[&quot;nama&quot;]              # &#x27;Budi&#x27;
+        d.get(&quot;alamat&quot;, &quot;-&quot;)   # &#x27;-&#x27; (aman)
+        d[&quot;umur&quot;] = 17         # Tambah/ubah
+        del d[&quot;umur&quot;]          # Hapus
+        &quot;nama&quot; in d            # True
+        d.keys()               # Semua key
+        d.values()             # Semua value
+        d.items()              # Pasangan (key, value)
+        
+        for k, v in d.items():
+            print(f&quot;{k}: {v}&quot;)</code></pre>
+        
+        <h2>📌 If/Else</h2>
+        
+        <pre><code class="language-python">if nilai &gt;= 90:
+            grade = &quot;A&quot;
+        elif nilai &gt;= 80:
+            grade = &quot;B&quot;
+        else:
+            grade = &quot;C&quot;
+        
+        # Ternary
+        status = &quot;Lulus&quot; if nilai &gt;= 75 else &quot;Tidak&quot;
+        
+        # Operator logika
+        and, or, not
+        
+        # Cek truthy/falsy
+        if nama:     # True kalau tidak kosong
+        if listku:   # True kalau tidak kosong</code></pre>
+        
+        <h2>📌 Loop</h2>
+        
+        <pre><code class="language-python"># For
+        for i in range(5):         # 0,1,2,3,4
+        for i in range(2, 6):      # 2,3,4,5
+        for i in range(0, 10, 2):  # 0,2,4,6,8
+        
+        for item in listku:
+        for i, item in enumerate(listku):  # dapet index
+        for k, v in d.items():
+        
+        # While
+        while kondisi:
+            # hati-hati infinite loop!
+        
+        break      # Hentikan loop
+        continue   # Lompat ke iterasi berikut</code></pre>
+        
+        <h2>📌 Function</h2>
+        
+        <pre><code class="language-python">def nama_fungsi(param1, param2=&quot;default&quot;):
+            &quot;&quot;&quot;Docstring&quot;&quot;&quot;
+            return hasil
+        
+        def func(*args, **kwargs):
+            # *args = tuple
+            # **kwargs = dict
+        
+        # Lambda
+        kali = lambda x: x * 2</code></pre>
+        
+        <h2>📌 Error Handling</h2>
+        
+        <pre><code class="language-python">try:
+            hasil = 10 / angka
+        except ValueError:
+            print(&quot;Bukan angka!&quot;)
+        except ZeroDivisionError:
+            print(&quot;Pembagian nol!&quot;)
+        else:
+            print(&quot;Sukses!&quot;)
+        finally:
+            print(&quot;Selesai&quot;)</code></pre>
+        
+        <h2>📌 File I/O</h2>
+        
+        <pre><code class="language-python"># Baca
+        with open(&quot;file.txt&quot;, &quot;r&quot;) as f:
+            isi = f.read()           # Semua
+            baris = f.readlines()    # List baris
+            for line in f:           # Per baris
+        
+        # Tulis
+        with open(&quot;file.txt&quot;, &quot;w&quot;) as f:  # Timpa
+            f.write(&quot;teks\n&quot;)
+        with open(&quot;file.txt&quot;, &quot;a&quot;) as f:  # Tambah
+        
+        # CSV
+        import csv
+        with open(&quot;data.csv&quot;, &quot;r&quot;) as f:
+            for row in csv.reader(f):
+                ...
+        
+        # JSON
+        import json
+        with open(&quot;data.json&quot;, &quot;r&quot;) as f:
+            data = json.load(f)</code></pre>
+        
+        <h2>📌 List Comprehension</h2>
+        
+        <pre><code class="language-python">[expr for item in iterable]
+        [expr for item in iterable if kondisi]
+        [expr if kondisi else expr2 for item in iterable]
+        
+        [x**2 for x in range(10)]          # [0,1,4,9,...]
+        [x for x in range(20) if x%2==0]   # Genap</code></pre>
+        
+        <h2>📌 OOP</h2>
+        
+        <pre><code class="language-python">class Siswa:
+            sekolah = &quot;SMA 1&quot;  # Class variable
+            
+            def __init__(self, nama, nilai):
+                self.nama = nama       # Instance variable
+                self.nilai = nilai
+            
+            def lulus(self):
+                return self.nilai &gt;= 75
+            
+            def __str__(self):
+                return f&quot;{self.nama}: {self.nilai}&quot;
+        
+        # Inheritance
+        class SiswaBaru(Siswa):
+            def __init__(self, nama, nilai, kelas):
+                super().__init__(nama, nilai)
+                self.kelas = kelas</code></pre>
+        
+        <h2>📌 Module & pip</h2>
+        
+        <pre><code class="language-python">import math
+        from random import randint, choice
+        import requests as req
+        
+        # if __name__ == &quot;__main__&quot;:
+        #     test code here</code></pre>
+        
+        <pre><code class="language-bash">pip install nama_package
+        pip install -r requirements.txt
+        pip list</code></pre>
+        
+        <hr>
+        
+        <blockquote><p>💡 Print ini bolak-balik, laminating, tempel di meja!</p></blockquote>
+        
+    </div>
+    <script>document.querySelectorAll('pre code').forEach(b=>hljs.highlightElement(b));</script>
+</body>
+</html>

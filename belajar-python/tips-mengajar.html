@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panduan Mengajar — Tips Per Modul — Belajar Python</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐍</text></svg>">
+</head>
+<body>
+    <nav class="top-nav">
+        <a href="index.html">⬅ Kembali ke Index</a>
+        <span class="title-nav">Panduan Mengajar — Tips Per Modul</span>
+    </nav>
+    <div class="container">
+        <h1>👨‍🏫 Panduan Mengajar — Tips Per Modul</h1>
+        
+        <p>Strategi, analogi, jebakan murid, dan aktivitas kelas untuk setiap modul.</p>
+        
+        <hr>
+        
+        <h2>Modul 0: Setup</h2>
+        
+        <p><strong>Analogi:</strong> "Python itu seperti koki. REPL seperti dia masak langsung di depan kita. File .py seperti resep yang bisa dijalanin kapan saja."</p>
+        
+        <p><strong>Jebakan Murid:</strong></p>
+        <ul><li>Bingung beda terminal vs Python REPL — tandai prompt <code>$</code> vs <code>&gt;&gt;&gt;</code></li><li>Lupa aktivasi venv — biasakan <code>source .../venv/bin/activate</code></li></ul>
+        
+        <p><strong>Aktivitas Kelas (10 menit):</strong></p>
+        <ol><li>Minta semua buka terminal</li><li>Ketik <code>python</code> → muncul <code>&gt;&gt;&gt;</code></li><li>Ketik <code>print(&quot;Nama saya ...&quot;)</code> — tiap murid tulis nama sendiri</li><li><code>exit()</code> untuk keluar</li></ol>
+        
+        <p><strong>Estimasi:</strong> 1 JP (45 menit) — lebih banyak praktek</p>
+        
+        <hr>
+        
+        <h2>Modul 1: Variabel & Tipe Data</h2>
+        
+        <p><strong>Analogi:</strong> "Variabel itu seperti loker sekolah. Setiap loker punya label (nama variabel) dan isi (nilai). Ada loker untuk buku (string), ada untuk uang (integer)."</p>
+        
+        <p><strong>Jebakan Murid:</strong></p>
+        <ul><li>❌ Paling umum: <code>5 = x</code> (terbalik) — ingatkan: "Yang diubah itu yang kiri, <code>x = 5</code>"</li><li>❌ <code>type(x)</code> dikira fungsi cetak — tunjukkan beda <code>print()</code> vs <code>type()</code></li><li>❌ Bingung <code>int</code> vs <code>float</code> — "Kenapa 5/2 hasilnya 2.5 bukan 2?"</li></ul>
+        
+        <p><strong>Aktivitas Kelas (15 menit):</strong></p>
+        <ol><li>Suruh tebak output sebelum di-run</li><li>Game: "Tebak Tipe" — tunjukkan nilai, suruh tebak <code>int/float/str/bool</code></li></ol>
+        
+        <pre><code class="language-python"># Tebak output sebelum jalanin
+        print(type(&quot;5&quot;))
+        print(type(5))
+        print(type(5.0))
+        print(10 / 3)
+        print(10 // 3)</code></pre>
+        
+        <p><strong>Estimasi:</strong> 2 JP — teori 1 JP, praktek 1 JP</p>
+        
+        <hr>
+        
+        <h2>Modul 2: String</h2>
+        
+        <p><strong>Analogi:</strong> "String itu seperti pita pengukur. Ada nomor di setiap sentimeternya. Index 0 itu sentimeter pertama. Slicing [2:5] itu ambil dari cm ke-2 sampai ke-4."</p>
+        
+        <p><strong>Jebakan Murid:</strong></p>
+        <ul><li>❌ Index mulai 0 — "Kenapa <code>&quot;Budi&quot;[0]</code> itu 'B' bukan index 1?"</li><li>❌ <code>s[0:5]</code> tidak termasuk index 5 — "Kenapa 'Python'[0:5] cuma 'Pytho'?"</li><li>❌ Lupa string <strong>immutable</strong> — coba <code>s[0] = &quot;J&quot;</code> dapat error</li></ul>
+        
+        <p><strong>Aktivitas Kelas (15 menit):</strong></p>
+        <ol><li>Tebak index: tulis "INFORMATIKA" di papan, tunjuk murid, tanya index huruf tertentu</li><li>Lomba: siapa paling cepat balik nama pake <code>[::-1]</code></li><li>FizzBuzz pake string: cetak "Fizz" untuk angka genap, "Buzz" untuk ganjil</li></ol>
+        
+        <pre><code class="language-python"># Game tebak output
+        kata = &quot;PYTHON&quot;
+        print(kata[0])    # ?
+        print(kata[-1])   # ?
+        print(kata[1:4])  # ?
+        print(kata[::-1]) # ?</code></pre>
+        
+        <p><strong>Estimasi:</strong> 2 JP</p>
+        
+        <hr>
+        
+        <h2>Modul 3: List & Tuple</h2>
+        
+        <p><strong>Analogi:</strong> "List itu seperti tas ransel — bisa dimasukin barang, bisa dikeluarin, bisa diubah isinya. Tuple itu seperti bingkisan yang sudah dibungkus — isinya tetap, tidak bisa diganti."</p>
+        
+        <p><strong>Jebakan Murid:</strong></p>
+        <ul><li>❌ Index 0 lagi — "Kenapa <code>[1,2,3][0]</code> itu 1?"</li><li>❌ <code>append()</code> lupa kurung — tulis <code>list.append</code> tanpa <code>()</code> — itu ngirim method, bukan manggil</li><li>❌ Nested list bingung aksesnya — <code>matriks[0][1]</code></li></ul>
+        
+        <p><strong>Aktivitas Kelas:</strong></p>
+        <ol><li>Praktik: bikin list teman sekelas, loop cetak semua</li><li>Game: tebak output <code>[1,2,3,4,5][::-1]</code> (balik list)</li><li>"List Operation Race" — siapa paling cepat: tambah, hapus, urutkan</li></ol>
+        
+        <p><strong>Estimasi:</strong> 2 JP</p>
+        
+        <hr>
+        
+        <h2>Modul 4: Dictionary & Set</h2>
+        
+        <p><strong>Analogi:</strong> "Dictionary itu seperti kamus — cari kata (key) dapat artinya (value). Atau seperti lemari arsip — setiap laci (key) berisi map (value)."</p>
+        
+        <p><strong>Jebakan Murid:</strong></p>
+        <ul><li>❌ Akses key yang tidak ada — <code>dict[&quot;x&quot;]</code> error, harus pakai <code>.get()</code></li><li>❌ Bingung <code>{}</code> untuk dict vs set — <code>{&quot;a&quot;: 1}</code> adalah dict, <code>{&quot;a&quot;}</code> adalah set</li><li>❗ Kritis: nested dict akses <code>data[&quot;siswa1&quot;][&quot;nilai&quot;][&quot;mtk&quot;]</code></li></ul>
+        
+        <p><strong>Aktivitas Kelas:</strong></p>
+        <ol><li>Bikin dictionary data diri sendiri</li><li>Bikin buku telepon teman sekelas (nama: no hp)</li><li>Loop dengan <code>.items()</code> — "Ini cara Pythonic, hafalkan!"</li></ol>
+        
+        <p><strong>Estimasi:</strong> 2 JP</p>
+        
+        <hr>
+        
+        <h2>Modul 5: Percabangan</h2>
+        
+        <p><strong>Analogi:</strong> "Percabangan itu seperti pohon keputusan. Kalau hujan, bawa payung. Kalau tidak, tidak usah. Sederhana."</p>
+        
+        <p><strong>Jebakan Murid:</strong></p>
+        <ul><li>❌ <strong>Paling kritis:</strong> <code>=</code> vs <code>==</code> — berulang kali salah. Ingatkan: "Tanda sama dengan SATU untuk assignment, DUA untuk perbandingan"</li><li>❌ Urutan kondisi salah — kasih contoh nilai 85 dapet C karena urutan terbalik</li><li>❌ Lupa <code>:</code> setelah <code>if</code>, <code>elif</code>, <code>else</code></li></ul>
+        
+        <p><strong>Aktivitas Kelas:</strong></p>
+        <ol><li>Gambar flowchart di papan untuk kasus "Cek Kelulusan"</li><li>Minta murid bikin flowchart dulu sebelum nulis kode</li><li>Praktek: program penentu grade nilai</li></ol>
+        
+        <p><strong>Estimasi:</strong> 2 JP — 1 JP teori + flowchart, 1 JP coding</p>
+        
+        <hr>
+        
+        <h2>Modul 6: Perulangan</h2>
+        
+        <p><strong>Analogi:</strong> "For loop itu seperti guru manggil murid satu per satu dari daftar hadir. While loop itu seperti 'ulang terus sampai ada yang bilang stop'."</p>
+        
+        <p><strong>Jebakan Murid:</strong></p>
+        <ul><li>❌ <strong>Paling kritis:</strong> Infinite loop — lupa mengupdate variabel di <code>while</code></li><li>❌ <code>range(5)</code> cuma sampai 4, bukan 5</li><li>❌ <code>break</code> vs <code>continue</code> tertukar</li></ul>
+        
+        <p><strong>Safety:</strong> Ajarkan <code>Ctrl+C</code> untuk memberhentikan infinite loop — ini HARUS di hari pertama loop.</p>
+        
+        <p><strong>Aktivitas Kelas:</strong></p>
+        <ol><li>Tabel perkalian pake nested loop — cetak rapi</li><li>Game tebak angka (while + break)</li><li>FizzBuzz — klasik, wajib</li></ol>
+        
+        <p><strong>Peringatan Keras:</strong> "Bikin infinite loop itu bagian dari belajar. Kalau kejadian, tekan Ctrl+C. Jangan panik, jangan tutup terminal."</p>
+        
+        <p><strong>Estimasi:</strong> 2 JP</p>
+        
+        <hr>
+        
+        <h2>Modul 7: Function</h2>
+        
+        <p><strong>Analogi:</strong> "Function itu seperti mesin fotokopi. Kamu masukin kertas (input/parameter), pencet tombol, keluar hasil (return value). Atau seperti resep masak — tulis sekali, bisa dipraktekkin berkali-kali."</p>
+        
+        <p><strong>Jebakan Murid:</strong></p>
+        <ul><li>❌ Lupa <code>return</code> — fungsi return <code>None</code> tanpa sadar</li><li>❌ Lupa kurung pas manggil — <code>func</code> vs <code>func()</code> — beda! <code>func</code> itu objek fungsi, <code>func()</code> itu hasilnya</li><li>❌ Scope: bikin variabel di dalam fungsi, coba panggil di luar</li><li>❌ Parameter vs Argumen — dua istilah ini sering tertukar</li></ul>
+        
+        <p><strong>Aktivitas Kelas:</strong></p>
+        <ol><li>Bikin fungsi <code>luas_persegi</code>, <code>luas_lingkaran</code> — langsung dipraktekkin</li><li>Bikin fungsi yang return beberapa nilai → unpack hasilnya</li><li>Analisis: "Kode mana yang lebih baik — dengan fungsi atau tanpa?"</li></ol>
+        
+        <p><strong>Estimasi:</strong> 2 JP</p>
+        
+        <hr>
+        
+        <h2>Modul 8: Error & Exception</h2>
+        
+        <p><strong>⚠️ Ini modul PALING PENTING untuk guru.</strong> Murid harus diajar baca error SEJAK AWAL.</p>
+        
+        <p><strong>Analogi:</strong> "Error itu seperti lampu indikator di mobil. Kalau nyala, jangan panik — baca dulu tulisannya. Dia kasih tahu apa yang rusak."</p>
+        
+        <p><strong>Jebakan Murid:</strong></p>
+        <ul><li>❌ Panik liat error merah — biasakan: "Error itu informasi, bukan hukuman"</li><li>❌ Langsung tanya guru tanpa baca pesan error</li><li>❌ Salah tangkap error jenis salah — <code>except ValueError:</code> tapi errornya <code>TypeError:</code></li></ul>
+        
+        <p><strong>Aktivitas Kelas (WAJIB):</strong></p>
+        <ol><li>Sesi "Error Challenge": kasih kode yang error, minta murid baca pesan errornyadan perbaiki</li><li>Tebak jenis error: kasih kode, tanya "error apa yang akan muncul?"</li><li>Latihan try/except: kalkulator yang tahan banting</li></ol>
+        
+        <p><strong>Kata Kunci:</strong> "Programmer hebat bukan yang tidak pernah error, tapi yang bisa baca dan perbaiki error."</p>
+        
+        <p><strong>Estimasi:</strong> 2 JP — ini investasi. Murid yang bisa baca error akan jauh lebih mandiri.</p>
+        
+        <hr>
+        
+        <h2>Modul 9: File I/O</h2>
+        
+        <p><strong>Analogi:</strong> "File itu seperti buku catatan. Mode 'r' itu baca, 'w' itu nulis baru (buku baru), 'a' itu nulis di halaman terakhir."</p>
+        
+        <p><strong>Jebakan Murid:</strong></p>
+        <ul><li>❌ Lupa <code>with</code> statement — buka file, lupa tutup</li><li>❌ Mode <code>&quot;w&quot;</code> menimpa file — kaget data hilang</li><li>❌ Path salah — "FileNotFoundError, padahal filenya ada"</li><li>❌ <code>readlines()</code> masih ada <code>\n</code> — harus di-<code>.strip()</code></li></ul>
+        
+        <p><strong>Aktivitas Kelas:</strong></p>
+        <ol><li>Bikin file catatan harian — simpan, baca, tambah</li><li>Baca file CSV nilai — ini yang paling real-world</li><li>Bikin program yang menyimpan data (bookmark) ke JSON</li></ol>
+        
+        <p><strong>Estimasi:</strong> 3 JP — 2 JP teori, 1 JP projek CSV nilai</p>
+        
+        <hr>
+        
+        <h2>Modul 10: Module & pip</h2>
+        
+        <p><strong>Analogi:</strong> "Module itu seperti meminjam buku dari perpustakaan. <code>import math</code> = ambil buku matematika dari rak. <code>pip install requests</code> = beli buku baru ke toko buku."</p>
+        
+        <p><strong>Jebakan Murid:</strong></p>
+        <ul><li>❌ Lupa install dulu — <code>import requests</code> dapat <code>ModuleNotFoundError</code></li><li>❌ Install di global, bukan di venv</li><li>❌ Bikin file <code>math.py</code> sendiri lalu bingung kenapa <code>import math</code> error</li><li>❌ <code>if __name__</code> sering dilupakan — kode test jalan pas di-import</li></ul>
+        
+        <p><strong>Aktivitas Kelas:</strong></p>
+        <ol><li>Bikin module <code>alat_sekolah.py</code> berisi fungsi-fungsi, lalu import di <code>main.py</code></li><li>Coba install <code>requests</code>, ambil data dari API publik (contoh: jadwal libur)</li><li>Praktek: <code>pip freeze &gt; requirements.txt</code></li></ol>
+        
+        <p><strong>Estimasi:</strong> 2 JP</p>
+        
+        <hr>
+        
+        <h2>Modul 11: List Comprehension</h2>
+        
+        <p><strong>Analogi:</strong> "List comprehension itu seperti pabrik — masukin bahan mentah (list awal), proses dengan mesin (ekspresi), keluar produk jadi (list baru). Semua dalam satu baris."</p>
+        
+        <p><strong>Jebakan Murid:</strong></p>
+        <ul><li>❌ LC dipaksakan untuk logika kompleks — bikin kode susah dibaca</li><li>❌ Kurung siku kelebihan/kekurangan — typo bracket</li><li>❌ Lambda bikin bingung — "kok pake <code>lambda</code>?" padahal bisa pakai fungsi biasa</li></ul>
+        
+        <p><strong>Aktivitas Kelas:</strong></p>
+        <ol><li>Sebelum-LC vs Sesudah-LC — tunjukkan perbandingan</li><li>Lomba: siapa paling cepat nulis LC untuk kasus tertentu</li><li>"LC atau loop?" — tebak mana yang lebih tepat</li></ol>
+        
+        <p><strong>Estimasi:</strong> 1-2 JP</p>
+        
+        <hr>
+        
+        <h2>Modul 12: OOP</h2>
+        
+        <p><strong>⚠️ Ini modul paling abstrak untuk pemula.</strong> Jangan buru-buru.</p>
+        
+        <p><strong>Analogi (WAJIB):</strong></p>
+        <ul><li>Class = cetakan kue</li><li>Object = kue-nya</li><li><code>__init__</code> = proses memanggang</li><li><code>self</code> = "saya" (setiap object bicara tentang dirinya)</li><li>Inheritance = "anak mewarisi sifat orang tua"</li></ul>
+        
+        <p><strong>Jebakan Murid (BANYAK):</strong></p>
+        <ul><li>❌ <code>self</code> — paling membingungkan. "Apa itu self? Kenapa harus ada?"</li><li>❌ Lupa <code>self</code> di parameter method — <code>TypeError: takes 0 positional arguments but 1 was given</code></li><li>❌ Lupa <code>()</code> pas buat object — <code>s = Siswa</code> vs <code>s = Siswa()</code></li><li>❌ <code>__init__</code> dieja salah — <code>__init</code> atau <code>_init_</code> atau <code>__init__</code> (dua underscore tiap sisi)</li><li>❌ <code>super().__init__()</code> — lupa panggil constructor parent</li></ul>
+        
+        <p><strong>Aktivitas Kelas:</strong></p>
+        <ol><li>Praktek: bikin class <code>Siswa</code>, <code>Buku</code>, <code>Hewan</code> — dari yang paling sederhana</li><li>Inheritance: <code>class Kucing(Hewan):</code> — override <code>bersuara()</code></li><li><strong>JANGAN</strong> langsung masuk polymorphism, abstraction — simpan untuk pertemuan lanjutan</li></ol>
+        
+        <p><strong>Kapan Mulai OOP:</strong></p>
+        <ul><li>Hanya setelah murid <strong>benar-benar</strong> nyaman dengan function, list, dict, loop</li><li>Kalau masih struggling di function, jangan mulai OOP</li></ul>
+        
+        <p><strong>Estimasi:</strong> 3 JP bertahap — 1 JP class sederhana, 1 JP method & <code>self</code>, 1 JP inheritance</p>
+        
+        <hr>
+        
+        <h2>Modul 13: Proyek Akhir</h2>
+        
+        <p>Ini yang <strong>membuktikan</strong> murid sudah bisa bikin aplikasi nyata.</p>
+        
+        <p><strong>Tips:</strong></p>
+        <ol><li>Bagi proyek jadi 3 pertemuan:</li></ol>
+        <ul><li>Pertemuan 1: class Siswa, input data</li><li>Pertemuan 2: perhitungan, laporan</li><li>Pertemuan 3: file I/O (simpan/baca), penyempurnaan</li></ul>
+        <ol><li>Murid <strong>tidak perlu</strong> nulis kode full 300 baris sekaligus</li><li>Setiap pertemuan target: "hari ini output program harus jalan dan melakukan X"</li><li>Pair programming: 2 murid 1 komputer — salah satu ngetik, satu mikir</li></ol>
+        
+        <p><strong>Penilaian:</strong></p>
+        <ul><li>Apakah program jalan tanpa error? (40%)</li><li>Apakah fitur inti berfungsi? (40%)</li><li>Apakah kode rapi? (20%)</li></ul>
+        
+        <hr>
+        
+        <h2>📅 Estimasi Total Jam Mengajar</h2>
+        
+        <table>
+        <tr><th>Modul</th><th>JP (45 menit)</th><th>Catatan</th></tr>
+        <tr><td>0. Setup</td><td>1</td><td>Lebih banyak praktek</td></tr>
+        <tr><td>1. Variabel</td><td>2</td></tr>
+        <tr><td>2. String</td><td>2</td></tr>
+        <tr><td>3. List & Tuple</td><td>2</td></tr>
+        <tr><td>4. Dictionary & Set</td><td>2</td></tr>
+        <tr><td>5. Percabangan</td><td>2</td><td>Flowchart penting</td></tr>
+        <tr><td>6. Perulangan</td><td>2</td><td>Waspada infinite loop</td></tr>
+        <tr><td>7. Function</td><td>2</td></tr>
+        <tr><td>8. Error Handling</td><td>2</td><td>⭐ Prioritas tinggi</td></tr>
+        <tr><td>9. File I/O</td><td>3</td><td>CSV untuk guru</td></tr>
+        <tr><td>10. Module & pip</td><td>2</td></tr>
+        <tr><td>11. List Comp</td><td>1-2</td></tr>
+        <tr><td>12. OOP</td><td>3</td><td>Bertahap, jangan buru</td></tr>
+        <tr><td>13. Proyek Akhir</td><td>3</td><td>3 pertemuan</td></tr>
+        </table>
+        
+        <p><strong>Total: 27-29 JP</strong> (± 1 semester genap atau 1 tahun ajar jika 1 JP/minggu)</p>
+        
+        <hr>
+        
+        <h2>⚡ Ringkasan 10 Aturan Emas Ngajar Python</h2>
+        
+        <ol><li><strong>Baca error dulu sebelum bertanya</strong> — "Error apa yang muncul?"</li><li><strong>Ketik manual, jangan copy-paste</strong> — otak merekam lebih baik</li><li><strong>REPL adalah sahabat</strong> — coba-coba dulu di REPL sebelum bikin file</li><li><strong>Print debugging</strong> — kalau bingung, <code>print()</code> isi variabel</li><li><strong>Start small</strong> — jalanin dulu versi minimal, baru kembangkan</li><li><strong>Commit sering</strong> — kalau rusak, tinggal balik ke versi sebelumnya</li><li><strong>Google with confidence</strong> — programmer hebat googling tiap hari</li><li><strong>Kode baca kode</strong> — baca kode punya teman, pelajari pola baru</li><li><strong>Ngajar = paham 2x lipat</strong> — coba jelaskan ke teman sebangku</li><li><strong>Yang penting jalan, bukan sempurna</strong> — perbaiki nanti</li></ol>
+        
+    </div>
+    <script>document.querySelectorAll('pre code').forEach(b=>hljs.highlightElement(b));</script>
+</body>
+</html>

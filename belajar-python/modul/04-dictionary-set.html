@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modul 4: Dictionary &amp; Set — Belajar Python</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐍</text></svg>">
+</head>
+<body>
+    <nav class="top-nav">
+        <a href="../index.html">⬅ Kembali ke Index</a>
+        <span class="title-nav">Modul 4: Dictionary &amp; Set</span>
+    </nav>
+    <div class="container">
+        <h1>Modul 4: Dictionary & Set</h1>
+        
+        <h2>🏆 Target Pemahaman</h2>
+        
+        <p>Setelah modul ini, kamu bisa:</p>
+        <ul><li>Membuat dan menggunakan <strong>dictionary</strong> (key-value)</li><li>Memilih kapan pakai list vs dictionary</li><li>Menggunakan method-method dictionary</li><li>Memahami <strong>set</strong> untuk data unik</li><li>Membuat <strong>nested dictionary</strong> (data kompleks)</li></ul>
+        
+        <hr>
+        
+        <h2>1. Apa Itu Dictionary?</h2>
+        
+        <p>Dictionary = kumpulan <strong>pasangan key-value</strong>. Seperti buku telepon: cari nama (key) → dapat nomor (value).</p>
+        
+        <pre><code class="language-python"># Sintaks: {key1: value1, key2: value2, ...}
+        siswa = {
+            &quot;nama&quot;: &quot;Budi Santoso&quot;,
+            &quot;kelas&quot;: &quot;XII IPA 1&quot;,
+            &quot;usia&quot;: 17,
+            &quot;lulus&quot;: False
+        }
+        
+        # Mengakses value
+        print(siswa[&quot;nama&quot;])      # Budi Santoso
+        print(siswa[&quot;kelas&quot;])     # XII IPA 1
+        # print(siswa[&quot;alamat&quot;])  ❌ KeyError! Key tidak ada
+        
+        # Mengakses dengan .get() — aman (tidak error kalau key tdk ada)
+        print(siswa.get(&quot;nama&quot;))     # Budi Santoso
+        print(siswa.get(&quot;alamat&quot;))   # None (tidak error)
+        print(siswa.get(&quot;alamat&quot;, &quot;Tidak ada&quot;))  # &quot;Tidak ada&quot; — default value</code></pre>
+        
+        <blockquote><p>💡 <strong>Key harus unik.</strong> Kalau kamu pakai key yang sama dua kali, value terakhir yang dipakai.</p></blockquote>
+        
+        <h3>Kenapa Pake Dictionary?</h3>
+        
+        <table>
+        <tr><th>Situasi</th><th>Pakai</th></tr>
+        <tr><td>Data punya label/nama</td><td>Dictionary</td></tr>
+        <tr><td>Data cuma urutan</td><td>List</td></tr>
+        <tr><td>Contoh: data siswa</td><td><code>{&quot;nama&quot;: &quot;Budi&quot;, &quot;nilai&quot;: 85}</code></td></tr>
+        <tr><td>Contoh: daftar nilai</td><td><code>[85, 92, 78]</code></td></tr>
+        </table>
+        
+        <h2>2. Method-Method Dictionary</h2>
+        
+        <pre><code class="language-python">siswa = {&quot;nama&quot;: &quot;Budi&quot;, &quot;kelas&quot;: &quot;XII IPA 1&quot;, &quot;usia&quot;: 17}
+        
+        # Menambah/mengubah
+        siswa[&quot;alamat&quot;] = &quot;Jakarta&quot;       # Tambah key baru
+        siswa[&quot;usia&quot;] = 18                # Ubah key yang sudah ada
+        siswa.update({&quot;nilai&quot;: 88, &quot;kelas&quot;: &quot;XII IPA 2&quot;})  # Update multiple keys
+        
+        print(siswa)
+        # {&#x27;nama&#x27;: &#x27;Budi&#x27;, &#x27;kelas&#x27;: &#x27;XII IPA 2&#x27;, &#x27;usia&#x27;: 18, &#x27;alamat&#x27;: &#x27;Jakarta&#x27;, &#x27;nilai&#x27;: 88}
+        
+        # Menghapus
+        del siswa[&quot;alamat&quot;]               # Hapus key tertentu
+        nilai = siswa.pop(&quot;nilai&quot;)        # Hapus &amp; return value
+        siswa.clear()                     # Hapus semua
+        
+        # Melihat isi
+        siswa = {&quot;nama&quot;: &quot;Budi&quot;, &quot;kelas&quot;: &quot;XII IPA 1&quot;, &quot;usia&quot;: 17}
+        
+        print(siswa.keys())     # dict_keys([&#x27;nama&#x27;, &#x27;kelas&#x27;, &#x27;usia&#x27;])
+        print(siswa.values())   # dict_values([&#x27;Budi&#x27;, &#x27;XII IPA 1&#x27;, 17])
+        print(siswa.items())    # dict_items([(&#x27;nama&#x27;, &#x27;Budi&#x27;), ...])
+        
+        # Cek keberadaan key
+        print(&quot;nama&quot; in siswa)      # True
+        print(&quot;alamat&quot; in siswa)    # False</code></pre>
+        
+        <h3>Method Penting</h3>
+        
+        <table>
+        <tr><th>Method</th><th>Fungsi</th></tr>
+        <tr><td><code>.get(key, default)</code></td><td>Ambil value, kalau gak ada return default</td></tr>
+        <tr><td><code>.keys()</code></td><td>Daftar semua key</td></tr>
+        <tr><td><code>.values()</code></td><td>Daftar semua value</td></tr>
+        <tr><td><code>.items()</code></td><td>Daftar pasangan (key, value)</td></tr>
+        <tr><td><code>.update(dict2)</code></td><td>Gabung dictionary lain</td></tr>
+        <tr><td><code>.pop(key)</code></td><td>Hapus dan return value</td></tr>
+        </table>
+        
+        <h2>3. Looping Dictionary</h2>
+        
+        <pre><code class="language-python">siswa = {&quot;nama&quot;: &quot;Budi&quot;, &quot;kelas&quot;: &quot;XII IPA 1&quot;, &quot;usia&quot;: 17}
+        
+        # Loop key saja
+        for key in siswa:
+            print(key)       # nama, kelas, usia
+        
+        # Loop value saja
+        for value in siswa.values():
+            print(value)     # Budi, XII IPA 1, 17
+        
+        # Loop key dan value 🔥
+        for key, value in siswa.items():
+            print(f&quot;{key}: {value}&quot;)</code></pre>
+        
+        <blockquote><p>💡 <strong><code>items()</code></strong> adalah cara paling Pythonic untuk loop dictionary. Biasakan.</p></blockquote>
+        
+        <h2>4. Nested Dictionary — Dictionary di Dalam Dictionary</h2>
+        
+        <p>Ini sangat berguna untuk data kompleks seperti data siswa:</p>
+        
+        <pre><code class="language-python"># Satu dictionary besar berisi data kelas
+        kelas = {
+            &quot;siswa1&quot;: {
+                &quot;nama&quot;: &quot;Budi Santoso&quot;,
+                &quot;nilai&quot;: {&quot;mtk&quot;: 85, &quot;ipa&quot;: 90, &quot;inggris&quot;: 78},
+                &quot;aktif&quot;: True
+            },
+            &quot;siswa2&quot;: {
+                &quot;nama&quot;: &quot;Ani Wijaya&quot;,
+                &quot;nilai&quot;: {&quot;mtk&quot;: 92, &quot;ipa&quot;: 88, &quot;inggris&quot;: 95},
+                &quot;aktif&quot;: True
+            },
+            &quot;siswa3&quot;: {
+                &quot;nama&quot;: &quot;Citra Dewi&quot;,
+                &quot;nilai&quot;: {&quot;mtk&quot;: 76, &quot;ipa&quot;: 80, &quot;inggris&quot;: 82},
+                &quot;aktif&quot;: False
+            }
+        }
+        
+        # Cara akses
+        print(kelas[&quot;siswa1&quot;][&quot;nama&quot;])                # Budi Santoso
+        print(kelas[&quot;siswa2&quot;][&quot;nilai&quot;][&quot;mtk&quot;])        # 92
+        print(kelas[&quot;siswa3&quot;][&quot;aktif&quot;])               # False
+        
+        # Loop semua siswa
+        for id_siswa, data in kelas.items():
+            if data[&quot;aktif&quot;]:
+                rata = sum(data[&quot;nilai&quot;].values()) / len(data[&quot;nilai&quot;])
+                print(f&quot;{data[&#x27;nama&#x27;]}: rata-rata {rata:.1f}&quot;)</code></pre>
+        
+        <blockquote><p>🏆 Ini pola yang akan kamu pakai terus — data siswa nested dictionary. Kuasai.</p></blockquote>
+        
+        <h2>5. Set — Kumpulan Data Unik</h2>
+        
+        <p>Set mirip list, tapi:</p>
+        <ul><li><strong>Tidak berurutan</strong> (no index)</li><li><strong>Semua elemen unik</strong> (tidak ada duplikat)</li><li><strong>Mutable</strong> (bisa ditambah/dihapus)</li></ul>
+        
+        <pre><code class="language-python"># Set dibuat dengan kurung kurawal {} TANPA key-value
+        warna = {&quot;merah&quot;, &quot;biru&quot;, &quot;hijau&quot;, &quot;merah&quot;, &quot;biru&quot;}
+        print(warna)  # {&#x27;hijau&#x27;, &#x27;merah&#x27;, &#x27;biru&#x27;} — duplikat hilang!
+        
+        # Atau dari list
+        angka = [1, 2, 2, 3, 3, 3, 4, 5, 5]
+        unik = set(angka)
+        print(unik)   # {1, 2, 3, 4, 5}
+        
+        # Set tidak punya index
+        # print(warna[0])  ❌ TypeError!
+        
+        # Operasi Set (ini yang bikin set berguna)
+        a = {1, 2, 3, 4}
+        b = {3, 4, 5, 6}
+        
+        print(a | b)   # Union: {1, 2, 3, 4, 5, 6} — gabung
+        print(a &amp; b)   # Intersection: {3, 4} — irisan
+        print(a - b)   # Difference: {1, 2} — di a tapi tidak di b
+        print(a ^ b)   # Symmetric diff: {1, 2, 5, 6} — tidak di kedua-duanya</code></pre>
+        
+        <h3>Kapan Pakai Set?</h3>
+        
+        <pre><code class="language-python"># Menghapus duplikat dari list
+        nama_siswa = [&quot;Budi&quot;, &quot;Ani&quot;, &quot;Budi&quot;, &quot;Citra&quot;, &quot;Ani&quot;, &quot;Dedi&quot;]
+        unik = list(set(nama_siswa))
+        print(unik)  # [&#x27;Citra&#x27;, &#x27;Dedi&#x27;, &#x27;Budi&#x27;, &#x27;Ani&#x27;]
+        
+        # Cek anggota (ini CEPAT banget)
+        print(&quot;Budi&quot; in unik)   # True — O(1), lebih cepat dari list</code></pre>
+        
+        <hr>
+        
+        <h2>🧪 Latihan Modul 4</h2>
+        
+        <h3>Latihan 1: Data Siswa</h3>
+        
+        <pre><code class="language-python"># 1. Buat dictionary untuk 3 siswa dengan key: nama, kelas, nilai (int)
+        # 2. Tampilkan nama dan nilai masing-masing
+        # 3. Hitung rata-rata nilai semua siswa</code></pre>
+        
+        <h3>Latihan 2: Buku Telepon</h3>
+        
+        <pre><code class="language-python"># Program buku telepon sederhana:
+        # - Simpan kontak (nama: nomor telepon)
+        # - User bisa:
+        #   • tambah kontak
+        #   • cari kontak (input nama → tampil nomor)
+        #   • hapus kontak
+        #   • lihat semua kontak
+        #   • keluar</code></pre>
+        
+        <h3>Latihan 3: Analisis Nilai dengan Nested Dict</h3>
+        
+        <pre><code class="language-python">kelas = {
+            &quot;Budi&quot;: {&quot;mtk&quot;: 85, &quot;ipa&quot;: 90, &quot;inggris&quot;: 78},
+            &quot;Ani&quot;: {&quot;mtk&quot;: 92, &quot;ipa&quot;: 88, &quot;inggris&quot;: 95},
+            &quot;Citra&quot;: {&quot;mtk&quot;: 76, &quot;ipa&quot;: 80, &quot;inggris&quot;: 82}
+        }
+        
+        # Cetak:
+        # Nama | MTK | IPA | ING | Rata-rata
+        # --------------------------------------
+        # Budi |  85 |  90 |  78 |     84.3
+        # Ani  |  92 |  88 |  95 |     91.7
+        # Citra|  76 |  80 |  82 |     79.3
+        # --------------------------------------
+        # Rata-rata kelas per mapel: MTK=..., IPA=..., ING=...</code></pre>
+        
+        <h3>Latihan 4: Set — Hobi Siswa</h3>
+        
+        <pre><code class="language-python"># Dua kelompok siswa dengan hobinya:
+        kelas_a = {&quot;membaca&quot;, &quot;olahraga&quot;, &quot;melukis&quot;, &quot;musik&quot;, &quot;menari&quot;}
+        kelas_b = {&quot;musik&quot;, &quot;memasak&quot;, &quot;olahraga&quot;, &quot;fotografi&quot;, &quot;menari&quot;}
+        
+        # Tentukan:
+        # - Hobi yang dimiliki kedua kelas
+        # - Hobi yang hanya dimiliki kelas A
+        # - Hobi yang hanya dimiliki kelas B
+        # - Semua hobi unik dari kedua kelas</code></pre>
+        
+        <hr>
+        
+        <h2>✅ Checklist Paham</h2>
+        
+        <ul><li>[ ] Saya bisa bikin dictionary dan akses value-nya</li><li>[ ] Saya paham beda <code>dict[&quot;key&quot;]</code> vs <code>dict.get(&quot;key&quot;)</code></li><li>[ ] Saya bisa loop dictionary dengan <code>.items()</code></li><li>[ ] Saya bisa bikin nested dictionary</li><li>[ ] Saya paham kapan pake list vs dictionary</li><li>[ ] Saya bisa bikin set dan paham kegunaannya (unik, operasi himpunan)</li></ul>
+        
+        <p><strong>Kalau semua checklist tercentang → lanjut ke Modul 5.</strong></p>
+        
+    <nav class="modul-nav">
+        <a href="03-list-tuple.html">« 📋 List & Tuple</a>
+        <span class="modul-nav-center">⬅ <a href="../index.html">Index</a></span>
+        <a href="05-percabangan.html">🔀 Percabangan »</a>
+    </nav>
+    </div>
+    <script>document.querySelectorAll('pre code').forEach(b=>hljs.highlightElement(b));</script>
+</body>
+</html>

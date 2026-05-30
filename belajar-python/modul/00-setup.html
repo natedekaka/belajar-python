@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modul 0: Setup Lingkungan Python di Omarchy Linux — Belajar Python</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐍</text></svg>">
+</head>
+<body>
+    <nav class="top-nav">
+        <a href="../index.html">⬅ Kembali ke Index</a>
+        <span class="title-nav">Modul 0: Setup Lingkungan Python di Omarchy Linux</span>
+    </nav>
+    <div class="container">
+        <h1>Modul 0: Setup Lingkungan Python di Omarchy Linux</h1>
+        
+        <h2>🏆 Target Pemahaman</h2>
+        
+        <p>Setelah modul ini, kamu bisa:</p>
+        <ul><li>Menjalankan Python di terminal</li><li>Membedakan REPL mode vs file mode</li><li>Menulis dan menjalankan script <code>.py</code></li><li>Mengerti PATH dan virtual environment</li></ul>
+        
+        <hr>
+        
+        <h2>1. Cek Python</h2>
+        
+        <p>Omarchy Linux (Arch) udah include Python secara default.</p>
+        
+        <pre><code class="language-bash">python --version</code></pre>
+        
+        <p>Kalau muncul <code>Python 3.x.x</code> — berarti siap.</p>
+        
+        <blockquote><p>💡 Di Arch Linux, <code>python</code> mengarah ke Python 3 (bukan 2). Aman.</p></blockquote>
+        
+        <h2>2. Dua Cara Jalanin Python</h2>
+        
+        <h3>A. REPL Mode (Interactive)</h3>
+        
+        <p>REPL = <strong>R</strong>ead <strong>E</strong>val <strong>P</strong>rint <strong>L</strong>oop. Kita kasih perintah langsung, langsung dijawab.</p>
+        
+        <pre><code class="language-bash">python</code></pre>
+        
+        <p>Ketik itu di terminal. Maka akan muncul:</p>
+        
+        <pre><code>Python 3.x.x (main, ...)
+        [GCC ...] on linux
+        Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+        &gt;&gt;&gt;</code></pre>
+        
+        <p><code>&gt;&gt;&gt;</code> adalah <strong>prompt</strong> — Python siap menerima perintah.</p>
+        
+        <p>Coba:</p>
+        
+        <pre><code class="language-python">&gt;&gt;&gt; 2 + 3
+        5
+        
+        &gt;&gt;&gt; &quot;Halo&quot; * 3
+        &#x27;HaloHaloHalo&#x27;
+        
+        &gt;&gt;&gt; print(&quot;Selamat datang di Python!&quot;)
+        Selamat datang di Python!
+        
+        &gt;&gt;&gt; exit()   # 👈 Keluar dari REPL</code></pre>
+        
+        <blockquote><p>💡 REPL cocok buat: coba-coba rumus, test kode kecil, ngajar demonstrasi.</p></blockquote>
+        
+        <h3>B. File Mode (Script)</h3>
+        
+        <p>Tulis kode di file <code>.py</code>, lalu jalankan.</p>
+        
+        <pre><code class="language-bash">echo &#x27;print(&quot;Halo dari file&quot;)&#x27; &gt; halo.py
+        python halo.py</code></pre>
+        
+        <p>Output:</p>
+        <pre><code>Halo dari file</code></pre>
+        
+        <p>Ini cara <strong>utama</strong> bikin program sungguhan.</p>
+        
+        <h2>3. Editor buat Nulis Kode</h2>
+        
+        <p>Di Omarchy Linux, kamu punya beberapa pilihan:</p>
+        
+        <table>
+        <tr><th>Editor</th><th>Cara Buka</th><th>Cocok Buat</th></tr>
+        <tr><td><strong>VS Code</strong></td><td><code>code .</code></td><td>Full fitur, recommand buat belajar</td></tr>
+        <tr><td><strong>Neovim</strong></td><td><code>nvim file.py</code></td><td>Ringan, cepat</td></tr>
+        <tr><td><strong>Alacritty + Nano</strong></td><td><code>nano file.py</code></td><td>Darurat, edit cepat</td></tr>
+        </table>
+        
+        <blockquote><p>💡 Saran: pake <strong>VS Code</strong> biar ada syntax highlighting, auto-complete, dan terminal built-in.</p></blockquote>
+        
+        <p>Install VS Code kalau belum:</p>
+        <pre><code class="language-bash">omarchy install dev  # atau
+        yay -S visual-studio-code-bin</code></pre>
+        
+        <h2>4. Menjalankan Script Python</h2>
+        
+        <pre><code class="language-bash"># Cara 1: Langsung
+        python namafile.py
+        
+        # Cara 2: Bikin executable (advanced)
+        chmod +x namafile.py
+        ./namafile.py</code></pre>
+        
+        <p>Untuk cara 2, tambahkan baris ini di baris <strong>paling atas</strong> file:</p>
+        <pre><code class="language-python">#!/usr/bin/env python3</code></pre>
+        
+        <h2>5. Virtual Environment (Venv)</h2>
+        
+        <p>Ini penting — biar project Python kita <strong>tidak campur aduk</strong> sama system Python.</p>
+        
+        <pre><code class="language-bash"># Bikin venv (cukup sekali)
+        python -m venv ~/belajar-python/.venv
+        
+        # Aktifkan (lakukan setiap kali mau belajar)
+        source ~/belajar-python/.venv/bin/activate
+        
+        # Cek: prompt terminal berubah jadi (.venv)
+        # Sekarang pip install akan aman di dalam venv
+        
+        # Nonaktifkanls
+        deactivate</code></pre>
+        
+        <blockquote><p>💡 Praktekkan: Setiap buka terminal baru → <code>source ~/belajar-python/.venv/bin/activate</code></p></blockquote>
+        <blockquote><p></p></blockquote>
+        <blockquote><p>⚠️ Kalau belum diaktifkan, <code>pip install</code> akan menginstall ke system Python. Hindari kalau gak perlu.</p></blockquote>
+        
+        <h2>6. Shebang & Executable (Advanced — Tapi Berguna)</h2>
+        
+        <p>Di Omarchy, kita sering bikin script CLI. Ini cara praktisnya:</p>
+        
+        <p>Buat file <code>greet.py</code></p>
+        
+        <pre><code class="language-python">#!/usr/bin/env python3
+        
+        nama = input(&quot;Siapa nama kamu? &quot;)
+        print(f&quot;Halo {nama}! Selamat belajar Python!&quot;)</code></pre>
+        
+        <p>Lalu:</p>
+        
+        <pre><code class="language-bash">chmod +x greet.py
+        ./greet.py</code></pre>
+        
+        <p>Dengan shebang (<code>#!/usr/bin/env python3</code>), file bisa dijalankan langsung tanpa <code>python</code> di depan.</p>
+        
+        <h2>7. PATH — Dimana Python Mencari?</h2>
+        
+        <p>Kadang kita liat error <code>command not found</code> atau <code>module not found</code>. Ini karena <strong>PATH</strong>.</p>
+        
+        <p>Cek:</p>
+        
+        <pre><code class="language-bash">which python   # Dimana python berada?
+        echo $PATH     # Daftar folder yang dicari sistem</code></pre>
+        
+        <p>PATH itu daftar folder (dipisah <code>:</code>) tempat sistem mencari program. Kalau file kita gak ada di salah satu folder itu, kita harus panggil pake path lengkap.</p>
+        
+        <hr>
+        
+        <h2>🧪 Latihan Modul 0</h2>
+        
+        <ol><li>Buka terminal, ketik <code>python</code>, lalu hitung <code>((5 + 3) * 2 - 8) / 4</code>. Keluar?</li><li>Buat file <code>coba.py</code> berisi <code>print(&quot;Belajar Python itu menyenangkan!&quot;)</code>, jalankan.</li><li>Coba salah ketik di REPL — misal <code>print(&quot;Halo&quot;</code> tanpa tutup kurung. Baca errornya.</li><li>Buat venv di folder <code>~/belajar-python/</code>, aktifkan, lalu <code>which python</code> — liat bedanya PATH.</li><li>Buat file <code>sapa.py</code> dengan shebang, <code>chmod +x</code>, dan jalankan dengan <code>./sapa.py</code>.</li></ol>
+        
+        <h2>✅ Checklist Paham</h2>
+        
+        <ul><li>[x] Saya bisa bedain REPL vs file mode</li><li>[x] Saya bisa buat dan jalanin file <code>.py</code></li><li>[x] Saya tau cara aktivasi virtual environment</li><li>[x] Saya tau fungsi shebang <code>#!/usr/bin/env python3</code></li><li>[x] Saya paham PATH secara konsep</li></ul>
+        
+        <p><strong>Kalau semua checklist tercentang → lanjut ke Modul 1.</strong></p>
+        
+    <nav class="modul-nav">
+        <span class="modul-nav-disabled">« Awal</span>
+        <span class="modul-nav-center">⬅ <a href="../index.html">Index</a></span>
+        <a href="01-variabel-tipe-data.html">📦 Variabel & Tipe Data »</a>
+    </nav>
+    </div>
+    <script>document.querySelectorAll('pre code').forEach(b=>hljs.highlightElement(b));</script>
+</body>
+</html>

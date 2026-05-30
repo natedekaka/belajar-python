@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error Dictionary Python — Bahasa Indonesia — Belajar Python</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐍</text></svg>">
+</head>
+<body>
+    <nav class="top-nav">
+        <a href="index.html">⬅ Kembali ke Index</a>
+        <span class="title-nav">Error Dictionary Python — Bahasa Indonesia</span>
+    </nav>
+    <div class="container">
+        <h1>❌ Error Dictionary Python — Bahasa Indonesia</h1>
+        
+        <h2>Cara Baca Error</h2>
+        
+        <pre><code>  Jenis Error         Pesan Error
+          ────────            ──────────────────
+        Traceback (most recent call last):
+          File &quot;main.py&quot;, line 5, in &lt;module&gt;        ← File &amp; baris
+            print(10 / 0)                             ← Kode yang salah
+        ZeroDivisionError: division by zero           ← Jenis: penyebab</code></pre>
+        
+        <hr>
+        
+        <h2>🔴 SyntaxError — Salah Tulis</h2>
+        
+        <p>Kode tidak mengikuti aturan bahasa Python.</p>
+        
+        <table>
+        <tr><th>Error</th><th>Arti</th><th>Perbaikan</th></tr>
+        <tr><td><code>invalid syntax</code></td><td>Ada kesalahan penulisan</td><td>Cek baris yang disebut — biasanya lupa <code>:</code> di <code>if</code>, <code>for</code>, <code>def</code>, atau kurung tidak sepasang</td></tr>
+        <tr><td><code>EOL while scanning string literal</code></td><td>String tidak ditutup</td><td>Cek kutip string — lupa <code>&quot;</code> atau <code>&#x27;</code></td></tr>
+        <tr><td><code>unexpected indent</code></td><td>Indentasi tidak terduga</td><td>Pastikan semua blok kode indentasinya rata (sama)</td></tr>
+        <tr><td><code>expected an indented block</code></td><td>Harus ada indentasi setelah <code>:</code></td><td>Tekan tab/spasi setelah baris yang diakhiri <code>:</code></td></tr>
+        </table>
+        
+        <pre><code>❌ if x &gt; 5            ✅ if x &gt; 5:
+        print(x)                    print(x)
+        
+        ❌ print(&quot;Halo         ✅ print(&quot;Halo&quot;)</code></pre>
+        
+        <hr>
+        
+        <h2>🔴 NameError — Nama Tidak Dikenal</h2>
+        
+        <p>Variabel atau fungsi belum didefinisikan.</p>
+        
+        <table>
+        <tr><th>Error</th><th>Arti</th><th>Perbaikan</th></tr>
+        <tr><td><code>name &#x27;x&#x27; is not defined</code></td><td>Variabel <code>x</code> belum dibuat</td><td>Cek: apakah sudah <code>x = ...</code> sebelumnya? Periksa ejaan!</td></tr>
+        </table>
+        
+        <pre><code>❌ print(umur)  # umur belum diisi
+        ✅ umur = 17
+           print(umur)
+        
+        ❌ print(nilai_siswa)  # salah eja
+        ✅ print(nilai_siswa)  # atau perbaiki nama variabelnya</code></pre>
+        
+        <blockquote><p>💡 <strong>Penyebab umum:</strong> typo nama variabel, lupa assign, variabel cuma ada di dalam if yang tidak jalan.</p></blockquote>
+        
+        <hr>
+        
+        <h2>🔴 TypeError — Tipe Data Tidak Cocok</h2>
+        
+        <p>Operasi antara dua tipe data yang berbeda.</p>
+        
+        <table>
+        <tr><th>Error</th><th>Arti</th><th>Perbaikan</th></tr>
+        <tr><td><code>can only concatenate str (not &quot;int&quot;) to str</code></td><td>String digabung dengan angka</td><td><code>str(angka)</code> dulu</td></tr>
+        <tr><td><code>unsupported operand type(s) for +: &#x27;int&#x27; and &#x27;str&#x27;</code></td><td>Angka dijumlah dengan string</td><td><code>int(angka_str)</code> atau <code>str(angka)</code></td></tr>
+        <tr><td><code>&#x27;int&#x27; object is not iterable</code></td><td>Angka di-loop padahal harus list</td><td>Loop harus untuk list/tuple/string, bukan angka</td></tr>
+        <tr><td><code>list indices must be integers or slices, not str</code></td><td>Index list pakai string</td><td>List pake angka, dictionary pake string</td></tr>
+        </table>
+        
+        <pre><code>❌ &quot;Umur: &quot; + 17
+        ✅ &quot;Umur: &quot; + str(17)
+        ✅ f&quot;Umur: {17}&quot;
+        
+        ❌ for i in 5:
+        ✅ for i in range(5):</code></pre>
+        
+        <hr>
+        
+        <h2>🔴 ValueError — Nilai Tidak Sesuai</h2>
+        
+        <p>Nilai yang diberikan tidak bisa diproses.</p>
+        
+        <table>
+        <tr><th>Error</th><th>Arti</th><th>Perbaikan</th></tr>
+        <tr><td><code>invalid literal for int() with base 10: &#x27;abc&#x27;</code></td><td><code>int(&quot;abc&quot;)</code> — 'abc' bukan angka</td><td>Pastikan input benar-benar angka sebelum di-<code>int()</code></td></tr>
+        <tr><td><code>could not convert string to float: &#x27;lima&#x27;</code></td><td><code>float(&quot;lima&quot;)</code> — "lima" bukan float</td><td>Pakai angka, bukan terbilang</td></tr>
+        <tr><td><code>math domain error</code></td><td>Operasi matematika tidak valid</td><td>Cek: <code>sqrt(-1)</code>, <code>log(0)</code> — nilainya harus valid</td></tr>
+        </table>
+        
+        <pre><code>❌ int(input(&quot;Masukkan angka: &quot;))  # user ketik &quot;lima&quot;
+        ✅ # Pakai try/except:
+           try:
+               angka = int(input(&quot;Masukkan angka: &quot;))
+           except ValueError:
+               print(&quot;Itu bukan angka!&quot;)</code></pre>
+        
+        <hr>
+        
+        <h2>🔴 IndexError — Index di Luar Jangkauan</h2>
+        
+        <p>Mengakses index yang tidak ada di list/string.</p>
+        
+        <table>
+        <tr><th>Error</th><th>Arti</th><th>Perbaikan</th></tr>
+        <tr><td><code>list index out of range</code></td><td>Index melebihi panjang list</td><td>Cek <code>len(listku)</code> — index maksimal <code>len-1</code></td></tr>
+        </table>
+        
+        <pre><code>❌ siswa = [&quot;Budi&quot;, &quot;Ani&quot;]
+           print(siswa[5])     # cuma ada index 0 dan 1!
+        
+        ✅ if len(siswa) &gt; 5:
+               print(siswa[5])</code></pre>
+        
+        <blockquote><p>💡 <strong>Ingat:</strong> Index mulai dari <strong>0</strong>. List dengan 3 item: index 0, 1, 2 — bukan 1, 2, 3.</p></blockquote>
+        
+        <hr>
+        
+        <h2>🔴 KeyError — Key Tidak Ada di Dictionary</h2>
+        
+        <p>Mengakses key yang tidak ada di dictionary.</p>
+        
+        <table>
+        <tr><th>Error</th><th>Arti</th><th>Perbaikan</th></tr>
+        <tr><td><code>KeyError: &#x27;alamat&#x27;</code></td><td>Key 'alamat' tidak ada</td><td>Cek: apakah key-nya sudah dimasukkan?</td></tr>
+        </table>
+        
+        <pre><code>❌ siswa = {&quot;nama&quot;: &quot;Budi&quot;}
+           print(siswa[&quot;alamat&quot;])
+        
+        ✅ print(siswa.get(&quot;alamat&quot;, &quot;Tidak ada&quot;))
+        ✅ # Atau cek dulu:
+           if &quot;alamat&quot; in siswa:
+               print(siswa[&quot;alamat&quot;])</code></pre>
+        
+        <hr>
+        
+        <h2>🔴 ZeroDivisionError — Pembagian Nol</h2>
+        
+        <p>Angka dibagi dengan nol.</p>
+        
+        <table>
+        <tr><th>Error</th><th>Arti</th><th>Perbaikan</th></tr>
+        <tr><td><code>division by zero</code></td><td>10 / 0 atau 10 % 0</td><td>Cek pembagi sebelum operasi</td></tr>
+        </table>
+        
+        <pre><code>❌ hasil = 10 / angka  # kalau angka = 0, error!
+        ✅ if angka != 0:
+               hasil = 10 / angka
+           else:
+               print(&quot;Tidak bisa membagi nol!&quot;)</code></pre>
+        
+        <hr>
+        
+        <h2>🔴 FileNotFoundError — File Tidak Ada</h2>
+        
+        <p>Membuka file yang tidak ditemukan.</p>
+        
+        <table>
+        <tr><th>Error</th><th>Arti</th><th>Perbaikan</th></tr>
+        <tr><td><code>No such file or directory: &#x27;data.txt&#x27;</code></td><td>File tidak ada</td><td>Cek: apakah nama filenya benar? Apakah foldernya benar?</td></tr>
+        </table>
+        
+        <pre><code>❌ with open(&quot;nilai.txt&quot;) as f:  # file tidak ada
+        ✅ import os
+           if os.path.exists(&quot;nilai.txt&quot;):
+               with open(&quot;nilai.txt&quot;) as f:
+                   ...</code></pre>
+        
+        <hr>
+        
+        <h2>🔴 IndentationError — Indentasi Salah</h2>
+        
+        <p>Python sangat strict soal indentasi (spasi di awal baris).</p>
+        
+        <table>
+        <tr><th>Error</th><th>Arti</th><th>Perbaikan</th></tr>
+        <tr><td><code>unexpected indent</code></td><td>Ada spasi yang tidak seharusnya</td><td>Periksa baris yang dimaksud — hapus spasi berlebih</td></tr>
+        <tr><td><code>unindent does not match any outer indentation level</code></td><td>Jumlah spasi tidak konsisten</td><td>Pastikan semua baris dalam satu blok pakai jumlah spasi yang SAMA</td></tr>
+        </table>
+        
+        <pre><code>❌ if True:
+           print(&quot;Halo&quot;)      # 3 spasi
+             print(&quot;Dunia&quot;)   # 4 spasi — beda!
+        
+        ✅ if True:
+               print(&quot;Halo&quot;)
+               print(&quot;Dunia&quot;)</code></pre>
+        
+        <blockquote><p>💡 <strong>Aturan emas:</strong> 1 blok = 4 spasi. Jangan campur tab dan spasi.</p></blockquote>
+        
+        <hr>
+        
+        <h2>🔴 AttributeError — Object Tidak Punya Atribut/Method</h2>
+        
+        <table>
+        <tr><th>Error</th><th>Arti</th><th>Perbaikan</th></tr>
+        <tr><td><code>&#x27;int&#x27; object has no attribute &#x27;append&#x27;</code></td><td>Angka tidak punya <code>.append()</code></td><td><code>.append()</code> hanya untuk list</td></tr>
+        <tr><td><code>&#x27;list&#x27; object has no attribute &#x27;items&#x27;</code></td><td>List tidak punya <code>.items()</code></td><td><code>.items()</code> hanya untuk dict</td></tr>
+        <tr><td><code>&#x27;str&#x27; object has no attribute &#x27;append&#x27;</code></td><td>String tidak punya <code>.append()</code></td><td>String itu immutable</td></tr>
+        </table>
+        
+        <pre><code>❌ angka = 5
+           angka.append(10)   # int tidak punya append!
+        
+        ✅ listku = [5]
+           listku.append(10)</code></pre>
+        
+        <hr>
+        
+        <h2>🔴 ImportError / ModuleNotFoundError — Module Tidak Ada</h2>
+        
+        <table>
+        <tr><th>Error</th><th>Arti</th><th>Perbaikan</th></tr>
+        <tr><td><code>No module named &#x27;requests&#x27;</code></td><td>Module belum diinstall</td><td><code>pip install requests</code></td></tr>
+        <tr><td><code>cannot import name &#x27;something&#x27;</code></td><td>Nama yang diimport tidak ada</td><td>Cek apakah nama fungsi/class-nya benar</td></tr>
+        </table>
+        
+        <hr>
+        
+        <h2>📋 Tabel Cepat Semua Error</h2>
+        
+        <table>
+        <tr><th>Error</th><th>Arti Singkat</th><th>Paling Sering Karena</th></tr>
+        <tr><td><code>SyntaxError</code></td><td>Salah tulis</td><td>Lupa <code>:</code> atau kurung</td></tr>
+        <tr><td><code>NameError</code></td><td>Variabel belum ada</td><td>Typo atau lupa assign</td></tr>
+        <tr><td><code>TypeError</code></td><td>Tipe data beda</td><td>String + angka</td></tr>
+        <tr><td><code>ValueError</code></td><td>Nilai tidak valid</td><td><code>int(&quot;abc&quot;)</code></td></tr>
+        <tr><td><code>IndexError</code></td><td>Index kebesaran</td><td>List index di luar range</td></tr>
+        <tr><td><code>KeyError</code></td><td>Key tidak ada</td><td>Dict key salah</td></tr>
+        <tr><td><code>ZeroDivisionError</code></td><td>Pembagi = 0</td><td>10 / 0</td></tr>
+        <tr><td><code>FileNotFoundError</code></td><td>File tidak ditemukan</td><td>Nama file salah</td></tr>
+        <tr><td><code>IndentationError</code></td><td>Spasi tidak rapi</td><td>Campur tab & spasi</td></tr>
+        <tr><td><code>AttributeError</code></td><td>Method tidak cocok</td><td><code>.append()</code> di string</td></tr>
+        </table>
+        
+        <hr>
+        
+        <h2>🧠 Tips Debugging</h2>
+        
+        <pre><code>1. BACA pesan error dari atas ke bawah
+        2. Cari: &quot;File ... , line ...&quot; — itu lokasi masalah
+        3. Cek baris yang disebut — apa yang salah di baris itu?
+        4. Kalau buntu, tambahkan print() sebelum baris error untuk cek nilai variabel
+        5. Google pesan error-nya (dalam Inggris) — pasti ada yang pernah ngalamin
+        
+        &quot;Error bukan kegagalan — itu petunjuk.&quot;</code></pre>
+        
+    </div>
+    <script>document.querySelectorAll('pre code').forEach(b=>hljs.highlightElement(b));</script>
+</body>
+</html>

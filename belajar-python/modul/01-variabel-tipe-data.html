@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modul 1: Variabel &amp; Tipe Data — Belajar Python</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐍</text></svg>">
+</head>
+<body>
+    <nav class="top-nav">
+        <a href="../index.html">⬅ Kembali ke Index</a>
+        <span class="title-nav">Modul 1: Variabel &amp; Tipe Data</span>
+    </nav>
+    <div class="container">
+        <h1>Modul 1: Variabel & Tipe Data</h1>
+        
+        <h2>🏆 Target Pemahaman (Buat Ngajar)</h2>
+        
+        <p>Setelah modul ini, kamu bisa:</p>
+        <ul><li>Menjelaskan apa itu <strong>variabel</strong> ke murid</li><li>Membedakan 4 tipe data dasar: <code>int</code>, <code>float</code>, <code>str</code>, <code>bool</code></li><li>Menjelaskan perbedaan <code>int</code> vs <code>float</code> — kenapa ada dua jenis angka?</li><li>Menggunakan <code>type()</code> untuk cek tipe data</li><li>Melakukan operasi matematika dasar</li><li>Konversi tipe data (casting)</li></ul>
+        
+        <hr>
+        
+        <h2>1. Apa Itu Variabel?</h2>
+        
+        <p>Variabel = <strong>kotak penyimpanan</strong> yang punya nama. Kita taruh data di dalamnya, lalu panggil namanya kapan saja.</p>
+        
+        <pre><code class="language-python"># Sintaks: nama_variabel = nilai
+        nama = &quot;Budi&quot;       # String (teks)
+        usia = 16           # Integer (angka bulat)
+        tinggi = 165.5      # Float (angka desimal)
+        siswa_aktif = True  # Boolean (True/False)
+        
+        print(nama)   # Output: Budi
+        print(usia)   # Output: 16</code></pre>
+        
+        <blockquote><p>💡 Di Python, kita <strong>tidak perlu</strong> mendeklarasikan tipe data. Python otomatis tahu.</p></blockquote>
+        
+        <h3>Aturan Penamaan Variabel</h3>
+        
+        <table>
+        <tr><th>✅ Boleh</th><th>❌ Tidak Boleh</th></tr>
+        <tr><td><code>nama_siswa</code></td><td><code>nama-siswa</code> (strip)</td></tr>
+        <tr><td><code>data2</code></td><td><code>2data</code> (angka di depan)</td></tr>
+        <tr><td><code>_private</code></td><td><code>class</code> (keyword Python)</td></tr>
+        <tr><td><code>nilaiAkhir</code></td><td><code>nilai akhir</code> (spasi)</td></tr>
+        </table>
+        
+        <blockquote><p>💡 <strong>Konvensi Python:</strong> pakai <code>snake_case</code> — huruf kecil dengan underscore. Contoh: <code>rata_rata</code>, <code>jumlah_siswa</code>.</p></blockquote>
+        
+        <h2>2. Tipe Data Dasar</h2>
+        
+        <p>Python punya 4 tipe data dasar yang wajib dikuasai:</p>
+        
+        <h3>int (Integer) — Bilangan Bulat</h3>
+        
+        <pre><code class="language-python">umur = 17
+        tahun = 2026
+        negatif = -5
+        nol = 0
+        
+        print(type(umur))   # &lt;class &#x27;int&#x27;&gt;</code></pre>
+        
+        <h3>float (Floating Point) — Bilangan Desimal</h3>
+        
+        <pre><code class="language-python">phi = 3.14
+        suhu = -2.5
+        berat = 55.0       # tetap float walau .0
+        
+        print(type(phi))    # &lt;class &#x27;float&#x27;&gt;</code></pre>
+        
+        <blockquote><p>⚠️ <strong>Jebakan umum murid:</strong> <code>5</code> adalah <code>int</code>, tapi <code>5.0</code> adalah <code>float</code>. Di Python, mereka beda tipe.</p></blockquote>
+        
+        <h3>str (String) — Teks</h3>
+        
+        <pre><code class="language-python">nama = &quot;Budi&quot;
+        kelas = &#x27;XII IPA 1&#x27;            # pakai kutip 1 atau 2, sama saja
+        pesan = &quot;Dia berkata: &#x27;Halo&#x27;&quot;  # kutip di dalam kutip
+        
+        # Multiline string (3 kutip)
+        puisi = &quot;&quot;&quot;Belajar Python
+        Sangat menyenangkan
+        Bikin ketagihan&quot;&quot;&quot;
+        
+        print(type(nama))   # &lt;class &#x27;str&#x27;&gt;</code></pre>
+        
+        <h3>bool (Boolean) — True/False</h3>
+        
+        <pre><code class="language-python">lulus = True
+        gagal = False
+        
+        print(type(lulus))  # &lt;class &#x27;bool&#x27;&gt;</code></pre>
+        
+        <blockquote><p>💡 <code>True</code> dan <code>False</code> <strong>wajib</strong> huruf besar diawali. <code>true</code> atau <code>false</code> (kecil) akan error.</p></blockquote>
+        
+        <h2>3. Operasi Matematika pada Angka</h2>
+        
+        <pre><code class="language-python">a = 10
+        b = 3
+        
+        print(a + b)    # 13   — Penjumlahan
+        print(a - b)    # 7    — Pengurangan
+        print(a * b)    # 30   — Perkalian
+        print(a / b)    # 3.33 — Pembagian (hasil selalu float)
+        print(a // b)   # 3    — Pembagian bulat (integer division)
+        print(a % b)    # 1    — Sisa bagi (modulus)
+        print(a ** b)   # 1000 — Pangkat (10^3)</code></pre>
+        
+        <blockquote><p>⚠️ <strong>Ini penting buat ngajar:</strong> <code>a / b</code> vs <code>a // b</code> — murid sering bingung.</p></blockquote>
+        <blockquote><p>- <code>/</code> = hasil desimal (float)</p></blockquote>
+        <blockquote><p>- <code>//</code> = hasil dibulatkan ke bawah (integer)</p></blockquote>
+        
+        <h3>Prioritas Operasi (mirip matematika)</h3>
+        
+        <p>Ingat <strong>KABATAKU</strong> (Kurung, Akar, Bagi, Kali, Tambah, Kurang):</p>
+        
+        <pre><code class="language-python">hasil = 5 + 3 * 2      # 11 (bukan 16!)
+        # Karena perkalian duluan: 3*2=6, 5+6=11
+        
+        hasil2 = (5 + 3) * 2   # 16 — kurung diutamakan</code></pre>
+        
+        <h2>4. Operasi pada String</h2>
+        
+        <pre><code class="language-python"># Gabung string (concatenation)
+        nama_depan = &quot;Budi&quot;
+        nama_belakang = &quot;Santoso&quot;
+        nama_lengkap = nama_depan + &quot; &quot; + nama_belakang
+        print(nama_lengkap)   # Budi Santoso
+        
+        # Mengulang string
+        teriak = &quot;A&quot; * 10
+        print(teriak)   # AAAAAAAAAA
+        
+        # Menggabung string dengan angka — ERROR kalau beda tipe!
+        # print(&quot;Umur: &quot; + 17)  # ❌ TypeError!
+        print(&quot;Umur: &quot; + str(17))  # ✅ Harus di-cast dulu
+        
+        # Cara modern: f-string 👈 INI FAVORIT
+        nama = &quot;Budi&quot;
+        umur = 17
+        print(f&quot;Nama saya {nama}, umur {umur} tahun&quot;)
+        # Output: Nama saya Budi, umur 17 tahun</code></pre>
+        
+        <blockquote><p>💡 <strong>f-string</strong> (<code>f&quot;...&quot;</code>) adalah cara terbaik menggabung teks dan variabel di Python modern. Gunakan ini, tinggalkan concatenation pakai <code>+</code>.</p></blockquote>
+        
+        <h2>5. Operasi Boolean</h2>
+        
+        <pre><code class="language-python">print(True and True)    # True
+        print(True and False)   # False
+        print(True or False)    # True
+        print(not True)         # False</code></pre>
+        
+        <p>Akan kita pelajari lebih dalam di Modul 5 (Percabangan).</p>
+        
+        <h2>6. Konversi Tipe Data (Casting)</h2>
+        
+        <p>Kadang kita perlu mengubah tipe data:</p>
+        
+        <pre><code class="language-python"># String → Angka
+        umur_str = &quot;17&quot;
+        umur_int = int(umur_str)     # 17 (int)
+        tinggi_str = &quot;165.5&quot;
+        tinggi_float = float(tinggi_str)  # 165.5 (float)
+        
+        # Angka → String
+        nilai = 90
+        laporan = &quot;Nilai: &quot; + str(nilai)
+        
+        # Float → Integer (kehilangan desimal!)
+        pi = 3.14
+        pi_int = int(pi)
+        print(pi_int)  # 3 (dipotong, bukan dibulatkan)</code></pre>
+        
+        <blockquote><p>⚠️ <strong>Error umum:</strong> <code>int(&quot;17.5&quot;)</code> akan error karena "17.5" bukan format integer. Harus <code>float(&quot;17.5&quot;)</code> dulu baru di-<code>int()</code>.</p></blockquote>
+        
+        <h3>Fungsi <code>type()</code> — Cek Tipe Data</h3>
+        
+        <pre><code class="language-python">x = 5
+        print(type(x))       # &lt;class &#x27;int&#x27;&gt;
+        
+        y = &quot;Hello&quot;
+        print(type(y))       # &lt;class &#x27;str&#x27;&gt;
+        
+        z = 5.0
+        print(type(z))       # &lt;class &#x27;float&#x27;&gt;</code></pre>
+        
+        <p>Berguna banget buat debugging dan buat ngajar — "loh, ini tipe datanya apa sih?"</p>
+        
+        <h2>7. Input dari Keyboard</h2>
+        
+        <pre><code class="language-python"># input() SELALU mengembalikan string
+        nama = input(&quot;Masukkan nama: &quot;)
+        print(f&quot;Halo {nama}!&quot;)
+        
+        # Kalau mau angka, harus di-cast
+        umur = int(input(&quot;Masukkan umur: &quot;))
+        print(f&quot;Tahun depan kamu berusia {umur + 1} tahun&quot;)</code></pre>
+        
+        <blockquote><p>⚠️ <strong>Peringatan:</strong> <code>input(&quot;...&quot;)</code> selalu return <code>str</code>. Kalau kamu mau angka, jangan lupa <code>int()</code> atau <code>float()</code>.</p></blockquote>
+        
+        <hr>
+        
+        <h2>🧪 Latihan Modul 1</h2>
+        
+        <h3>Latihan 1: Perkenalan Diri</h3>
+        
+        <pre><code class="language-python"># Buat program yang:
+        # 1. Minta nama user
+        # 2. Minta umur user
+        # 3. Minta kota tinggal
+        # 4. Cetak: &quot;Halo [nama], umur [umur] tahun, dari [kota]&quot;</code></pre>
+        
+        <h3>Latihan 2: Kalkulator Sederhana</h3>
+        
+        <pre><code class="language-python"># Buat program yang:
+        # 1. Minta dua angka dari user
+        # 2. Tampilkan: jumlah, selisih, kali, bagi, sisa bagi
+        # Contoh output:
+        #   Angka 1: 10
+        #   Angka 2: 3
+        #   10 + 3 = 13
+        #   10 - 3 = 7
+        #   ...</code></pre>
+        
+        <h3>Latihan 3: Konversi Suhu</h3>
+        
+        <pre><code class="language-python"># Buat program yang:
+        # 1. Minta suhu dalam Celcius
+        # 2. Tampilkan dalam Fahrenheit: (C * 9/5) + 32</code></pre>
+        
+        <h3>Latihan 4 (Bonus — konsep yang sering ditanyakan murid)</h3>
+        
+        <p>Jalankan kode berikut di REPL, tebak outputnya dulu sebelum enter:</p>
+        
+        <pre><code class="language-python">print(type(3.0))
+        print(type(3))
+        print(10 / 4)
+        print(10 // 4)
+        print(int(3.999))</code></pre>
+        
+        <hr>
+        
+        <h2>📝 Ringkasan Buat Ngajar</h2>
+        
+        <p>Kalau kamu jelasin ke murid, sampaikan ini:</p>
+        
+        <blockquote><p><strong>Variabel</strong> itu seperti <strong>kotak yang kita kasih label</strong>. Kita bisa taruh angka, teks, atau data lain di dalamnya. Python pinter — dia otomatis tahu jenis data yang kita taruh. Makanya kita tinggal tulis <code>nama = &quot;Budi&quot;</code> tanpa bilang "ini string ya".</p></blockquote>
+        
+        <p>Empat tipe data dasar:</p>
+        <ol><li><strong>int</strong> — bilangan bulat (3, -10, 1000)</li><li><strong>float</strong> — bilangan desimal (3.14, -0.5)</li><li><strong>str</strong> — teks ("Halo", "XII IPA 1")</li><li><strong>bool</strong> — True/False</li></ol>
+        
+        <h2>✅ Checklist Paham</h2>
+        
+        <ul><li>[ ] Saya bisa bedain <code>int</code>, <code>float</code>, <code>str</code>, <code>bool</code></li><li>[ ] Saya bisa pake f-string (<code>f&quot;...&quot;</code>)</li><li>[ ] Saya paham perbedaan <code>/</code> dan <code>//</code></li><li>[ ] Saya bisa nulis input dan cast ke tipe yang benar</li><li>[ ] Saya bisa cek tipe data pake <code>type()</code></li><li>[ ] Saya tau cara penulisan variabel yang benar (<code>snake_case</code>)</li></ul>
+        
+        <p><strong>Kalau semua checklist tercentang → lanjut ke Modul 2.</strong></p>
+        
+    <nav class="modul-nav">
+        <a href="00-setup.html">« 🔧 Setup</a>
+        <span class="modul-nav-center">⬅ <a href="../index.html">Index</a></span>
+        <a href="02-string.html">🧵 String »</a>
+    </nav>
+    </div>
+    <script>document.querySelectorAll('pre code').forEach(b=>hljs.highlightElement(b));</script>
+</body>
+</html>

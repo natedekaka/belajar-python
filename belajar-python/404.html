@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 — Halaman Tidak Ditemukan — Belajar Python</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐍</text></svg>">
+    <style>
+        .error-page {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 60vh;
+            text-align: center;
+        }
+        .error-page .code {
+            font-size: 5rem;
+            font-weight: 800;
+            color: var(--accent);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+        .error-page .emoji-big {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+        .error-page h1 {
+            border-bottom: none;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .error-page p {
+            max-width: 400px;
+            margin-bottom: 2rem;
+        }
+        .error-page a {
+            display: inline-block;
+            padding: 0.6rem 1.5rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--bg-card);
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: border-color 0.2s, background 0.2s;
+        }
+        .error-page a:hover {
+            border-color: var(--accent);
+            background: var(--bg-hover);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="error-page">
+            <div class="emoji-big">🐍</div>
+            <div class="code">404</div>
+            <h1>Halaman Tidak Ditemukan</h1>
+            <p>Sepertinya kamu tersesat di labirin kode. Halaman yang kamu cari gak ada — atau udah dipindahin.</p>
+            <a href="index.html">⬅ Kembali ke Beranda</a>
+        </div>
+    </div>
+</body>
+</html>

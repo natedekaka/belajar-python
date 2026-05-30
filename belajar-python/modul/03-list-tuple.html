@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modul 3: List &amp; Tuple — Belajar Python</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐍</text></svg>">
+</head>
+<body>
+    <nav class="top-nav">
+        <a href="../index.html">⬅ Kembali ke Index</a>
+        <span class="title-nav">Modul 3: List &amp; Tuple</span>
+    </nav>
+    <div class="container">
+        <h1>Modul 3: List & Tuple</h1>
+        
+        <h2>🏆 Target Pemahaman</h2>
+        
+        <p>Setelah modul ini, kamu bisa:</p>
+        <ul><li>Membuat, mengakses, dan memanipulasi <strong>list</strong></li><li>Membedakan list vs tuple</li><li>Menjelaskan <strong>mutable vs immutable</strong> ke murid</li><li>Menggunakan method-method list (<code>append</code>, <code>insert</code>, <code>remove</code>, dll)</li><li>Loop dasar untuk mengolah list</li></ul>
+        
+        <hr>
+        
+        <h2>1. Apa Itu List?</h2>
+        
+        <p>List adalah <strong>kumpulan data berurutan</strong> yang bisa diubah (mutable). Ini salah satu struktur data paling penting di Python.</p>
+        
+        <pre><code class="language-python"># List dibuat dengan kurung siku []
+        siswa = [&quot;Budi&quot;, &quot;Ani&quot;, &quot;Citra&quot;, &quot;Dedi&quot;]
+        angka = [1, 2, 3, 4, 5]
+        campur = [&quot;Budi&quot;, 17, True, 88.5]
+        kosong = []
+        
+        print(siswa)     # [&#x27;Budi&#x27;, &#x27;Ani&#x27;, &#x27;Citra&#x27;, &#x27;Dedi&#x27;]
+        print(type(siswa))  # &lt;class &#x27;list&#x27;&gt;</code></pre>
+        
+        <h3>Sama Seperti String: Index & Slicing</h3>
+        
+        <p>List juga punya index, sama persis seperti string:</p>
+        
+        <pre><code class="language-python">siswa = [&quot;Budi&quot;, &quot;Ani&quot;, &quot;Citra&quot;, &quot;Dedi&quot;]
+        
+        print(siswa[0])      # Budi
+        print(siswa[-1])     # Dedi
+        print(siswa[1:3])    # [&#x27;Ani&#x27;, &#x27;Citra&#x27;]
+        print(siswa[::-1])   # [&#x27;Dedi&#x27;, &#x27;Citra&#x27;, &#x27;Ani&#x27;, &#x27;Budi&#x27;]</code></pre>
+        
+        <blockquote><p>💡 Apapun yang kamu pelajari tentang slicing string, <strong>berlaku sama</strong> untuk list.</p></blockquote>
+        
+        <h3>Beda dengan String: List Bisa Diubah!</h3>
+        
+        <pre><code class="language-python">siswa = [&quot;Budi&quot;, &quot;Ani&quot;, &quot;Citra&quot;]
+        siswa[1] = &quot;Anita&quot;      # ✅ BISA diubah
+        print(siswa)            # [&#x27;Budi&#x27;, &#x27;Anita&#x27;, &#x27;Citra&#x27;]
+        
+        # Bandingkan dengan string:
+        s = &quot;ABC&quot;
+        # s[1] = &quot;X&quot;  ❌ TypeError!</code></pre>
+        
+        <h2>2. Method-Method List</h2>
+        
+        <pre><code class="language-python">siswa = [&quot;Budi&quot;, &quot;Ani&quot;, &quot;Citra&quot;]
+        
+        # Menambah
+        siswa.append(&quot;Dedi&quot;)          # [&#x27;Budi&#x27;, &#x27;Ani&#x27;, &#x27;Citra&#x27;, &#x27;Dedi&#x27;] — tambah di akhir
+        siswa.insert(1, &quot;Eva&quot;)        # [&#x27;Budi&#x27;, &#x27;Eva&#x27;, &#x27;Ani&#x27;, &#x27;Citra&#x27;, &#x27;Dedi&#x27;] — di index 1
+        
+        # Menghapus
+        siswa.remove(&quot;Ani&quot;)           # Hapus &quot;Ani&quot; (yang pertama ditemukan)
+        siswa.pop()                   # Hapus &amp; return yang terakhir
+        siswa.pop(1)                  # Hapus &amp; return index 1
+        del siswa[0]                  # Hapus index 0
+        siswa.clear()                 # Hapus semua
+        
+        # Mencari
+        siswa = [&quot;Budi&quot;, &quot;Ani&quot;, &quot;Citra&quot;, &quot;Budi&quot;]
+        print(siswa.index(&quot;Citra&quot;))   # 2 — index dari &quot;Citra&quot;
+        print(siswa.count(&quot;Budi&quot;))    # 2 — &quot;Budi&quot; muncul 2x
+        print(&quot;Ani&quot; in siswa)         # True
+        
+        # Mengurutkan
+        angka = [3, 1, 4, 1, 5]
+        angka.sort()                  # [1, 1, 3, 4, 5] — urut naik
+        angka.sort(reverse=True)      # [5, 4, 3, 1, 1] — urut turun
+        angka.reverse()               # Balik urutan
+        
+        # Lainnya
+        print(len(siswa))             # 4 — jumlah elemen</code></pre>
+        
+        <h3>Method yang Paling Sering Dipakai</h3>
+        
+        <table>
+        <tr><th>Method</th><th>Fungsi</th><th>Contoh</th></tr>
+        <tr><td><code>append(x)</code></td><td>Tambah x di akhir</td><td><code>list.append(5)</code></td></tr>
+        <tr><td><code>insert(i, x)</code></td><td>Tambah x di index i</td><td><code>list.insert(0, &quot;a&quot;)</code></td></tr>
+        <tr><td><code>remove(x)</code></td><td>Hapus x pertama</td><td><code>list.remove(&quot;a&quot;)</code></td></tr>
+        <tr><td><code>pop(i)</code></td><td>Ambil & hapus index i</td><td><code>x = list.pop()</code></td></tr>
+        <tr><td><code>sort()</code></td><td>Urutkan ascending</td><td><code>list.sort()</code></td></tr>
+        <tr><td><code>index(x)</code></td><td>Cari index x</td><td><code>i = list.index(&quot;a&quot;)</code></td></tr>
+        </table>
+        
+        <h2>3. List Bisa Berisi List (Nested List)</h2>
+        
+        <pre><code class="language-python"># Matriks 2D
+        nilai = [
+            [&quot;Budi&quot;, 85, 90, 78],
+            [&quot;Ani&quot;, 92, 88, 95],
+            [&quot;Citra&quot;, 76, 80, 82]
+        ]
+        
+        print(nilai[0])          # [&#x27;Budi&#x27;, 85, 90, 78] — baris pertama
+        print(nilai[0][1])       # 85 — Budi, nilai pertama
+        print(nilai[2][3])       # 82 — Citra, nilai terakhir
+        
+        # Loop untuk nested list
+        for siswa in nilai:
+            print(f&quot;{siswa[0]}: {siswa[1:]}&quot;)</code></pre>
+        
+        <p>Ini berguna banget buat data nilai siswa — kita akan pakai di proyek akhir.</p>
+        
+        <h2>4. Tuple — List yang Tidak Bisa Diubah</h2>
+        
+        <p>Tuple seperti <strong>list versi read-only</strong>. Immutable.</p>
+        
+        <pre><code class="language-python"># Tuple dibuat dengan kurung biasa ()
+        warna = (&quot;merah&quot;, &quot;kuning&quot;, &quot;hijau&quot;)
+        koordinat = (10, 20)
+        sehari_hari = (&quot;Senin&quot;, &quot;Selasa&quot;, &quot;Rabu&quot;, &quot;Kamis&quot;, &quot;Jumat&quot;)
+        satu_item = (&quot;isi&quot;,)  # ⚠️ KOMA wajib untuk tuple 1 item!
+        
+        print(warna[0])     # merah — bisa diakses
+        print(warna[1:3])   # (&#x27;kuning&#x27;, &#x27;hijau&#x27;) — bisa slicing
+        # warna[0] = &quot;biru&quot;  ❌ TypeError! Tuple tidak bisa diubah</code></pre>
+        
+        <h3>Kapan pakai List vs Tuple?</h3>
+        
+        <table>
+        <tr><th>List (Mutable)</th><th>Tuple (Immutable)</th></tr>
+        <tr><td>Daftar siswa (berubah-ubah)</td><td>Hari dalam seminggu (tetap)</td></tr>
+        <tr><td>Nilai ujian (bisa diupdate)</td><td>Koordinat (tidak berubah)</td></tr>
+        <tr><td>Keranjang belanja</td><td>Konstanta warna lampu lalu lintas</td></tr>
+        <tr><td>Data sementara</td><td>Key dictionary (akan dipelajari)</td></tr>
+        </table>
+        
+        <blockquote><p>🏆 <strong>Poin ngajar:</strong> "Tuple itu seperti data yang ditandatangani kontrak — sudah fix, tidak bisa diubah. List itu seperti draf — masih bisa direvisi."</p></blockquote>
+        
+        <h3>Tuple Berguna untuk Multiple Return</h3>
+        
+        <pre><code class="language-python">def hitung(a, b):
+            tambah = a + b
+            kurang = a - b
+            kali = a * b
+            return tambah, kurang, kali  # Return tuple secara implisit
+        
+        hasil = hitung(10, 3)
+        print(hasil)         # (13, 7, 30)
+        print(type(hasil))   # &lt;class &#x27;tuple&#x27;&gt;
+        
+        # Bisa di-unpack langsung:
+        tambah, kurang, kali = hitung(10, 3)
+        print(tambah)  # 13
+        print(kurang)  # 7</code></pre>
+        
+        <p>Ini sangat Pythonic — kita akan sering lihat pola ini.</p>
+        
+        <h2>5. Loop Sederhana untuk List</h2>
+        
+        <pre><code class="language-python">siswa = [&quot;Budi&quot;, &quot;Ani&quot;, &quot;Citra&quot;]
+        
+        # Cara 1: Loop langsung elemen
+        for s in siswa:
+            print(f&quot;Halo {s}!&quot;)
+        
+        # Cara 2: Loop dengan index (pake range)
+        for i in range(len(siswa)):
+            print(f&quot;Siswa ke-{i+1}: {siswa[i]}&quot;)
+        
+        # Cara 3: enumerate — dapet index + elemen sekaligus 🔥
+        for i, s in enumerate(siswa):
+            print(f&quot;{i+1}. {s}&quot;)</code></pre>
+        
+        <blockquote><p>💡 <strong><code>enumerate()</code></strong> adalah fungsi Python yang sering dipake. Hafalkan — ini bikin looping lebih elegan.</p></blockquote>
+        
+        <hr>
+        
+        <h2>🧪 Latihan Modul 3</h2>
+        
+        <h3>Latihan 1: Daftar Belanja</h3>
+        
+        <pre><code class="language-python"># Buat program daftar belanja interaktif:
+        # 1. User bisa menambah item
+        # 2. User bisa menghapus item
+        # 3. Tampilkan semua item dengan nomor
+        # Contoh:
+        #   &gt; tambah susu
+        #   &gt; tambah roti
+        #   &gt; tambah telur
+        #   &gt; lihat
+        #   1. susu
+        #   2. roti
+        #   3. telur
+        #   &gt; hapus 2
+        #   &gt; lihat
+        #   1. susu
+        #   2. telur
+        #   &gt; selesai</code></pre>
+        
+        <h3>Latihan 2: Nilai Kelas</h3>
+        
+        <pre><code class="language-python"># Daftar nilai siswa
+        nilai_siswa = [85, 92, 78, 90, 88, 76, 95, 82]
+        
+        # Hitung dan cetak:
+        # - Nilai tertinggi
+        # - Nilai terendah
+        # - Rata-rata kelas
+        # - Jumlah siswa yang lulus (&gt;=75)
+        # Hint: gunakan max(), min(), sum(), len()</code></pre>
+        
+        <h3>Latihan 3: Matriks Sederhana</h3>
+        
+        <pre><code class="language-python"># Buat matriks 3x3 (angka 1-9):
+        # 1 2 3
+        # 4 5 6
+        # 7 8 9
+        #
+        # Cetak dengan format rapi.
+        # Akses dan cetak elemen di baris 2, kolom 3 (harus 6)</code></pre>
+        
+        <h3>Latihan 4: Unpack Tuple</h3>
+        
+        <pre><code class="language-python"># Buat fungsi yang mengembalikan (nama, usia, kelas)
+        # Panggil dan unpack hasilnya ke variabel terpisah</code></pre>
+        
+        <hr>
+        
+        <h2>✅ Checklist Paham</h2>
+        
+        <ul><li>[ ] Saya bisa bikin dan mengakses list</li><li>[ ] Saya bisa pake <code>append()</code>, <code>insert()</code>, <code>remove()</code>, <code>pop()</code>, <code>sort()</code></li><li>[ ] Saya paham beda mutable vs immutable (list vs tuple)</li><li>[ ] Saya bisa bikin tuple dan paham kapan pakainya</li><li>[ ] Saya paham konsep nested list</li><li>[ ] Saya bisa pake <code>enumerate()</code> untuk loop</li><li>[ ] Saya bisa unpack tuple dari return fungsi</li></ul>
+        
+        <p><strong>Kalau semua checklist tercentang → lanjut ke Modul 4.</strong></p>
+        
+    <nav class="modul-nav">
+        <a href="02-string.html">« 🧵 String</a>
+        <span class="modul-nav-center">⬅ <a href="../index.html">Index</a></span>
+        <a href="04-dictionary-set.html">🔑 Dictionary & Set »</a>
+    </nav>
+    </div>
+    <script>document.querySelectorAll('pre code').forEach(b=>hljs.highlightElement(b));</script>
+</body>
+</html>

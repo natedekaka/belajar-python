@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modul 9: File I/O (Baca &amp; Tulis File) — Belajar Python</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐍</text></svg>">
+</head>
+<body>
+    <nav class="top-nav">
+        <a href="../index.html">⬅ Kembali ke Index</a>
+        <span class="title-nav">Modul 9: File I/O (Baca &amp; Tulis File)</span>
+    </nav>
+    <div class="container">
+        <h1>Modul 9: File I/O (Baca & Tulis File)</h1>
+        
+        <h2>🏆 Target Pemahaman</h2>
+        
+        <p>Setelah modul ini, kamu bisa:</p>
+        <ul><li>Membaca isi file teks dengan Python</li><li>Menulis data ke file</li><li>Menggunakan <code>with</code> statement untuk manajemen file otomatis</li><li>Membaca dan memproses file CSV (nilai siswa!)</li><li>Membuat program yang menyimpan data</li></ul>
+        
+        <hr>
+        
+        <h2>1. Membuka File</h2>
+        
+        <p>Untuk bekerja dengan file, kita perlu <strong>membuka</strong> file terlebih dahulu.</p>
+        
+        <pre><code class="language-python"># Sintaks: open(nama_file, mode)
+        file = open(&quot;data.txt&quot;, &quot;r&quot;)  # &quot;r&quot; = read mode
+        isi = file.read()
+        print(isi)
+        file.close()  # ⚠️ Jangan lupa tutup!</code></pre>
+        
+        <h3>Mode File</h3>
+        
+        <table>
+        <tr><th>Mode</th><th>Arti</th><th>File Tidak Ada</th></tr>
+        <tr><td><code>&quot;r&quot;</code></td><td>Read (baca)</td><td>❌ Error</td></tr>
+        <tr><td><code>&quot;w&quot;</code></td><td>Write (tulis) — <strong>timpa</strong> isi lama</td><td>✅ Buat baru</td></tr>
+        <tr><td><code>&quot;a&quot;</code></td><td>Append (tambah ke akhir)</td><td>✅ Buat baru</td></tr>
+        <tr><td><code>&quot;x&quot;</code></td><td>Exclusive create (buat baru)</td><td>✅ Buat baru, error kalau sudah ada</td></tr>
+        <tr><td><code>&quot;r+&quot;</code></td><td>Read & Write</td><td>❌ Error</td></tr>
+        </table>
+        
+        <p>File bisa teks (default) atau binary (tambah <code>&quot;b&quot;</code>, misal <code>&quot;rb&quot;</code>).</p>
+        
+        <blockquote><p>⚠️ <strong><code>&quot;w&quot;</code> akan MENIMPA file yang sudah ada!</strong> Hati-hati.</p></blockquote>
+        
+        <h2>2. With Statement — Cara Aman untuk File</h2>
+        
+        <p>Masalah dengan <code>open()</code> manual: kita bisa lupa <code>close()</code>. Solusi: <code>with</code> statement, yang <strong>otomatis menutup file</strong> setelah selesai.</p>
+        
+        <pre><code class="language-python"># ← REKOMENDASI: selalu pakai &#x27;with&#x27;
+        with open(&quot;data.txt&quot;, &quot;r&quot;) as file:
+            isi = file.read()
+            print(isi)
+        # File otomatis tertutup di sini</code></pre>
+        
+        <blockquote><p>💡 <strong><code>with</code> adalah cara standar Python untuk bekerja dengan file.</strong> Selalu pakai ini.</p></blockquote>
+        
+        <h2>3. Membaca File (Read)</h2>
+        
+        <h3>Membaca Semua Isi</h3>
+        
+        <pre><code class="language-python"># Buat dulu file contoh
+        with open(&quot;contoh.txt&quot;, &quot;w&quot;) as f:
+            f.write(&quot;Baris 1: Nama, Nilai\n&quot;)
+            f.write(&quot;Baris 2: Budi, 85\n&quot;)
+            f.write(&quot;Baris 3: Ani, 92\n&quot;)
+        
+        # Baca semua
+        with open(&quot;contoh.txt&quot;, &quot;r&quot;) as f:
+            isi = f.read()
+            print(isi)
+        # Output:
+        # Baris 1: Nama, Nilai
+        # Baris 2: Budi, 85
+        # Baris 3: Ani, 92</code></pre>
+        
+        <h3>Membaca Per Baris</h3>
+        
+        <pre><code class="language-python"># Cara 1: readlines() → list baris
+        with open(&quot;contoh.txt&quot;, &quot;r&quot;) as f:
+            baris_list = f.readlines()
+            print(baris_list)   # [&#x27;Baris 1: Nama, Nilai\n&#x27;, &#x27;Baris 2: Budi, 85\n&#x27;, ...]
+        
+        # Cara 2: loop langsung 🔥 (paling efisien untuk file besar)
+        with open(&quot;contoh.txt&quot;, &quot;r&quot;) as f:
+            for baris in f:
+                print(f&quot;&gt; {baris.strip()}&quot;)  # strip() hapus \n</code></pre>
+        
+        <h3>Membaca Sebagian</h3>
+        
+        <pre><code class="language-python">with open(&quot;contoh.txt&quot;, &quot;r&quot;) as f:
+            print(f.read(10))    # Baca 10 karakter pertama
+            print(f.read(10))    # Baca 10 berikutnya (cursor otomatis maju)</code></pre>
+        
+        <h2>4. Menulis File (Write)</h2>
+        
+        <h3>Menulis — Menimpa</h3>
+        
+        <pre><code class="language-python">with open(&quot;output.txt&quot;, &quot;w&quot;) as f:
+            f.write(&quot;Halo, ini ditulis oleh Python!\n&quot;)
+            f.write(&quot;Baris kedua.\n&quot;)
+            f.write(f&quot;Angka: {42}\n&quot;)
+        # File akan dibuat (atau ditimpa kalau sudah ada)</code></pre>
+        
+        <h3>Append — Menambah</h3>
+        
+        <pre><code class="language-python">with open(&quot;output.txt&quot;, &quot;a&quot;) as f:
+            f.write(&quot;Baris tambahan di akhir.\n&quot;)
+            f.write(&quot;Ini tidak menghapus isi sebelumnya.\n&quot;)</code></pre>
+        
+        <h2>5. Bekerja dengan Path File</h2>
+        
+        <pre><code class="language-python">import os
+        
+        # Cek apakah file ada
+        if os.path.exists(&quot;data.txt&quot;):
+            print(&quot;File ada!&quot;)
+        else:
+            print(&quot;File tidak ada&quot;)
+        
+        # Gabung path (aman untuk Linux/Windows)
+        path = os.path.join(&quot;folder&quot;, &quot;subfolder&quot;, &quot;data.txt&quot;)
+        print(path)  # folder/subfolder/data.txt
+        
+        # Dapatkan direktori script saat ini
+        dir_sekarang = os.path.dirname(__file__)</code></pre>
+        
+        <blockquote><p>💡 Di Omarchy Linux, path menggunakan <code>/</code> (forward slash). Contoh: <code>~/belajar-python/data/nilai.csv</code></p></blockquote>
+        
+        <h2>6. Membaca & Menulis CSV (Paling Berguna Buat Guru!)</h2>
+        
+        <p>CSV = <strong>Comma-Separated Values</strong>. Format file untuk data tabular. Sangat berguna untuk data nilai siswa.</p>
+        
+        <h3>Tanpa Library CSV (Manual)</h3>
+        
+        <pre><code class="language-python"># Data yang akan disimpan
+        data_nilai = [
+            [&quot;Nama&quot;, &quot;MTK&quot;, &quot;IPA&quot;, &quot;ING&quot;],
+            [&quot;Budi&quot;, 85, 90, 78],
+            [&quot;Ani&quot;, 92, 88, 95],
+            [&quot;Citra&quot;, 76, 80, 82]
+        ]
+        
+        # Menulis CSV manual
+        with open(&quot;nilai.csv&quot;, &quot;w&quot;) as f:
+            for baris in data_nilai:
+                baris_str = [str(item) for item in baris]
+                f.write(&quot;,&quot;.join(baris_str) + &quot;\n&quot;)
+        
+        print(&quot;File nilai.csv berhasil dibuat!&quot;)</code></pre>
+        
+        <pre><code class="language-bash"># Isi file nilai.csv:
+        # Nama,MTK,IPA,ING
+        # Budi,85,90,78
+        # Ani,92,88,95
+        # Citra,76,80,82</code></pre>
+        
+        <pre><code class="language-python"># Membaca CSV manual
+        with open(&quot;nilai.csv&quot;, &quot;r&quot;) as f:
+            for baris in f:
+                # Hapus \n, pisah dengan koma
+                kolom = baris.strip().split(&quot;,&quot;)
+                print(kolom)</code></pre>
+        
+        <h3>Dengan Library CSV (Lebih Baik)</h3>
+        
+        <pre><code class="language-python">import csv
+        
+        # Membaca CSV
+        with open(&quot;nilai.csv&quot;, &quot;r&quot;) as f:
+            reader = csv.reader(f)
+            header = next(reader)  # Baris pertama = header
+            print(f&quot;Header: {header}&quot;)
+            
+            for row in reader:
+                nama = row[0]
+                mtk = int(row[1])
+                ipa = int(row[2])
+                ing = int(row[3])
+                rata = (mtk + ipa + ing) / 3
+                print(f&quot;{nama}: rata-rata {rata:.1f}&quot;)</code></pre>
+        
+        <pre><code class="language-python"># Menulis CSV dengan library
+        import csv
+        
+        data = [
+            [&quot;Nama&quot;, &quot;MTK&quot;, &quot;IPA&quot;, &quot;ING&quot;],
+            [&quot;Budi&quot;, 85, 90, 78],
+            [&quot;Ani&quot;, 92, 88, 95],
+            [&quot;Citra&quot;, 76, 80, 82]
+        ]
+        
+        with open(&quot;nilai_baru.csv&quot;, &quot;w&quot;, newline=&quot;&quot;) as f:
+            writer = csv.writer(f)
+            writer.writerows(data)
+        
+        print(&quot;File CSV berhasil ditulis!&quot;)</code></pre>
+        
+        <h3>Membaca CSV sebagai Dictionary</h3>
+        
+        <pre><code class="language-python">import csv
+        
+        with open(&quot;nilai.csv&quot;, &quot;r&quot;) as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                # row adalah dictionary: {&quot;Nama&quot;: &quot;Budi&quot;, &quot;MTK&quot;: &quot;85&quot;, ...}
+                nama = row[&quot;Nama&quot;]
+                mtk = int(row[&quot;MTK&quot;])
+                ipa = int(row[&quot;IPA&quot;])
+                ing = int(row[&quot;ING&quot;])
+                rata = (mtk + ipa + ing) / 3
+                print(f&quot;{nama}: {rata:.1f}&quot;)</code></pre>
+        
+        <h2>7. JSON — Format Data Modern</h2>
+        
+        <p>JSON mirip dictionary Python. Sering dipakai untuk menyimpan data terstruktur.</p>
+        
+        <pre><code class="language-python">import json
+        
+        # Data sebagai dictionary
+        data_kelas = {
+            &quot;kelas&quot;: &quot;XII IPA 1&quot;,
+            &quot;tahun&quot;: 2026,
+            &quot;siswa&quot;: [
+                {&quot;nama&quot;: &quot;Budi&quot;, &quot;nilai&quot;: 85},
+                {&quot;nama&quot;: &quot;Ani&quot;, &quot;nilai&quot;: 92},
+                {&quot;nama&quot;: &quot;Citra&quot;, &quot;nilai&quot;: 78}
+            ]
+        }
+        
+        # Simpan ke JSON
+        with open(&quot;kelas.json&quot;, &quot;w&quot;) as f:
+            json.dump(data_kelas, f, indent=2)  # indent=2 biar rapi
+        
+        # Baca dari JSON
+        with open(&quot;kelas.json&quot;, &quot;r&quot;) as f:
+            data_baca = json.load(f)
+            print(f&quot;Kelas: {data_baca[&#x27;kelas&#x27;]}&quot;)
+            for s in data_baca[&#x27;siswa&#x27;]:
+                print(f&quot;  {s[&#x27;nama&#x27;]}: {s[&#x27;nilai&#x27;]}&quot;)</code></pre>
+        
+        <blockquote><p>💡 JSON lebih disarankan daripada CSV untuk data kompleks (nested). Tapi CSV lebih universal untuk dibuka di Excel.</p></blockquote>
+        
+        <hr>
+        
+        <h2>🧪 Latihan Modul 9</h2>
+        
+        <h3>Latihan 1: Catatan Harian</h3>
+        
+        <pre><code class="language-python"># Program catatan harian sederhana:
+        # 1. Setiap kali dibuka, tampilkan isi catatan sebelumnya
+        # 2. Minta user menulis catatan baru (input)
+        # 3. Simpan catatan ke file (append)
+        # 4. Tampilkan semua catatan
+        # Gunakan file &quot;catatan.txt&quot;</code></pre>
+        
+        <h3>Latihan 2: Pengelola Nilai CSV</h3>
+        
+        <pre><code class="language-python"># Buat sistem sederhana:
+        # 1. Input data siswa (nama, mtk, ipa, ing) → simpan ke CSV
+        # 2. Baca CSV → tampilkan laporan (nama + rata-rata)
+        # 3. Cari siswa berdasarkan nama → tampilkan detailnya
+        # 4. (Bonus) Hitung statistik kelas: rata-rata per mapel, tertinggi, terendah</code></pre>
+        
+        <h3>Latihan 3: JSON Buku Telepon</h3>
+        
+        <pre><code class="language-python"># Buku telepon berbasis JSON:
+        # Data disimpan di &quot;kontak.json&quot;
+        # Menu:
+        # 1. Lihat semua kontak
+        # 2. Tambah kontak (nama, nomor, email)
+        # 3. Cari kontak
+        # 4. Hapus kontak
+        # 5. Keluar
+        # Data otomatis tersimpan di file</code></pre>
+        
+        <h3>Latihan 4: Membaca Nilai dari CSV + Analisis</h3>
+        
+        <pre><code class="language-python"># Buat file &quot;kelas_xii.csv&quot; dengan data:
+        # Nama,MTK,IPA,ING,PPKn
+        # Budi,85,90,78,80
+        # Ani,92,88,95,85
+        # Citra,76,80,82,78
+        # Dedi,88,85,90,92
+        # Eva,95,92,88,90
+        
+        # Program membaca CSV dan mencetak:
+        # 1. Daftar siswa + rata-rata masing-masing
+        # 2. Siswa dengan rata-rata tertinggi
+        # 3. Siswa yang lulus (rata-rata &gt;= 75)
+        # 4. Ranking siswa berdasarkan rata-rata (urutan dari tertinggi)
+        
+        # (Bonus) export ranking ke file &quot;ranking.txt&quot;</code></pre>
+        
+        <hr>
+        
+        <h2>✅ Checklist Paham</h2>
+        
+        <ul><li>[ ] Saya bisa baca file teks dengan <code>with open()</code></li><li>[ ] Saya bisa tulis file dengan <code>&quot;w&quot;</code> dan <code>&quot;a&quot;</code></li><li>[ ] Saya paham beda <code>&quot;r&quot;</code>, <code>&quot;w&quot;</code>, <code>&quot;a&quot;</code></li><li>[ ] Saya bisa baca file per baris dengan loop</li><li>[ ] Saya bisa baca dan tulis CSV (manual & library)</li><li>[ ] Saya bisa baca dan tulis JSON</li><li>[ ] Saya paham <code>with</code> otomatis menutup file</li></ul>
+        
+        <p><strong>Kalau semua checklist tercentang → lanjut ke Modul 10.</strong></p>
+        
+    <nav class="modul-nav">
+        <a href="08-error-exception.html">« ❌ Error & Exception</a>
+        <span class="modul-nav-center">⬅ <a href="../index.html">Index</a></span>
+        <a href="10-module-pip.html">📦 Module & pip »</a>
+    </nav>
+    </div>
+    <script>document.querySelectorAll('pre code').forEach(b=>hljs.highlightElement(b));</script>
+</body>
+</html>

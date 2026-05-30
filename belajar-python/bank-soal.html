@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Soal Python — 100+ Soal Lengkap dengan Kunci Jawaban — Belajar Python</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐍</text></svg>">
+</head>
+<body>
+    <nav class="top-nav">
+        <a href="index.html">⬅ Kembali ke Index</a>
+        <span class="title-nav">Bank Soal Python — 100+ Soal Lengkap dengan Kunci Jawaban</span>
+    </nav>
+    <div class="container">
+        <h1>📝 Bank Soal Python — 100+ Soal Lengkap dengan Kunci Jawaban</h1>
+        
+        <h2>Format Soal</h2>
+        
+        <table>
+        <tr><th>Kode</th><th>Tipe</th><th>Bobot</th></tr>
+        <tr><td>PG</td><td>Pilihan Ganda</td><td>1 poin</td></tr>
+        <tr><td>C</td><td>Coding</td><td>3-5 poin</td></tr>
+        <tr><td>E</td><td>Essay</td><td>2-3 poin</td></tr>
+        </table>
+        
+        <hr>
+        
+        <h2>Modul 1: Variabel & Tipe Data (15 Soal)</h2>
+        
+        <h3>PG-01</h3>
+        <p>Manakah penulisan variabel yang <strong>benar</strong> di Python?</p>
+        <p>a) <code>2data = 5</code>  </p>
+        <p>b) <code>data-siswa = 5</code>  </p>
+        <p>c) <code>data_siswa = 5</code> ✅  </p>
+        <p>d) <code>data siswa = 5</code></p>
+        
+        <h3>PG-02</h3>
+        <p>Tipe data dari <code>3.14</code> adalah...</p>
+        <p>a) <code>int</code>  </p>
+        <p>b) <code>float</code> ✅  </p>
+        <p>c) <code>str</code>  </p>
+        <p>d) <code>bool</code></p>
+        
+        <h3>PG-03</h3>
+        <p>Apa output dari <code>print(type(&quot;123&quot;))</code>?</p>
+        <p>a) <code>&lt;class &#x27;int&#x27;&gt;</code>  </p>
+        <p>b) <code>&lt;class &#x27;float&#x27;&gt;</code>  </p>
+        <p>c) <code>&lt;class &#x27;str&#x27;&gt;</code> ✅  </p>
+        <p>d) <code>&lt;class &#x27;bool&#x27;&gt;</code></p>
+        
+        <h3>PG-04</h3>
+        <p>Apa output dari <code>print(10 // 3)</code>?</p>
+        <p>a) <code>3.33</code>  </p>
+        <p>b) <code>3</code> ✅  </p>
+        <p>c) <code>3.0</code>  </p>
+        <p>d) <code>4</code></p>
+        
+        <h3>PG-05</h3>
+        <p>Apa output dari <code>print(10 % 3)</code>?</p>
+        <p>a) <code>3</code>  </p>
+        <p>b) <code>1</code> ✅  </p>
+        <p>c) <code>0</code>  </p>
+        <p>d) <code>3.33</code></p>
+        
+        <h3>PG-06</h3>
+        <p>Operator yang digunakan untuk <strong>pangkat</strong> di Python adalah...</p>
+        <p>a) <code>^</code>  </p>
+        <p>b) <code>**</code> ✅  </p>
+        <p>c) <code>pow</code>  </p>
+        <p>d) <code>^^</code></p>
+        
+        <h3>PG-07</h3>
+        <p>Apa output dari <code>print(5 + 3 * 2)</code>?</p>
+        <p>a) <code>16</code>  </p>
+        <p>b) <code>11</code> ✅  </p>
+        <p>c) <code>13</code>  </p>
+        <p>d) <code>10</code></p>
+        
+        <h3>C-01 (Bobot: 3)</h3>
+        <p>Buat program yang menerima <strong>nama</strong> dan <strong>tahun lahir</strong>, lalu menampilkan:</p>
+        <pre><code>Halo [nama], umur kamu [umur] tahun.</code></pre>
+        <p><em>Hint: tahun sekarang 2026</em></p>
+        
+        <p><strong>Kunci:</strong></p>
+        <pre><code class="language-python">nama = input(&quot;Masukkan nama: &quot;)
+        tahun_lahir = int(input(&quot;Masukkan tahun lahir: &quot;))
+        umur = 2026 - tahun_lahir
+        print(f&quot;Halo {nama}, umur kamu {umur} tahun.&quot;)</code></pre>
+        
+        <h3>C-02 (Bobot: 3)</h3>
+        <p>Buat program yang menerima dua angka, lalu menampilkan: jumlah, selisih, kali, bagi, sisa bagi.</p>
+        
+        <p><strong>Kunci:</strong></p>
+        <pre><code class="language-python">a = int(input(&quot;Angka 1: &quot;))
+        b = int(input(&quot;Angka 2: &quot;))
+        print(f&quot;{a} + {b} = {a+b}&quot;)
+        print(f&quot;{a} - {b} = {a-b}&quot;)
+        print(f&quot;{a} x {b} = {a*b}&quot;)
+        print(f&quot;{a} / {b} = {a/b}&quot;)
+        print(f&quot;{a} % {b} = {a%b}&quot;)</code></pre>
+        
+        <h3>E-01 (Bobot: 2)</h3>
+        <p>Jelaskan perbedaan antara <code>int</code> dan <code>float</code>! Berikan contoh masing-masing.</p>
+        
+        <p><strong>Kunci:</strong> <code>int</code> untuk bilangan bulat (tanpa koma) seperti <code>5</code>, <code>-10</code>, <code>1000</code>. <code>float</code> untuk bilangan desimal seperti <code>3.14</code>, <code>-0.5</code>, <code>2.0</code>. Perbedaan utama: <code>int</code> tidak punya bagian desimal, <code>float</code> punya.</p>
+        
+        <hr>
+        
+        <h2>Modul 2: String (12 Soal)</h2>
+        
+        <h3>PG-08</h3>
+        <p>Apa output dari <code>&quot;PYTHON&quot;[2]</code>?</p>
+        <p>a) <code>&#x27;P&#x27;</code>  </p>
+        <p>b) <code>&#x27;Y&#x27;</code>  </p>
+        <p>c) <code>&#x27;T&#x27;</code> ✅  </p>
+        <p>d) <code>&#x27;H&#x27;</code></p>
+        
+        <h3>PG-09</h3>
+        <p>Apa output dari <code>&quot;PYTHON&quot;[::-1]</code>?</p>
+        <p>a) <code>&#x27;PYTHON&#x27;</code>  </p>
+        <p>b) <code>&#x27;NOHTYP&#x27;</code> ✅  </p>
+        <p>c) <code>&#x27;NOTYPH&#x27;</code>  </p>
+        <p>d) <code>&#x27;Python&#x27;</code></p>
+        
+        <h3>PG-10</h3>
+        <p>Method untuk menghapus spasi di kiri dan kanan string adalah...</p>
+        <p>a) <code>.cut()</code>  </p>
+        <p>b) <code>.remove()</code>  </p>
+        <p>c) <code>.strip()</code> ✅  </p>
+        <p>d) <code>.trim()</code></p>
+        
+        <h3>PG-11</h3>
+        <p>Apa output dari <code>&quot;belajar python&quot;.title()</code>?</p>
+        <p>a) <code>&#x27;Belajar Python&#x27;</code> ✅  </p>
+        <p>b) <code>&#x27;BELAJAR PYTHON&#x27;</code>  </p>
+        <p>c) <code>&#x27;belajar python&#x27;</code>  </p>
+        <p>d) <code>&#x27;Belajar python&#x27;</code></p>
+        
+        <h3>PG-12</h3>
+        <p>Apa output dari <code>&quot;satu-dua-tiga&quot;.split(&quot;-&quot;)</code>?</p>
+        <p>a) <code>[&#x27;satu&#x27;, &#x27;dua&#x27;, &#x27;tiga&#x27;]</code> ✅  </p>
+        <p>b) <code>&#x27;satu duetiga&#x27;</code>  </p>
+        <p>c) <code>[&#x27;satu-dua-tiga&#x27;]</code>  </p>
+        <p>d) <code>&#x27;satu&#x27;, &#x27;dua&#x27;, &#x27;tiga&#x27;</code></p>
+        
+        <h3>PG-13</h3>
+        <p>String di Python bersifat... (pilih yang benar)</p>
+        <p>a) Mutable (bisa diubah)  </p>
+        <p>b) Immutable ✅  </p>
+        <p>c) Bisa diubah dengan assignment index  </p>
+        <p>d) Tidak bisa diakses per karakter</p>
+        
+        <h3>C-03 (Bobot: 4)</h3>
+        <p>Buat program yang menerima sebuah kalimat, lalu menampilkan:</p>
+        <ol><li>Jumlah karakter</li><li>Kalimat dalam huruf besar semua</li><li>Kalimat dalam huruf kecil semua</li><li>Kalimat yang dibalik</li></ol>
+        
+        <p><strong>Kunci:</strong></p>
+        <pre><code class="language-python">kalimat = input(&quot;Masukkan kalimat: &quot;)
+        print(f&quot;Jumlah karakter: {len(kalimat)}&quot;)
+        print(f&quot;Huruf besar: {kalimat.upper()}&quot;)
+        print(f&quot;Huruf kecil: {kalimat.lower()}&quot;)
+        print(f&quot;Dibalik: {kalimat[::-1]}&quot;)</code></pre>
+        
+        <h3>E-02 (Bobot: 2)</h3>
+        <p>Apa yang dimaksud dengan <strong>string slicing</strong>? Berikan contoh <code>[start:stop:step]</code> dengan penjelasan.</p>
+        
+        <p><strong>Kunci:</strong> Slicing adalah cara mengambil sebagian string. Format: <code>string[start:stop:step]</code>. <code>start</code> = index mulai, <code>stop</code> = index akhir (tidak termasuk), <code>step</code> = langkah. Contoh: <code>&quot;Python&quot;[0:4]</code> → <code>&quot;Pyth&quot;</code> (index 0,1,2,3). <code>&quot;Python&quot;[::2]</code> → <code>&quot;Pto&quot;</code> (setiap 2 langkah).</p>
+        
+        <hr>
+        
+        <h2>Modul 3: List & Tuple (12 Soal)</h2>
+        
+        <h3>PG-14</h3>
+        <p>Manakah yang <strong>benar</strong> tentang list di Python?</p>
+        <p>a) List dimulai dari index 1  </p>
+        <p>b) List tidak bisa diubah setelah dibuat  </p>
+        <p>c) List bisa berisi berbagai tipe data ✅  </p>
+        <p>d) List menggunakan kurung biasa <code>()</code></p>
+        
+        <h3>PG-15</h3>
+        <p>Apa output dari <code>[1, 2, 3, 4, 5][-1]</code>?</p>
+        <p>a) <code>1</code>  </p>
+        <p>b) <code>5</code> ✅  </p>
+        <p>c) <code>4</code>  </p>
+        <p>d) Error</p>
+        
+        <h3>PG-16</h3>
+        <p>Method untuk menambahkan item ke <strong>akhir</strong> list adalah...</p>
+        <p>a) <code>.add()</code>  </p>
+        <p>b) <code>.insert()</code>  </p>
+        <p>c) <code>.append()</code> ✅  </p>
+        <p>d) <code>.push()</code></p>
+        
+        <h3>PG-17</h3>
+        <p>Apa output dari kode berikut?</p>
+        <pre><code class="language-python">a = [1, 2, 3]
+        b = a
+        b[0] = 99
+        print(a[0])</code></pre>
+        <p>a) <code>1</code>  </p>
+        <p>b) <code>99</code> ✅  </p>
+        <p>c) <code>[1, 2, 3]</code>  </p>
+        <p>d) Error</p>
+        
+        <h3>PG-18</h3>
+        <p>Perbedaan utama antara <strong>list</strong> dan <strong>tuple</strong> adalah...</p>
+        <p>a) List lebih cepat dari tuple  </p>
+        <p>b) Tuple bisa diubah, list tidak  </p>
+        <p>c) List bisa diubah, tuple tidak ✅  </p>
+        <p>d) Tuple menggunakan kurung siku</p>
+        
+        <h3>PG-19</h3>
+        <p>Apa output dari <code>len([1, [2, 3], 4])</code>?</p>
+        <p>a) <code>3</code> ✅  </p>
+        <p>b) <code>4</code>  </p>
+        <p>c) <code>2</code>  </p>
+        <p>d) Error</p>
+        
+        <h3>C-04 (Bobot: 4)</h3>
+        <p>Buat program yang:</p>
+        <ol><li>Menerima 5 angka dari user (masukkan ke list)</li><li>Menampilkan: nilai tertinggi, terendah, rata-rata, jumlah</li></ol>
+        
+        <p><strong>Kunci:</strong></p>
+        <pre><code class="language-python">angka = []
+        for i in range(5):
+            n = int(input(f&quot;Angka ke-{i+1}: &quot;))
+            angka.append(n)
+        
+        print(f&quot;Tertinggi: {max(angka)}&quot;)
+        print(f&quot;Terendah: {min(angka)}&quot;)
+        print(f&quot;Rata-rata: {sum(angka)/len(angka)}&quot;)
+        print(f&quot;Jumlah: {sum(angka)}&quot;)</code></pre>
+        
+        <hr>
+        
+        <h2>Modul 4: Dictionary & Set (10 Soal)</h2>
+        
+        <h3>PG-20</h3>
+        <p>Cara mengakses value dengan key <code>&quot;nama&quot;</code> dari dictionary <code>d = {&quot;nama&quot;: &quot;Budi&quot;, &quot;umur&quot;: 17}</code> adalah...</p>
+        <p>a) <code>d[&quot;nama&quot;]</code> ✅  </p>
+        <p>b) <code>d.0</code>  </p>
+        <p>c) <code>d[0]</code>  </p>
+        <p>d) <code>d(&quot;nama&quot;)</code></p>
+        
+        <h3>PG-21</h3>
+        <p>Apa keuntungan menggunakan <code>.get()</code> dibanding <code>d[key]</code>?</p>
+        <p>a) <code>.get()</code> lebih cepat  </p>
+        <p>b) <code>.get()</code> tidak error jika key tidak ada ✅  </p>
+        <p>c) <code>.get()</code> hanya untuk string  </p>
+        <p>d) Tidak ada perbedaan</p>
+        
+        <h3>PG-22</h3>
+        <p>Apa output dari?</p>
+        <pre><code class="language-python">d = {&quot;a&quot;: 1, &quot;b&quot;: 2}
+        print(&quot;c&quot; in d)</code></pre>
+        <p>a) <code>True</code>  </p>
+        <p>b) <code>False</code> ✅  </p>
+        <p>c) <code>None</code>  </p>
+        <p>d) Error</p>
+        
+        <h3>PG-23</h3>
+        <p>Method untuk mengambil <strong>semua pasangan key-value</strong> dari dictionary adalah...</p>
+        <p>a) <code>.keys()</code>  </p>
+        <p>b) <code>.values()</code>  </p>
+        <p>c) <code>.items()</code> ✅  </p>
+        <p>d) <code>.pairs()</code></p>
+        
+        <h3>PG-24</h3>
+        <p>Set di Python digunakan untuk...</p>
+        <p>a) Menyimpan data berurutan  </p>
+        <p>b) Menyimpan data unik (tanpa duplikat) ✅  </p>
+        <p>c) Menyimpan data dengan key-value  </p>
+        <p>d) Menyimpan data yang bisa diubah</p>
+        
+        <h3>C-05 (Bobot: 4)</h3>
+        <p>Buat program <strong>buku telepon</strong> sederhana yang bisa menambah kontak (nama: nomor) dan menampilkan semua kontak.</p>
+        
+        <p><strong>Kunci:</strong></p>
+        <pre><code class="language-python">kontak = {}
+        while True:
+            print(&quot;\n1. Tambah kontak&quot;)
+            print(&quot;2. Lihat semua&quot;)
+            print(&quot;3. Keluar&quot;)
+            pilih = input(&quot;Pilihan: &quot;)
+            
+            if pilih == &quot;1&quot;:
+                nama = input(&quot;Nama: &quot;)
+                nomor = input(&quot;Nomor: &quot;)
+                kontak[nama] = nomor
+                print(&quot;Tersimpan!&quot;)
+            elif pilih == &quot;2&quot;:
+                for nama, nomor in kontak.items():
+                    print(f&quot;{nama}: {nomor}&quot;)
+            elif pilih == &quot;3&quot;:
+                break</code></pre>
+        
+        <hr>
+        
+        <h2>Modul 5: Percabangan (12 Soal)</h2>
+        
+        <h3>PG-25</h3>
+        <p>Apa output dari:</p>
+        <pre><code class="language-python">x = 10
+        if x &gt; 5:
+            print(&quot;A&quot;)
+        else:
+            print(&quot;B&quot;)</code></pre>
+        <p>a) <code>A</code> ✅  </p>
+        <p>b) <code>B</code>  </p>
+        <p>c) Error  </p>
+        <p>d) Tidak ada output</p>
+        
+        <h3>PG-26</h3>
+        <p>Apa perbedaan <code>=</code> dan <code>==</code> di Python?</p>
+        <p>a) Sama saja  </p>
+        <p>b) <code>=</code> untuk assignment, <code>==</code> untuk perbandingan ✅  </p>
+        <p>c) <code>=</code> untuk perbandingan, <code>==</code> untuk assignment  </p>
+        <p>d) Keduanya bisa dipakai bergantian</p>
+        
+        <h3>PG-27</h3>
+        <p>Manakah yang akan menghasilkan <code>True</code>?</p>
+        <p>a) <code>True and False</code>  </p>
+        <p>b) <code>False or False</code>  </p>
+        <p>c) <code>not False</code> ✅  </p>
+        <p>d) <code>True and False or False</code></p>
+        
+        <h3>PG-28</h3>
+        <p>Apa output dari kode berikut?</p>
+        <pre><code class="language-python">nilai = 85
+        if nilai &gt;= 90:
+            grade = &quot;A&quot;
+        elif nilai &gt;= 80:
+            grade = &quot;B&quot;
+        elif nilai &gt;= 70:
+            grade = &quot;C&quot;
+        else:
+            grade = &quot;D&quot;
+        print(grade)</code></pre>
+        <p>a) <code>A</code>  </p>
+        <p>b) <code>B</code> ✅  </p>
+        <p>c) <code>C</code>  </p>
+        <p>d) <code>D</code></p>
+        
+        <h3>PG-29</h3>
+        <p>Nilai di Python yang dianggap <strong>False</strong> (falsy) adalah... (kecuali)</p>
+        <p>a) <code>0</code>  </p>
+        <p>b) <code>&quot;&quot;</code> (string kosong)  </p>
+        <p>c) <code>&quot;False&quot;</code> ✅  </p>
+        <p>d) <code>None</code></p>
+        
+        <h3>PG-30</h3>
+        <p>Apa output dari <code>print(&quot;A&quot;) if 5 &gt; 3 else print(&quot;B&quot;)</code>?</p>
+        <p>a) <code>A</code> ✅  </p>
+        <p>b) <code>B</code>  </p>
+        <p>c) <code>True</code>  </p>
+        <p>d) Error</p>
+        
+        <h3>C-06 (Bobot: 4)</h3>
+        <p>Buat program yang menerima <strong>3 nilai ujian</strong> (MTK, IPA, ING). Syarat lulus: rata-rata &gt;= 75 DAN tidak ada nilai di bawah 60. Tampilkan "Lulus" atau "Tidak lulus" beserta alasan.</p>
+        
+        <p><strong>Kunci:</strong></p>
+        <pre><code class="language-python">mtk = float(input(&quot;Nilai Matematika: &quot;))
+        ipa = float(input(&quot;Nilai IPA: &quot;))
+        ing = float(input(&quot;Nilai Inggris: &quot;))
+        rata = (mtk + ipa + ing) / 3
+        
+        if rata &lt; 75:
+            print(f&quot;Tidak lulus. Rata-rata {rata:.1f} &lt; 75&quot;)
+        elif mtk &lt; 60 or ipa &lt; 60 or ing &lt; 60:
+            print(&quot;Tidak lulus. Ada nilai di bawah 60&quot;)
+        else:
+            print(f&quot;Lulus! Rata-rata {rata:.1f}&quot;)</code></pre>
+        
+        <hr>
+        
+        <h2>Modul 6: Perulangan (12 Soal)</h2>
+        
+        <h3>PG-31</h3>
+        <p>Apa output dari:</p>
+        <pre><code class="language-python">for i in range(3):
+            print(i, end=&quot; &quot;)</code></pre>
+        <p>a) <code>1 2 3</code>  </p>
+        <p>b) <code>0 1 2</code> ✅  </p>
+        <p>c) <code>0 1 2 3</code>  </p>
+        <p>d) <code>1 2</code></p>
+        
+        <h3>PG-32</h3>
+        <p><code>for i in range(2, 8, 3)</code> akan menghasilkan urutan...</p>
+        <p>a) <code>2, 5, 8</code>  </p>
+        <p>b) <code>2, 5</code> ✅  </p>
+        <p>c) <code>2, 3, 4, 5, 6, 7</code>  </p>
+        <p>d) <code>2, 4, 6</code></p>
+        
+        <h3>PG-33</h3>
+        <p>Apa fungsi <code>break</code> dalam perulangan?</p>
+        <p>a) Melanjutkan ke iterasi berikutnya  </p>
+        <p>b) Menghentikan perulangan sepenuhnya ✅  </p>
+        <p>c) Mengulang dari awal  </p>
+        <p>d) Melewatkan 1 iterasi</p>
+        
+        <h3>PG-34</h3>
+        <p>Apa output dari:</p>
+        <pre><code class="language-python">for i in range(5):
+            if i == 3:
+                break
+            print(i, end=&quot; &quot;)</code></pre>
+        <p>a) <code>0 1 2</code> ✅  </p>
+        <p>b) <code>0 1 2 3</code>  </p>
+        <p>c) <code>0 1 2 4</code>  </p>
+        <p>d) <code>0 1 2 3 4</code></p>
+        
+        <h3>PG-35</h3>
+        <p>Apa output dari:</p>
+        <pre><code class="language-python">for i in range(5):
+            if i == 3:
+                continue
+            print(i, end=&quot; &quot;)</code></pre>
+        <p>a) <code>0 1 2 4</code> ✅  </p>
+        <p>b) <code>0 1 2 3</code>  </p>
+        <p>c) <code>0 1 2 4 5</code>  </p>
+        <p>d) <code>0 1 2</code></p>
+        
+        <h3>PG-36</h3>
+        <p>Manakah yang <strong>paling tepat</strong> menggunakan <code>while</code> loop?</p>
+        <p>a) Mencetak semua item dalam list  </p>
+        <p>b) Mencetak angka 1-10  </p>
+        <p>c) Meminta input sampai user menjawab benar ✅  </p>
+        <p>d) Menghitung jumlah karakter string</p>
+        
+        <h3>C-07 (Bobot: 5)</h3>
+        <p>Buat program <strong>FizzBuzz</strong> untuk angka 1-100:</p>
+        <ul><li>Kelipatan 3 → "Fizz"</li><li>Kelipatan 5 → "Buzz"</li><li>Kelipatan 3 dan 5 → "FizzBuzz"</li><li>Selainnya → angka</li></ul>
+        
+        <p><strong>Kunci:</strong></p>
+        <pre><code class="language-python">for i in range(1, 101):
+            if i % 3 == 0 and i % 5 == 0:
+                print(&quot;FizzBuzz&quot;)
+            elif i % 3 == 0:
+                print(&quot;Fizz&quot;)
+            elif i % 5 == 0:
+                print(&quot;Buzz&quot;)
+            else:
+                print(i)</code></pre>
+        
+        <hr>
+        
+        <h2>Modul 7: Function (10 Soal)</h2>
+        
+        <h3>PG-37</h3>
+        <p>Manakah penulisan fungsi yang benar?</p>
+        <p>a) <code>fungsi my_func():</code>  </p>
+        <p>b) <code>def my_func():</code> ✅  </p>
+        <p>c) <code>function my_func():</code>  </p>
+        <p>d) <code>func my_func():</code></p>
+        
+        <h3>PG-38</h3>
+        <p>Apa output dari:</p>
+        <pre><code class="language-python">def kali(a, b):
+            return a * b
+        print(kali(3, 4))</code></pre>
+        <p>a) <code>12</code> ✅  </p>
+        <p>b) <code>7</code>  </p>
+        <p>c) <code>34</code>  </p>
+        <p>d) Error</p>
+        
+        <h3>PG-39</h3>
+        <p>Apa yang terjadi jika fungsi tidak memiliki <code>return</code>?</p>
+        <p>a) Error  </p>
+        <p>b) Mengembalikan <code>None</code> ✅  </p>
+        <p>c) Mengembalikan <code>0</code>  </p>
+        <p>d) Tidak mengembalikan apa-apa</p>
+        
+        <h3>PG-40</h3>
+        <p>Manakah pernyataan yang <strong>benar</strong> tentang variabel lokal?</p>
+        <p>a) Bisa diakses di luar fungsi  </p>
+        <p>b) Hanya bisa diakses di dalam fungsi tempat ia didefinisikan ✅  </p>
+        <p>c) Selalu bisa diakses di semua fungsi  </p>
+        <p>d) Tidak bisa punya nama yang sama dengan variabel global</p>
+        
+        <h3>PG-41</h3>
+        <p>Apa output dari:</p>
+        <pre><code class="language-python">def hitung(*args):
+            return sum(args)
+        print(hitung(1, 2, 3, 4, 5))</code></pre>
+        <p>a) <code>15</code> ✅  </p>
+        <p>b) <code>[1, 2, 3, 4, 5]</code>  </p>
+        <p>c) Error  </p>
+        <p>d) <code>10</code></p>
+        
+        <h3>C-08 (Bobot: 4)</h3>
+        <p>Buat fungsi <code>luas_lingkaran(jari_jari)</code> yang mengembalikan luas lingkaran (π=3.14). Panggil dengan jari-jari 7 dan tampilkan hasilnya.</p>
+        
+        <p><strong>Kunci:</strong></p>
+        <pre><code class="language-python">def luas_lingkaran(r):
+            return 3.14 * r * r
+        
+        print(f&quot;Luas lingkaran r=7: {luas_lingkaran(7)}&quot;)</code></pre>
+        
+        <hr>
+        
+        <h2>Modul 8: Error & Exception (8 Soal)</h2>
+        
+        <h3>PG-42</h3>
+        <p>Apa jenis error jika kita membagi angka dengan nol?</p>
+        <p>a) <code>ValueError</code>  </p>
+        <p>b) <code>IndexError</code>  </p>
+        <p>c) <code>ZeroDivisionError</code> ✅  </p>
+        <p>d) <code>TypeError</code></p>
+        
+        <h3>PG-43</h3>
+        <p>Apa output dari:</p>
+        <pre><code class="language-python">try:
+            print(10 / 0)
+        except ZeroDivisionError:
+            print(&quot;Error nih!&quot;)</code></pre>
+        <p>a) Error program berhenti  </p>
+        <p>b) <code>Error nih!</code> ✅  </p>
+        <p>c) <code>inf</code>  </p>
+        <p>d) Tidak ada output</p>
+        
+        <h3>PG-44</h3>
+        <p>Blok <code>finally</code> pada try/except akan dijalankan ketika...</p>
+        <p>a) Hanya ketika tidak ada error  </p>
+        <p>b) Hanya ketika ada error  </p>
+        <p>c) Selalu, baik error maupun tidak ✅  </p>
+        <p>d) Tidak pernah dijalankan</p>
+        
+        <h3>PG-45</h3>
+        <p>Kita sengaja membuat error dengan perintah...</p>
+        <p>a) <code>error()</code>  </p>
+        <p>b) <code>raise</code> ✅  </p>
+        <p>c) <code>throw</code>  </p>
+        <p>d) <code>exception()</code></p>
+        
+        <h3>C-09 (Bobot: 3)</h3>
+        <p>Buat fungsi <code>bagi(a, b)</code> yang menggunakan <code>try/except</code> untuk menangani:</p>
+        <ul><li><code>ZeroDivisionError</code> → cetak "Tidak bisa membagi nol!"</li><li>Input bukan angka → cetak "Input harus angka!"</li></ul>
+        
+        <p><strong>Kunci:</strong></p>
+        <pre><code class="language-python">def bagi(a, b):
+            try:
+                return a / b
+            except ZeroDivisionError:
+                return &quot;Tidak bisa membagi nol!&quot;
+            except TypeError:
+                return &quot;Input harus angka!&quot;
+        
+        print(bagi(10, 2))   # 5.0
+        print(bagi(10, 0))   # Tidak bisa membagi nol!
+        print(bagi(10, &quot;a&quot;)) # Input harus angka!</code></pre>
+        
+        <hr>
+        
+        <h2>Modul 9: File I/O (8 Soal)</h2>
+        
+        <h3>PG-46</h3>
+        <p>Mode <code>&quot;w&quot;</code> saat membuka file berarti...</p>
+        <p>a) Membaca file  </p>
+        <p>b) Menulis file (menimpa) ✅  </p>
+        <p>c) Menulis file (menambah di akhir)  </p>
+        <p>d) Membaca dan menulis</p>
+        
+        <h3>PG-47</h3>
+        <p>Mode <code>&quot;a&quot;</code> saat membuka file berarti...</p>
+        <p>a) Membaca file  </p>
+        <p>b) Menulis file (menimpa)  </p>
+        <p>c) Append — menambah di akhir file ✅  </p>
+        <p>d) Membaca dan menulis</p>
+        
+        <h3>PG-48</h3>
+        <p><code>with open(&quot;file.txt&quot;, &quot;r&quot;) as f:</code> — Keuntungan menggunakan <code>with</code> adalah...</p>
+        <p>a) File otomatis ditutup setelah blok selesai ✅  </p>
+        <p>b) File tidak perlu dibuat  </p>
+        <p>c) File bisa dibaca lebih cepat  </p>
+        <p>d) Tidak perlu import apa-apa</p>
+        
+        <h3>C-10 (Bobot: 4)</h3>
+        <p>Buat program yang:</p>
+        <ol><li>Menerima input nama file dari user</li><li>Menerima input teks</li><li>Menyimpan teks ke file (append)</li><li>Membaca dan menampilkan semua isi file</li></ol>
+        
+        <p><strong>Kunci:</strong></p>
+        <pre><code class="language-python">nama_file = input(&quot;Nama file: &quot;)
+        teks = input(&quot;Teks yang akan disimpan: &quot;)
+        
+        with open(nama_file, &quot;a&quot;) as f:
+            f.write(teks + &quot;\n&quot;)
+        
+        print(&quot;\nIsi file:&quot;)
+        with open(nama_file, &quot;r&quot;) as f:
+            print(f.read())</code></pre>
+        
+        <hr>
+        
+        <h2>Modul 10: Module & pip (6 Soal)</h2>
+        
+        <h3>PG-49</h3>
+        <p>Perintah untuk menginstall package Python adalah...</p>
+        <p>a) <code>python install</code>  </p>
+        <p>b) <code>pip install</code> ✅  </p>
+        <p>c) <code>get install</code>  </p>
+        <p>d) <code>package install</code></p>
+        
+        <h3>PG-50</h3>
+        <p>Fungsi <code>randint(1, 10)</code> berasal dari modul...</p>
+        <p>a) <code>math</code>  </p>
+        <p>b) <code>random</code> ✅  </p>
+        <p>c) <code>sys</code>  </p>
+        <p>d) <code>os</code></p>
+        
+        <h3>PG-51</h3>
+        <p><code>if __name__ == &quot;__main__&quot;:</code> digunakan untuk...</p>
+        <p>a) Membuat program berjalan lebih cepat  </p>
+        <p>b) Mengecek apakah file dijalankan langsung atau di-import ✅  </p>
+        <p>c) Memberi nama pada program  </p>
+        <p>d) Mengambil argumen dari command line</p>
+        
+        <h3>C-11 (Bobot: 3)</h3>
+        <p>Buat module sederhana <code>operasi.py</code> berisi fungsi <code>tambah(a,b)</code> dan <code>kali(a,b)</code>. Lalu buat <code>main.py</code> yang mengimport dan menggunakannya.</p>
+        
+        <p><strong>Kunci:</strong></p>
+        <pre><code class="language-python"># operasi.py
+        def tambah(a, b):
+            return a + b
+        def kali(a, b):
+            return a * b
+        
+        # main.py
+        import operasi
+        print(operasi.tambah(5, 3))  # 8
+        print(operasi.kali(5, 3))    # 15</code></pre>
+        
+        <hr>
+        
+        <h2>Modul 11: List Comprehension (6 Soal)</h2>
+        
+        <h3>PG-52</h3>
+        <p>List comprehension <code>[x**2 for x in range(5)]</code> menghasilkan...</p>
+        <p>a) <code>[0, 1, 4, 9, 16]</code> ✅  </p>
+        <p>b) <code>[1, 4, 9, 16, 25]</code>  </p>
+        <p>c) <code>[0, 1, 2, 3, 4]</code>  </p>
+        <p>d) <code>[25, 16, 9, 4, 1]</code></p>
+        
+        <h3>PG-53</h3>
+        <p>List comprehension untuk mengambil angka genap dari 0-20 adalah...</p>
+        <p>a) <code>[x for x in range(21) if x % 2 == 0]</code> ✅  </p>
+        <p>b) <code>[x for x in range(0, 20, 2)]</code>  </p>
+        <p>c) <code>[x for x in range(21) if x % 2]</code>  </p>
+        <p>d) a dan b benar</p>
+        
+        <h3>PG-54</h3>
+        <p>Lambda adalah...</p>
+        <p>a) Fungsi dengan nama panjang  </p>
+        <p>b) Fungsi anonim (tanpa nama) ✅  </p>
+        <p>c) Tipe data khusus  </p>
+        <p>d) Method untuk list</p>
+        
+        <h3>C-12 (Bobot: 4)</h3>
+        <p>Gunakan <strong>list comprehension</strong> untuk membuat list berisi kuadrat dari bilangan genap antara 1-20. Tampilkan hasilnya.</p>
+        
+        <p><strong>Kunci:</strong></p>
+        <pre><code class="language-python">hasil = [x**2 for x in range(1, 21) if x % 2 == 0]
+        print(hasil)
+        # [4, 16, 36, 64, 100, 144, 196, 256, 324, 400]</code></pre>
+        
+        <hr>
+        
+        <h2>Modul 12: OOP (8 Soal)</h2>
+        
+        <h3>PG-55</h3>
+        <p>Apa itu <strong>class</strong> di Python?</p>
+        <p>a) Sebuah fungsi khusus  </p>
+        <p>b) Blueprint/cetakan untuk membuat object ✅  </p>
+        <p>c) Tipe data untuk angka  </p>
+        <p>d) Sebuah module</p>
+        
+        <h3>PG-56</h3>
+        <p>Method <code>__init__</code> dipanggil ketika...</p>
+        <p>a) Object dihapus  </p>
+        <p>b) Class didefinisikan  </p>
+        <p>c) Object dibuat ✅  </p>
+        <p>d) Method lain dipanggil</p>
+        
+        <h3>PG-57</h3>
+        <p>Parameter pertama di setiap method instance adalah...</p>
+        <p>a) <code>cls</code>  </p>
+        <p>b) <code>this</code>  </p>
+        <p>c) <code>self</code> ✅  </p>
+        <p>d) <code>object</code></p>
+        
+        <h3>PG-58</h3>
+        <p>Apa output dari:</p>
+        <pre><code class="language-python">class Siswa:
+            sekolah = &quot;SMA 1&quot;
+            def __init__(self, nama):
+                self.nama = nama
+        
+        s = Siswa(&quot;Budi&quot;)
+        print(s.sekolah)</code></pre>
+        <p>a) <code>Budi</code>  </p>
+        <p>b) <code>SMA 1</code> ✅  </p>
+        <p>c) Error  </p>
+        <p>d) <code>sekolah</code></p>
+        
+        <h3>C-13 (Bobot: 5)</h3>
+        <p>Buat class <code>Buku</code> dengan atribut: <code>judul</code>, <code>penulis</code>, <code>tahun</code>, <code>dipinjam</code> (default False). Method:</p>
+        <ul><li><code>info()</code> → return string informasi buku</li><li><code>pinjam()</code> → ubah status, return "Buku dipinjam"</li><li><code>kembalikan()</code> → ubah status, return "Buku dikembalikan"</li></ul>
+        
+        <p><strong>Kunci:</strong></p>
+        <pre><code class="language-python">class Buku:
+            def __init__(self, judul, penulis, tahun):
+                self.judul = judul
+                self.penulis = penulis
+                self.tahun = tahun
+                self.dipinjam = False
+            
+            def info(self):
+                status = &quot;Dipinjam&quot; if self.dipinjam else &quot;Tersedia&quot;
+                return f&quot;{self.judul} - {self.penulis} ({self.tahun}) - {status}&quot;
+            
+            def pinjam(self):
+                self.dipinjam = True
+                return &quot;Buku dipinjam&quot;
+            
+            def kembalikan(self):
+                self.dipinjam = False
+                return &quot;Buku dikembalikan&quot;
+        
+        # Test
+        b = Buku(&quot;Python 101&quot;, &quot;Budi&quot;, 2024)
+        print(b.info())
+        print(b.pinjam())
+        print(b.info())</code></pre>
+        
+        <hr>
+        
+        <h2>Soal Campuran (10 Soal)</h2>
+        
+        <h3>PG-59 (Campuran)</h3>
+        <p>Manakah yang <strong>bukan</strong> tipe data bawaan Python?</p>
+        <p>a) <code>list</code>  </p>
+        <p>b) <code>dict</code>  </p>
+        <p>c) <code>array</code> ✅  </p>
+        <p>d) <code>tuple</code></p>
+        
+        <h3>PG-60 (Campuran)</h3>
+        <p>Apa output dari?</p>
+        <pre><code class="language-python">data = {&quot;a&quot;: [1, 2], &quot;b&quot;: [3, 4]}
+        print(data[&quot;a&quot;][1])</code></pre>
+        <p>a) <code>1</code>  </p>
+        <p>b) <code>2</code> ✅  </p>
+        <p>c) <code>[1, 2]</code>  </p>
+        <p>d) Error</p>
+        
+        <h3>C-14 (Bobot: 5 — Campuran)</h3>
+        <p>Buat program yang membaca file <code>nilai.txt</code> (format: <code>Nama|Nilai</code> per baris), lalu menampilkan:</p>
+        <ul><li>Daftar siswa dengan nilai dan status lulus/tidak</li><li>Rata-rata kelas</li><li>Jumlah siswa lulus</li></ul>
+        
+        <p>Contoh isi <code>nilai.txt</code>:</p>
+        <pre><code>Budi|85
+        Ani|92
+        Citra|45</code></pre>
+        
+        <p><strong>Kunci:</strong></p>
+        <pre><code class="language-python">siswa = []
+        with open(&quot;nilai.txt&quot;, &quot;r&quot;) as f:
+            for baris in f:
+                nama, nilai = baris.strip().split(&quot;|&quot;)
+                siswa.append({&quot;nama&quot;: nama, &quot;nilai&quot;: int(nilai)})
+        
+        total = 0
+        lulus = 0
+        for s in siswa:
+            status = &quot;Lulus&quot; if s[&quot;nilai&quot;] &gt;= 75 else &quot;Tidak lulus&quot;
+            print(f&quot;{s[&#x27;nama&#x27;]}: {s[&#x27;nilai&#x27;]} - {status}&quot;)
+            total += s[&quot;nilai&quot;]
+            if s[&quot;nilai&quot;] &gt;= 75:
+                lulus += 1
+        
+        rata = total / len(siswa)
+        print(f&quot;\nRata-rata kelas: {rata:.1f}&quot;)
+        print(f&quot;Jumlah lulus: {lulus}/{len(siswa)}&quot;)</code></pre>
+        
+        <h3>E-03 (Bobot: 3 — Campuran)</h3>
+        <p>Jelaskan perbedaan antara <strong>list</strong>, <strong>tuple</strong>, dan <strong>dictionary</strong> di Python. Kapan sebaiknya menggunakan masing-masing?</p>
+        
+        <p><strong>Kunci:</strong></p>
+        <ul><li><strong>List</strong> <code>[]</code>: Kumpulan data berurutan yang bisa diubah (mutable). Cocok untuk daftar yang berubah-ubah (daftar siswa, nilai).</li><li><strong>Tuple</strong> <code>()</code>: Kumpulan data berurutan yang tidak bisa diubah (immutable). Cocok untuk data tetap (hari dalam seminggu, koordinat).</li><li><strong>Dictionary</strong> <code>{}</code>: Kumpulan pasangan key-value. Cocok untuk data yang punya label/nama (data siswa dengan field nama, kelas, nilai).</li></ul>
+        
+        <hr>
+        
+        <h2>📊 Kunci Jawaban Cepat</h2>
+        
+        <table>
+        <tr><th>No</th><th>Kunci</th><th>No</th><th>Kunci</th><th>No</th><th>Kunci</th><th>No</th><th>Kunci</th></tr>
+        <tr><td>1</td><td>C</td><td>16</td><td>C</td><td>31</td><td>B</td><td>46</td><td>B</td></tr>
+        <tr><td>2</td><td>B</td><td>17</td><td>B</td><td>32</td><td>B</td><td>47</td><td>C</td></tr>
+        <tr><td>3</td><td>C</td><td>18</td><td>C</td><td>33</td><td>B</td><td>48</td><td>A</td></tr>
+        <tr><td>4</td><td>B</td><td>19</td><td>A</td><td>34</td><td>A</td><td>49</td><td>B</td></tr>
+        <tr><td>5</td><td>B</td><td>20</td><td>A</td><td>35</td><td>A</td><td>50</td><td>B</td></tr>
+        <tr><td>6</td><td>B</td><td>21</td><td>B</td><td>36</td><td>C</td><td>51</td><td>B</td></tr>
+        <tr><td>7</td><td>B</td><td>22</td><td>B</td><td>37</td><td>B</td><td>52</td><td>A</td></tr>
+        <tr><td>8</td><td>C</td><td>23</td><td>C</td><td>38</td><td>A</td><td>53</td><td>D</td></tr>
+        <tr><td>9</td><td>B</td><td>24</td><td>B</td><td>39</td><td>B</td><td>54</td><td>B</td></tr>
+        <tr><td>10</td><td>C</td><td>25</td><td>A</td><td>40</td><td>B</td><td>55</td><td>B</td></tr>
+        <tr><td>11</td><td>A</td><td>26</td><td>B</td><td>41</td><td>A</td><td>56</td><td>C</td></tr>
+        <tr><td>12</td><td>A</td><td>27</td><td>C</td><td>42</td><td>C</td><td>57</td><td>C</td></tr>
+        <tr><td>13</td><td>B</td><td>28</td><td>B</td><td>43</td><td>B</td><td>58</td><td>B</td></tr>
+        <tr><td>14</td><td>C</td><td>29</td><td>C</td><td>44</td><td>C</td><td>59</td><td>C</td></tr>
+        <tr><td>15</td><td>B</td><td>30</td><td>A</td><td>45</td><td>B</td><td>60</td><td>B</td></tr>
+        </table>
+        
+        <hr>
+        
+        <h2>📝 Lembar Jawab Siswa (Copy & Print)</h2>
+        
+        <pre><code>Nama: _____________________   Kelas: ___________   Tanggal: ___________
+        
+         1. ___    11. ___    21. ___    31. ___    41. ___    51. ___
+         2. ___    12. ___    22. ___    32. ___    42. ___    52. ___
+         3. ___    13. ___    23. ___    33. ___    43. ___    53. ___
+         4. ___    14. ___    24. ___    34. ___    44. ___    54. ___
+         5. ___    15. ___    25. ___    35. ___    45. ___    55. ___
+         6. ___    16. ___    26. ___    36. ___    46. ___    56. ___
+         7. ___    17. ___    27. ___    37. ___    47. ___    57. ___
+         8. ___    18. ___    28. ___    38. ___    48. ___    58. ___
+         9. ___    19. ___    29. ___    39. ___    49. ___    59. ___
+        10. ___    20. ___    30. ___    40. ___    50. ___    60. ___
+        
+        Skor: ___ / 60</code></pre>
+        
+    </div>
+    <script>document.querySelectorAll('pre code').forEach(b=>hljs.highlightElement(b));</script>
+</body>
+</html>

@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modul 8: Error &amp; Exception Handling — Belajar Python</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐍</text></svg>">
+</head>
+<body>
+    <nav class="top-nav">
+        <a href="../index.html">⬅ Kembali ke Index</a>
+        <span class="title-nav">Modul 8: Error &amp; Exception Handling</span>
+    </nav>
+    <div class="container">
+        <h1>Modul 8: Error & Exception Handling</h1>
+        
+        <h2>🏆 Target Pemahaman</h2>
+        
+        <p>Setelah modul ini, kamu bisa:</p>
+        <ul><li>Membaca dan memahami <strong>error message</strong> Python</li><li>Membedakan <strong>syntax error</strong> vs <strong>exception</strong></li><li>Menggunakan <code>try/except</code> untuk menangani error</li><li>Membuat program yang <strong>tidak crash</strong> di situasi tak terduga</li><li>Melempar error sendiri dengan <code>raise</code></li></ul>
+        
+        <hr>
+        
+        <h2>1. Error Itu Guru Terbaik</h2>
+        
+        <p>Error di Python <strong>bukan musuh</strong> — itu petunjuk. Setiap error memberitahu:</p>
+        <ol><li><strong>Apa yang salah</strong></li><li><strong>Di baris berapa</strong></li><li><strong>Jenis errornya apa</strong></li></ol>
+        
+        <h3>Syntax Error — Salah Nulis</h3>
+        
+        <p>Error paling dasar: kode tidak sesuai aturan bahasa Python.</p>
+        
+        <pre><code class="language-python"># print(&quot;Halo&quot;   ← lupa tutup kurung
+        # SyntaxError: &#x27;(&#x27; was never closed
+        
+        # if x &gt; 5     ← lupa titik dua
+        #     print(x)
+        # SyntaxError: expected &#x27;:&#x27;</code></pre>
+        
+        <blockquote><p>💡 Syntax error akan dicegah oleh VS Code / editor sebelum dijalankan. Perhatikan garis merah!</p></blockquote>
+        
+        <h3>Exception — Error Saat Jalan</h3>
+        
+        <p>Program sudah benar secara syntax, tapi terjadi masalah saat dijalankan:</p>
+        
+        <pre><code class="language-python"># TypeError
+        print(&quot;Angka: &quot; + 5)
+        # TypeError: can only concatenate str (not &quot;int&quot;) to str
+        
+        # ValueError
+        angka = int(&quot;abc&quot;)
+        # ValueError: invalid literal for int() with base 10: &#x27;abc&#x27;
+        
+        # ZeroDivisionError
+        print(10 / 0)
+        # ZeroDivisionError: division by zero
+        
+        # IndexError
+        listku = [1, 2, 3]
+        print(listku[10])
+        # IndexError: list index out of range
+        
+        # KeyError
+        dictku = {&quot;nama&quot;: &quot;Budi&quot;}
+        print(dictku[&quot;alamat&quot;])
+        # KeyError: &#x27;alamat&#x27;
+        
+        # FileNotFoundError
+        open(&quot;file_tidak_ada.txt&quot;)
+        # FileNotFoundError: [Errno 2] No such file or directory</code></pre>
+        
+        <h2>2. Try/Except — Menangkap Error</h2>
+        
+        <p>Kita bisa <strong>menangkap</strong> error agar program tidak crash:</p>
+        
+        <pre><code class="language-python"># Tanpa try/except:
+        # angka = int(input(&quot;Masukkan angka: &quot;))
+        # Kalau user ketik &quot;abc&quot; → program crash!
+        
+        # Dengan try/except:
+        try:
+            angka = int(input(&quot;Masukkan angka: &quot;))
+            print(f&quot;Angka yang dimasukkan: {angka}&quot;)
+        except ValueError:
+            print(&quot;Error: Itu bukan angka yang valid!&quot;)</code></pre>
+        
+        <p>Flowchart:</p>
+        <pre><code>     ┌──────────────┐
+             │  try block   │
+             │  coba jalanin│
+             └──────┬───────┘
+                    │
+             ┌──────┴───────┐
+             │  Error?      │
+             └──┬───────┬───┘
+             Tidak    Ya
+                │       │
+           Lanjut  ┌───┴──────────┐
+           normal  │ except block │
+                   │ jalan        │
+                   └──────────────┘</code></pre>
+        
+        <h3>Menangkap Banyak Jenis Error</h3>
+        
+        <pre><code class="language-python">try:
+            angka1 = int(input(&quot;Angka 1: &quot;))
+            angka2 = int(input(&quot;Angka 2: &quot;))
+            hasil = angka1 / angka2
+            print(f&quot;Hasil: {hasil}&quot;)
+        except ValueError:
+            print(&quot;Error: Input harus angka!&quot;)
+        except ZeroDivisionError:
+            print(&quot;Error: Tidak bisa membagi dengan nol!&quot;)</code></pre>
+        
+        <h3>Menangkap Semua Error (Hati-hati!)</h3>
+        
+        <pre><code class="language-python">try:
+            # Kode yang mungkin error
+            hasil = 10 / 0
+        except Exception as e:
+            print(f&quot;Terjadi error: {e}&quot;)
+            # e berisi pesan error asli</code></pre>
+        
+        <blockquote><p>⚠️ <strong>Menangkap semua error</strong> dengan <code>except Exception</code> itu praktik yang kurang baik. Tangkap error spesifik agar kamu tahu persis apa yang salah. Tapi untuk belajar, ini oke.</p></blockquote>
+        
+        <h2>3. Else dan Finally</h2>
+        
+        <h3>Else — Jalan Kalau Tidak Ada Error</h3>
+        
+        <pre><code class="language-python">try:
+            angka = int(input(&quot;Masukkan angka: &quot;))
+        except ValueError:
+            print(&quot;Error: Bukan angka!&quot;)
+        else:
+            # Hanya jalan kalau try block sukses (tidak ada error)
+            print(f&quot;Angka valid: {angka}&quot;)</code></pre>
+        
+        <h3>Finally — SELALU Jalan</h3>
+        
+        <pre><code class="language-python">try:
+            file = open(&quot;data.txt&quot;, &quot;r&quot;)
+            isi = file.read()
+            print(isi)
+        except FileNotFoundError:
+            print(&quot;File tidak ditemukan!&quot;)
+        finally:
+            # SELALU dijalankan, entah error atau tidak
+            print(&quot;Blok finally: program selesai.&quot;)</code></pre>
+        
+        <blockquote><p>💡 <code>finally</code> biasa dipakai untuk <strong>bersih-bersih</strong>: tutup file, tutup koneksi database, dll.</p></blockquote>
+        
+        <h3>Gabungan Lengkap</h3>
+        
+        <pre><code class="language-python">try:
+            # Coba kode yang berpotensi error
+            angka = int(input(&quot;Angka: &quot;))
+            hasil = 10 / angka
+        except ValueError:
+            print(&quot;Input harus angka!&quot;)
+        except ZeroDivisionError:
+            print(&quot;Tidak boleh nol!&quot;)
+        else:
+            print(f&quot;Hasil: {hasil}&quot;)
+        finally:
+            print(&quot;Selesai ✅&quot;)</code></pre>
+        
+        <h2>4. Raise — Melempar Error Sendiri</h2>
+        
+        <p>Kadang kita mau <strong>sengaja membuat error</strong> kalau suatu kondisi terpenuhi.</p>
+        
+        <pre><code class="language-python">def cek_usia(usia):
+            if usia &lt; 0:
+                raise ValueError(&quot;Usia tidak boleh negatif!&quot;)
+            if usia &gt; 150:
+                raise ValueError(&quot;Usia tidak realistis!&quot;)
+            print(f&quot;Usia {usia} valid&quot;)
+        
+        # Test
+        try:
+            cek_usia(-5)
+        except ValueError as e:
+            print(f&quot;Error: {e}&quot;)</code></pre>
+        
+        <pre><code class="language-python"># Contoh di aplikasi nilai
+        def beri_nilai(nilai):
+            if not isinstance(nilai, (int, float)):
+                raise TypeError(&quot;Nilai harus angka!&quot;)
+            if nilai &lt; 0 or nilai &gt; 100:
+                raise ValueError(&quot;Nilai harus antara 0-100!&quot;)
+            
+            if nilai &gt;= 90:
+                return &quot;A&quot;
+            elif nilai &gt;= 80:
+                return &quot;B&quot;
+            elif nilai &gt;= 70:
+                return &quot;C&quot;
+            elif nilai &gt;= 60:
+                return &quot;D&quot;
+            else:
+                return &quot;E&quot;
+        
+        # Test
+        try:
+            print(beri_nilai(85))    # B
+            print(beri_nilai(-5))    # Error
+        except (TypeError, ValueError) as e:
+            print(f&quot;Error: {e}&quot;)</code></pre>
+        
+        <blockquote><p>🏆 <strong>Poin ngajar:</strong> "<code>raise</code> itu seperti kamu sengaja membunyikan alarm karena sesuatu tidak beres. Program lain yang panggil fungsi ini bisa menangkap alarm itu dengan <code>try/except</code>."</p></blockquote>
+        
+        <h2>5. Custom Exception (Advanced)</h2>
+        
+        <p>Buat kelas error sendiri:</p>
+        
+        <pre><code class="language-python">class NilaiError(Exception):
+            &quot;&quot;&quot;Error khusus untuk nilai tidak valid&quot;&quot;&quot;
+            pass
+        
+        def validasi_nilai(nilai):
+            if nilai &lt; 0 or nilai &gt; 100:
+                raise NilaiError(f&quot;Nilai {nilai} tidak valid (0-100)&quot;)
+            return True
+        
+        try:
+            validasi_nilai(150)
+        except NilaiError as e:
+            print(f&quot;Validasi gagal: {e}&quot;)</code></pre>
+        
+        <blockquote><p>💡 Ini sudah agak advanced. Cukup tahu dulu, nanti saat OOP akan lebih paham.</p></blockquote>
+        
+        <h2>6. Common Errors & Cara Bacanya</h2>
+        
+        <table>
+        <tr><th>Error</th><th>Penyebab</th><th>Solusi</th></tr>
+        <tr><td><code>SyntaxError</code></td><td>Salah penulisan</td><td>Cek kurung, titik dua, indentasi</td></tr>
+        <tr><td><code>IndentationError</code></td><td>Indentasi salah</td><td>Pastikan konsisten (spasi/tab)</td></tr>
+        <tr><td><code>NameError</code></td><td>Variabel belum didefinisikan</td><td>Cek nama variabel</td></tr>
+        <tr><td><code>TypeError</code></td><td>Operasi tipe data berbeda</td><td>Casting atau cek tipe</td></tr>
+        <tr><td><code>ValueError</code></td><td>Nilai tidak sesuai</td><td>Validasi input</td></tr>
+        <tr><td><code>IndexError</code></td><td>Index di luar jangkauan</td><td>Cek panjang list</td></tr>
+        <tr><td><code>KeyError</code></td><td>Key tidak ada di dict</td><td>Gunakan <code>.get()</code></td></tr>
+        <tr><td><code>ZeroDivisionError</code></td><td>Pembagian nol</td><td>Cek pembagi sebelum operasi</td></tr>
+        <tr><td><code>FileNotFoundError</code></td><td>File tidak ditemukan</td><td>Cek path file</td></tr>
+        <tr><td><code>AttributeError</code></td><td>Object tidak punya method/atribut</td><td>Cek tipe object</td></tr>
+        </table>
+        
+        <h3>Flowchart Debugging</h3>
+        
+        <pre><code>Ada Error?
+            │
+            ├── Baca pesan error — cari tahu JENIS dan BARIS
+            │
+            ├── Cek baris yang disebut — apa yang salah?
+            │   │
+            │   ├── Typo? → perbaiki
+            │   ├── Tipe data salah? → casting
+            │   ├── Variabel tidak ada? → definisikan
+            │   └── Index/key salah? → cek data
+            │
+            └── Coba lagi</code></pre>
+        
+        <hr>
+        
+        <h2>🧪 Latihan Modul 8</h2>
+        
+        <h3>Latihan 1: Kalkulator Aman</h3>
+        
+        <pre><code class="language-python"># Buat kalkulator yang:
+        # 1. Minta 2 angka dari user
+        # 2. Minta operator (+, -, *, /)
+        # 3. Tangani: ValueError, ZeroDivisionError
+        # 4. Loop sampai user ketik &quot;exit&quot;</code></pre>
+        
+        <h3>Latihan 2: Validasi Input Angka</h3>
+        
+        <pre><code class="language-python">def minta_angka(pesan=&quot;Masukkan angka: &quot;):
+            &quot;&quot;&quot;
+            Minta input angka dari user.
+            Loop terus sampai user memasukkan angka yang valid.
+            Return: float
+            &quot;&quot;&quot;
+            # TODO: implementasi dengan while True + try/except
+        
+        # Test
+        umur = minta_angka(&quot;Masukkan umur: &quot;)
+        print(f&quot;Umur: {umur}&quot;)</code></pre>
+        
+        <h3>Latihan 3: Pembaca File Aman</h3>
+        
+        <pre><code class="language-python">def baca_file(nama_file):
+            &quot;&quot;&quot;
+            Baca isi file dan tampilkan.
+            Tangani FileNotFoundError dengan pesan yang ramah.
+            &quot;&quot;&quot;
+            try:
+                with open(nama_file, &quot;r&quot;) as f:
+                    print(f.read())
+            except FileNotFoundError:
+                print(f&quot;Maaf, file &#x27;{nama_file}&#x27; tidak ditemukan.&quot;)
+        
+        # Test
+        baca_file(&quot;nilai_siswa.txt&quot;)</code></pre>
+        
+        <h3>Latihan 4: Fungsi dengan Raise</h3>
+        
+        <pre><code class="language-python">def bagi(angka1, angka2):
+            &quot;&quot;&quot;
+            - Raise TypeError kalau input bukan angka
+            - Raise ZeroDivisionError kalau angka2 = 0
+            - Return hasil bagi
+            &quot;&quot;&quot;
+            # TODO: implementasi
+        
+        # Test
+        try:
+            print(bagi(10, 2))     # 5.0
+            print(bagi(10, 0))     # Error
+            print(bagi(&quot;a&quot;, 2))    # Error
+        except (TypeError, ZeroDivisionError) as e:
+            print(f&quot;Error: {e}&quot;)</code></pre>
+        
+        <hr>
+        
+        <h2>✅ Checklist Paham</h2>
+        
+        <ul><li>[ ] Saya bisa baca dan paham pesan error Python</li><li>[ ] Saya tau beda syntax error vs exception</li><li>[ ] Saya bisa pake <code>try/except</code> untuk menangkap error</li><li>[ ] Saya bisa nangkap error spesifik (ValueError, TypeError, dll)</li><li>[ ] Saya paham <code>else</code> di try/except</li><li>[ ] Saya paham <code>finally</code> — selalu jalan</li><li>[ ] Saya bisa pake <code>raise</code> untuk buat error sendiri</li></ul>
+        
+        <p><strong>Kalau semua checklist tercentang → lanjut ke Modul 9.</strong></p>
+        
+    <nav class="modul-nav">
+        <a href="07-function.html">« ⚡ Function</a>
+        <span class="modul-nav-center">⬅ <a href="../index.html">Index</a></span>
+        <a href="09-file-io.html">📁 File I/O »</a>
+    </nav>
+    </div>
+    <script>document.querySelectorAll('pre code').forEach(b=>hljs.highlightElement(b));</script>
+</body>
+</html>

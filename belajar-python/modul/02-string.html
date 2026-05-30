@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modul 2: String — Manipulasi Teks — Belajar Python</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐍</text></svg>">
+</head>
+<body>
+    <nav class="top-nav">
+        <a href="../index.html">⬅ Kembali ke Index</a>
+        <span class="title-nav">Modul 2: String — Manipulasi Teks</span>
+    </nav>
+    <div class="container">
+        <h1>Modul 2: String — Manipulasi Teks</h1>
+        
+        <h2>🏆 Target Pemahaman</h2>
+        
+        <p>Setelah modul ini, kamu bisa:</p>
+        <ul><li>Menjelaskan konsep <strong>index</strong> dan <strong>slicing</strong> string</li><li>Menggunakan method-method string bawaan Python</li><li>Memformat teks dengan f-string</li><li>Membedakan string immutable vs mutable</li></ul>
+        
+        <hr>
+        
+        <h2>1. String Itu Kumpulan Karakter</h2>
+        
+        <p>String sebenarnya adalah <strong>kumpulan karakter</strong> yang berurutan. Setiap karakter punya <strong>nomor index</strong>.</p>
+        
+        <pre><code class="language-python">kata = &quot;PYTHON&quot;
+        # Index:  012345</code></pre>
+        
+        <table>
+        <tr><th>P</th><th>Y</th><th>T</th><th>H</th><th>O</th><th>N</th></tr>
+        <tr><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr>
+        </table>
+        
+        <pre><code class="language-python">kata = &quot;PYTHON&quot;
+        print(kata[0])   # P
+        print(kata[1])   # Y
+        print(kata[5])   # N
+        print(kata[-1])  # N — index negatif dari belakang
+        print(kata[-2])  # O</code></pre>
+        
+        <h3>Index Negatif</h3>
+        
+        <p>Python punya fitur keren: index dari <strong>belakang</strong> pake angka negatif.</p>
+        
+        <pre><code>Index positif:  0   1   2   3   4   5
+                       P   Y   T   H   O   N
+        Index negatif: -6  -5  -4  -3  -2  -1</code></pre>
+        
+        <pre><code class="language-python">teks = &quot;Python&quot;
+        print(teks[-1])  # n
+        print(teks[-3])  # h</code></pre>
+        
+        <h2>2. Slicing — Memotong String</h2>
+        
+        <p>Slicing = mengambil <strong>sebagian</strong> string.</p>
+        
+        <pre><code class="language-python"># Sintaks: string[mulai:akhir:langkah]
+        # mulai: index awal (diikutkan, default 0)
+        # akhir: index akhir (tidak diikutkan, default sampai akhir)
+        # langkah: step (default 1)
+        
+        s = &quot;Python Programming&quot;
+        
+        print(s[0:6])       # &#x27;Python&#x27;     — index 0 sampai 5
+        print(s[7:18])      # &#x27;Programming&#x27; — index 7 sampai 17
+        print(s[:6])        # &#x27;Python&#x27;     — dari awal sampai index 5
+        print(s[7:])        # &#x27;Programming&#x27; — dari index 7 sampai akhir
+        print(s[:])         # &#x27;Python Programming&#x27; — seluruh string
+        
+        # Slicing dengan langkah
+        print(s[0:6:2])     # &#x27;Pto&#x27; — index 0,2,4
+        print(s[::-1])      # &#x27;gnimmargorP nohtyP&#x27; — dibalik! 🔥</code></pre>
+        
+        <blockquote><p>💡 <strong><code>[::-1]</code></strong> adalah idiom Python untuk <strong>membalik string</strong>. Hafalkan — ini sering ditanyain di kelas dan tes.</p></blockquote>
+        
+        <h3>Teka-teki Slicing buat Murid</h3>
+        
+        <pre><code class="language-python"># Coba tebak outputnya:
+        print(&quot;INFORMATIKA&quot;[0:5])     # ??
+        print(&quot;INFORMATIKA&quot;[5:])      # ??
+        print(&quot;INFORMATIKA&quot;[2:9:3])   # ??
+        print(&quot;INFORMATIKA&quot;[::-1])    # ??</code></pre>
+        
+        <h2>3. Method-Method String (Built-in)</h2>
+        
+        <p>Method = fungsi yang nempel di data. String punya banyak method berguna.</p>
+        
+        <h3>PENTING: String Method Tidak Mengubah String Asli</h3>
+        
+        <p>String di Python <strong>immutable</strong> (tidak bisa diubah). Semua method string <strong>mengembalikan string baru</strong>.</p>
+        
+        <pre><code class="language-python">s = &quot;  Python Itu Seru!  &quot;
+        
+        # Merubah huruf
+        print(s.upper())          # &#x27;  PYTHON ITU SERU!  &#x27;
+        print(s.lower())          # &#x27;  python itu seru!  &#x27;
+        print(s.title())          # &#x27;  Python Itu Seru!  &#x27;
+        print(s.capitalize())     # &#x27;  python itu seru!  &#x27;
+        
+        # Menghapus spasi di pinggir
+        print(s.strip())          # &#x27;Python Itu Seru!&#x27;
+        print(s.lstrip())         # &#x27;Python Itu Seru!  &#x27;
+        print(s.rstrip())         # &#x27;  Python Itu Seru!&#x27;
+        
+        # Cek isi string
+        print(s.isupper())        # False
+        print(&quot;PYTHON&quot;.isupper()) # True
+        print(&quot;123&quot;.isdigit())    # True
+        print(&quot;abc123&quot;.isalnum()) # True
+        print(&quot;abc&quot;.isalpha())    # True
+        
+        # Mencari dan mengganti
+        s2 = &quot;Belajar Python itu menyenangkan&quot;
+        print(s2.find(&quot;Python&quot;))    # 8 — index mulai kata &quot;Python&quot;
+        print(s2.find(&quot;Java&quot;))      # -1 — tidak ditemukan
+        print(s2.count(&quot;a&quot;))        # 3 — huruf &#x27;a&#x27; muncul 3x
+        print(s2.replace(&quot;menyenangkan&quot;, &quot;seru&quot;))  # &#x27;Belajar Python itu seru&#x27;
+        
+        # Memisah dan menggabung
+        kalimat = &quot;satu-dua-tiga&quot;
+        print(kalimat.split(&quot;-&quot;))   # [&#x27;satu&#x27;, &#x27;dua&#x27;, &#x27;tiga&#x27;]
+        
+        daftar = [&quot;satu&quot;, &quot;dua&quot;, &quot;tiga&quot;]
+        print(&quot;-&quot;.join(daftar))     # &#x27;satu-dua-tiga&#x27;</code></pre>
+        
+        <blockquote><p>💡 Method yang paling sering dipake: <code>.lower()</code>, <code>.strip()</code>, <code>.split()</code>, <code>.replace()</code>, <code>.find()</code>.</p></blockquote>
+        
+        <h2>4. Mengecek Keberadaan Substring</h2>
+        
+        <pre><code class="language-python">teks = &quot;Python adalah bahasa pemrograman&quot;
+        
+        # Operator IN
+        print(&quot;Python&quot; in teks)      # True
+        print(&quot;Java&quot; in teks)        # False
+        
+        # Operator NOT IN
+        print(&quot;Java&quot; not in teks)    # True</code></pre>
+        
+        <p>Ini sangat berguna buat validasi input — kita akan pakai di Modul 5 (Percabangan).</p>
+        
+        <h2>5. Escape Characters</h2>
+        
+        <p>Kadang kita perlu karakter khusus di dalam string:</p>
+        
+        <pre><code class="language-python">print(&quot;Dia berkata: \&quot;Halo\&quot;&quot;)   # Petik dua di dalam petik dua
+        print(&#x27;It\&#x27;s fine&#x27;)              # Petik satu di dalam petik satu
+        print(&quot;Baris 1\nBaris 2&quot;)       # \n = newline (enter)
+        print(&quot;Kolom 1\tKolom 2&quot;)       # \t = tab
+        print(&quot;Backslash: \\&quot;)           # \\ = backslash literal</code></pre>
+        
+        <h2>6. Format String — F-String (Wajib Kuasai)</h2>
+        
+        <p>Ini adalah <strong>cara modern</strong> dan <strong>paling sering dipakai</strong> di Python 3.6+.</p>
+        
+        <pre><code class="language-python">nama = &quot;Budi&quot;
+        nilai = 88.5
+        kelas = &quot;XII IPA 1&quot;
+        
+        # Basic
+        print(f&quot;Siswa {nama} dari kelas {kelas}&quot;)
+        
+        # Angka dengan format
+        print(f&quot;Nilai: {nilai:.1f}&quot;)       # 88.5 — 1 desimal
+        print(f&quot;Nilai: {nilai:.0f}&quot;)       # 88 — dibulatkan
+        
+        # Lebar minimum
+        print(f&quot;Nama: |{nama:10}|&quot;)       # |Budi      | — rata kiri
+        print(f&quot;Nama: |{nama:&gt;10}|&quot;)      # |      Budi| — rata kanan
+        print(f&quot;Nama: |{nama:^10}|&quot;)      # |   Budi   | — tengah
+        
+        # Angka dengan leading zero
+        print(f&quot;{7:03d}&quot;)                  # 007
+        print(f&quot;{12:03d}&quot;)                 # 012
+        
+        # Persentase
+        print(f&quot;{0.85:.1%}&quot;)              # 85.0%</code></pre>
+        
+        <blockquote><p>💡 <strong>Latih f-string sampai hafal.</strong> Ini yang paling berguna di dunia nyata.</p></blockquote>
+        
+        <h2>7. String Immutable — Konsep Penting</h2>
+        
+        <p>String <strong>tidak bisa diubah</strong>. Kalau kamu coba:</p>
+        
+        <pre><code class="language-python">s = &quot;Python&quot;
+        s[0] = &quot;J&quot;  # ❌ TypeError: &#x27;str&#x27; object does not support item assignment</code></pre>
+        
+        <p>Ini beda sama list (yang akan kita pelajari di Modul 3). Kalau mau "mengubah" string, kita harus <strong>bikin string baru</strong>.</p>
+        
+        <pre><code class="language-python">s = &quot;Python&quot;
+        s = &quot;J&quot; + s[1:]  # ✅ &#x27;Jython&#x27; — bikin string baru</code></pre>
+        
+        <blockquote><p>🏆 <strong>Poin ngajar:</strong> "String itu seperti buku cetak. Kamu gak bisa hapus satu huruf dari halaman. Kamu harus cetak ulang bukunya."</p></blockquote>
+        
+        <hr>
+        
+        <h2>🧪 Latihan Modul 2</h2>
+        
+        <h3>Latihan 1: Pembalik Nama</h3>
+        
+        <pre><code class="language-python"># Minta nama depan dan nama belakang
+        # Output: &quot;Nama terbalik: [nama_belakang] [nama_depan]&quot;
+        # Contoh: &quot;Budi Santoso&quot; → &quot;Santoso Budi&quot;</code></pre>
+        
+        <h3>Latihan 2: Validasi Password</h3>
+        
+        <pre><code class="language-python"># Minta password
+        # Cek: minimal 8 karakter, mengandung angka
+        # Output: &quot;Password valid&quot; atau &quot;Password terlalu pendek&quot; / &quot;Harus ada angka&quot;</code></pre>
+        
+        <h3>Latihan 3: Format Nilai</h3>
+        
+        <pre><code class="language-python"># Input: nama siswa, nilai matematika, nilai ipa, nilai bahasa
+        # Output: laporan rapor format rapi
+        &#x27;&#x27;&#x27;
+        ====================================
+        LAPORAN NILAI SISWA
+        ====================================
+        Nama          : Budi Santoso
+        Matematika    : 85.0
+        IPA           : 92.5
+        Bahasa        : 78.0
+        ------------------------------------
+        Rata-rata     : 85.2
+        ====================================
+        &#x27;&#x27;&#x27;</code></pre>
+        
+        <h3>Latihan 4: Pembersih Teks</h3>
+        
+        <pre><code class="language-python"># Input: &quot;  PyThOn  ItU  sERu!  &quot;
+        # Output: &quot;Python Itu Seru!&quot; — bersih, kapitalisasi rapi
+        # Hint: pake strip(), lower(), title()</code></pre>
+        
+        <hr>
+        
+        <h2>✅ Checklist Paham</h2>
+        
+        <ul><li>[ ] Saya bisa jelasin konsep index 0 dan index negatif</li><li>[ ] Saya bisa slicing string dengan <code>[start:stop:step]</code></li><li>[ ] Saya hafal <code>[::-1]</code> untuk membalik string</li><li>[ ] Saya bisa pake <code>.upper()</code>, <code>.lower()</code>, <code>.strip()</code>, <code>.split()</code>, <code>.replace()</code>, <code>.join()</code></li><li>[ ] Saya paham string itu <strong>immutable</strong></li><li>[ ] Saya bisa format teks pake f-string</li><li>[ ] Saya bisa cek keberadaan substring dengan <code>in</code></li></ul>
+        
+        <p><strong>Kalau semua checklist tercentang → lanjut ke Modul 3.</strong></p>
+        
+    <nav class="modul-nav">
+        <a href="01-variabel-tipe-data.html">« 📦 Variabel & Tipe Data</a>
+        <span class="modul-nav-center">⬅ <a href="../index.html">Index</a></span>
+        <a href="03-list-tuple.html">📋 List & Tuple »</a>
+    </nav>
+    </div>
+    <script>document.querySelectorAll('pre code').forEach(b=>hljs.highlightElement(b));</script>
+</body>
+</html>

@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modul 6: Perulangan (Loop) — Belajar Python</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐍</text></svg>">
+</head>
+<body>
+    <nav class="top-nav">
+        <a href="../index.html">⬅ Kembali ke Index</a>
+        <span class="title-nav">Modul 6: Perulangan (Loop)</span>
+    </nav>
+    <div class="container">
+        <h1>Modul 6: Perulangan (Loop)</h1>
+        
+        <h2>🏆 Target Pemahaman</h2>
+        
+        <p>Setelah modul ini, kamu bisa:</p>
+        <ul><li>Menggunakan <code>for</code> loop untuk iterasi data</li><li>Menggunakan <code>while</code> loop untuk kondisi berulang</li><li>Membedakan kapan pakai <code>for</code> vs <code>while</code></li><li>Mengontrol loop dengan <code>break</code>, <code>continue</code>, <code>else</code></li><li>Membuat nested loop</li></ul>
+        
+        <hr>
+        
+        <h2>1. For Loop — Iterasi Koleksi Data</h2>
+        
+        <p><code>for</code> loop digunakan untuk <strong>melewati setiap item</strong> dalam suatu koleksi (list, string, tuple, dictionary, range, dll).</p>
+        
+        <pre><code class="language-python"># Loop list
+        siswa = [&quot;Budi&quot;, &quot;Ani&quot;, &quot;Citra&quot;]
+        for s in siswa:
+            print(f&quot;Halo {s}!&quot;)
+        # Output:
+        # Halo Budi!
+        # Halo Ani!
+        # Halo Citra!</code></pre>
+        
+        <pre><code class="language-python"># Loop string (setiap karakter)
+        for c in &quot;Python&quot;:
+            print(c, end=&quot;-&quot;)
+        # Output: P-y-t-h-o-n-</code></pre>
+        
+        <pre><code class="language-python"># Loop dictionary
+        nilai = {&quot;Budi&quot;: 85, &quot;Ani&quot;: 92, &quot;Citra&quot;: 78}
+        for nama, n in nilai.items():
+            print(f&quot;{nama}: {n}&quot;)</code></pre>
+        
+        <h3>Range — Loop dengan Angka</h3>
+        
+        <p><code>range()</code> adalah fungsi yang menghasilkan urutan angka. Sangat berguna.</p>
+        
+        <pre><code class="language-python"># range(stop) → 0 sampai stop-1
+        for i in range(5):
+            print(i)   # 0, 1, 2, 3, 4
+        
+        # range(start, stop) → start sampai stop-1
+        for i in range(3, 7):
+            print(i)   # 3, 4, 5, 6
+        
+        # range(start, stop, step) → dengan langkah
+        for i in range(0, 10, 2):
+            print(i)   # 0, 2, 4, 6, 8
+        
+        for i in range(10, 0, -2):
+            print(i)   # 10, 8, 6, 4, 2</code></pre>
+        
+        <h3>Loop dengan Index (Enumerate)</h3>
+        
+        <pre><code class="language-python">siswa = [&quot;Budi&quot;, &quot;Ani&quot;, &quot;Citra&quot;]
+        
+        # Cara tidak Pythonic:
+        for i in range(len(siswa)):
+            print(f&quot;{i+1}. {siswa[i]}&quot;)
+        
+        # Cara Pythonic dengan enumerate 🔥
+        for i, s in enumerate(siswa):
+            print(f&quot;{i+1}. {s}&quot;)
+        # Output:
+        # 1. Budi
+        # 2. Ani
+        # 3. Citra</code></pre>
+        
+        <h2>2. While Loop — Loop Bersyarat</h2>
+        
+        <p><code>while</code> loop berjalan <strong>selama kondisi masih True</strong>.</p>
+        
+        <pre><code class="language-python"># Hitung mundur
+        hitungan = 5
+        while hitungan &gt; 0:
+            print(f&quot;{hitungan}...&quot;)
+            hitungan -= 1  # Jangan lupa kurangi! Kalau lupa, loop forever
+        print(&quot;Go! 🚀&quot;)</code></pre>
+        
+        <h3>Infinite Loop — Bahaya!</h3>
+        
+        <pre><code class="language-python"># ⚠️ INI BERBAHAYA — loop tidak akan pernah berhenti
+        # x = 1
+        # while x &gt; 0:
+        #     print(&quot;Forever...&quot;)
+        
+        # Cara aman: pastikan ada sesuatu yang mengubah kondisi
+        x = 1
+        while x &gt; 0:
+            print(x)
+            x += 1
+            if x &gt;= 10:   # Safety break
+                break</code></pre>
+        
+        <blockquote><p>💡 Di Omarchy Linux, kalau kejebak infinite loop: tekan <code>Ctrl+C</code> untuk menghentikan.</p></blockquote>
+        
+        <h3>Kapan For vs While?</h3>
+        
+        <table>
+        <tr><th>For Loop</th><th>While Loop</th></tr>
+        <tr><td>Jumlah iterasi <strong>sudah diketahui</strong></td><td>Jumlah iterasi <strong>tidak pasti</strong></td></tr>
+        <tr><td>Iterasi data (list, range)</td><td>Loop sampai kondisi terpenuhi</td></tr>
+        <tr><td>Proses setiap item dalam koleksi</td><td>Validasi input sampai benar</td></tr>
+        <tr><td>Contoh: cetak semua nilai siswa</td><td>Contoh: ulang minta password sampai benar</td></tr>
+        </table>
+        
+        <pre><code class="language-python"># FOR — kita tau persis jumlah siswa
+        siswa = [&quot;Budi&quot;, &quot;Ani&quot;, &quot;Citra&quot;]
+        for s in siswa:
+            print(s)
+        
+        # WHILE — kita tidak tau kapan user akan jawab benar
+        tebak = &quot;&quot;
+        while tebak != &quot;python&quot;:
+            tebak = input(&quot;Tebak kata rahasia: &quot;)
+            if tebak != &quot;python&quot;:
+                print(&quot;Salah, coba lagi!&quot;)
+        print(&quot;Benar! 🎉&quot;)</code></pre>
+        
+        <h2>3. Break — Hentikan Loop</h2>
+        
+        <p><code>break</code> menghentikan loop <strong>sepenuhnya</strong>:</p>
+        
+        <pre><code class="language-python"># Cari angka pertama yang habis dibagi 7
+        for i in range(1, 100):
+            if i % 7 == 0:
+                print(f&quot;Ketemu: {i}&quot;)
+                break   # Berhenti setelah ketemu
+        # Output: Ketemu: 7</code></pre>
+        
+        <pre><code class="language-python"># Validasi input — repeat sampai benar
+        while True:  # Loop &quot;forever&quot; — tapi akan di-break
+            password = input(&quot;Masukkan password (min 6 karakter): &quot;)
+            if len(password) &gt;= 6:
+                print(&quot;Password diterima ✅&quot;)
+                break
+            print(&quot;Terlalu pendek, coba lagi!&quot;)</code></pre>
+        
+        <h2>4. Continue — Lompat ke Iterasi Berikutnya</h2>
+        
+        <p><code>continue</code> <strong>melewati</strong> sisa kode di iterasi saat ini dan lanjut ke iterasi berikutnya:</p>
+        
+        <pre><code class="language-python"># Cetak angka 1-10, skip yang genap
+        for i in range(1, 11):
+            if i % 2 == 0:
+                continue   # Skip genap
+            print(i)
+        # Output: 1, 3, 5, 7, 9</code></pre>
+        
+        <pre><code class="language-python"># Proses data — skip yang tidak valid
+        data = [85, -1, 92, 78, -5, 88, 100]
+        for nilai in data:
+            if nilai &lt; 0:
+                continue   # Skip nilai negatif
+            print(f&quot;Nilai: {nilai}&quot;)</code></pre>
+        
+        <h2>5. Else di Loop (Unique Python!)</h2>
+        
+        <p>Python punya fitur unik: <strong><code>else</code> di loop</strong>. Blok <code>else</code> dijalankan kalau loop <strong>selesai normal</strong> (tidak di-break).</p>
+        
+        <pre><code class="language-python"># Cari angka prima
+        angka = 17
+        
+        for i in range(2, angka):
+            if angka % i == 0:
+                print(f&quot;{angka} bukan prima, habis dibagi {i}&quot;)
+                break
+        else:  # Ini dijalankan kalau loop tidak di-break
+            print(f&quot;{angka} adalah bilangan prima ✅&quot;)</code></pre>
+        
+        <pre><code class="language-python"># Cari item di list
+        keranjang = [&quot;apel&quot;, &quot;pisang&quot;, &quot;jeruk&quot;, &quot;anggur&quot;]
+        cari = &quot;mangga&quot;
+        
+        for item in keranjang:
+            if item == cari:
+                print(f&quot;&#x27;{cari}&#x27; ditemukan!&quot;)
+                break
+        else:
+            print(f&quot;&#x27;{cari}&#x27; tidak ada di keranjang&quot;)</code></pre>
+        
+        <blockquote><p>🏆 <strong>Poin ngajar:</strong> "<code>else</code> di loop itu seperti 'kalau gak ada yang nge-break, jalankan ini'. Ini fitur unik Python, gak ada di bahasa lain."</p></blockquote>
+        
+        <h2>6. Nested Loop (Loop di Dalam Loop)</h2>
+        
+        <pre><code class="language-python"># Cetak tabel perkalian
+        for i in range(1, 4):
+            for j in range(1, 4):
+                print(f&quot;{i}x{j}={i*j:2d}&quot;, end=&quot;  &quot;)
+            print()  # Baris baru
+        # Output:
+        # 1x1= 1  1x2= 2  1x3= 3
+        # 2x1= 2  2x2= 4  2x3= 6
+        # 3x1= 3  3x2= 6  3x3= 9</code></pre>
+        
+        <pre><code class="language-python"># Cetak pola segitiga
+        for i in range(1, 6):
+            for j in range(i):
+                print(&quot;*&quot;, end=&quot;&quot;)
+            print()
+        # Output:
+        # *
+        # **
+        # ***
+        # ****
+        # *****</code></pre>
+        
+        <pre><code class="language-python"># Nested loop dengan nested list
+        nilai_siswa = [
+            [&quot;Budi&quot;, 85, 90, 78],
+            [&quot;Ani&quot;, 92, 88, 95],
+            [&quot;Citra&quot;, 76, 80, 82]
+        ]
+        
+        for siswa in nilai_siswa:
+            nama = siswa[0]
+            nilai = siswa[1:]
+            total = sum(nilai)
+            rata = total / len(nilai)
+            print(f&quot;{nama}: rata-rata {rata:.1f}&quot;)</code></pre>
+        
+        <h2>7. List Comprehension — Loop Singkat (Preview)</h2>
+        
+        <p>Ini fitur Python yang sangat populer. Akan dibahas detail di Modul 11.</p>
+        
+        <pre><code class="language-python"># Buat list dari loop (cara biasa)
+        kuadrat = []
+        for i in range(10):
+            kuadrat.append(i**2)
+        print(kuadrat)  # [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+        
+        # Cara list comprehension (jauh lebih singkat)
+        kuadrat2 = [i**2 for i in range(10)]
+        print(kuadrat2)  # [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]</code></pre>
+        
+        <hr>
+        
+        <h2>🧪 Latihan Modul 6</h2>
+        
+        <h3>Latihan 1: Deret Angka</h3>
+        
+        <pre><code class="language-python"># Cetak deret berikut menggunakan loop:
+        # 1. 1, 2, 3, 4, ..., 20
+        # 2. 2, 4, 6, 8, ..., 20
+        # 3. 10, 9, 8, 7, ..., 1
+        # 4. 1, 4, 9, 16, 25, ..., 100 (bilangan kuadrat)</code></pre>
+        
+        <h3>Latihan 2: FizzBuzz</h3>
+        
+        <pre><code class="language-python"># Cetak angka 1-50
+        # Kelipatan 3 → &quot;Fizz&quot;
+        # Kelipatan 5 → &quot;Buzz&quot;
+        # Kelipatan 3 dan 5 → &quot;FizzBuzz&quot;
+        # Selainnya → angka
+        # Output: 1, 2, Fizz, 4, Buzz, Fizz, 7, ...</code></pre>
+        
+        <h3>Latihan 3: Game Tebak Angka</h3>
+        
+        <pre><code class="language-python"># Program:
+        # 1. Pilih angka acak 1-50 (import random; angka = random.randint(1, 50))
+        # 2. User menebak
+        # 3. Kalau terlalu besar → &quot;Terlalu besar!&quot;
+        # 4. Kalau terlalu kecil → &quot;Terlalu kecil!&quot;
+        # 5. Kalau benar → &quot;Benar!&quot; + tampilkan jumlah tebakan
+        # 6. Batas maksimal 7 tebakan
+        # Hint: pake while loop</code></pre>
+        
+        <h3>Latihan 4: Pola Bintang</h3>
+        
+        <pre><code class="language-python"># Minta input tinggi segitiga
+        # Cetak:
+        # *
+        # **
+        # ***
+        # ****
+        # *****
+        # (segitiga siku-siku)
+        #
+        # Kemudian cetak versi terbalik:
+        # *****
+        # ****
+        # ***
+        # **
+        # *</code></pre>
+        
+        <h3>Latihan 5: Password Checker</h3>
+        
+        <pre><code class="language-python"># Program yang terus meminta password sampai memenuhi syarat:
+        # - Minimal 8 karakter
+        # - Mengandung huruf besar
+        # - Mengandung angka
+        # - Kalau semua terpenuhi, &quot;Password kuat ✅&quot; dan program selesai
+        # Tampilkan petunjuk yang hilang setiap kali salah</code></pre>
+        
+        <hr>
+        
+        <h2>✅ Checklist Paham</h2>
+        
+        <ul><li>[ ] Saya bisa pake <code>for</code> untuk loop data dan range</li><li>[ ] Saya paham cara kerja <code>while</code> loop</li><li>[ ] Saya tau kapan pake <code>for</code> vs <code>while</code></li><li>[ ] Saya paham <code>break</code> dan <code>continue</code> — beda dan kapan pakainya</li><li>[ ] Saya paham konsep <code>else</code> di loop (uniquely Python)</li><li>[ ] Saya bisa bikin nested loop</li><li>[ ] Saya waspada dengan infinite loop</li></ul>
+        
+        <p><strong>Kalau semua checklist tercentang → lanjut ke Modul 7.</strong></p>
+        
+    <nav class="modul-nav">
+        <a href="05-percabangan.html">« 🔀 Percabangan</a>
+        <span class="modul-nav-center">⬅ <a href="../index.html">Index</a></span>
+        <a href="07-function.html">⚡ Function »</a>
+    </nav>
+    </div>
+    <script>document.querySelectorAll('pre code').forEach(b=>hljs.highlightElement(b));</script>
+</body>
+</html>

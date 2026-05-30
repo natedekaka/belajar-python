@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modul 11: List Comprehension &amp; Lambda — Belajar Python</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐍</text></svg>">
+</head>
+<body>
+    <nav class="top-nav">
+        <a href="../index.html">⬅ Kembali ke Index</a>
+        <span class="title-nav">Modul 11: List Comprehension &amp; Lambda</span>
+    </nav>
+    <div class="container">
+        <h1>Modul 11: List Comprehension & Lambda</h1>
+        
+        <h2>🏆 Target Pemahaman</h2>
+        
+        <p>Setelah modul ini, kamu bisa:</p>
+        <ul><li>Menulis list comprehension untuk mengganti loop sederhana</li><li>Menjelaskan ke murid: "ini cara Pythonic — lebih pendek, lebih jelas"</li><li>Menggunakan <code>map()</code>, <code>filter()</code>, dan <code>lambda</code></li><li>Membedakan kapan pakai comprehension vs loop biasa</li></ul>
+        
+        <hr>
+        
+        <h2>1. Apa Itu List Comprehension?</h2>
+        
+        <p>List comprehension (LC) adalah cara <strong>singkat dan Pythonic</strong> untuk membuat list baru dari iterable.</p>
+        
+        <h3>Tanpa LC (Loop Biasa)</h3>
+        
+        <pre><code class="language-python"># Buat list kuadrat dari 0-9
+        kuadrat = []
+        for i in range(10):
+            kuadrat.append(i ** 2)
+        print(kuadrat)  # [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]</code></pre>
+        
+        <h3>Dengan LC</h3>
+        
+        <pre><code class="language-python">kuadrat = [i ** 2 for i in range(10)]
+        print(kuadrat)  # [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]</code></pre>
+        
+        <h3>Struktur LC</h3>
+        
+        <pre><code>[ekspresi  for  item  in  iterable]
+            ↑        ↑     ↑       ↑
+           hasil    kata   var    sumber data
+           setiap   kunci          (list, range, dll)
+           item</code></pre>
+        
+        <h2>2. Contoh-Contoh LC</h2>
+        
+        <h3>Basic</h3>
+        
+        <pre><code class="language-python"># Angka genap 0-20
+        genap = [i for i in range(0, 21, 2)]
+        # [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
+        
+        # Panjang setiap kata
+        kata = [&quot;Python&quot;, &quot;Java&quot;, &quot;C&quot;, &quot;JavaScript&quot;]
+        panjang = [len(k) for k in kata]
+        # [6, 4, 1, 10]
+        
+        # Huruf besar
+        buah = [&quot;apel&quot;, &quot;pisang&quot;, &quot;jeruk&quot;]
+        buah_besar = [b.upper() for b in buah]
+        # [&#x27;APEL&#x27;, &#x27;PISANG&#x27;, &#x27;JERUK&#x27;]
+        
+        # Operasi matematika
+        suhu_c = [0, 10, 20, 30, 40]
+        suhu_f = [(c * 9/5) + 32 for c in suhu_c]
+        # [32.0, 50.0, 68.0, 86.0, 104.0]</code></pre>
+        
+        <h3>Dengan If (Filtering)</h3>
+        
+        <pre><code class="language-python"># Angka genap dari 0-20
+        angka = range(0, 21)
+        genap = [a for a in angka if a % 2 == 0]
+        # [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20]
+        
+        # Kata yang panjangnya &gt; 4
+        kata = [&quot;Python&quot;, &quot;Java&quot;, &quot;C&quot;, &quot;JavaScript&quot;, &quot;HTML&quot;]
+        panjang = [k for k in kata if len(k) &gt; 4]
+        # [&#x27;Python&#x27;, &#x27;JavaScript&#x27;]
+        
+        # Bilangan yang bisa dibagi 3 dan 5 (FizzBuzz)
+        fb = [i for i in range(1, 51) if i % 3 == 0 and i % 5 == 0]
+        # [15, 30, 45]</code></pre>
+        
+        <h3>Dengan If-Else (Ternary di Dalam LC)</h3>
+        
+        <pre><code class="language-python"># Ganti angka genap jadi &quot;Genap&quot;, ganjil jadi &quot;Ganjil&quot;
+        angka = range(1, 11)
+        label = [&quot;Genap&quot; if a % 2 == 0 else &quot;Ganjil&quot; for a in angka]
+        # [&#x27;Ganjil&#x27;, &#x27;Genap&#x27;, &#x27;Ganjil&#x27;, &#x27;Genap&#x27;, &#x27;Ganjil&#x27;, ...]
+        
+        # Nilai: lulus/tidak lulus
+        nilai = [85, 45, 92, 30, 78, 60]
+        status = [&quot;Lulus&quot; if n &gt;= 75 else &quot;Tidak lulus&quot; for n in nilai]
+        # [&#x27;Lulus&#x27;, &#x27;Tidak lulus&#x27;, &#x27;Lulus&#x27;, &#x27;Tidak lulus&#x27;, &#x27;Lulus&#x27;, &#x27;Tidak lulus&#x27;]</code></pre>
+        
+        <h3>Nested Loop di LC</h3>
+        
+        <pre><code class="language-python"># Cartesian product
+        warna = [&quot;merah&quot;, &quot;biru&quot;]
+        ukuran = [&quot;S&quot;, &quot;M&quot;, &quot;L&quot;]
+        produk = [(w, u) for w in warna for u in ukuran]
+        # [(&#x27;merah&#x27;, &#x27;S&#x27;), (&#x27;merah&#x27;, &#x27;M&#x27;), (&#x27;merah&#x27;, &#x27;L&#x27;),
+        #  (&#x27;biru&#x27;, &#x27;S&#x27;), (&#x27;biru&#x27;, &#x27;M&#x27;), (&#x27;biru&#x27;, &#x27;L&#x27;)]
+        
+        # Flatten matriks
+        matriks = [[1, 2], [3, 4], [5, 6]]
+        flat = [item for baris in matriks for item in baris]
+        # [1, 2, 3, 4, 5, 6]</code></pre>
+        
+        <h2>3. Dictionary & Set Comprehension</h2>
+        
+        <p>Bukan cuma list — Python juga punya dictionary comprehension dan set comprehension.</p>
+        
+        <h3>Dictionary Comprehension</h3>
+        
+        <pre><code class="language-python"># Kuadrat sebagai value
+        angka = [1, 2, 3, 4, 5]
+        kuadrat_dict = {a: a**2 for a in angka}
+        # {1: 1, 2: 4, 3: 9, 4: 16, 5: 25}
+        
+        # Dari dua list jadi dict
+        nama = [&quot;Budi&quot;, &quot;Ani&quot;, &quot;Citra&quot;]
+        nilai = [85, 92, 78]
+        nilai_dict = {nama[i]: nilai[i] for i in range(len(nama))}
+        # {&#x27;Budi&#x27;: 85, &#x27;Ani&#x27;: 92, &#x27;Citra&#x27;: 78}
+        
+        # Filter dict
+        siswa_aktif = {k: v for k, v in nilai_dict.items() if v &gt;= 80}
+        # {&#x27;Budi&#x27;: 85, &#x27;Ani&#x27;: 92}</code></pre>
+        
+        <h3>Set Comprehension</h3>
+        
+        <pre><code class="language-python"># Kuadrat angka — duplikat otomatis hilang
+        angka = [1, 2, 2, 3, 3, 3, 4]
+        kuadrat_set = {a**2 for a in angka}
+        # {16, 1, 9, 4}
+        
+        # Huruf unik dalam kalimat
+        kalimat = &quot;Python Programming&quot;
+        huruf_unik = {h.lower() for h in kalimat if h.isalpha()}
+        # {&#x27;p&#x27;, &#x27;y&#x27;, &#x27;t&#x27;, &#x27;h&#x27;, &#x27;o&#x27;, &#x27;n&#x27;, &#x27;r&#x27;, &#x27;g&#x27;, &#x27;a&#x27;, &#x27;m&#x27;, &#x27;i&#x27;}</code></pre>
+        
+        <h2>4. Lambda Function</h2>
+        
+        <p>Lambda = <strong>fungsi anonim (tanpa nama)</strong> satu baris.</p>
+        
+        <h3>Bentuk Umum</h3>
+        
+        <pre><code class="language-python"># lambda parameter: ekspresi
+        
+        # Fungsi biasa
+        def kali_dua(x):
+            return x * 2
+        
+        # Lambda
+        kali_dua_lambda = lambda x: x * 2
+        
+        print(kali_dua(5))        # 10
+        print(kali_dua_lambda(5)) # 10</code></pre>
+        
+        <h3>Lambda dengan Banyak Parameter</h3>
+        
+        <pre><code class="language-python">tambah = lambda a, b: a + b
+        print(tambah(5, 3))  # 8
+        
+        luas_segitiga = lambda a, t: 0.5 * a * t
+        print(luas_segitiga(10, 5))  # 25.0</code></pre>
+        
+        <h2>5. Map, Filter, Reduce</h2>
+        
+        <p>Fungsi-fungsi ini sering dipasangkan dengan lambda.</p>
+        
+        <h3>Map — Terapkan Fungsi ke Setiap Item</h3>
+        
+        <pre><code class="language-python">angka = [1, 2, 3, 4, 5]
+        
+        # Pakai map + lambda
+        kuadrat = list(map(lambda x: x**2, angka))
+        print(kuadrat)  # [1, 4, 9, 16, 25]
+        
+        # Sebenarnya LC lebih bersih:
+        kuadrat2 = [x**2 for x in angka]</code></pre>
+        
+        <h3>Filter — Ambil Item yang Memenuhi Kondisi</h3>
+        
+        <pre><code class="language-python">angka = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        
+        # Pakai filter + lambda
+        genap = list(filter(lambda x: x % 2 == 0, angka))
+        print(genap)  # [2, 4, 6, 8, 10]
+        
+        # LC lebih bersih:
+        genap2 = [x for x in angka if x % 2 == 0]</code></pre>
+        
+        <h3>Reduce — Akumulasi Nilai</h3>
+        
+        <pre><code class="language-python">from functools import reduce
+        
+        angka = [1, 2, 3, 4, 5]
+        
+        # Jumlah semua — reduce bertahap: (((1+2)+3)+4)+5
+        jumlah = reduce(lambda a, b: a + b, angka)
+        print(jumlah)  # 15
+        
+        # Faktorial dengan reduce
+        faktorial = reduce(lambda a, b: a * b, range(1, 6))
+        print(faktorial)  # 120 (1*2*3*4*5)</code></pre>
+        
+        <h3>Kapan Map/Filter vs List Comprehension?</h3>
+        
+        <pre><code class="language-python"># ✅ LC lebih Pythonic untuk kasus sederhana
+        [x**2 for x in range(10)]
+        
+        # ✅ Map/Filter berguna kalau sudah punya fungsi yang ada
+        list(map(str.upper, [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]))
+        # Sama dengan: [s.upper() for s in [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]]</code></pre>
+        
+        <blockquote><p>💡 <strong>Saran:</strong> Gunakan list comprehension dulu. Map/filter untuk kasus khusus (misal fungsi sudah ada).</p></blockquote>
+        
+        <h2>6. Kapan Pakai Comprehension vs Loop Biasa?</h2>
+        
+        <table>
+        <tr><th>Situasi</th><th>Pakai</th></tr>
+        <tr><td>Membuat list baru dari iterable</td><td>✅ Comprehension</td></tr>
+        <tr><td>Transformasi sederhana (kuadrat, upper)</td><td>✅ Comprehension</td></tr>
+        <tr><td>Filter + transformasi</td><td>✅ Comprehension dengan if</td></tr>
+        <tr><td>Operasi sampingan (print, file.write)</td><td>❌ Loop biasa</td></tr>
+        <tr><td>Logika kompleks (banyak if, try/except)</td><td>❌ Loop biasa</td></tr>
+        <tr><td>Perlu break/continue</td><td>❌ Loop biasa</td></tr>
+        </table>
+        
+        <pre><code class="language-python"># ✅ Comprehension — tepat
+        genap = [x for x in range(100) if x % 2 == 0]
+        
+        # ❌ Comprehension — dipaksakan (ada side-effect)
+        # [print(x) for x in range(10)]  # Bisa jalan, tapi ini abuse!
+        
+        # ✅ Loop biasa — lebih tepat
+        for x in range(10):
+            print(x)</code></pre>
+        
+        <hr>
+        
+        <h2>🧪 Latihan Modul 11</h2>
+        
+        <h3>Latihan 1: Transformasi dengan LC</h3>
+        
+        <pre><code class="language-python"># Selesaikan dengan list comprehension:
+        
+        # 1. Buat list bilangan kuadrat dari 1-20
+        # 2. Buat list kata &quot;Genap&quot; atau &quot;Ganjil&quot; untuk angka 0-15
+        # 3. Dari list suhu_c = [0, 5, 10, 15, 20, 25, 30], buat list suhu_f
+        # 4. Ambil kata yang mengandung huruf &#x27;a&#x27; dari: [&quot;apel&quot;, &quot;jeruk&quot;, &quot;mangga&quot;, &quot;pisang&quot;, &quot;anggur&quot;]
+        # 5. Buat list tuple (angka, kuadratnya) untuk 1-10</code></pre>
+        
+        <h3>Latihan 2: Filter dengan LC</h3>
+        
+        <pre><code class="language-python">nilai_siswa = [(&quot;Budi&quot;, 85), (&quot;Ani&quot;, 92), (&quot;Citra&quot;, 45), (&quot;Dedi&quot;, 78), (&quot;Eva&quot;, 30)]
+        
+        # 1. Nama siswa yang lulus (nilai &gt;= 75)
+        # 2. Nama + status lulus/tidak
+        # 3. Rata-rata nilai dari siswa yang lulus saja</code></pre>
+        
+        <h3>Latihan 3: Dictionary Comprehension</h3>
+        
+        <pre><code class="language-python">kata = [&quot;Python&quot;, &quot;Java&quot;, &quot;C&quot;, &quot;JavaScript&quot;, &quot;HTML&quot;, &quot;CSS&quot;]
+        
+        # Buat dictionary: {kata: panjang_kata}
+        # Filter: hanya kata dengan panjang &gt; 2
+        # Output: {&#x27;Python&#x27;: 6, &#x27;Java&#x27;: 4, &#x27;JavaScript&#x27;: 10, &#x27;HTML&#x27;: 4, &#x27;CSS&#x27;: 3}</code></pre>
+        
+        <h3>Latihan 4: Lambda + Map/Filter</h3>
+        
+        <pre><code class="language-python"># 1. Gunakan map untuk mengubah list suhu Celsius ke Fahrenheit
+        # 2. Gunakan filter untuk ambil bilangan prima dari 2-50
+        #    (bikin fungsi is_prime dulu, lalu filter)
+        # 3. Gunakan reduce untuk mencari nilai terbesar di list</code></pre>
+        
+        <h3>Latihan 5: Challenge — FizzBuzz dengan LC</h3>
+        
+        <pre><code class="language-python"># Buat FizzBuzz (1-50) dengan list comprehension
+        # Output: [1, 2, &quot;Fizz&quot;, 4, &quot;Buzz&quot;, &quot;Fizz&quot;, 7, 8, &quot;Fizz&quot;, &quot;Buzz&quot;, ...]
+        # Hint: pakai ternary di dalam LC</code></pre>
+        
+        <hr>
+        
+        <h2>✅ Checklist Paham</h2>
+        
+        <ul><li>[ ] Saya bisa nulis list comprehension <code>[expr for item in iterable]</code></li><li>[ ] Saya bisa nambah filter <code>[expr for item in iterable if condition]</code></li><li>[ ] Saya paham ternary di dalam LC</li><li>[ ] Saya bisa bikin dictionary & set comprehension</li><li>[ ] Saya bisa bikin lambda sederhana</li><li>[ ] Saya paham <code>map()</code>, <code>filter()</code>, <code>reduce()</code></li><li>[ ] Saya tau kapan pakai LC vs loop biasa</li></ul>
+        
+        <p><strong>Kalau semua checklist tercentang → lanjut ke Modul 12.</strong></p>
+        
+    <nav class="modul-nav">
+        <a href="10-module-pip.html">« 📦 Module & pip</a>
+        <span class="modul-nav-center">⬅ <a href="../index.html">Index</a></span>
+        <a href="12-oop-dasar.html">🧱 OOP Dasar »</a>
+    </nav>
+    </div>
+    <script>document.querySelectorAll('pre code').forEach(b=>hljs.highlightElement(b));</script>
+</body>
+</html>

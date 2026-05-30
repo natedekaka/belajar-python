@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modul 5: Percabangan (Conditional) — Belajar Python</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐍</text></svg>">
+</head>
+<body>
+    <nav class="top-nav">
+        <a href="../index.html">⬅ Kembali ke Index</a>
+        <span class="title-nav">Modul 5: Percabangan (Conditional)</span>
+    </nav>
+    <div class="container">
+        <h1>Modul 5: Percabangan (Conditional)</h1>
+        
+        <h2>🏆 Target Pemahaman</h2>
+        
+        <p>Setelah modul ini, kamu bisa:</p>
+        <ul><li>Membuat logika <code>if/elif/else</code> untuk berbagai situasi</li><li>Menjelaskan <strong>flowchart</strong> percabangan ke murid</li><li>Menggunakan operator perbandingan dan logika</li><li>Membuat nested conditionals</li><li>Menggunakan ternary untuk kondisi sederhana</li></ul>
+        
+        <hr>
+        
+        <h2>1. Operator Perbandingan</h2>
+        
+        <p>Percabangan selalu melibatkan <strong>perbandingan</strong>. Ini operatornya:</p>
+        
+        <table>
+        <tr><th>Operator</th><th>Arti</th><th>Contoh</th><th>Hasil</th></tr>
+        <tr><td><code>==</code></td><td>Sama dengan</td><td><code>5 == 5</code></td><td><code>True</code></td></tr>
+        <tr><td><code>!=</code></td><td>Tidak sama</td><td><code>5 != 3</code></td><td><code>True</code></td></tr>
+        <tr><td><code>&gt;</code></td><td>Lebih besar</td><td><code>5 &gt; 3</code></td><td><code>True</code></td></tr>
+        <tr><td><code>&lt;</code></td><td>Lebih kecil</td><td><code>5 &lt; 3</code></td><td><code>False</code></td></tr>
+        <tr><td><code>&gt;=</code></td><td>Lebih besar atau sama</td><td><code>5 &gt;= 5</code></td><td><code>True</code></td></tr>
+        <tr><td><code>&lt;=</code></td><td>Lebih kecil atau sama</td><td><code>5 &lt;= 3</code></td><td><code>False</code></td></tr>
+        </table>
+        
+        <pre><code class="language-python">nilai = 85
+        print(nilai &gt; 75)    # True
+        print(nilai == 100)  # False
+        print(nilai != 50)   # True</code></pre>
+        
+        <blockquote><p>⚠️ <strong>Ini error paling umum murid:</strong> <code>=</code> vs <code>==</code></p></blockquote>
+        <blockquote><p>- <code>=</code> adalah <strong>assignment</strong> (isi nilai): <code>x = 5</code></p></blockquote>
+        <blockquote><p>- <code>==</code> adalah <strong>perbandingan</strong>: <code>x == 5</code></p></blockquote>
+        <blockquote><p>- Salah tulis <code>if x = 5:</code> → error SyntaxError!</p></blockquote>
+        
+        <h2>2. If/Else — Struktur Dasar</h2>
+        
+        <pre><code class="language-python">nilai = 85
+        
+        if nilai &gt;= 75:
+            print(&quot;Lulus! 🎉&quot;)
+        else:
+            print(&quot;Tidak lulus. 😢&quot;)</code></pre>
+        
+        <h3>Bagaimana Cara Kerjanya?</h3>
+        
+        <pre><code>          ┌─────────┐
+                  │  nilai  │
+                  │ &gt;= 75?  │
+                  └────┬────┘
+                       │
+                ┌──────┴──────┐
+               Ya             Tidak
+                │              │
+           ┌────┴────┐    ┌───┴───┐
+           │ &quot;Lulus&quot; │    │&quot;Tidak&quot;│
+           └─────────┘    └───────┘</code></pre>
+        
+        <blockquote><p>🏆 <strong>Buat ngajar:</strong> Selalu gambar flowchart dulu sebelum nulis kode. Murid akan lebih paham alur logikanya.</p></blockquote>
+        
+        <h3>If/Elif/Else — Banyak Kondisi</h3>
+        
+        <pre><code class="language-python">nilai = 85
+        
+        if nilai &gt;= 90:
+            grade = &quot;A&quot;
+        elif nilai &gt;= 80:
+            grade = &quot;B&quot;
+        elif nilai &gt;= 70:
+            grade = &quot;C&quot;
+        elif nilai &gt;= 60:
+            grade = &quot;D&quot;
+        else:
+            grade = &quot;E&quot;
+        
+        print(f&quot;Nilai: {nilai}, Grade: {grade}&quot;)  # Nilai: 85, Grade: B</code></pre>
+        
+        <h3>Bagaimana Python Mengeksekusi?</h3>
+        
+        <p>Python cek <strong>dari atas ke bawah</strong>. Kondisi pertama yang <code>True</code> akan dijalankan, sisanya dilewati.</p>
+        
+        <pre><code class="language-python"># ⚠️ Urutan penting! Kalau ditukar, hasilnya beda:
+        nilai = 85
+        
+        # SALAH
+        if nilai &gt;= 70:      # Ini True (85&gt;=70)
+            grade = &quot;C&quot;      # ⚠️ Berhenti di sini!
+        elif nilai &gt;= 80:    # Tidak pernah dicek
+            grade = &quot;B&quot;
+        elif nilai &gt;= 90:
+            grade = &quot;A&quot;
+        # Hasil: C — padahal seharusnya B!</code></pre>
+        
+        <blockquote><p>💡 <strong>Aturan:</strong> Urutkan dari kondisi <strong>paling spesifik</strong> ke <strong>paling umum</strong>.</p></blockquote>
+        
+        <h2>3. Operator Logika (Boolean)</h2>
+        
+        <p>Kita bisa gabung beberapa kondisi dengan <code>and</code>, <code>or</code>, <code>not</code>:</p>
+        
+        <h3>AND — Keduanya harus True</h3>
+        
+        <pre><code class="language-python">usia = 17
+        lulus = True
+        
+        if usia &gt;= 16 and lulus:
+            print(&quot;Bisa ikut ujian praktek&quot;)
+        else:
+            print(&quot;Belum bisa ikut&quot;)</code></pre>
+        
+        <h3>OR — Salah satu True</h3>
+        
+        <pre><code class="language-python">hari = &quot;Sabtu&quot;
+        
+        if hari == &quot;Sabtu&quot; or hari == &quot;Minggu&quot;:
+            print(&quot;Libur! 🎉&quot;)
+        else:
+            print(&quot;Masuk sekolah&quot;)</code></pre>
+        
+        <h3>NOT — Membalik</h3>
+        
+        <pre><code class="language-python">cuaca_hujan = False
+        
+        if not cuaca_hujan:
+            print(&quot;Boleh olahraga di luar&quot;)</code></pre>
+        
+        <h3>Kombinasi</h3>
+        
+        <pre><code class="language-python">nilai = 85
+        absen = 90
+        izin = False
+        
+        if nilai &gt;= 75 and absen &gt;= 80 and not izin:
+            print(&quot;Lulus sempurna&quot;)
+        elif nilai &gt;= 75 and absen &gt;= 80:
+            print(&quot;Lulus&quot;)
+        elif nilai &gt;= 75:
+            print(&quot;Lulus bersyarat — perbaiki absen&quot;)
+        else:
+            print(&quot;Tidak lulus&quot;)</code></pre>
+        
+        <h3>Tabel Kebenaran (Truth Table)</h3>
+        
+        <p>Ini penting buat ngajar:</p>
+        
+        <table>
+        <tr><th>A</th><th>B</th><th>A and B</th><th>A or B</th><th>not A</th></tr>
+        <tr><td>T</td><td>T</td><td>T</td><td>T</td><td>F</td></tr>
+        <tr><td>T</td><td>F</td><td>F</td><td>T</td><td>F</td></tr>
+        <tr><td>F</td><td>T</td><td>F</td><td>T</td><td>T</td></tr>
+        <tr><td>F</td><td>F</td><td>F</td><td>F</td><td>T</td></tr>
+        </table>
+        
+        <h2>4. Truthy dan Falsy — Konsep Penting</h2>
+        
+        <p>Di Python, setiap nilai bisa dianggap <code>True</code> atau <code>False</code> dalam konteks boolean:</p>
+        
+        <pre><code class="language-python"># Nilai yang dianggap False (Falsy):
+        bool(0)         # False
+        bool(0.0)       # False
+        bool(&quot;&quot;)        # False — string kosong
+        bool([])        # False — list kosong
+        bool({})        # False — dict kosong
+        bool(None)      # False
+        
+        # Semua yang lain = Truthy (dianggap True)
+        bool(1)         # True
+        bool(-1)        # True
+        bool(&quot;Python&quot;)  # True
+        bool([0])       # True — list isi 0, tapi list-nya tidak kosong</code></pre>
+        
+        <p>Ini berguna untuk penulisan kode yang lebih singkat:</p>
+        
+        <pre><code class="language-python">nama = input(&quot;Masukkan nama: &quot;)
+        
+        # Daripada:
+        if nama != &quot;&quot;:
+            print(f&quot;Halo {nama}&quot;)
+        
+        # Lebih Pythonic:
+        if nama:  # True kalau string tidak kosong
+            print(f&quot;Halo {nama}&quot;)</code></pre>
+        
+        <blockquote><p>💡 <strong>Poin ngajar:</strong> "Semua yang 'kosong' dianggap False: 0, string kosong, list kosong, None. Ini membuat kode lebih bersih."</p></blockquote>
+        
+        <h2>5. Nested Conditionals (Bersarang)</h2>
+        
+        <p>Kondisi di dalam kondisi:</p>
+        
+        <pre><code class="language-python">usia = 17
+        lulus = True
+        nilai = 85
+        
+        if usia &gt;= 16:
+            print(&quot;Syarat usia terpenuhi&quot;)
+            
+            if lulus:
+                print(&quot;Syarat kelulusan terpenuhi&quot;)
+                
+                if nilai &gt;= 80:
+                    print(&quot;Selamat! Dapat sertifikat dengan pujian&quot;)
+                else:
+                    print(&quot;Dapat sertifikat&quot;)
+            else:
+                print(&quot;Tidak lulus — tidak dapat sertifikat&quot;)
+        else:
+            print(&quot;Belum memenuhi syarat usia&quot;)</code></pre>
+        
+        <blockquote><p>⚠️ <strong>Hati-hati dengan nested yang terlalu dalam.</strong> Kalau sudah 3 level nested, sebaiknya disederhanakan (nanti di modul function).</p></blockquote>
+        
+        <h2>6. Ternary (One-liner Condition)</h2>
+        
+        <p>Untuk kondisi sederhana, Python punya <strong>ternary operator</strong>:</p>
+        
+        <pre><code class="language-python"># Format: hasil_jika_true if kondisi else hasil_jika_false
+        
+        # Daripada:
+        nilai = 85
+        if nilai &gt;= 75:
+            status = &quot;Lulus&quot;
+        else:
+            status = &quot;Tidak lulus&quot;
+        
+        # Lebih ringkas:
+        status = &quot;Lulus&quot; if nilai &gt;= 75 else &quot;Tidak lulus&quot;
+        print(status)  # Lulus</code></pre>
+        
+        <p>Cocok untuk assignment sederhana. Tapi jangan dipaksakan untuk kondisi kompleks.</p>
+        
+        <h2>7. Match/Case (Python 3.10+) — Alternatif Switch</h2>
+        
+        <p>Python versi baru punya <code>match/case</code> seperti switch di bahasa lain:</p>
+        
+        <pre><code class="language-python"># Cocok untuk banyak kondisi dengan nilai tertentu
+        hari = 3
+        
+        match hari:
+            case 1:
+                print(&quot;Senin&quot;)
+            case 2:
+                print(&quot;Selasa&quot;)
+            case 3:
+                print(&quot;Rabu&quot;)
+            case 4:
+                print(&quot;Kamis&quot;)
+            case 5:
+                print(&quot;Jumat&quot;)
+            case _:  # Default
+                print(&quot;Akhir pekan&quot;)</code></pre>
+        
+        <pre><code class="language-python"># Match dengan kondisi
+        nilai = 85
+        match nilai:
+            case n if n &gt;= 90:
+                grade = &quot;A&quot;
+            case n if n &gt;= 80:
+                grade = &quot;B&quot;
+            case n if n &gt;= 70:
+                grade = &quot;C&quot;
+            case _:
+                grade = &quot;D&quot;
+        print(grade)  # B</code></pre>
+        
+        <blockquote><p>💡 <code>match/case</code> masih baru. Kalau Python kamu &lt; 3.10, pakai <code>if/elif/else</code> biasa.</p></blockquote>
+        
+        <hr>
+        
+        <h2>🧪 Latihan Modul 5</h2>
+        
+        <h3>Latihan 1: Penentu Grade Nilai</h3>
+        
+        <pre><code class="language-python"># Input nilai siswa (0-100)
+        # Output grade:
+        # 90-100: A (Sangat Baik)
+        # 80-89: B (Baik)
+        # 70-79: C (Cukup)
+        # 60-69: D (Kurang)
+        # &lt;60: E (Sangat Kurang)
+        # Hint: validasi input harus antara 0-100</code></pre>
+        
+        <h3>Latihan 2: Cek Kelulusan</h3>
+        
+        <pre><code class="language-python"># Input: 3 nilai (mtk, ipa, inggris)
+        # Syarat lulus:
+        # - Rata-rata &gt;= 75
+        # - Tidak ada nilai di bawah 60
+        # Output: &quot;Lulus&quot; atau &quot;Tidak lulus&quot; + alasan</code></pre>
+        
+        <h3>Latihan 3: Tahun Kabisat</h3>
+        
+        <pre><code class="language-python"># Input tahun
+        # Aturan tahun kabisat:
+        # - Habis dibagi 400 → kabisat
+        # - Habis dibagi 100 tapi tidak 400 → bukan kabisat
+        # - Habis dibagi 4 dan tidak 100 → kabisat
+        # - Sisanya → bukan kabisat
+        # Output: &quot;[tahun] adalah tahun kabisat&quot; / &quot;bukan tahun kabisat&quot;</code></pre>
+        
+        <h3>Latihan 4: Aplikasi Parkir Sederhana</h3>
+        
+        <pre><code class="language-python"># Input: jam masuk, jam keluar (format 0-24)
+        # Tarif:
+        # 1 jam pertama: Rp 5.000
+        # Jam berikutnya: Rp 3.000 per jam
+        # Maksimum tarif: Rp 30.000
+        # Hitung total bayar</code></pre>
+        
+        <hr>
+        
+        <h2>✅ Checklist Paham</h2>
+        
+        <ul><li>[ ] Saya bisa bedain <code>=</code> (assignment) vs <code>==</code> (perbandingan)</li><li>[ ] Saya bisa bikin percabangan <code>if/elif/else</code></li><li>[ ] Saya paham urutan eksekusi kondisi</li><li>[ ] Saya bisa pakai <code>and</code>, <code>or</code>, <code>not</code></li><li>[ ] Saya paham konsep truthy/falsy</li><li>[ ] Saya bisa bikin ternary <code>A if kondisi else B</code></li><li>[ ] Saya tau <code>match/case</code> (kalau Python 3.10+)</li></ul>
+        
+        <p><strong>Kalau semua checklist tercentang → lanjut ke Modul 6.</strong></p>
+        
+    <nav class="modul-nav">
+        <a href="04-dictionary-set.html">« 🔑 Dictionary & Set</a>
+        <span class="modul-nav-center">⬅ <a href="../index.html">Index</a></span>
+        <a href="06-perulangan.html">🔄 Perulangan »</a>
+    </nav>
+    </div>
+    <script>document.querySelectorAll('pre code').forEach(b=>hljs.highlightElement(b));</script>
+</body>
+</html>

@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modul 7: Function (Fungsi) — Belajar Python</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐍</text></svg>">
+</head>
+<body>
+    <nav class="top-nav">
+        <a href="../index.html">⬅ Kembali ke Index</a>
+        <span class="title-nav">Modul 7: Function (Fungsi)</span>
+    </nav>
+    <div class="container">
+        <h1>Modul 7: Function (Fungsi)</h1>
+        
+        <h2>🏆 Target Pemahaman</h2>
+        
+        <p>Setelah modul ini, kamu bisa:</p>
+        <ul><li>Membuat dan memanggil fungsi sendiri</li><li>Menjelaskan <strong>parameter</strong>, <strong>argumen</strong>, dan <strong>return value</strong></li><li>Membedakan parameter vs argumen</li><li>Memahami <strong>scope</strong> (lokal vs global)</li><li>Menggunakan default parameter, *args, **kwargs</li></ul>
+        
+        <hr>
+        
+        <h2>1. Kenapa Perlu Fungsi?</h2>
+        
+        <p>Fungsi adalah <strong>blok kode yang bisa dipakai ulang</strong>. Bayangkan kamu punya kode untuk hitung rata-rata:</p>
+        
+        <pre><code class="language-python"># Tanpa fungsi — harus nulis ulang setiap kali
+        nilai1 = [85, 90, 78]
+        rata1 = sum(nilai1) / len(nilai1)
+        print(f&quot;Rata-rata: {rata1}&quot;)
+        
+        nilai2 = [92, 88, 95]
+        rata2 = sum(nilai2) / len(nilai2)
+        print(f&quot;Rata-rata: {rata2}&quot;)
+        
+        # Dengan fungsi — tulis sekali, pake berkali-kali
+        def hitung_rata(daftar_nilai):
+            return sum(daftar_nilai) / len(daftar_nilai)
+        
+        print(f&quot;Rata-rata: {hitung_rata(nilai1)}&quot;)
+        print(f&quot;Rata-rata: {hitung_rata(nilai2)}&quot;)</code></pre>
+        
+        <p>Manfaat fungsi:</p>
+        <ul><li><strong>Reusable</strong> — tulis sekali, pake kapan saja</li><li><strong>Modular</strong> — kode terorganisir, gampang dicari bug-nya</li><li><strong>Readable</strong> — nama fungsi menjelaskan apa yang dilakukan</li><li><strong>Testable</strong> — bisa diuji sendiri-sendiri</li></ul>
+        
+        <h2>2. Struktur Fungsi</h2>
+        
+        <pre><code class="language-python"># def nama_fungsi(parameter1, parameter2, ...):
+        #     &quot;&quot;&quot;Dokumentasi (optional)&quot;&quot;&quot;
+        #     ... kode ...
+        #     return hasil (optional)
+        
+        def sapa(nama):
+            &quot;&quot;&quot;Menyapa seseorang dengan namanya&quot;&quot;&quot;
+            pesan = f&quot;Halo {nama}! Selamat belajar Python!&quot;
+            return pesan
+        
+        # Panggil fungsi
+        output = sapa(&quot;Budi&quot;)
+        print(output)  # Halo Budi! Selamat belajar Python!</code></pre>
+        
+        <h3>Komponen Fungsi:</h3>
+        
+        <table>
+        <tr><th>Bagian</th><th>Penjelasan</th><th>Contoh</th></tr>
+        <tr><td><code>def</code></td><td>Keyword untuk mendefinisikan fungsi</td><td><code>def hitung():</code></td></tr>
+        <tr><td>Nama</td><td>Nama fungsi (snake_case)</td><td><code>hitung_rata</code></td></tr>
+        <tr><td>Parameter</td><td>Input fungsi (opsional)</td><td><code>(daftar_nilai)</code></td></tr>
+        <tr><td><code>return</code></td><td>Output fungsi (opsional)</td><td><code>return hasil</code></td></tr>
+        <tr><td>Docstring</td><td>Dokumentasi (opsional)</td><td><code>&quot;&quot;&quot;Hitung rata-rata&quot;&quot;&quot;</code></td></tr>
+        </table>
+        
+        <blockquote><p>💡 Fungsi bisa tanpa parameter dan tanpa return:</p></blockquote>
+        
+        <pre><code class="language-python">def garis():
+            print(&quot;=&quot; * 30)
+        
+        garis()  # ==============================
+        garis()  # Bisa dipanggil berkali-kali</code></pre>
+        
+        <h2>3. Parameter vs Argumen</h2>
+        
+        <p><strong>Parameter</strong> = variabel yang didefinisikan di fungsi.  </p>
+        <p><strong>Argumen</strong> = nilai yang dikirim saat memanggil fungsi.</p>
+        
+        <pre><code class="language-python">def kali(a, b):      # a dan b adalah PARAMETER
+            return a * b
+        
+        hasil = kali(5, 3)   # 5 dan 3 adalah ARGUMEN
+        print(hasil)          # 15</code></pre>
+        
+        <blockquote><p>🏆 <strong>Poin ngajar:</strong> "Parameter itu seperti wadah kosong yang kita siapkan di fungsi. Argumen itu isinya yang kita kirim waktu manggil."</p></blockquote>
+        
+        <h3>Jenis Argumen</h3>
+        
+        <p><strong>1. Positional Arguments (berdasarkan urutan)</strong></p>
+        
+        <pre><code class="language-python">def data_siswa(nama, kelas, nilai):
+            print(f&quot;{nama} - {kelas} - {nilai}&quot;)
+        
+        data_siswa(&quot;Budi&quot;, &quot;XII IPA 1&quot;, 85)
+        # Urutan penting: Budi → nama, XII IPA 1 → kelas, 85 → nilai</code></pre>
+        
+        <p><strong>2. Keyword Arguments (sebut nama parameter)</strong></p>
+        
+        <pre><code class="language-python">data_siswa(nama=&quot;Ani&quot;, nilai=92, kelas=&quot;XII IPA 1&quot;)
+        # Urutan tidak penting kalau pakai keyword</code></pre>
+        
+        <p><strong>3. Campuran (positional dulu, baru keyword)</strong></p>
+        
+        <pre><code class="language-python">data_siswa(&quot;Citra&quot;, kelas=&quot;XII IPA 1&quot;, nilai=78)
+        # ✅ Boleh — positional dulu
+        # data_siswa(nama=&quot;Dedi&quot;, &quot;XII IPA 1&quot;, 88)
+        # ❌ Error — positional setelah keyword</code></pre>
+        
+        <h2>4. Default Parameter</h2>
+        
+        <p>Parameter bisa punya <strong>nilai default</strong>. Kalau argumen tidak diberikan, nilai default dipakai.</p>
+        
+        <pre><code class="language-python">def sapa(nama=&quot;Teman&quot;):
+            print(f&quot;Halo {nama}!&quot;)
+        
+        sapa(&quot;Budi&quot;)     # Halo Budi!
+        sapa()           # Halo Teman! — pakai default</code></pre>
+        
+        <pre><code class="language-python">def info_siswa(nama, kelas=&quot;XII IPA 1&quot;, status=&quot;aktif&quot;):
+            print(f&quot;{nama} - {kelas} - {status}&quot;)
+        
+        info_siswa(&quot;Budi&quot;)                    # Budi - XII IPA 1 - aktif
+        info_siswa(&quot;Ani&quot;, &quot;XI IPA 2&quot;)        # Ani - XI IPA 2 - aktif
+        info_siswa(&quot;Citra&quot;, status=&quot;tidak&quot;)  # Citra - XII IPA 1 - tidak</code></pre>
+        
+        <blockquote><p>⚠️ <strong>Aturan:</strong> Parameter dengan default harus <strong>setelah</strong> parameter tanpa default. Ini error: <code>def func(a=1, b):</code> ❌</p></blockquote>
+        
+        <h2>5. Return Value</h2>
+        
+        <p>Fungsi bisa <strong>mengembalikan</strong> nilai dengan <code>return</code>.</p>
+        
+        <pre><code class="language-python">def tambah(a, b):
+            return a + b
+        
+        hasil = tambah(5, 3)   # hasil = 8
+        print(hasil * 2)        # 16 — return value bisa dipakai lagi</code></pre>
+        
+        <h3>Multiple Return (Sebagai Tuple)</h3>
+        
+        <pre><code class="language-python">def hitung(a, b):
+            tambah = a + b
+            kurang = a - b
+            kali = a * b
+            bagi = a / b
+            return tambah, kurang, kali, bagi  # Return tuple
+        
+        hasil = hitung(10, 3)
+        print(hasil)        # (13, 7, 30, 3.33...)
+        
+        # Unpack langsung
+        tambah, kurang, kali, bagi = hitung(10, 3)
+        print(tambah)   # 13</code></pre>
+        
+        <h3>Fungsi Tanpa Return → None</h3>
+        
+        <pre><code class="language-python">def cetak_pesan(pesan):
+            print(pesan)
+        
+        hasil = cetak_pesan(&quot;Halo&quot;)
+        print(hasil)  # None — fungsi tidak punya return</code></pre>
+        
+        <blockquote><p>💡 Setiap fungsi Python <strong>selalu</strong> mengembalikan sesuatu. Kalau tidak ada <code>return</code>, return-nya <code>None</code>.</p></blockquote>
+        
+        <h2>6. Scope — Dimana Variabel Bisa Diakses</h2>
+        
+        <p>Scope = <strong>lingkungan</strong> dimana variabel bisa diakses.</p>
+        
+        <h3>Variabel Lokal</h3>
+        
+        <p>Variabel yang didefinisikan <strong>di dalam fungsi</strong>:</p>
+        
+        <pre><code class="language-python">def hitung_nilai():
+            bonus = 10       # Lokal — hanya ada di dalam fungsi
+            nilai = 85 + bonus
+            return nilai
+        
+        print(hitung_nilai())  # 95
+        # print(bonus)          ❌ NameError! bonus tidak dikenal di luar fungsi</code></pre>
+        
+        <h3>Variabel Global</h3>
+        
+        <p>Variabel yang didefinisikan <strong>di luar fungsi</strong>:</p>
+        
+        <pre><code class="language-python">kelas = &quot;XII IPA 1&quot;  # Global — bisa diakses di mana saja
+        
+        def tampilkan_kelas():
+            print(f&quot;Kelas: {kelas}&quot;)  # ✅ Bisa akses variabel global
+        
+        tampilkan_kelas()  # Kelas: XII IPA 1
+        
+        def ubah_kelas():
+            kelas = &quot;XII IPA 2&quot;  # ⚠️ Ini BUKAN mengubah global!
+            # Ini malah bikin variabel LOKAL baru bernama kelas
+            print(f&quot;Di dalam: {kelas}&quot;)
+        
+        ubah_kelas()      # Di dalam: XII IPA 2
+        print(kelas)      # XII IPA 1 — global tidak berubah!</code></pre>
+        
+        <h3>Global Keyword</h3>
+        
+        <p>Kalau kamu <strong>harus</strong> mengubah variabel global di dalam fungsi:</p>
+        
+        <pre><code class="language-python">kelas = &quot;XII IPA 1&quot;
+        
+        def ubah_kelas():
+            global kelas     # Bilang: &quot;saya mau pake variabel global ini&quot;
+            kelas = &quot;XII IPA 2&quot;
+        
+        ubah_kelas()
+        print(kelas)   # XII IPA 2</code></pre>
+        
+        <blockquote><p>⚠️ <strong>Hindari <code>global</code></strong> sebisa mungkin. Fungsi yang baik menerima input lewat parameter, bukan lewat variabel global.</p></blockquote>
+        
+        <h2>7. *args dan **kwargs (Advanced)</h2>
+        
+        <p>Kadang kita tidak tahu berapa banyak argumen yang akan diberikan.</p>
+        
+        <h3>*args — Banyak Positional Arguments</h3>
+        
+        <pre><code class="language-python">def jumlahkan(*args):
+            &quot;&quot;&quot;Jumlahkan semua angka yang diberikan&quot;&quot;&quot;
+            print(args)  # Tuple: (1, 2, 3, 4, 5)
+            return sum(args)
+        
+        print(jumlahkan(1, 2, 3, 4, 5))    # 15
+        print(jumlahkan(10, 20))            # 30</code></pre>
+        
+        <h3>**kwargs — Banyak Keyword Arguments</h3>
+        
+        <pre><code class="language-python">def cetak_info(**kwargs):
+            &quot;&quot;&quot;Cetak informasi dari keyword arguments&quot;&quot;&quot;
+            for key, value in kwargs.items():
+                print(f&quot;{key}: {value}&quot;)
+        
+        cetak_info(nama=&quot;Budi&quot;, kelas=&quot;XII IPA 1&quot;, nilai=85)
+        # Output:
+        # nama: Budi
+        # kelas: XII IPA 1
+        # nilai: 85</code></pre>
+        
+        <h3>Gabungan Semua</h3>
+        
+        <pre><code class="language-python">def fungsi_lengkap(a, b, *args, default=&quot;Halo&quot;, **kwargs):
+            print(f&quot;a={a}, b={b}&quot;)
+            print(f&quot;args={args}&quot;)
+            print(f&quot;default={default}&quot;)
+            print(f&quot;kwargs={kwargs}&quot;)
+        
+        fungsi_lengkap(1, 2, 3, 4, 5, default=&quot;Yoo&quot;, nama=&quot;Budi&quot;)
+        # a=1, b=2
+        # args=(3, 4, 5)
+        # default=Yoo
+        # kwargs={&#x27;nama&#x27;: &#x27;Budi&#x27;}</code></pre>
+        
+        <blockquote><p>💡 Urutan parameter: <code>positional, *args, default, **kwargs</code></p></blockquote>
+        
+        <h2>8. Type Hints (Petunjuk Tipe) — Python Modern</h2>
+        
+        <p>Python 3.5+ punya <strong>type hints</strong> — memberi tahu tipe data parameter dan return value. Ini tidak memaksa, tapi membantu.</p>
+        
+        <pre><code class="language-python">def hitung_rata(daftar: list) -&gt; float:
+            &quot;&quot;&quot;Hitung rata-rata dari list angka&quot;&quot;&quot;
+            return sum(daftar) / len(daftar)
+        
+        def sapa(nama: str, usia: int) -&gt; str:
+            return f&quot;Halo {nama}, usia {usia} tahun&quot;
+        
+        def aktifkan_siswa(siswa: dict) -&gt; dict:
+            siswa[&quot;aktif&quot;] = True
+            return siswa</code></pre>
+        
+        <blockquote><p>💡 Type hints membantu kamu (dan murid) membaca fungsi dengan cepat: "Oh, fungsi ini menerima list dan mengembalikan float."</p></blockquote>
+        
+        <hr>
+        
+        <h2>🧪 Latihan Modul 7</h2>
+        
+        <h3>Latihan 1: Fungsi Matematika</h3>
+        
+        <pre><code class="language-python"># Buat fungsi-fungsi berikut:
+        # 1. luas_persegi(sisi) → luas persegi
+        # 2. luas_lingkaran(jari) → luas lingkaran (π=3.14)
+        # 3. volume_balok(p, l, t) → volume balok
+        # 4. konversi_suhu(celsius) → return (fahrenheit, kelvin, reamur)</code></pre>
+        
+        <h3>Latihan 2: Fungsi Validasi Nilai</h3>
+        
+        <pre><code class="language-python">def validasi_nilai(nilai):
+            &quot;&quot;&quot;Return True kalau nilai valid (0-100), False kalau tidak&quot;&quot;&quot;
+            # TODO: implementasi
+        
+        def grade_nilai(nilai):
+            &quot;&quot;&quot;Return grade A/B/C/D/E berdasarkan nilai&quot;&quot;&quot;
+            # TODO: implementasi
+            pass
+        
+        # Test
+        nilai = float(input(&quot;Masukkan nilai: &quot;))
+        if validasi_nilai(nilai):
+            print(f&quot;Grade: {grade_nilai(nilai)}&quot;)
+        else:
+            print(&quot;Nilai tidak valid!&quot;)</code></pre>
+        
+        <h3>Latihan 3: Fungsi dengan Default</h3>
+        
+        <pre><code class="language-python">def buat_laporan(nama, nilai, kelas=&quot;XII IPA 1&quot;, tahun=2026):
+            &quot;&quot;&quot;Membuat string laporan siswa&quot;&quot;&quot;
+            # TODO: return string laporan rapi
+        
+        # Test
+        print(buat_laporan(&quot;Budi&quot;, 85))
+        print(buat_laporan(&quot;Ani&quot;, 92, kelas=&quot;XI IPA 2&quot;))
+        print(buat_laporan(&quot;Citra&quot;, 78, tahun=2025))</code></pre>
+        
+        <h3>Latihan 4: Kalkulator dengan *args</h3>
+        
+        <pre><code class="language-python">def kalkulator(operasi, *angka):
+            &quot;&quot;&quot;
+            operasi: &quot;tambah&quot;, &quot;kurang&quot;, &quot;kali&quot;, &quot;rata&quot;
+            angka: daftar angka yang akan dioperasikan
+            &quot;&quot;&quot;
+            # TODO: implementasi
+        
+        # Test
+        print(kalkulator(&quot;tambah&quot;, 1, 2, 3))    # 6
+        print(kalkulator(&quot;kali&quot;, 2, 3, 4))      # 24
+        print(kalkulator(&quot;rata&quot;, 10, 20, 30))   # 20.0</code></pre>
+        
+        <hr>
+        
+        <h2>✅ Checklist Paham</h2>
+        
+        <ul><li>[ ] Saya bisa bikin fungsi sendiri dengan <code>def</code></li><li>[ ] Saya paham beda parameter vs argumen</li><li>[ ] Saya bisa pake positional dan keyword arguments</li><li>[ ] Saya paham default parameter</li><li>[ ] Saya paham <code>return</code> dan fungsi tanpa return return None</li><li>[ ] Saya paham scope lokal vs global</li><li>[ ] Saya tau <code>*args</code> dan <code>**kwargs</code></li></ul>
+        
+        <p><strong>Kalau semua checklist tercentang → lanjut ke Modul 8.</strong></p>
+        
+    <nav class="modul-nav">
+        <a href="06-perulangan.html">« 🔄 Perulangan</a>
+        <span class="modul-nav-center">⬅ <a href="../index.html">Index</a></span>
+        <a href="08-error-exception.html">❌ Error & Exception »</a>
+    </nav>
+    </div>
+    <script>document.querySelectorAll('pre code').forEach(b=>hljs.highlightElement(b));</script>
+</body>
+</html>

@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Projek untuk Murid (Per Level) — Belajar Python</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐍</text></svg>">
+</head>
+<body>
+    <nav class="top-nav">
+        <a href="index.html">⬅ Kembali ke Index</a>
+        <span class="title-nav">Mini Projek untuk Murid (Per Level)</span>
+    </nav>
+    <div class="container">
+        <h1>🎯 Mini Projek untuk Murid (Per Level)</h1>
+        
+        <p>Projek-projek kecil yang bisa dikerjakan murid setelah menguasai modul tertentu.</p>
+        
+        <hr>
+        
+        <h2>🟢 Level Pemula (Modul 1-2)</h2>
+        
+        <h3>Projek 1: Kalkulator BMI</h3>
+        
+        <p><strong>Konsep:</strong> Input, casting, operasi matematika, f-string  </p>
+        <p><strong>Prerequisite:</strong> Modul 1</p>
+        
+        <pre><code class="language-python"># Spesifikasi:
+        # 1. Minta berat badan (kg)
+        # 2. Minta tinggi badan (cm → m: bagi 100)
+        # 3. Hitung BMI = berat / (tinggi ** 2)
+        # 4. Tampilkan BMI dengan 1 desimal
+        #
+        # Bonus: cari tahu kategori BMI-nya
+        # &lt; 18.5: Kurang
+        # 18.5-24.9: Normal
+        # 25-29.9: Berlebih
+        # &gt;= 30: Obesitas</code></pre>
+        
+        <h3>Projek 2: Pembalik Nama</h3>
+        
+        <p><strong>Konsep:</strong> String, slicing, f-string  </p>
+        <p><strong>Prerequisite:</strong> Modul 2</p>
+        
+        <pre><code class="language-python"># Input: &quot;Budi Santoso&quot;
+        # Output: &quot;Santoso, Budi&quot;
+        #
+        # Bonus: input 3 kata, output: &quot;Kata3,Kata1,Kata2&quot;</code></pre>
+        
+        <h3>Projek 3: Tabungan Harian</h3>
+        
+        <p><strong>Konsep:</strong> Variabel, loop, akumulasi  </p>
+        <p><strong>Prerequisite:</strong> Modul 1</p>
+        
+        <pre><code class="language-python"># Program tracking tabungan:
+        # 1. Minta target tabungan
+        # 2. Setiap hari minta jumlah yang ditabung
+        # 3. Tampilkan total dan sisa target
+        # 4. Berhenti kalau target tercapai</code></pre>
+        
+        <hr>
+        
+        <h2>🟡 Level Dasar (Modul 3-5)</h2>
+        
+        <h3>Projek 4: Daftar Tugas (To-Do List Sederhana)</h3>
+        
+        <p><strong>Konsep:</strong> List, append, loop, percabangan  </p>
+        <p><strong>Prerequisite:</strong> Modul 3, 5</p>
+        
+        <pre><code class="language-python"># Program CLI dengan menu:
+        # 1. Tambah tugas
+        # 2. Lihat semua tugas (dengan nomor)
+        # 3. Hapus tugas (pilih nomor)
+        # 4. Tandai selesai
+        # 5. Keluar
+        #
+        # Data disimpan di list (sementara, belum ke file)</code></pre>
+        
+        <h3>Projek 5: Buku Telepon</h3>
+        
+        <p><strong>Konsep:</strong> Dictionary, loop, percabangan  </p>
+        <p><strong>Prerequisite:</strong> Modul 4, 5</p>
+        
+        <pre><code class="language-python"># Program buku telepon:
+        # 1. Tambah kontak (nama, nomor)
+        # 2. Cari kontak (berdasarkan nama)
+        # 3. Lihat semua kontak
+        # 4. Hapus kontak
+        # 5. Keluar
+        #
+        # Data disimpan di dictionary</code></pre>
+        
+        <h3>Projek 6: Game Tebak Angka</h3>
+        
+        <p><strong>Konsep:</strong> While, random, break, percabangan  </p>
+        <p><strong>Prerequisite:</strong> Modul 5, 6</p>
+        
+        <pre><code class="language-python"># 1. Komputer pilih angka acak 1-100
+        # 2. User menebak
+        # 3. Komputer kasih petunjuk &quot;Terlalu besar/kecil&quot;
+        # 4. Hitung jumlah tebakan
+        # 5. Kalau benar → &quot;Selamat! Kamu menebak X kali&quot;
+        # 6. Batas maksimal 7 tebakan</code></pre>
+        
+        <h3>Projek 7: Bataan Stok Barang</h3>
+        
+        <p><strong>Konsep:</strong> Dictionary, loop, list  </p>
+        <p><strong>Prerequisite:</strong> Modul 4, 5, 6</p>
+        
+        <pre><code class="language-python"># Program stok barang toko:
+        # 1. Tambah barang (nama, jumlah)
+        # 2. Lihat semua barang
+        # 3. Cari barang
+        # 4. Update stok (tambah/kurang)
+        # 5. Barang hampir habis (stok &lt; 5)
+        # 6. Keluar</code></pre>
+        
+        <hr>
+        
+        <h2>🟠 Level Madya (Modul 6-9)</h2>
+        
+        <h3>Projek 8: Quiz Interaktif</h3>
+        
+        <p><strong>Konsep:</strong> Dictionary, loop, function, skor  </p>
+        <p><strong>Prerequisite:</strong> Modul 4, 5, 6, 7</p>
+        
+        <pre><code class="language-python"># Quiz dengan 10 soal pilihan ganda:
+        soal = [
+            {
+                &quot;soal&quot;: &quot;Apa tipe data dari 3.14?&quot;,
+                &quot;opsi&quot;: [&quot;a. int&quot;, &quot;b. float&quot;, &quot;c. str&quot;, &quot;d. bool&quot;],
+                &quot;jawaban&quot;: &quot;b&quot;
+            },
+            # ... tambahkan 9 soal lagi
+        ]
+        
+        # Fitur:
+        # - Tampilkan soal 1 per 1
+        # - Validasi input a/b/c/d
+        # - Hitung skor akhir
+        # - Tampilkan hasil: &quot;Kamu benar 7 dari 10&quot;
+        # - Tampilkan grade (A/B/C/D/E)</code></pre>
+        
+        <h3>Projek 9: Pengelola Nilai (CLI)</h3>
+        
+        <p><strong>Konsep:</strong> Function, dictionary, loop, file I/O  </p>
+        <p><strong>Prerequisite:</strong> Modul 7, 9</p>
+        
+        <pre><code class="language-python"># Program pengelola nilai siswa:
+        # Fungsi:
+        # 1. tambah_siswa(nama, kelas) → dict
+        # 2. tambah_nilai(siswa, mapel, nilai)
+        # 3. hitung_rata(siswa) → float
+        # 4. grade(siswa) → string
+        # 5. laporan(siswa) → cetak rapi
+        # 6. simpan(siswa_list, filename) → file JSON
+        # 7. muat(filename) → list siswa
+        #
+        # Menu utama interaktif</code></pre>
+        
+        <h3>Projek 10: Membaca & Menganalisis File Nilai CSV</h3>
+        
+        <p><strong>Konsep:</strong> File I/O, CSV, analisis data  </p>
+        <p><strong>Prerequisite:</strong> Modul 9</p>
+        
+        <pre><code class="language-python"># Baca file nilai_siswa.csv dengan format:
+        # Nama,MTK,IPA,ING,PPKn
+        # Budi,85,90,78,80
+        # ...
+        
+        # Cetak:
+        # 1. Rata-rata setiap siswa
+        # 2. Ranking dari tertinggi ke terendah
+        # 3. Statistik: rata-rata kelas, nilai tertinggi, terendah
+        # 4. Jumlah siswa lulus (rata-rata &gt;= 75)
+        # 5. Buat file ranking.txt berisi hasil ranking</code></pre>
+        
+        <h3>Projek 11: Enkripsi Sederhana (Caesar Cipher)</h3>
+        
+        <p><strong>Konsep:</strong> String, loop, function, ord()/chr()  </p>
+        <p><strong>Prerequisite:</strong> Modul 2, 6, 7</p>
+        
+        <pre><code class="language-python"># Caesar Cipher — geser huruf sesuai key
+        # enkripsi(&quot;abc&quot;, 1) → &quot;bcd&quot;
+        # dekripsi(&quot;bcd&quot;, 1) → &quot;abc&quot;
+        #
+        # Fitur:
+        # 1. Input pesan
+        # 2. Input key (angka geser)
+        # 3. Pilih enkripsi/dekripsi
+        # 4. Tampilkan hasil
+        # 5. Simpan ke file</code></pre>
+        
+        <hr>
+        
+        <h2>🔴 Level Mahir (Modul 10-12)</h2>
+        
+        <h3>Projek 12: Web Scraper Berita</h3>
+        
+        <p><strong>Konsep:</strong> pip, requests, BeautifulSoup, error handling  </p>
+        <p><strong>Prerequisite:</strong> Modul 10</p>
+        
+        <pre><code class="language-python"># Install: pip install requests beautifulsoup4
+        #
+        # Ambil 5 berita terbaru dari situs berita
+        # Tampilkan: judul, tanggal, link
+        # Simpan ke file JSON</code></pre>
+        
+        <h3>Projek 13: Sistem Perpustakaan (OOP)</h3>
+        
+        <p><strong>Konsep:</strong> OOP, class, method, file I/O  </p>
+        <p><strong>Prerequisite:</strong> Modul 9, 12</p>
+        
+        <pre><code class="language-python"># Class Buku: judul, penulis, tahun, tersedia (bool)
+        # Class Anggota: nama, id, daftar pinjam
+        # Class Perpustakaan: daftar_buku, daftar_anggota
+        #
+        # Method:
+        # - tambah_buku()
+        # - cari_buku(judul)
+        # - pinjam_buku(id_anggota, judul)
+        # - kembalikan_buku(id_anggota, judul)
+        # - lihat_buku_tersedia()
+        # - simpan_data() / muat_data() → JSON</code></pre>
+        
+        <h3>Projek 14: Aplikasi Catatan dengan Tanggal</h3>
+        
+        <p><strong>Konsep:</strong> datetime, file I/O, dictionary, sorting  </p>
+        <p><strong>Prerequisite:</strong> Modul 9, 10</p>
+        
+        <pre><code class="language-python"># Aplikasi catatan harian:
+        # 1. Tambah catatan (otomatis timestamp)
+        # 2. Lihat semua catatan (urut tanggal)
+        # 3. Cari catatan (berdasarkan kata kunci)
+        # 4. Hapus catatan
+        # 5. Export ke file .txt
+        # 6. Simpan/muat dari JSON
+        
+        from datetime import datetime</code></pre>
+        
+        <hr>
+        
+        <h2>🏆 Level Expert (Full Stack)</h2>
+        
+        <h3>Projek 15: Web App Nilai dengan Flask</h3>
+        
+        <p><strong>Prerequisite:</strong> Modul 10, 12</p>
+        
+        <pre><code class="language-bash">pip install flask</code></pre>
+        
+        <pre><code class="language-python"># Ubah proyek Modul 13 jadi web app:
+        # - Flask route untuk setiap fitur
+        # - HTML template untuk tampilan
+        # - Form input nilai
+        # - Tabel ranking
+        # - Grafik (pakai matplotlib atau chart.js)</code></pre>
+        
+        <h3>Projek 16: Database dengan SQLite</h3>
+        
+        <p><strong>Prerequisite:</strong> Modul 9, 10, 12</p>
+        
+        <pre><code class="language-python">import sqlite3
+        # Ganti penyimpanan JSON ke SQLite
+        # Buat tabel: siswa, nilai, mapel
+        # Query: JOIN, ORDER BY, GROUP BY</code></pre>
+        
+        <hr>
+        
+        <h2>📋 Tabel Projek & Tingkat Kesulitan</h2>
+        
+        <table>
+        <tr><th>#</th><th>Projek</th><th>Level</th><th>Modul</th><th>Perkiraan Jam</th></tr>
+        <tr><td>1</td><td>Kalkulator BMI</td><td>🟢 Pemula</td><td>1</td><td>1 JP</td></tr>
+        <tr><td>2</td><td>Pembalik Nama</td><td>🟢 Pemula</td><td>2</td><td>1 JP</td></tr>
+        <tr><td>3</td><td>Tabungan Harian</td><td>🟢 Pemula</td><td>1</td><td>1 JP</td></tr>
+        <tr><td>4</td><td>To-Do List</td><td>🟡 Dasar</td><td>3, 5</td><td>2 JP</td></tr>
+        <tr><td>5</td><td>Buku Telepon</td><td>🟡 Dasar</td><td>4, 5</td><td>1 JP</td></tr>
+        <tr><td>6</td><td>Tebak Angka</td><td>🟡 Dasar</td><td>5, 6</td><td>2 JP</td></tr>
+        <tr><td>7</td><td>Stok Barang</td><td>🟡 Dasar</td><td>4, 5, 6</td><td>2 JP</td></tr>
+        <tr><td>8</td><td>Quiz Interaktif</td><td>🟠 Madya</td><td>7</td><td>2 JP</td></tr>
+        <tr><td>9</td><td>Pengelola Nilai</td><td>🟠 Madya</td><td>7, 9</td><td>3 JP</td></tr>
+        <tr><td>10</td><td>Analisis CSV</td><td>🟠 Madya</td><td>9</td><td>2 JP</td></tr>
+        <tr><td>11</td><td>Caesar Cipher</td><td>🟠 Madya</td><td>2, 6, 7</td><td>1 JP</td></tr>
+        <tr><td>12</td><td>Web Scraper</td><td>🔴 Mahir</td><td>10</td><td>2 JP</td></tr>
+        <tr><td>13</td><td>Sistem Perpus</td><td>🔴 Mahir</td><td>12</td><td>3 JP</td></tr>
+        <tr><td>14</td><td>Catatan + Tgl</td><td>🔴 Mahir</td><td>9, 10</td><td>2 JP</td></tr>
+        <tr><td>15</td><td>Flask Web App</td><td>🏆 Expert</td><td>Flask</td><td>4 JP</td></tr>
+        <tr><td>16</td><td>SQLite DB</td><td>🏆 Expert</td><td>sqlite3</td><td>3 JP</td></tr>
+        </table>
+        
+        <hr>
+        
+        <h2>💡 Tips Assign Projek ke Murid</h2>
+        
+        <ol><li><strong>1 projek per 2-3 minggu</strong> — jangan tiap minggu</li><li><strong>Berikan template kode awal</strong> — jangan suruh mulai dari 0 terus</li><li><strong>Kriteria penilaian:</strong></li></ol>
+        <ul><li>Program jalan (tidak error) — 40%</li><li>Fitur sesuai spesifikasi — 40%</li><li>Kode rapi (indentasi, nama variabel jelas) — 20%</li></ul>
+        <ol><li><strong>Pair programming</strong> — 2 murid 1 komputer, bergantian ngetik</li><li><strong>Presentasi</strong> — minta murid demo hasilnya di depan kelas</li><li><strong>Bonus challenge</strong> di setiap projek untuk murid yang cepat selesai</li></ol>
+        
+    </div>
+    <script>document.querySelectorAll('pre code').forEach(b=>hljs.highlightElement(b));</script>
+</body>
+</html>
