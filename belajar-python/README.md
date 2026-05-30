@@ -1,5 +1,7 @@
 # 🐍 Belajar Python — Untuk Guru Informatika
 
+**Live Site:** [https://natedekaka.github.io/belajar-python/](https://natedekaka.github.io/belajar-python/)
+
 **Penulis:** Sisyphus  
 **Target:** Guru Informatika — Omarchy Linux  
 **Tujuan:** Paham Python dari nol sampai bisa ngajar dan bikin tools sendiri
