@@ -3,162 +3,467 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Python Learning Hub - Belajar Python dari Dasar</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Belajar Python — Untuk Guru Informatika</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐍</text></svg>">
+    <style>
+        :root {
+            --bg: #0d1117;
+            --bg-card: #161b22;
+            --bg-hover: #1c2333;
+            --border: #30363d;
+            --text: #e6edf3;
+            --text-muted: #8b949e;
+            --accent: #58a6ff;
+            --accent-green: #3fb950;
+            --accent-orange: #d29922;
+            --accent-purple: #bc8cff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+
+        /* HERO */
+        .hero {
+            text-align: center;
+            padding: 4rem 0 3rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .hero h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        .hero h1 .emoji { font-size: 2.8rem; }
+        .hero .tagline {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+        }
+        .hero .info {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            flex-wrap: wrap;
+        }
+        .hero .info span { display: flex; align-items: center; gap: 0.4rem; }
+        .hero .badge-group {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+        .badge {
+            display: inline-block;
+            padding: 0.35rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+        }
+
+        /* SECTION */
+        .section { padding: 2.5rem 0; }
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        .section-sub {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-top: -0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* CARD GRID */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.25rem 1.25rem 1rem;
+            text-decoration: none;
+            color: var(--text);
+            transition: border-color 0.2s, background 0.2s, transform 0.15s;
+        }
+        .card:hover {
+            border-color: var(--accent);
+            background: var(--bg-hover);
+            transform: translateY(-2px);
+        }
+        .card .num {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--accent);
+            letter-spacing: 0.5px;
+            margin-bottom: 0.3rem;
+        }
+        .card h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.35rem; }
+        .card p {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+        .card .meta-tag {
+            display: inline-block;
+            margin-top: 0.6rem;
+            font-size: 0.75rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            background: rgba(88,166,255,0.12);
+            color: var(--accent);
+        }
+
+        /* LINK LIST */
+        .link-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 0.75rem;
+        }
+        .link-item {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            padding: 0.7rem 1rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text);
+            font-size: 0.92rem;
+            transition: border-color 0.2s, background 0.2s;
+        }
+        .link-item:hover { border-color: var(--accent); background: var(--bg-hover); }
+        .link-item .icon { font-size: 1.2rem; flex-shrink: 0; }
+        .link-item .desc { font-size: 0.8rem; color: var(--text-muted); }
+
+        /* ROADMAP */
+        .roadmap { display: flex; flex-direction: column; gap: 0.6rem; }
+        .roadmap-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 0.8rem 1rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text);
+            transition: border-color 0.2s, background 0.2s;
+        }
+        .roadmap-step:hover { border-color: var(--accent); background: var(--bg-hover); }
+        .roadmap-step .step-num {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent);
+            min-width: 2.2rem;
+            padding-top: 0.1rem;
+        }
+        .roadmap-step .step-body h4 { font-size: 0.95rem; font-weight: 600; }
+        .roadmap-step .step-body p { font-size: 0.82rem; color: var(--text-muted); }
+
+        .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 2.5rem 0;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        hr.divider { border: none; border-top: 1px solid var(--border); margin: 0.5rem 0; }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 1.8rem; }
+            .two-col { grid-template-columns: 1fr; gap: 0; }
+            .grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+            .hero { padding: 2.5rem 0 2rem; }
+            .hero .info { gap: 1rem; font-size: 0.82rem; }
+        }
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 1.4rem; }
+            .hero .info { flex-direction: column; align-items: center; gap: 0.5rem; }
+            .grid { grid-template-columns: 1fr; }
+            .link-list { grid-template-columns: 1fr; }
+            .card { padding: 1rem; }
+            .section { padding: 1.5rem 0; }
+        }
+    </style>
 </head>
 <body>
 
-    <!-- Header -->
-    <header>
-        <div class="container">
-            <a href="/" class="logo">🐍 Python Learning Hub</a>
-            <nav>
-                <a href="#modules">Modul</a>
-                <a href="#progress">Progress</a>
-                <a href="https://github.com/natedekaka/python-learning" target="_blank">GitHub</a>
-            </nav>
+<div class="container">
+
+    <header class="hero">
+        <h1><span class="emoji">🐍</span> Belajar Python</h1>
+        <p class="tagline">Kurikulum Python untuk Guru Informatika &mdash; dari nol sampai bisa ngajar dan bikin tools sendiri</p>
+        <div class="info">
+            <span>📚 14 Modul</span>
+            <span>📝 100+ Soal</span>
+            <span>⚙️ 5 Script Tools</span>
+            <span>🎯 13 Mini Projek</span>
+            <span>🐧 Omarchy Linux</span>
+        </div>
+        <div class="badge-group">
+            <span class="badge">🎓 Untuk Guru</span>
+            <span class="badge">🇮🇩 Bahasa Indonesia</span>
+            <span class="badge">🚀 Pemula &mdash; Mahir</span>
         </div>
     </header>
 
-    <!-- Hero -->
-    <section class="hero">
-        <div class="container">
-            <h1>🎓 Belajar Python<br>Dari Dasar hingga Aplikasi</h1>
-            <p>Koleksi materi pembelajaran Python untuk siswa SMA dan guru informatika. Dilengkapi dengan contoh kode, latihan praktik, dan kurikulum terstruktur.</p>
-            <a href="#modules" style="display: inline-block; background: var(--primary); color: white; padding: 0.8rem 2rem; border-radius: 8px; font-weight: 600;">Mulai Belajar →</a>
-        </div>
-    </section>
-
-    <!-- Modules -->
-    <section id="modules" class="modules-section">
-        <div class="container">
-            <h2 class="section-title">📚 Modul Pembelajaran</h2>
-            
-            <div class="module-grid">
-                <!-- Kurikulum Utama -->
-                <a href="modules/kurikulum.html" class="module-card">
-                    <h3>📖 Kurikulum Python Lengkap</h3>
-                    <p>Panduan dari sintaks dasar hingga membuat aplikasi web sekolah dengan Flask. Terdiri dari 6 modul utama.</p>
-                    <div class="module-meta">
-                        <span class="tag">Fundamental</span>
-                        <span class="tag green">6 Modul</span>
-                        <span class="tag purple">Flask</span>
-                    </div>
-                </a>
-
-                <!-- Kurikulum Guru -->
-                <a href="modules/kurikulum-guru.html" class="module-card">
-                    <h3>👨‍🏫 Kurikulum Guru Informatika</h3>
-                    <p>Kurikulum khusus untuk guru informatika. Termasuk tips mengajar, latihan siswa, dan contoh aplikasi sekolah.</p>
-                    <div class="module-meta">
-                        <span class="tag">Guru</span>
-                        <span class="tag green">Tips Mengajar</span>
-                    </div>
-                </a>
-
-                <!-- Bahan Ajar SMA -->
-                <a href="modules/bahan-ajar-sma.html" class="module-card">
-                    <h3>🏫 Bahan Ajar Siswa SMA</h3>
-                    <p>Materi pembelajaran Python yang disesuaikan dengan kurikulum sekolah menengah atas. Praktis dan mudah dipahami.</p>
-                    <div class="module-meta">
-                        <span class="tag">SMA</span>
-                        <span class="tag green">Ready-to-Teach</span>
-                    </div>
-                </a>
-
-                <!-- File I/O -->
-                <a href="modules/file-io.html" class="module-card">
-                    <h3>💾 Tutorial File I/O</h3>
-                    <p>Belajar manipulasi file di Python: CSV, JSON, dan tekhnik penyimpanan data untuk aplikasi nyata.</p>
-                    <div class="module-meta">
-                        <span class="tag">Data</span>
-                        <span class="tag purple">CSV/JSON</span>
-                    </div>
-                </a>
-
-                <!-- Latihan -->
-                <a href="modules/latihan.html" class="module-card">
-                    <h3>✏️ Latihan Python</h3>
-                    <p>Kumpulan latihan coding Python dengan berbagai tingkat kesulitan. Cocok untuk persiapan ujian atau kompetisi.</p>
-                    <div class="module-meta">
-                        <span class="tag">Practice</span>
-                        <span class="tag green">Exercises</span>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Progress -->
-    <section id="progress" class="modules-section">
-        <div class="container">
-            <div class="progress-section">
-                <h2 style="margin-bottom: 1rem;">📊 Progress Belajar</h2>
-                <p style="color: var(--text-muted); margin-bottom: 1rem;">Lacak progress belajar kamu di setiap modul.</p>
-                
-                <div style="margin-bottom: 1rem;">
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                        <span>Kurikulum Dasar</span>
-                        <span>0% (0/6)</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 0%"></div>
-                    </div>
-                </div>
-
-                <div style="margin-bottom: 1rem;">
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                        <span>File I/O & Data</span>
-                        <span>0% (0/1)</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 0%"></div>
-                    </div>
-                </div>
-
-                <div style="margin-bottom: 1rem;">
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                        <span>Latihan Praktik</span>
-                        <span>0% (0/5)</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 0%"></div>
-                    </div>
-                </div>
-
-                <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 1.5rem;">
-                    💡 Tips: Gunakan localStorage browser untuk menyimpan progress secara otomatis.
+    <section class="section">
+        <h2 class="section-title">📖 Tentang</h2>
+        <div class="two-col">
+            <div>
+                <p style="color:var(--text-muted); font-size:0.95rem;">
+                    Repositori ini dirancang khusus untuk <strong style="color:var(--text);">Guru Informatika</strong>
+                    yang ingin menguasai Python dari dasar hingga mahir. Setiap modul dibangun di atas modul
+                    sebelumnya &mdash; urut, terstruktur, dan siap pakai untuk mengajar.
+                </p>
+                <br>
+                <p style="color:var(--text-muted); font-size:0.95rem;">
+                    Ditulis dengan pendekatan <em>learning by doing</em> &mdash; banyak contoh kode,
+                    latihan, dan projek nyata yang relevan dengan dunia pendidikan.
                 </p>
             </div>
-        </div>
-    </section>
-
-    <!-- Python Files -->
-    <section class="modules-section">
-        <div class="container">
-            <h2 class="section-title">🐍 File Latihan Python</h2>
-            <div style="background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem;">
-                <p style="margin-bottom: 1rem;">File Python untuk latihan langsung - klik untuk download:</p>
-                <ul style="list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.5rem;">
-                    <li style="padding: 0.5rem; background: #f8fafc; border-radius: 6px;"><a href="exercises/variabel.py" download>📄 variabel.py</a></li>
-                    <li style="padding: 0.5rem; background: #f8fafc; border-radius: 6px;"><a href="exercises/list.py" download>📄 list.py</a></li>
-                    <li style="padding: 0.5rem; background: #f8fafc; border-radius: 6px;"><a href="exercises/dictionary.py" download>📄 dictionary.py</a></li>
-                    <li style="padding: 0.5rem; background: #f8fafc; border-radius: 6px;"><a href="exercises/latihan_array_list.py" download>📄 latihan_array_list.py</a></li>
-                </ul>
+            <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:10px; padding:1.25rem;">
+                <h4 style="margin-bottom:0.75rem; font-size:0.95rem;">📋 Cara Belajar</h4>
+                <ol style="color:var(--text-muted); font-size:0.9rem; line-height:1.9; padding-left:1.2rem;">
+                    <li>Pelajari modul <strong style="color:var(--text);">urut</strong> dari 0 &rarr; 13</li>
+                    <li><strong style="color:var(--text);">Tulis kode</strong>, jangan copy-paste</li>
+                    <li>Kerjakan semua <strong style="color:var(--text);">latihan</strong> sebelum lanjut</li>
+                    <li>Baca error &mdash; <em>"error itu guru terbaik"</em></li>
+                    <li>Eksperimen bebas di <strong style="color:var(--text);">REPL</strong> (<code>python</code> di terminal)</li>
+                </ol>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <p>📖 Dokumen ini bersifat <em>open source</em>. Edit, duplikasi, atau sesuaikan dengan kebutuhan pembelajaran Anda.</p>
-            <p style="margin-top: 0.5rem;">Dibangun untuk siswa dan guru yang ingin menguasai Python. 🐍✨</p>
-            <p style="margin-top: 1rem; font-size: 0.8rem;">© 2026 Python Learning Hub | <a href="https://github.com/natedekaka/python-learning">GitHub</a></p>
+    <hr class="divider">
+
+    <section class="section">
+        <h2 class="section-title">📚 Modul Pembelajaran</h2>
+        <p class="section-sub">14 modul &mdash; urut dari dasar hingga proyek akhir</p>
+        <div class="grid">
+
+            <a class="card" href="modul/00-setup.html">
+                <div class="num">MODUL 00</div>
+                <h3>🔧 Setup</h3>
+                <p>Python di Omarchy Linux, terminal, REPL vs file, virtual environment.</p>
+                <span class="meta-tag">45 menit</span>
+            </a>
+            <a class="card" href="modul/01-variabel-tipe-data.html">
+                <div class="num">MODUL 01</div>
+                <h3>📦 Variabel &amp; Tipe Data</h3>
+                <p>int, float, str, bool &mdash; fondasi paling dasar pemrograman Python.</p>
+                <span class="meta-tag">2 JP</span>
+            </a>
+            <a class="card" href="modul/02-string.html">
+                <div class="num">MODUL 02</div>
+                <h3>🧵 String</h3>
+                <p>Manipulasi teks &mdash; slicing, formatting, f-string, method-method string.</p>
+                <span class="meta-tag">2 JP</span>
+            </a>
+            <a class="card" href="modul/03-list-tuple.html">
+                <div class="num">MODUL 03</div>
+                <h3>📋 List &amp; Tuple</h3>
+                <p>Kumpulan data &mdash; index, looping, method list, tuple, unpacking.</p>
+                <span class="meta-tag">2 JP</span>
+            </a>
+            <a class="card" href="modul/04-dictionary-set.html">
+                <div class="num">MODUL 04</div>
+                <h3>🔑 Dictionary &amp; Set</h3>
+                <p>Pasangan key-value, data unik, operasi himpunan.</p>
+                <span class="meta-tag">2 JP</span>
+            </a>
+            <a class="card" href="modul/05-percabangan.html">
+                <div class="num">MODUL 05</div>
+                <h3>🔀 Percabangan</h3>
+                <p>if/elif/else, operator logika AND/OR/NOT, ternary, truthy/falsy.</p>
+                <span class="meta-tag">2 JP</span>
+            </a>
+            <a class="card" href="modul/06-perulangan.html">
+                <div class="num">MODUL 06</div>
+                <h3>🔄 Perulangan</h3>
+                <p>for loop, while loop, range(), break, continue, nested loop.</p>
+                <span class="meta-tag">2 JP</span>
+            </a>
+            <a class="card" href="modul/07-function.html">
+                <div class="num">MODUL 07</div>
+                <h3>⚡ Function</h3>
+                <p>def, parameter, return, scope, lambda, *args &amp; **kwargs.</p>
+                <span class="meta-tag">2 JP</span>
+            </a>
+            <a class="card" href="modul/08-error-exception.html">
+                <div class="num">MODUL 08</div>
+                <h3>❌ Error &amp; Exception</h3>
+                <p>try/except, jenis exception, else, finally, raise.</p>
+                <span class="meta-tag">1 JP</span>
+            </a>
+            <a class="card" href="modul/09-file-io.html">
+                <div class="num">MODUL 09</div>
+                <h3>📁 File I/O</h3>
+                <p>Baca &amp; tulis file teks, CSV, JSON &mdash; with statement, mode r/w/a.</p>
+                <span class="meta-tag">2 JP</span>
+            </a>
+            <a class="card" href="modul/10-module-pip.html">
+                <div class="num">MODUL 10</div>
+                <h3>📦 Module &amp; pip</h3>
+                <p>import, bikin module sendiri, install package dengan pip.</p>
+                <span class="meta-tag">1 JP</span>
+            </a>
+            <a class="card" href="modul/11-list-comprehension.html">
+                <div class="num">MODUL 11</div>
+                <h3>🌀 List Comprehension</h3>
+                <p>Cara Pythonic bikin list &mdash; satu baris, bersarang, dengan kondisi.</p>
+                <span class="meta-tag">1 JP</span>
+            </a>
+            <a class="card" href="modul/12-oop-dasar.html">
+                <div class="num">MODUL 12</div>
+                <h3>🧱 OOP Dasar</h3>
+                <p>Class, object, __init__, method, inheritance, super().</p>
+                <span class="meta-tag">3 JP</span>
+            </a>
+            <a class="card" href="modul/13-proyek-akhir.html">
+                <div class="num">MODUL 13</div>
+                <h3>🏆 Proyek Akhir</h3>
+                <p>Aplikasi CLI Nilai Siswa + Quiz Interaktif &mdash; portofolio ngajar.</p>
+                <span class="meta-tag">4 JP</span>
+            </a>
         </div>
-    </footer>
+    </section>
+
+    <hr class="divider">
+
+    <section class="section">
+        <h2 class="section-title">🗺️ Alur Belajar</h2>
+        <p class="section-sub">Ikuti langkah-langkah ini secara berurutan</p>
+        <div class="roadmap">
+            <div class="roadmap-step">
+                <div class="step-num">TAHAP 1</div>
+                <div class="step-body">
+                    <h4>🔰 Fondasi &mdash; Modul 0 &rarr; 2</h4>
+                    <p>Setup lingkungan, variabel, tipe data, string. Siapkan REPL dan tulis program pertama.</p>
+                </div>
+            </div>
+            <div class="roadmap-step">
+                <div class="step-num">TAHAP 2</div>
+                <div class="step-body">
+                    <h4>📊 Struktur Data &mdash; Modul 3 &rarr; 4</h4>
+                    <p>List, tuple, dictionary, set. Kuasai cara menyimpan dan mengelola kumpulan data.</p>
+                </div>
+            </div>
+            <div class="roadmap-step">
+                <div class="step-num">TAHAP 3</div>
+                <div class="step-body">
+                    <h4>⚙️ Kontrol Alur &mdash; Modul 5 &rarr; 7</h4>
+                    <p>Percabangan, perulangan, function. Logika pemrograman dan reusable code.</p>
+                </div>
+            </div>
+            <div class="roadmap-step">
+                <div class="step-num">TAHAP 4</div>
+                <div class="step-body">
+                    <h4>🛠️ Lanjutan &mdash; Modul 8 &rarr; 11</h4>
+                    <p>Error handling, file I/O, module/pip, list comprehension. Program yang robust.</p>
+                </div>
+            </div>
+            <div class="roadmap-step">
+                <div class="step-num">TAHAP 5</div>
+                <div class="step-body">
+                    <h4>🎯 Mahir &mdash; Modul 12 &rarr; 13</h4>
+                    <p>OOP dan proyek akhir. Bangun aplikasi CLI nyata untuk portofolio mengajar.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <hr class="divider">
+
+    <section class="section">
+        <h2 class="section-title">📎 Referensi &amp; Tools</h2>
+        <p class="section-sub">Materi pendukung untuk ngajar dan belajar mandiri</p>
+        <div class="link-list">
+            <a class="link-item" href="cheat-sheet.html">
+                <span class="icon">📄</span>
+                <div><div>Cheat Sheet</div><div class="desc">Cetak 1 halaman bolak-balik &mdash; referensi cepat semua sintaks</div></div>
+            </a>
+            <a class="link-item" href="bank-soal.html">
+                <span class="icon">📝</span>
+                <div><div>Bank Soal</div><div class="desc">100+ soal pilihan ganda, coding, essay + kunci jawaban</div></div>
+            </a>
+            <a class="link-item" href="error-dictionary.html">
+                <span class="icon">❌</span>
+                <div><div>Error Dictionary</div><div class="desc">Kamus error Python dalam Bahasa Indonesia &mdash; lengkap dengan solusi</div></div>
+            </a>
+            <a class="link-item" href="tips-mengajar.html">
+                <span class="icon">👨‍🏫</span>
+                <div><div>Tips Mengajar</div><div class="desc">Strategi, analogi, jebakan murid &amp; aktivitas kelas per modul</div></div>
+            </a>
+            <a class="link-item" href="mini-projek.html">
+                <span class="icon">🎯</span>
+                <div><div>Mini Projek</div><div class="desc">13 projek nyata per level &mdash; dari BMI sampai aplikasi nilai</div></div>
+            </a>
+            <a class="link-item" href="pengantar.html">
+                <span class="icon">📖</span>
+                <div><div>Pengantar</div><div class="desc">Cara belajar, struktur modul, persiapan awal Python</div></div>
+            </a>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2 class="section-title">⚙️ Python Scripts</h2>
+        <p class="section-sub">Tools siap pakai untuk administrasi guru</p>
+        <div class="link-list">
+            <a class="link-item" href="scripts/absensi.py"><span class="icon">📋</span><div><div>absensi.py</div><div class="desc">Aplikasi absensi siswa</div></div></a>
+            <a class="link-item" href="scripts/backup_materi.py"><span class="icon">💾</span><div><div>backup_materi.py</div><div class="desc">Backup materi pembelajaran</div></div></a>
+            <a class="link-item" href="scripts/generate_jadwal.py"><span class="icon">📅</span><div><div>generate_jadwal.py</div><div class="desc">Generate jadwal mengajar</div></div></a>
+            <a class="link-item" href="scripts/rekap_nilai.py"><span class="icon">📊</span><div><div>rekap_nilai.py</div><div class="desc">Rekap &amp; olah nilai siswa</div></div></a>
+            <a class="link-item" href="scripts/rename_tugas.py"><span class="icon">✏️</span><div><div>rename_tugas.py</div><div class="desc">Renaming file tugas otomatis</div></div></a>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2 class="section-title">🐍 Contoh Kode</h2>
+        <p class="section-sub">Program-program sederhana di root proyek</p>
+        <div class="link-list">
+            <a class="link-item" href="coba1.py"><span class="icon">🔤</span><div><div>coba1.py</div><div class="desc">Program contoh</div></div></a>
+            <a class="link-item" href="greet.py"><span class="icon">👋</span><div><div>greet.py</div><div class="desc">Program sapaan</div></div></a>
+            <a class="link-item" href="halo.py"><span class="icon">🌏</span><div><div>halo.py</div><div class="desc">Halo dunia!</div></div></a>
+            <a class="link-item" href="sapa.py"><span class="icon">🙋</span><div><div>sapa.py</div><div class="desc">Program sapa pengguna</div></div></a>
+        </div>
+    </section>
+
+</div>
+
+<footer>
+    <div class="container">
+        <p>🐍 <strong>Belajar Python</strong> &mdash; Untuk Guru Informatika &bull; Omarchy Linux</p>
+        <p style="margin-top:0.4rem;">Ditulis oleh Sisyphus &mdash; dari guru, untuk guru</p>
+    </div>
+</footer>
 
 </body>
 </html>

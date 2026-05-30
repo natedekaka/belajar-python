@@ -28,3 +28,9 @@ Thumbs.db
 # Temp files
 .temp/
 tmp/
+
+# Virtual environment
+.venv/
+
+# One-time utility
+update_html.py

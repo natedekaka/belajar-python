@@ -1,61 +1,63 @@
-# 🐍 Python Learning Hub
+# 🐍 Belajar Python — Untuk Guru Informatika
 
-Koleksi materi pembelajaran Python untuk siswa SMA dan guru informatika.
+**Live Site:** [https://natedekaka.github.io/belajar-python/](https://natedekaka.github.io/belajar-python/)
 
-**Live Site:** [https://natedekaka.github.io/python-learning/](https://natedekaka.github.io/python-learning/)
-
-## 📚 Modul Pembelajaran
-
-- **[Kurikulum Python Lengkap](modules/kurikulum.html)** - 6 modul dari dasar hingga Flask
-- **[Kurikulum Guru Informatika](modules/kurikulum-guru.html)** - Panduan untuk guru
-- **[Bahan Ajar SMA](modules/bahan-ajar-sma.html)** - Materi untuk siswa SMA
-- **[Tutorial File I/O](modules/file-io.html)** - Manipulasi file CSV & JSON
-- **[Latihan Python](modules/latihan.html)** - Kumpulan latihan coding
-
-## 🚀 Enable GitHub Pages
-
-Repository sudah dipush ke: https://github.com/natedekaka/python-learning
-
-**Langkah aktivasi:**
-1. Buka: https://github.com/natedekaka/python-learning/settings/pages
-2. Di "Build and deployment" → Source: pilih **"Deploy from a branch"**
-3. Branch: pilih **"main"** dan folder **"/ (root)"**
-4. Klik **Save**
-
-Website akan tersedia di: `https://natedekaka.github.io/python-learning/`
-
-> ⏳ Tunggu 1-2 menit setelah aktivasi untuk deployment selesai.
-
-## 🛠️ Tools
-
-### Generate Table of Contents
-```bash
-python3 scripts/generate_toc.py
-```
-Menghasilkan `toc.json` dan `toc.md` dari file HTML di `modules/`.
-
-## 📂 Struktur Project
-
-```
-python_learning/
-├── index.html          # Homepage
-├── modules/           # HTML tutorial files
-│   ├── kurikulum.html
-│   ├── kurikulum-guru.html
-│   ├── bahan-ajar-sma.html
-│   ├── file-io.html
-│   └── latihan.html
-├── css/
-│   └── style.css     # Shared styles
-├── scripts/
-│   └── generate_toc.py
-└── python files/      # Practice files (variabel.py, list.py, etc.)
-```
-
-## 📊 Progress Tracking
-
-Cek `toc.json` untuk statistik modul (word count, reading time, headings).
+**Penulis:** Sisyphus  
+**Target:** Guru Informatika — Omarchy Linux  
+**Tujuan:** Paham Python dari nol sampai bisa ngajar dan bikin tools sendiri
 
 ---
 
-**Dibuat dengan ❤️ untuk pembelajaran Python** 🐍✨
+## Cara Belajar
+
+1. **Pelajari modul urut** — setiap modul dibangun di atas modul sebelumnya
+2. **Tulis kode, jangan copy-paste** — ketik manual setiap contoh
+3. **Kerjakan latihan** — baru lanjut kalau latihan selesai
+4. **Baca error** — error itu guru terbaik
+5. **Coba-coba di REPL** — ketik `python` di terminal, eksperimen bebas
+
+## Struktur Modul
+
+| # | Modul | Deskripsi |
+|---|-------|-----------|
+| 0 | **Setup** | Python di Omarchy Linux, terminal, cara jalanin kode |
+| 1 | **Variabel & Tipe Data** | int, float, str, bool — fondasi paling dasar |
+| 2 | **String** | Manipulasi teks — slicing, formatting, method |
+| 3 | **List & Tuple** | Kumpulan data — index, loop, method |
+| 4 | **Dictionary & Set** | Pasangan key-value, data unik |
+| 5 | **Percabangan** | if/elif/else, logika AND/OR/NOT |
+| 6 | **Perulangan** | for loop, while loop, range() |
+| 7 | **Function** | def, parameter, return, scope |
+| 8 | **Error & Exception** | try/except — jangan takut error |
+| 9 | **File I/O** | Baca & tulis file, CSV |
+| 10 | **Module & pip** | import, bikin module sendiri, install package |
+| 11 | **List Comprehension** | Cara Pythonic bikin list |
+| 12 | **OOP Dasar** | Class, object, inheritance |
+| 13 | **Proyek Akhir** | Aplikasi CLI Nilai Siswa + Quiz Interaktif |
+
+## Legend
+
+```python
+# 👈 Ini komentar — penjelasan
+>>>  # 👈 Ini output di REPL / terminal
+💡  # 👈 Tips penting
+⚠️  # 👈 Peringatan / jebakan umum
+🧪  # 👈 Latihan
+🏆  # 👈 Target pemahaman (buat ngajar)
+```
+
+## Sebelum Mulai
+
+Pastikan Python udah siap:
+
+```bash
+python --version
+# Output: Python 3.x.x
+
+# Coba interaktif mode (REPL):
+python
+>>> print("Halo dunia!")
+>>> exit()
+```
+
+Kalau udah — lanjut ke **Modul 0: Setup**.
