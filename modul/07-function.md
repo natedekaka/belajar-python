@@ -241,6 +241,36 @@ print(kelas)   # XII IPA 2
 
 > ⚠️ **Hindari `global`** sebisa mungkin. Fungsi yang baik menerima input lewat parameter, bukan lewat variabel global.
 
+> ⚠️ **`global` hanya mengubah *nama variabel*, bukan isi objeknya.**
+>
+> Ini jebakan yang sering error, dan kamu **akan** ketemu di Modul 13. Perhatikan:
+>
+> ```python
+> kelas = ["Budi", "Ani"]      # sebuah list
+>
+> def ganti_isi():
+>     global kelas
+>     kelas = ["Citra"]       # nama `kelas` diganti, list LAMA masih ada
+>
+> ganti_isi()
+> print(kelas)      # ['Citra'] — nilai di luar fungsi juga ikut berubah
+> ```
+>
+> Tapi kalau funksinya **menerima list sebagai parameter**, hasilnya beda:
+>
+> ```python
+> data = ["Budi", "Ani"]
+>
+> def tambah_siswa(daftar, nama):   # tanpa `global` — lebih aman
+>     daftar.append(nama)           # ubah ISI list, bukan nama variabelnya
+>
+> tambah_siswa(data, "Citra")
+> print(data)         # ['Budi', 'Ani', 'Citra'] — ikut berubah
+> ```
+>
+> Pelajarannya: pakai `global` kalau memang sedang mengganti **nama variabel**.
+> Kalau hanya mau mengubah **isi** objek, teruskan objeknya sebagai parameter.
+
 ## 7. *args dan **kwargs (Advanced)
 
 Kadang kita tidak tahu berapa banyak argumen yang akan diberikan.

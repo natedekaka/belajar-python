@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peta Kurikulum Informatika SMA Kelas XI — Fase F — Belajar Python</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐍</text></svg>">
+    <script>
+        (function() {
+            var theme = localStorage.getItem('theme');
+            if (theme === 'light' || (!theme && window.matchMedia('(prefers-color-scheme: light)').matches)) {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+</head>
+<body>
+    <nav class="top-nav">
+        <a href="index.html">⬅ Kembali ke Index</a>
+        <span class="title-nav">Peta Kurikulum Informatika SMA Kelas XI — Fase F</span>
+        <button class="theme-toggle" id="themeToggle" aria-label="Ganti tema">🌙</button>
+    </nav>
+    <div class="container">
+        <h1>📚 Peta Kurikulum Informatika SMA Kelas XI — Fase F</h1>
+        
+        <p><strong>Sumber resmi:</strong>  </p>
+        <p>KEPUTUSAN KEPALA BADAN STANDAR, KURIKULUM, DAN ASESMEN PENDIDIKAN  </p>
+        <p>KEMENTERIAN PENDIDIKAN, KEBUDAYAAN, RISET, DAN TEKNOLOGI  </p>
+        <p>NOMOR 033/H/KR/2022 — Capaian Pembelajaran Kurikulum Merdeka</p>
+        
+        <blockquote><p>⚠️ <strong>Koreksi penting:</strong>  </p></blockquote>
+        <blockquote><p>- <strong>Fase E = Kelas X</strong>  </p></blockquote>
+        <blockquote><p>- <strong>Fase F = Kelas XI dan XII SMA/MA/SMK/MAK</strong>  </p></blockquote>
+        <blockquote><p>Paket ini untuk <strong>kelas XI</strong> → rujuk <strong>Fase F</strong> (bukan Fase E).</p></blockquote>
+        
+        <hr>
+        
+        <h2>1. Capaian Pembelajaran (CP) Fase F — Per Elemen</h2>
+        
+        <table>
+        <tr><th>Elemen</th><th>Kode</th><th>Capaian Pembelajaran (ringkasan resmi)</th></tr>
+        <tr><td>Berpikir Komputasional</td><td>BK</td><td>Menganalisis <strong>beberapa strategi algoritmik</strong> secara kritis → banyak alternatif solusi, justifikasi efisiensi/kelebihan/keterbatasan, <strong>memilih & menerapkan solusi terbaik</strong> dengan merancang struktur data yang lebih kompleks & abstrak.</td></tr>
+        <tr><td>Teknologi Informasi & Komunikasi</td><td>TIK</td><td>— <em>(tidak ada CP khusus di tabel per elemen; TIK jadi alat di elemen lain)</em></td></tr>
+        <tr><td>Sistem Komputer</td><td>SK</td><td>Menghasilkan <strong>prototipe perangkat lunak</strong> yang berinteraksi dengan <em>single board computer</em>/controller/kit elektronika; mengomunikasikan produk & proses pengembangan.</td></tr>
+        <tr><td>Jaringan Komputer & Internet</td><td>JKI</td><td>Memahami <strong>konsep lanjutan</strong>: topologi, aspek teknis jaringan, <strong>OSI Layer</strong>, komponen jaringan, mekanisme pertukaran data, <strong>cyber security</strong>, tata kelola kontrol akses data, faktor & konfigurasi keamanan jaringan.</td></tr>
+        <tr><td>Analisis Data</td><td>AD</td><td>— <em>(tidak ada CP khusus di tabel per elemen; muatan AD masuk ke AP — library big data)</em></td></tr>
+        <tr><td>Algoritma & Pemrograman</td><td>AP</td><td>Mengembangkan <strong>program modular berukuran besar</strong>; memahami, memelihara, menyempurnakan struktur program (statik & dinamis); <strong>algoritma standar & strategi efisiensinya</strong>; merancang & mengimplementasikan <strong>struktur data abstrak kompleks</strong> dengan <em>library</em> standar (termasuk <em>library</em> AI & pengolahan data bervolume besar); <strong>menerjemahkan program antar bahasa</strong> (kaidah translasi).</td></tr>
+        <tr><td>Dampak Sosial Informatika</td><td>DSI</td><td>Mengkaji, menganalisis, memberikan <strong>argumentasi & rasional kritis</strong> pada kasus-kasus sosial terkini terkait produk TIK & sistem komputasi.</td></tr>
+        <tr><td>Praktik Lintas Bidang</td><td>PLB</td><td>Bergotong royong dalam <strong>tim inklusif</strong> untuk projek pengembangan sistem komputasi: analisis & identifikasi persoalan → merancang → mengimplementasi → menguji → menyempurnakan → mengomunikasikan produk/proses/manfaat (lisan & tertulis).</td></tr>
+        </table>
+        
+        <blockquote><p><strong>Catatan:</strong> Tabel per elemen resmi menandai TIK = “—” dan AD = “—”. Naratif umum (paragraf D) menyebut “library untuk pengolahan data bervolume besar” → muatan AD diserap ke elemen AP.</p></blockquote>
+        
+        <hr>
+        
+        <h2>2. Kesenjangan Jujur: Materi Repo Saat Ini vs CP Fase F</h2>
+        
+        <table>
+        <tr><th>Area CP Fase F</th><th>Status di Repo (Modul 0–13)</th><th>Tindakan</th></tr>
+        <tr><td>Analisis strategi algoritmik alternatif + justifikasi efisiensi (BK)</td><td><strong>Tidak ada</strong> — hanya dasar loop & function</td><td>Tambah Modul 15</td></tr>
+        <tr><td>Struktur data abstrak kompleks + library standar (AP)</td><td>List/dict/set dasar saja; tidak ada <code>collections</code>, <code>dataclasses</code>, <code>typing</code>, <code>heapq</code>, <code>itertools</code></td><td>Tambah Modul 14</td></tr>
+        <tr><td>Program modular besar + pemeliharaan kode statik/dinamis (AP)</td><td>Hanya Modul 13 (proyek CLI sederhana)</td><td>Perluas Modul 13 + Modul 17</td></tr>
+        <tr><td>OSI Layer, topologi, mekanisme pertukaran data, cyber security (JKI)</td><td><strong>Tidak ada</strong></td><td>Tambah Modul 18–19</td></tr>
+        <tr><td>Argumentasi kritis dampak sosial TIK (DSI)</td><td><strong>Tidak ada</strong></td><td>Tambah Modul 20</td></tr>
+        <tr><td>Prototipe SBC/kit elektronika (SK)</td><td><strong>Tidak ada</strong></td><td>Opsional — tambah lab Arduino/RPi di proyek</td></tr>
+        <tr><td>Proyek PLB tim inklusif end-to-end (PLB)</td><td>Modul 13 individual</td><td>Restruktur proyek jadi <strong>kelompok + dokumentasi lengkap</strong></td></tr>
+        </table>
+        
+        <p><strong>Kesimpulan:</strong> Modul 0–13 = <strong>fondasi Fase E / bridging</strong>. Untuk memenuhi Fase F, <strong>wajib menambah 7 modul pelengkap</strong> (14–20) dan mengupgrade proyek akhir.</p>
+        
+        <hr>
+        
+        <h2>3. Peta Modul → Elemen CP → Alokasi 72 JP (2 JP × 36 minggu)</h2>
+        
+        <table>
+        <tr><th>Unit</th><th>Modul</th><th>Judul</th><th>Elemen CP Utama</th><th>JP</th></tr>
+        <tr><td>1</td><td>0</td><td>Setup: Colab / Install / VS Code</td><td>— (prasyarat)</td><td>2</td></tr>
+        <tr><td>1</td><td>1</td><td>Variabel & Tipe Data</td><td>AP (dasar)</td><td>3</td></tr>
+        <tr><td>1</td><td>2</td><td>String</td><td>AP (dasar)</td><td>3</td></tr>
+        <tr><td><strong>Subtotal Unit 1</strong></td><td><strong>8</strong></td></tr>
+        <tr><td>2</td><td>3</td><td>List & Tuple</td><td>AP, BK (struktur data dasar)</td><td>4</td></tr>
+        <tr><td>2</td><td>4</td><td>Dictionary & Set</td><td>AP, BK</td><td>3</td></tr>
+        <tr><td>2</td><td>11</td><td>List Comprehension</td><td>AP (ekspresi Pythonic)</td><td>3</td></tr>
+        <tr><td><strong>Subtotal Unit 2</strong></td><td><strong>10</strong></td></tr>
+        <tr><td>3</td><td>5</td><td>Percabangan</td><td>BK (logika)</td><td>3</td></tr>
+        <tr><td>3</td><td>6</td><td>Perulangan</td><td>BK (iterasi)</td><td>3</td></tr>
+        <tr><td><strong>Subtotal Unit 3</strong></td><td><strong>6</strong></td></tr>
+        <tr><td>4</td><td>7</td><td>Function</td><td>AP (modularitas)</td><td>4</td></tr>
+        <tr><td>4</td><td>8</td><td>Error & Exception</td><td>AP (ketahanan)</td><td>2</td></tr>
+        <tr><td>4</td><td>10</td><td>Module & pip</td><td>AP (organisasi kode)</td><td>2</td></tr>
+        <tr><td><strong>Subtotal Unit 4</strong></td><td><strong>8</strong></td></tr>
+        <tr><td>5</td><td>12</td><td>OOP Dasar</td><td>AP (class, inheritance, enkapsulasi)</td><td>4</td></tr>
+        <tr><td>5</td><td><strong>14 (baru)</strong></td><td><strong>Struktur Data Lanjutan & Library Standar</strong></td><td><strong>AP, BK</strong> (collections, dataclasses, typing, heapq, itertools, abstract data structures)</td><td><strong>6</strong></td></tr>
+        <tr><td><strong>Subtotal Unit 5</strong></td><td><strong>10</strong></td></tr>
+        <tr><td>6</td><td><strong>15 (baru)</strong></td><td><strong>Kompleksitas Algoritma & Analisis Strategi</strong></td><td><strong>BK, AP</strong> (big-O, sorting/searching comparison, hashing, justifikasi efisiensi, trade-off)</td><td><strong>8</strong></td></tr>
+        <tr><td><strong>Subtotal Unit 6</strong></td><td><strong>8</strong></td></tr>
+        <tr><td>7</td><td><strong>16 (baru)</strong></td><td><strong>Basis Data (SQL & SQLite)</strong></td><td><strong>AP, AD</strong> (skema, ER, query, indexing, transaksi)</td><td><strong>6</strong></td></tr>
+        <tr><td><strong>Subtotal Unit 7</strong></td><td><strong>6</strong></td></tr>
+        <tr><td>8</td><td><strong>17 (baru)</strong></td><td><strong>Testing, Dokumentasi & Kualitas Kode</strong></td><td><strong>AP</strong> (static vs dynamic analysis, unittest/pytest, docstring, type hints, CI)</td><td><strong>4</strong></td></tr>
+        <tr><td><strong>Subtotal Unit 8</strong></td><td><strong>4</strong></td></tr>
+        <tr><td>9</td><td><strong>18 (baru)</strong></td><td><strong>Jaringan & Model OSI</strong></td><td><strong>JKI</strong> (topologi, OSI 7 layer, komponen, mekanisme pertukaran data)</td><td><strong>3</strong></td></tr>
+        <tr><td>9</td><td><strong>19 (baru)</strong></td><td><strong>Keamanan Digital & Siber</strong></td><td><strong>JKI, DSI</strong> (cyber security, kontrol akses, konfigurasi keamanan, etika digital)</td><td><strong>3</strong></td></tr>
+        <tr><td>9</td><td><strong>20 (baru)</strong></td><td><strong>Dampak Sosial TIK — Studi Kasus & Argumentasi Kritis</strong></td><td><strong>DSI</strong> (analisis kasus terkini, debat tertulis, position paper)</td><td><strong>4</strong></td></tr>
+        <tr><td><strong>Subtotal Unit 9</strong></td><td><strong>10</strong></td></tr>
+        <tr><td>10</td><td>13</td><td><strong>Proyek Akhir PLB (Kelompok)</strong></td><td><strong>PLB, AP, BK, DSI, SK</strong> (end-to-end: analisis → desain → implementasi → testing → presentasi + portofolio)</td><td><strong>10</strong></td></tr>
+        <tr><td><strong>Subtotal Unit 10</strong></td><td><strong>10</strong></td></tr>
+        <tr><td><strong>TOTAL</strong></td><td><strong>72</strong></td></tr>
+        </table>
+        
+        <blockquote><p><strong>Catatan Proyek (Unit 10):</strong> 10 JP = 4 sprint (minggu 29–32) + 2 minggu integrasi & testing + 2 minggu presentasi/demo day + 2 minggu refleksi & penilaian. Proyek <strong>dikerjakan berkelompok</strong> sepanjang Unit 5–9 (embedded), JP di atas untuk <em>milestone</em> formal.</p></blockquote>
+        
+        <hr>
+        
+        <h2>4. Profil Pelajar Pancasila — Integrasi per Unit</h2>
+        
+        <table>
+        <tr><th>Dimensi</th><th>Unit yang Menguatkan</th><th>Indikator Observasi</th></tr>
+        <tr><td>Bernalar Kritis</td><td>6, 9, 10</td><td>Menjelaskan <em>trade-off</em> algoritma, mengkritisi kebijakan keamanan, menilai solusi teman</td></tr>
+        <tr><td>Kreatif</td><td>5, 10</td><td>Merancang struktur data sendiri, desain arsitektur proyek</td></tr>
+        <tr><td>Mandiri</td><td>4, 5, 7, 8</td><td>Debug mandiri, <em>refactoring</em>, <em>self-review</em> sebelum PR</td></tr>
+        <tr><td>Berkebinekaan Global</td><td>9, 10</td><td>Kolaborasi tim heterogen, dokumentasi bilingual (ID/EN)</td></tr>
+        <tr><td>Bergotong Royong</td><td>10 (PLB)</td><td><em>Pair programming</em>, <em>code review</em> tim, <em>retrospective</em></td></tr>
+        <tr><td>Beriman & Bertakwa</td><td>—</td><td>Disediakan ruang refleksi di <em>journal</em> proyek (opsional)</td></tr>
+        </table>
+        
+        <hr>
+        
+        <h2>5. Rencana Modul Baru (14–20) — Ringkasan Cakupan</h2>
+        
+        <table>
+        <tr><th>Modul</th><th>File Target</th><th>Fokus Utama</th><th>Elemen CP</th></tr>
+        <tr><td>14</td><td><code>modul/14-struktur-data-lanjutan.md</code></td><td><code>collections</code> (<code>deque</code>, <code>Counter</code>, <code>defaultdict</code>), <code>dataclasses</code>, <code>typing</code> (<code>TypeVar</code>, <code>Generic</code>, <code>Protocol</code>), <code>heapq</code>, <code>itertools</code>, pola <em>immutable</em> vs <em>mutable</em></td><td>AP, BK</td></tr>
+        <tr><td>15</td><td><code>modul/15-kompleksitas-algoritma.md</code></td><td>Notasi big-O, analisis <em>best/average/worst</em>, sorting (Timsort, quicksort, mergesort), searching, hashing, <em>trade-off</em> ruang-waktu, studi kasus <em>benchmark</em></td><td>BK, AP</td></tr>
+        <tr><td>16</td><td><code>modul/16-basis-data.md</code></td><td>Relasional vs NoSQL, SQL DDL/DML, SQLite <em>hands-on</em>, ER diagram, normalisasi, indeks, transaksi, <em>parameterized query</em> (anti-SQLi)</td><td>AP, AD</td></tr>
+        <tr><td>17</td><td><code>modul/17-testing-dokumentasi.md</code></td><td><code>unittest</code> / <code>pytest</code>, <em>fixtures</em>, <em>coverage</em>, <em>static analysis</em> (<code>mypy</code>, <code>ruff</code>), docstring (Google/NumPy), <em>type hints</em> lanjutan, <em>semantic versioning</em></td><td>AP</td></tr>
+        <tr><td>18</td><td><code>modul/18-jaringan-osi.md</code></td><td>Topologi (star, mesh, bus, ring), OSI 7 layer (fungsi & protokol per lapisan), <em>encapsulation</em>, TCP vs UDP, <em>handshake</em>, <em>socket</em> demo Python</td><td>JKI</td></tr>
+        <tr><td>19</td><td><code>modul/19-keamanan-digital.md</code></td><td>CIA triad, <em>threat modeling</em>, autentikasi/otorisasi, <em>hashing</em> password (<code>bcrypt</code>), HTTPS/TLS, <em>firewall</em> konsep, <em>OWASP Top 10</em> ringkas, etika <em>white hat</em></td><td>JKI, DSI</td></tr>
+        <tr><td>20</td><td><code>modul/20-dampak-sosial.md</code></td><td>Studi kasus: <em>algorithmic bias</em>, <em>deepfake</em>, privasi data, <em>digital divide</em>, AI etika; <em>position paper</em> 1 halaman + debat terstruktur</td><td>DSI</td></tr>
+        </table>
+        
+        <hr>
+        
+        <h2>6. Alokasi JP per Semester (Untuk Kalender Akademik)</h2>
+        
+        <table>
+        <tr><th>Semester</th><th>Unit</th><th>JP</th></tr>
+        <tr><td>Ganjil (Kelas XI)</td><td>1–5</td><td>8 + 10 + 6 + 8 + 10 = <strong>42</strong></td></tr>
+        <tr><td>Genap (Kelas XI)</td><td>6–10</td><td>8 + 6 + 4 + 10 + 10 = <strong>30</strong></td></tr>
+        <tr><td><strong>Total</strong></td><td><strong>72</strong></td></tr>
+        </table>
+        
+        <blockquote><p>Semester ganjil lebih padat karena fondasi. Semester genap fokus aplikasi & proyek.</p></blockquote>
+        
+        <hr>
+        
+        <h2>7. Langkah Selanjutnya (Checklist Implementasi)</h2>
+        
+        <ul><li>[ ] Tulis 7 modul baru (14–20) — setiap modul: <em>target pemahaman</em>, analogi, contoh kode, latihan, checklist, referensi CP</li><li>[ ] Tambahkan <strong>tabel CP ringkas</strong> di awal setiap modul (lama & baru)</li><li>[ ] Buat <code>RPS.md</code> (Rencana Pelaksanaananaan Pembelajaran) detail per pertemuan</li><li>[ ] Buat <code>lembar-kerja-siswa.md</code> (siap cetak A4, ruang tulis, <em>rubric</em> mini)</li><li>[ ] Upgrade <code>modul/13-proyek-akhir.md</code> → template kelompok + rubrik penilaian</li><li>[ ] Update <code>build.py</code> (tambah order modul baru), <code>index.html</code>, <code>README.md</code></li><li>[ ] Jalankan <code>python3 build.py</code> → verifikasi link, CJK, HTML valid</li></ul>
+        
+        <hr>
+        
+        <p><em>Dokumen ini merupakan </em>single source of truth<em> untuk perancangan RPS, modul, dan asesmen. Setiap perubahan CP merujuk ke Kepmen 033/H/KR/2022.</em></p>
+    </div>
+    <script>
+        document.querySelectorAll('pre code').forEach(function(b){hljs.highlightElement(b);});
+
+        (function() {
+            var btn = document.getElementById('themeToggle');
+            if (!btn) return;
+            var html = document.documentElement;
+            function updateBtn() {
+                btn.textContent = html.getAttribute('data-theme') === 'light' ? '☀️' : '🌙';
+            }
+            updateBtn();
+            btn.addEventListener('click', function() {
+                var current = html.getAttribute('data-theme');
+                var next = current === 'light' ? 'dark' : 'light';
+                html.setAttribute('data-theme', next);
+                localStorage.setItem('theme', next);
+                updateBtn();
+            });
+        })();
+    </script>
+</body>
+</html>

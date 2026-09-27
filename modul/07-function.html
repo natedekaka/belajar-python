@@ -231,6 +231,36 @@
         
         <blockquote><p>⚠️ <strong>Hindari <code>global</code></strong> sebisa mungkin. Fungsi yang baik menerima input lewat parameter, bukan lewat variabel global.</p></blockquote>
         
+        <blockquote><p>⚠️ <strong><code>global</code> hanya mengubah <em>nama variabel</em>, bukan isi objeknya.</strong></p></blockquote>
+        <p>&gt;</p>
+        <blockquote><p>Ini jebakan yang sering error, dan kamu <strong>akan</strong> ketemu di Modul 13. Perhatikan:</p></blockquote>
+        <p>&gt;</p>
+        <blockquote><p>```python</p></blockquote>
+        <blockquote><p>kelas = ["Budi", "Ani"]      # sebuah list</p></blockquote>
+        <p>&gt;</p>
+        <blockquote><p>def ganti_isi():</p></blockquote>
+        <blockquote><p>    global kelas</p></blockquote>
+        <blockquote><p>    kelas = ["Citra"]       # nama <code>kelas</code> diganti, list LAMA masih ada</p></blockquote>
+        <p>&gt;</p>
+        <blockquote><p>ganti_isi()</p></blockquote>
+        <blockquote><p>print(kelas)      # ['Citra'] — nilai di luar fungsi juga ikut berubah</p></blockquote>
+        <blockquote><p>```</p></blockquote>
+        <p>&gt;</p>
+        <blockquote><p>Tapi kalau funksinya <strong>menerima list sebagai parameter</strong>, hasilnya beda:</p></blockquote>
+        <p>&gt;</p>
+        <blockquote><p>```python</p></blockquote>
+        <blockquote><p>data = ["Budi", "Ani"]</p></blockquote>
+        <p>&gt;</p>
+        <blockquote><p>def tambah_siswa(daftar, nama):   # tanpa <code>global</code> — lebih aman</p></blockquote>
+        <blockquote><p>    daftar.append(nama)           # ubah ISI list, bukan nama variabelnya</p></blockquote>
+        <p>&gt;</p>
+        <blockquote><p>tambah_siswa(data, "Citra")</p></blockquote>
+        <blockquote><p>print(data)         # ['Budi', 'Ani', 'Citra'] — ikut berubah</p></blockquote>
+        <blockquote><p>```</p></blockquote>
+        <p>&gt;</p>
+        <blockquote><p>Pelajarannya: pakai <code>global</code> kalau memang sedang mengganti <strong>nama variabel</strong>.</p></blockquote>
+        <blockquote><p>Kalau hanya mau mengubah <strong>isi</strong> objek, teruskan objeknya sebagai parameter.</p></blockquote>
+        
         <h2>7. *args dan **kwargs (Advanced)</h2>
         
         <p>Kadang kita tidak tahu berapa banyak argumen yang akan diberikan.</p>

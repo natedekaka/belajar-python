@@ -6,19 +6,31 @@ Strategi, analogi, jebakan murid, dan aktivitas kelas untuk setiap modul.
 
 ## Modul 0: Setup
 
-**Analogi:** "Python itu seperti koki. REPL seperti dia masak langsung di depan kita. File .py seperti resep yang bisa dijalanin kapan saja."
+**Analogi:** "Bayangkan masak. Mode interaktif (REPL) seperti mencicipi kuah
+langsung di dapur. Cepat, tapi tidak tersimpan. File `.py` seperti menulis
+resep: sekali tulis, bisa dimasak kapan saja."
+
+> ⚠️ **Keputusan paling penting di modul ini:** jangan paksa murid install
+> Python di JP pertama. Default-kan ke **[A] Google Colab**. Jalan di browser,
+> tanpa install, tanpa hak admin. Ini menghemat waktu dan menghindari masalah
+> teknis yang tidak perlu ada.
 
 **Jebakan Murid:**
-- Bingung beda terminal vs Python REPL — tandai prompt `$` vs `>>>`
-- Lupa aktivasi venv — biasakan `source .../venv/bin/activate`
+- Bingung bedanya tempat mengetik kode dengan tempat hasilnya muncul
+- Lupa menjalankan ulang program setelah mengubah variabel
+- Terlalu bersemangat install, padahal belum tentu perlu
 
 **Aktivitas Kelas (10 menit):**
-1. Minta semua buka terminal
-2. Ketik `python` → muncul `>>>`
-3. Ketik `print("Nama saya ...")` — tiap murid tulis nama sendiri
-4. `exit()` untuk keluar
+1. Minta semua buka `colab.research.google.com` dan buat notebook baru
+2. Ketik `print("Nama saya ...")` - tiap murid tulis namanya sendiri
+3. Ubah satu variabel, jalankan ulang - jelaskan kenapa hasil ikut berubah
+4. Demo **Runtime → Restart session** - semua nilai kembali ke awal
 
-**Estimasi:** 1 JP (45 menit) — lebih banyak praktek
+**Kalau Lab Sudah Punya Python:**
+Baru tunjukkan jalur **[B] Install di Komputer**. Periksa versinya lebih dulu -
+wajib **3.10 ke atas**. Kalau muncul `Python 2.x`, jangan dipakai.
+
+**Estimasi:** 1 JP (45 menit) - sebagian besar diisi latihan praktik
 
 ---
 
@@ -182,7 +194,7 @@ print(kata[::-1]) # ?
 - ❌ Salah tangkap error jenis salah — `except ValueError:` tapi errornya `TypeError:`
 
 **Aktivitas Kelas (WAJIB):**
-1. Sesi "Error Challenge": kasih kode yang error, minta murid baca pesan errornyadan perbaiki
+1. Sesi "Error Challenge": kasih kode yang error, minta murid baca pesan errornya dan perbaiki
 2. Tebak jenis error: kasih kode, tanya "error apa yang akan muncul?"
 3. Latihan try/except: kalkulator yang tahan banting
 

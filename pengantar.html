@@ -42,7 +42,7 @@
         
         <table>
         <tr><th>#</th><th>Modul</th><th>Deskripsi</th></tr>
-        <tr><td>0</td><td><strong>Setup</strong></td><td>Python di Omarchy Linux, terminal, cara jalanin kode</td></tr>
+        <tr><td>0</td><td><strong>Setup</strong></td><td>3 jalur: Google Colab (paling gampang), install di komputer, VS Code</td></tr>
         <tr><td>1</td><td><strong>Variabel & Tipe Data</strong></td><td>int, float, str, bool — fondasi paling dasar</td></tr>
         <tr><td>2</td><td><strong>String</strong></td><td>Manipulasi teks — slicing, formatting, method</td></tr>
         <tr><td>3</td><td><strong>List & Tuple</strong></td><td>Kumpulan data — index, loop, method</td></tr>
@@ -56,7 +56,18 @@
         <tr><td>11</td><td><strong>List Comprehension</strong></td><td>Cara Pythonic bikin list</td></tr>
         <tr><td>12</td><td><strong>OOP Dasar</strong></td><td>Class, object, inheritance</td></tr>
         <tr><td>13</td><td><strong>Proyek Akhir</strong></td><td>Aplikasi CLI Nilai Siswa + Quiz Interaktif</td></tr>
+        <tr><td>14</td><td><strong>Struktur Data Lanjutan</strong></td><td>collections, dataclasses, typing, heapq, itertools</td></tr>
+        <tr><td>15</td><td><strong>Kompleksitas Algoritma</strong></td><td>Big-O, sorting, hashing, analisis strategi & justifikasi efisiensi</td></tr>
+        <tr><td>16</td><td><strong>Basis Data (SQLite)</strong></td><td>SQL, ER diagram, normalisasi, transaksi, indexing</td></tr>
+        <tr><td>17</td><td><strong>Testing & Dokumentasi</strong></td><td>pytest, coverage, mypy, ruff, docstring, CI/CD</td></tr>
+        <tr><td>18</td><td><strong>Jaringan & Model OSI</strong></td><td>7 layer OSI, topologi, TCP/UDP, socket programming</td></tr>
+        <tr><td>19</td><td><strong>Keamanan Digital</strong></td><td>CIA Triad, STRIDE, OWASP Top 10, bcrypt, JWT, TLS, Zero Trust</td></tr>
+        <tr><td>20</td><td><strong>Dampak Sosial TIK</strong></td><td>Studi kasus, argumentasi kritis (CER), debat, AI ethics</td></tr>
         </table>
+        
+        <hr>
+        
+        <blockquote><p>📌 <strong>Catatan Kurikulum:</strong> Modul 0–13 = fondasi Python (Fase E bridging). Modul 14–20 = <strong>pelengkap Fase F</strong> (Kelas XI–XII Kurikulum Merdeka). Total 21 modul → 72 JP (2 JP × 36 minggu).</p></blockquote>
         
         <h2>Legend</h2>
         
@@ -69,17 +80,40 @@
         
         <h2>Sebelum Mulai</h2>
         
-        <p>Pastikan Python udah siap:</p>
+        <p>Cara paling cepat dan paling gampang: <strong><a href="https://colab.research.google.com"&gt;Google Colab</a></strong>.</p>
+        <p>Buka di browser, klik <code>+</code>, ketik <code>print(&quot;Halo dunia!&quot;)</code>, tekan <strong>Ctrl + Enter</strong>. Selesai — tanpa install apa pun.</p>
         
-        <pre><code class="language-bash">python --version
-        # Output: Python 3.x.x
+        <p>Kalau mau pakai Python di komputermu sendiri, cek dulu versinya:</p>
         
-        # Coba interaktif mode (REPL):
-        python
-        &gt;&gt;&gt; print(&quot;Halo dunia!&quot;)
-        &gt;&gt;&gt; exit()</code></pre>
+        <pre><code class="language-bash">python --version     # Windows
+        python3 --version    # macOS / Linux</code></pre>
         
-        <p>Kalau udah — lanjut ke <strong>Modul 0: Setup</strong>.</p>
+        <p>Yang dibutuhkan: <strong>Python 3.10 atau lebih baru</strong>.</p>
+        
+        <p>Kalau sudah siap — lanjut ke <strong>Modul 0: Setup</strong>.</p>
+        
+        <hr>
+        
+        <h2>📄 Berkas Pendukung Guru</h2>
+        
+        <table>
+        <tr><th>Berkas</th><th>Untuk siapa</th><th>Isi</th></tr>
+        <tr><td><code>PETA-KURIKULUM.md</code></td><td>Guru</td><td>Peta CP Fase F, modul→elemen, 72 JP, profil Pelajar Pancasila</td></tr>
+        <tr><td><code>RPS.md</code></td><td>Guru</td><td>Rencana Pelaksanaan Pembelajaran 72 JP + ATP + KKTP + asesmen</td></tr>
+        <tr><td><code>lembar-kerja-siswa.md</code></td><td><strong>Siswa</strong></td><td>Lembar kerja siap cetak A4 per modul + rubrik mini</td></tr>
+        <tr><td><code>template-proyek.md</code></td><td>Siswa</td><td>Template proyek akhir semi-kosong + rubrik penilaian PLB</td></tr>
+        <tr><td><code>rubrik-proyek.md</code></td><td>Guru</td><td>Rubrik detail penilaian proyek (PLB, teknis, presentasi, portofolio)</td></tr>
+        <tr><td><code>tips-mengajar.md</code></td><td>Guru</td><td>Strategi, analogi, jebakan murid, aktivitas kelas, estimasi JP</td></tr>
+        <tr><td><code>bank-soal.md</code></td><td>Guru</td><td>77 soal + kunci jawaban + kunci cepat</td></tr>
+        <tr><td><code>bank-soal-siswa.md</code></td><td><strong>Siswa</strong></td><td>77 soal tanpa kunci — aman untuk dibagikan</td></tr>
+        <tr><td><code>cheat-sheet.md</code></td><td>Siswa</td><td>Ringkasan syntax 1 halaman, siap cetak</td></tr>
+        <tr><td><code>error-dictionary.md</code></td><td>Siswa</td><td>Cara baca 15+ error Python yang sering muncul</td></tr>
+        <tr><td><code>mini-projek.md</code></td><td>Guru</td><td>6 proyek latihan dengan panduan</td></tr>
+        <tr><td><code>scripts/</code></td><td>Guru</td><td>Absensi, rekap nilai, jadwal, backup, rename tugas</td></tr>
+        </table>
+        
+        <blockquote><p>⚠️ <strong>Perhatikan:</strong> <code>bank-soal.md</code> berisi kunci jawaban. Jangan dibagikan apa adanya —</p></blockquote>
+        <blockquote><p>pakai <code>bank-soal-siswa.md</code> untuk siswa.</p></blockquote>
         
     </div>
     <script>

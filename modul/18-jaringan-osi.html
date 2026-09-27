@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modul 18: Jaringan Komputer &amp; Model OSI — Belajar Python</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐍</text></svg>">
+    <script>
+        (function() {
+            var theme = localStorage.getItem('theme');
+            if (theme === 'light' || (!theme && window.matchMedia('(prefers-color-scheme: light)').matches)) {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+</head>
+<body>
+    <nav class="top-nav">
+        <a href="../index.html">⬅ Kembali ke Index</a>
+        <span class="title-nav">Modul 18: Jaringan Komputer &amp; Model OSI</span>
+        <button class="theme-toggle" id="themeToggle" aria-label="Ganti tema">🌙</button>
+    </nav>
+    <div class="container">
+        <h1>Modul 18: Jaringan Komputer & Model OSI</h1>
+        
+        <h2>📌 Pemetaan CP Fase F</h2>
+        <table>
+        <tr><th>Elemen</th><th>Kode CP</th><th>Capaian Terkait</th></tr>
+        <tr><td>Jaringan Komputer & Internet</td><td>JKI</td><td>Memahami konsep lanjutan: topologi, aspek teknis jaringan, <strong>OSI Layer</strong>, komponen jaringan, mekanisme pertukaran data</td></tr>
+        </table>
+        
+        <hr>
+        
+        <h2>🏆 Target Pemahaman</h2>
+        
+        <p>Setelah modul ini, kamu bisa:</p>
+        <ul><li>Menjelaskan <strong>7 Layer Model OSI</strong> (fungsi, protokol, PDU, perangkat per layer)</li><li>Membandingkan <strong>OSI vs TCP/IP Model</strong> (4 layer)</li><li>Mengidentifikasi <strong>topologi jaringan</strong> (star, mesh, bus, ring, hybrid) — kelebihan/kekurangan</li><li>Memahami <strong>addressing</strong>: MAC (Layer 2), IP (Layer 3), Port (Layer 4)</li><li>Menjelaskan <strong>encapsulation & decapsulation</strong> (PDU berubah per layer)</li><li>Memahami <strong>TCP vs UDP</strong> (three-way handshake, flow control, congestion control)</li><li>Praktik <strong>socket programming</strong> dasar Python (<code>socket</code> module)</li><li>Menganalisis <em>packet capture</em> sederhana (Wireshark / <code>scapy</code>)</li></ul>
+        
+        <hr>
+        
+        <h2>1. Kenapa Model Layer?</h2>
+        
+        <p>Jaringan kompleks → <strong>pecah jadi lapisan</strong> (layer) yang masing-masing punya tanggung jawab tunggal.</p>
+        
+        <table>
+        <tr><th>Prinsip</th><th>Penjelasan</th></tr>
+        <tr><td><strong>Abstraksi</strong></td><td>Layer atas tidak peduli detail layer bawah</td></tr>
+        <tr><td><strong>Standardisasi</strong></td><td>Vendor beda tetap bisa interoperabel (mis. TCP/IP)</td></tr>
+        <tr><td><strong>Troubleshooting</strong></td><td>Isolasi masalah per layer (cable → IP → port → app)</td></tr>
+        <tr><td><strong>Modularitas</strong></td><td>Ganti protokol satu layer tanpa hancurkan yang lain</td></tr>
+        </table>
+        
+        <hr>
+        
+        <h2>2. 7 Layer OSI — Dari Bawah ke Atas</h2>
+        
+        <table>
+        <tr><th>Layer</th><th>Nama</th><th>Fungsi Utama</th><th>PDU (Protocol Data Unit)</th><th>Protokol / Standar</th><th>Perangkat</th></tr>
+        <tr><td><strong>7</strong></td><td><strong>Application</strong></td><td>Interface user ↔ jaringan (HTTP, DNS, SMTP, FTP, SSH)</td><td><strong>Data</strong></td><td>HTTP, DNS, SMTP, FTP, SSH, DHCP</td><td>—</td></tr>
+        <tr><td><strong>6</strong></td><td><strong>Presentation</strong></td><td>Translasi, enkripsi, kompresi (SSL/TLS, JPEG, ASCII)</td><td><strong>Data</strong></td><td>TLS/SSL, MIME, ASCII, JPEG, MPEG</td><td>—</td></tr>
+        <tr><td><strong>5</strong></td><td><strong>Session</strong></td><td>Manajemen dialog, sinkronisasi, checkpoint</td><td><strong>Data</strong></td><td>NetBIOS, RPC, PPTP, SIP</td><td>—</td></tr>
+        <tr><td><strong>4</strong></td><td><strong>Transport</strong></td><td>End-to-end delivery, segmentasi, flow/error control</td><td><strong>Segment</strong> (TCP) / <strong>Datagram</strong> (UDP)</td><td><strong>TCP</strong>, <strong>UDP</strong>, SCTP</td><td>—</td></tr>
+        <tr><td><strong>3</strong></td><td><strong>Network</strong></td><td>Routing, logical addressing (IP), fragmentasi</td><td><strong>Packet</strong></td><td><strong>IPv4</strong>, <strong>IPv6</strong>, ICMP, OSPF, BGP</td><td><strong>Router</strong>, Layer-3 Switch</td></tr>
+        <tr><td><strong>2</strong></td><td><strong>Data Link</strong></td><td>Framing, MAC addressing, error detection, akses media</td><td><strong>Frame</strong></td><td>Ethernet (802.3), Wi-Fi (802.11), PPP, Switch</td><td><strong>Switch</strong>, Bridge, NIC</td></tr>
+        <tr><td><strong>1</strong></td><td><strong>Physical</strong></td><td>Bit transmission: kabel, sinyal, voltage, pinout</td><td><strong>Bit</strong></td><td>Copper (Cat5e/6/6a), Fiber, Radio</td><td><strong>Hub</strong>, Repeater, Kabel, Konektor</td></tr>
+        </table>
+        
+        <blockquote><p>💡 <strong>Mnemonic:</strong> <strong>"All People Seem To Need Data Processing"</strong> (Application → Physical)</p></blockquote>
+        
+        <hr>
+        
+        <h2>3. OSI vs TCP/IP Model (4 Layer)</h2>
+        
+        <table>
+        <tr><th>OSI (7 Layer)</th><th>TCP/IP (4 Layer)</th><th>Catatan</th></tr>
+        <tr><td>Application</td><td>Application</td><td>Gabung L5+L6+L7</td></tr>
+        <tr><td>Presentation</td></tr>
+        <tr><td>Session</td></tr>
+        <tr><td>Transport</td><td>Transport</td><td>Sama (TCP/UDP)</td></tr>
+        <tr><td>Network</td><td>Internet</td><td>IP + routing</td></tr>
+        <tr><td>Data Link</td><td>Network Access / Link</td><td>Ethernet + Physical</td></tr>
+        <tr><td>Physical</td></tr>
+        </table>
+        
+        <blockquote><p>💡 <strong>Dunia nyata pakai TCP/IP model.</strong> OSI dipakai untuk <em>pembelajaran & troubleshooting</em> konseptual.</p></blockquote>
+        
+        <hr>
+        
+        <h2>4. Topologi Jaringan</h2>
+        
+        <table>
+        <tr><th>Topologi</th><th>Deskripsi</th><th>Kelebihan</th><th>Kekurangan</th><th>Contoh Penggunaan</th></tr>
+        <tr><td><strong>Star</strong></td><td>Semua node ke switch pusat</td><td>Mudah manajemen, isolasi gangguan</td><td>Titik gagal tunggal (switch)</td><td><strong>Kantor, sekolah, rumah</strong> (paling umum)</td></tr>
+        <tr><td><strong>Mesh</strong></td><td>Setiap node ke semua node</td><td>Redundansi tinggi, toleran gagal</td><td>Kabel & port sangat banyak</td><td>Backbone ISP, data center kritis</td></tr>
+        <tr><td><strong>Bus</strong></td><td>Satu kabel backbone (coaxial)</td><td>Sederhana, murah</td><td>Kolisi tinggi, susah troubleshoot</td><td>Legacy (10BASE2), tidak dipakai lagi</td></tr>
+        <tr><td><strong>Ring</strong></td><td>Lingkaran, token passing</td><td>Deterministik, tidak kolisi</td><td>Satu putus → jaringan mati</td><td>Token Ring (legacy), Metro Ethernet (ring protection)</td></tr>
+        <tr><td><strong>Hybrid</strong></td><td>Kombinasi (mis. star-mesh)</td><td>Fleksibel, skalabil</td><td>Desain kompleks</td><td>Enterprise besar, campus</td></tr>
+        </table>
+        
+        <hr>
+        
+        <h2>5. Addressing — 3 Identitas Utama</h2>
+        
+        <table>
+        <tr><th>Layer</th><th>Alamat</th><th>Panjang</th><th>Contoh</th><th>Cakupan</th></tr>
+        <tr><td><strong>2 (Data Link)</strong></td><td><strong>MAC Address</strong></td><td>48 bit (6 byte)</td><td><code>00:1A:2B:3C:4D:5E</code></td><td><strong>Local segment</strong> (broadcast domain) — tidak lewat router</td></tr>
+        <tr><td><strong>3 (Network)</strong></td><td><strong>IP Address</strong></td><td>IPv4: 32 bit, IPv6: 128 bit</td><td><code>192.168.1.10</code> / <code>2001:db8::1</code></td><td><strong>Global / internetwork</strong> — lewat router</td></tr>
+        <tr><td><strong>4 (Transport)</strong></td><td><strong>Port Number</strong></td><td>16 bit (0–65535)</td><td><code>80</code> (HTTP), <code>443</code> (HTTPS), <code>53</code> (DNS)</td><td><strong>Proses/aplikasi</strong> di host</td></tr>
+        </table>
+        
+        <p><strong>Well-known ports (0–1023):</strong> butuh root/admin. <strong>Registered (1024–49151)</strong>, <strong>Ephemeral (49152–65535)</strong> — client random.</p>
+        
+        <hr>
+        
+        <h2>6. Encapsulation & Decapsulation (Proses Kirim & Terima)</h2>
+        
+        <pre><code>KIRIM (Sender)                              TERIMA (Receiver)
+        ┌─────────────────────────────────────┐     ┌─────────────────────────────────────┐
+        │ Application Data                    │     │ Frame → cek FCS → strip header/trailer│
+        │   ↓ (add App header)                │     │   ↓                                 │
+        │ Presentation Data                   │     │ Packet → cek IP → strip IP header    │
+        │   ↓ (add Presentation header)       │     │   ↓                                 │
+        │ Session Data                        │     │ Segment → reorder, ACK → strip TCP   │
+        │   ↓ (add Session header)            │     │   ↓                                 │
+        │ Transport Segment (TCP/UDP header)  │     │ Data → kirim ke Application          │
+        │   ↓ (add Transport header)          │     │                                     │
+        │ Network Packet (IP header)          │     │                                     │
+        │   ↓ (add Network header)            │     │                                     │
+        │ Data Link Frame (MAC header+trailer)│     │                                     │
+        │   ↓ (add Physical preamble)         │     │                                     │
+        │ Physical Bits (signal)  ──────────► │     │                                     │
+        └─────────────────────────────────────┘     └─────────────────────────────────────┘</code></pre>
+        
+        <p><strong>PDU per layer:</strong> Data → Segment → Packet → Frame → Bits</p>
+        
+        <hr>
+        
+        <h2>7. TCP vs UDP — Perbandingan Lengkap</h2>
+        
+        <table>
+        <tr><th>Fitur</th><th><strong>TCP</strong> (Transmission Control Protocol)</th><th><strong>UDP</strong> (User Datagram Protocol)</th></tr>
+        <tr><td><strong>Koneksi</strong></td><td>Connection-oriented (3-way handshake)</td><td>Connectionless</td></tr>
+        <tr><td><strong>Keandalan</strong></td><td><strong>Garansi</strong> delivery, urutan, tanpa duplikat</td><td><strong>Tidak</strong> garansi (best-effort)</td></tr>
+        <tr><td><strong>Flow Control</strong></td><td>Sliding window (receiver-driven)</td><td>Tidak ada</td></tr>
+        <tr><td><strong>Congestion Control</strong></td><td>Tahoe/Reno/CUBIC (slow start, AIMD)</td><td>Tidak ada</td></tr>
+        <tr><td><strong>Header Size</strong></td><td>20–60 byte</td><td>8 byte</td></tr>
+        <tr><td><strong>Latency</strong></td><td>Lebih tinggi (handshake, ACK)</td><td><strong>Rendah</strong> (fire-and-forget)</td></tr>
+        <tr><td><strong>Use Case</strong></td><td>Web (HTTP/HTTPS), Email, SSH, FTP</td><td>DNS, Streaming, VoIP, Gaming, DHCP, SNMP</td></tr>
+        </table>
+        
+        <h3>TCP Three-Way Handshake</h3>
+        <pre><code>Client                          Server
+          │                                │
+          ├─ SYN (seq=x) ────────────────► │
+          │                                │
+          │ ◄──────── SYN-ACK (seq=y, ack=x+1) │
+          │                                │
+          ├─ ACK (ack=y+1) ──────────────► │
+          │                                │
+          └─ Established ── Data transfer ──►</code></pre>
+        
+        <h3>TCP State Diagram (Ringkas)</h3>
+        <pre><code>CLOSED → SYN_SENT → SYN_RCVD → ESTABLISHED → FIN_WAIT_1 → FIN_WAIT_2 → TIME_WAIT → CLOSED
+                        │                                    │
+                        ▼                                    ▼
+                    LISTEN                              CLOSE_WAIT → LAST_ACK → CLOSED</code></pre>
+        
+        <hr>
+        
+        <h2>8. Socket Programming Dasar Python</h2>
+        
+        <pre><code class="language-python"># TCP Server (Echo)
+        import socket
+        import threading
+        
+        def handle_client(conn, addr):
+            print(f&quot;[+] Connected: {addr}&quot;)
+            with conn:
+                while True:
+                    data = conn.recv(1024)
+                    if not data:
+                        break
+                    conn.sendall(data)  # echo back
+            print(f&quot;[-] Disconnected: {addr}&quot;)
+        
+        def tcp_server(host=&quot;0.0.0.0&quot;, port=5000):
+            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+                s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+                s.bind((host, port))
+                s.listen()
+                print(f&quot;Server listening on {host}:{port}&quot;)
+                while True:
+                    conn, addr = s.accept()
+                    threading.Thread(target=handle_client, args=(conn, addr), daemon=True).start()
+        
+        # TCP Client
+        def tcp_client(host=&quot;127.0.0.1&quot;, port=5000):
+            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+                s.connect((host, port))
+                s.sendall(b&quot;Halo server!&quot;)
+                resp = s.recv(1024)
+                print(f&quot;Server reply: {resp.decode()}&quot;)</code></pre>
+        
+        <pre><code class="language-python"># UDP Server
+        import socket
+        
+        def udp_server(host=&quot;0.0.0.0&quot;, port=5001):
+            with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
+                s.bind((host, port))
+                print(f&quot;UDP Server on {host}:{port}&quot;)
+                while True:
+                    data, addr = s.recvfrom(1024)
+                    print(f&quot;From {addr}: {data.decode()}&quot;)
+                    s.sendto(b&quot;ACK: &quot; + data, addr)
+        
+        # UDP Client
+        def udp_client(host=&quot;127.0.0.1&quot;, port=5001):
+            with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
+                s.sendto(b&quot;Halo UDP&quot;, (host, port))
+                resp, _ = s.recvfrom(1024)
+                print(f&quot;Reply: {resp.decode()}&quot;)</code></pre>
+        
+        <blockquote><p>⚠️ <strong>TCP:</strong> <code>SOCK_STREAM</code>, butuh <code>listen()</code>/<code>accept()</code>, <em>stream</em> byte (bisa <em>fragmented</em> — pakai delimiter / length prefix).</p></blockquote>
+        <blockquote><p><strong>UDP:</strong> <code>SOCK_DGRAM</code>, <em>datagram</em> (message boundary terjaga), tidak butuh koneksi.</p></blockquote>
+        
+        <hr>
+        
+        <h2>9. Analisis Paket dengan <code>scapy</code> (Opsional)</h2>
+        
+        <pre><code class="language-bash">pip install scapy</code></pre>
+        
+        <pre><code class="language-python">from scapy.all import sniff, IP, TCP, UDP, DNS, Raw
+        
+        def analisis_paket(pkt):
+            if IP in pkt:
+                ip = pkt[IP]
+                print(f&quot;IP {ip.src} → {ip.dst} | Proto: {ip.proto}&quot;, end=&quot; &quot;)
+                if TCP in pkt:
+                    tcp = pkt[TCP]
+                    print(f&quot;TCP {tcp.sport}→{tcp.dport} Flags: {tcp.flags}&quot;)
+                elif UDP in pkt:
+                    udp = pkt[UDP]
+                    print(f&quot;UDP {udp.sport}→{udp.dport}&quot;, end=&quot; &quot;)
+                    if DNS in pkt:
+                        dns = pkt[DNS]
+                        if dns.qr == 0:  # query
+                            print(f&quot;DNS Query: {dns.qd.qname.decode()}&quot;)
+                        else:
+                            print(f&quot;DNS Answer: {dns.an.rdata if dns.an else &#x27;N/A&#x27;}&quot;)
+                print()
+        
+        # Jalankan (butuh root/admin untuk mode promiscuous)
+        # sniff(prn=analisis_paket, filter=&quot;tcp or udp&quot;, count=10)</code></pre>
+        
+        <hr>
+        
+        <h2>10. Troubleshooting Layered (Checklist Cepat)</h2>
+        
+        <table>
+        <tr><th>Gejala</th><th>Layer Terduga</th><th>Cek Cepat</th></tr>
+        <tr><td>Tidak bisa ping ke IP lain</td><td>1 (kabel), 2 (switch), 3 (IP/gateway)</td><td><code>ip link</code>, <code>ip addr</code>, <code>ping gateway</code>, <code>traceroute</code></td></tr>
+        <tr><td>Bisa ping IP, tapi tidak bisa browsing</td><td>7 (DNS), 4 (port 80/443 firewall)</td><td><code>dig google.com</code>, <code>curl -I http://ip</code>, <code>telnet ip 80</code></td></tr>
+        <tr><td>Koneksi putus-putus (Wi-Fi)</td><td>1 (sinyal), 2 (channel overlap)</td><td><code>iwconfig</code>, <code>nmcli dev wifi list</code></td></tr>
+        <tr><td>Transfer file lambat</td><td>4 (TCP window), 1 (kabel/port)</td><td><code>iperf3</code>, cek duplex mismatch (<code>ethtool</code>)</td></tr>
+        <tr><td>Bisa SSH tapi tidak bisa akses web server</td><td>4 (port 80/443 block), 7 (web server down)</td><td><code>systemctl status nginx</code>, `ss -tlnp</td><td>grep :80`</td></tr>
+        </table>
+        
+        <hr>
+        
+        <h2>🧪 Latihan</h2>
+        
+        <ol><li><strong>Diagram OSI</strong> — Gambar 7 layer OSI dengan PDU, protokol, & perangkat per layer. Jelaskan encapsulation 1 paket HTTP request.</li><li><strong>Topologi Desain</strong> — Sekolah 3 gedung (A, B, C). Gedung A = server & internet gateway. Desain topologi (gambar + justifikasi). Hitung kebutuhan switch & kabel.</li><li><strong>Subnetting</strong> — Network <code>192.168.10.0/24</code>. Bagi jadi 4 subnet untuk 4 lab komputer (maks 30 host per lab). Tuliskan: network address, broadcast, usable range, subnet mask.</li><li><strong>Socket Chat Mini</strong> — Buat chat room sederhana: 1 server TCP broadcast ke semua client. Client bisa kirim & terima pesan real-time (threading).</li><li><strong>UDP Time Sync</strong> — Client request time ke server UDP. Server balik timestamp (ISO format). Ukur <em>round-trip time</em> rata-rata 10 request.</li><li><strong>Packet Capture</strong> — Jalankan <code>python -m http.server 8000</code>. Buka browser ke <code>http://localhost:8000</code>. Capture dengan Wireshark / <code>scapy</code>. Identifikasi: TCP handshake, HTTP GET, HTTP Response, TCP teardown.</li><li><strong>Firewall Rule</strong> — Tuliskan <code>iptables</code> / <code>nftables</code> rule: allow SSH (22) dari subnet <code>192.168.10.0/24</code> saja, drop yang lain. Allow HTTP/HTTPS dari mana saja.</li></ol>
+        
+        <hr>
+        
+        <h2>✅ Checklist Paham</h2>
+        
+        <ul><li>[ ] Bisa sebut 7 layer OSI urut + fungsi + PDU + protokol contoh</li><li>[ ] Bisa bandingkan OSI vs TCP/IP model</li><li>[ ] Bisa jelaskan topologi star/mesh/bus/ring + pros/cons</li><li>[ ] Paham perbedaan MAC / IP / Port — layer & cakupan masing-masing</li><li>[ ] Bisa jelaskan encapsulation (kirim) & decapsulation (terima)</li><li>[ ] Bisa bandingkan TCP vs UDP tabel + use case</li><li>[ ] Bisa gambar TCP 3-way handshake & state diagram</li><li>[ ] Bisa tulis TCP & UDP server/client dasar Python <code>socket</code></li><li>[ ] Bisa baca <code>scapy</code> output / Wireshark capture dasar</li><li>[ ] Bisa troubleshooting layered (cek layer 1 → 7 berurutan)</li></ul>
+        
+        <p><strong>Kalau semua tercentang → lanjut ke Modul 19 (Keamanan Digital & Siber).</strong></p>
+    <nav class="modul-nav">
+        <a href="17-testing-dokumentasi.html">« 🧪 Testing & Dokumentasi</a>
+        <span class="modul-nav-center">⬅ <a href="../index.html">Index</a></span>
+        <a href="19-keamanan-digital.html">🔐 Keamanan Digital »</a>
+    </nav>
+    </div>
+    <script>
+        document.querySelectorAll('pre code').forEach(function(b){hljs.highlightElement(b);});
+
+        (function() {
+            var btn = document.getElementById('themeToggle');
+            if (!btn) return;
+            var html = document.documentElement;
+            function updateBtn() {
+                btn.textContent = html.getAttribute('data-theme') === 'light' ? '☀️' : '🌙';
+            }
+            updateBtn();
+            btn.addEventListener('click', function() {
+                var current = html.getAttribute('data-theme');
+                var next = current === 'light' ? 'dark' : 'light';
+                html.setAttribute('data-theme', next);
+                localStorage.setItem('theme', next);
+                updateBtn();
+            });
+        })();
+    </script>
+</body>
+</html>

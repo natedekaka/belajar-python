@@ -20,7 +20,7 @@
 
 | # | Modul | Deskripsi |
 |---|-------|-----------|
-| 0 | **Setup** | Python di Omarchy Linux, terminal, cara jalanin kode |
+| 0 | **Setup** | 3 jalur: Google Colab (paling gampang), install di komputer, VS Code |
 | 1 | **Variabel & Tipe Data** | int, float, str, bool — fondasi paling dasar |
 | 2 | **String** | Manipulasi teks — slicing, formatting, method |
 | 3 | **List & Tuple** | Kumpulan data — index, loop, method |
@@ -34,6 +34,17 @@
 | 11 | **List Comprehension** | Cara Pythonic bikin list |
 | 12 | **OOP Dasar** | Class, object, inheritance |
 | 13 | **Proyek Akhir** | Aplikasi CLI Nilai Siswa + Quiz Interaktif |
+| 14 | **Struktur Data Lanjutan** | collections, dataclasses, typing, heapq, itertools |
+| 15 | **Kompleksitas Algoritma** | Big-O, sorting, hashing, analisis strategi & justifikasi efisiensi |
+| 16 | **Basis Data (SQLite)** | SQL, ER diagram, normalisasi, transaksi, indexing |
+| 17 | **Testing & Dokumentasi** | pytest, coverage, mypy, ruff, docstring, CI/CD |
+| 18 | **Jaringan & Model OSI** | 7 layer OSI, topologi, TCP/UDP, socket programming |
+| 19 | **Keamanan Digital** | CIA Triad, STRIDE, OWASP Top 10, bcrypt, JWT, TLS, Zero Trust |
+| 20 | **Dampak Sosial TIK** | Studi kasus, argumentasi kritis (CER), debat, AI ethics |
+
+---
+
+> 📌 **Catatan Kurikulum:** Modul 0–13 = fondasi Python (Fase E bridging). Modul 14–20 = **pelengkap Fase F** (Kelas XI–XII Kurikulum Merdeka). Total 21 modul → 72 JP (2 JP × 36 minggu).
 
 ## Legend
 
@@ -48,16 +59,38 @@
 
 ## Sebelum Mulai
 
-Pastikan Python udah siap:
+Cara paling cepat dan paling gampang: **[Google Colab](https://colab.research.google.com)**.
+Buka di browser, klik `+`, ketik `print("Halo dunia!")`, tekan **Ctrl + Enter**. Selesai — tanpa install apa pun.
+
+Kalau mau pakai Python di komputermu sendiri, cek dulu versinya:
 
 ```bash
-python --version
-# Output: Python 3.x.x
-
-# Coba interaktif mode (REPL):
-python
->>> print("Halo dunia!")
->>> exit()
+python --version     # Windows
+python3 --version    # macOS / Linux
 ```
 
-Kalau udah — lanjut ke **Modul 0: Setup**.
+Yang dibutuhkan: **Python 3.10 atau lebih baru**.
+
+Kalau sudah siap — lanjut ke **Modul 0: Setup**.
+
+---
+
+## 📄 Berkas Pendukung Guru
+
+| Berkas | Untuk siapa | Isi |
+|--------|------------|------|
+| `PETA-KURIKULUM.md` | Guru | Peta CP Fase F, modul→elemen, 72 JP, profil Pelajar Pancasila |
+| `RPS.md` | Guru | Rencana Pelaksanaan Pembelajaran 72 JP + ATP + KKTP + asesmen |
+| `lembar-kerja-siswa.md` | **Siswa** | Lembar kerja siap cetak A4 per modul + rubrik mini |
+| `template-proyek.md` | Siswa | Template proyek akhir semi-kosong + rubrik penilaian PLB |
+| `rubrik-proyek.md` | Guru | Rubrik detail penilaian proyek (PLB, teknis, presentasi, portofolio) |
+| `tips-mengajar.md` | Guru | Strategi, analogi, jebakan murid, aktivitas kelas, estimasi JP |
+| `bank-soal.md` | Guru | 77 soal + kunci jawaban + kunci cepat |
+| `bank-soal-siswa.md` | **Siswa** | 77 soal tanpa kunci — aman untuk dibagikan |
+| `cheat-sheet.md` | Siswa | Ringkasan syntax 1 halaman, siap cetak |
+| `error-dictionary.md` | Siswa | Cara baca 15+ error Python yang sering muncul |
+| `mini-projek.md` | Guru | 6 proyek latihan dengan panduan |
+| `scripts/` | Guru | Absensi, rekap nilai, jadwal, backup, rename tugas |
+
+> ⚠️ **Perhatikan:** `bank-soal.md` berisi kunci jawaban. Jangan dibagikan apa adanya —
+> pakai `bank-soal-siswa.md` untuk siswa.

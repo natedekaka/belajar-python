@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modul 15: Kompleksitas Algoritma &amp; Analisis Strategi — Belajar Python</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐍</text></svg>">
+    <script>
+        (function() {
+            var theme = localStorage.getItem('theme');
+            if (theme === 'light' || (!theme && window.matchMedia('(prefers-color-scheme: light)').matches)) {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+</head>
+<body>
+    <nav class="top-nav">
+        <a href="../index.html">⬅ Kembali ke Index</a>
+        <span class="title-nav">Modul 15: Kompleksitas Algoritma &amp; Analisis Strategi</span>
+        <button class="theme-toggle" id="themeToggle" aria-label="Ganti tema">🌙</button>
+    </nav>
+    <div class="container">
+        <h1>Modul 15: Kompleksitas Algoritma & Analisis Strategi</h1>
+        
+        <h2>📌 Pemetaan CP Fase F</h2>
+        <table>
+        <tr><th>Elemen</th><th>Kode CP</th><th>Capaian Terkait</th></tr>
+        <tr><td>Berpikir Komputasional</td><td>BK</td><td>Menganalisis beberapa strategi algoritmik secara kritis → banyak alternatif solusi, justifikasi efisiensi/kelebihan/keterbatasan, memilih solusi terbaik dengan merancang struktur data yang lebih kompleks & abstrak</td></tr>
+        <tr><td>Algoritma & Pemrograman</td><td>AP</td><td>Memahami algoritma standar & strategi efisiensinya</td></tr>
+        </table>
+        
+        <hr>
+        
+        <h2>🏆 Target Pemahaman</h2>
+        
+        <p>Setelah modul ini, kamu bisa:</p>
+        <ul><li>Menghitung & membandingkan <strong>kompleksitas waktu & ruang</strong> (Big-O, Big-Ω, Big-Θ)</li><li>Menganalisis <strong>best / average / worst case</strong> sebuah algoritma</li><li>Memahami strategi <em>divide & conquer</em>, <em>greedy</em>, <em>dynamic programming</em>, <em>backtracking</em></li><li>Membandingkan <strong>sorting</strong>: Timsort (Python), Quicksort, Mergesort, Heapsort — kapan pakai mana</li><li>Memahami <strong>hashing</strong>: tabel hash, collision handling, load factor</li><li>Melakukan <strong>benchmarking</strong> jujur di Python (<code>timeit</code>, <code>cProfile</code>)</li><li>Menuliskan <strong>justifikasi tertulis</strong> pemilihan algoritma (seperti yang CP minta)</li></ul>
+        
+        <hr>
+        
+        <h2>1. Kenapa Analisis Kompleksitas?</h2>
+        
+        <pre><code class="language-python"># Dua cara cari max di list
+        def max_v1(arr):
+            m = arr[0]
+            for x in arr:
+                if x &gt; m:
+                    m = x
+            return m
+        
+        def max_v2(arr):
+            return max(arr)  # built-in C-optimized</code></pre>
+        
+        <p>Keduanya <strong>benar</strong>. Tapi <code>max_v1</code> O(n) Python-level loop, <code>max_v2</code> O(n) C-level → <strong>10–100× lebih cepat</strong>.</p>
+        
+        <blockquote><p>💡 <strong>Analisis kompleksitas</strong> bukan soal "mana benar" — tapi "mana <strong>efisien & tepat</strong> untuk skala & konteks".</p></blockquote>
+        
+        <hr>
+        
+        <h2>2. Notasi Asimtotik — Bahasa Umum Efisiensi</h2>
+        
+        <table>
+        <tr><th>Notasi</th><th>Artinya</th><th>Contoh</th></tr>
+        <tr><td><strong>O(f(n))</strong></td><td>Batas <strong>atas</strong> (worst-case)</td><td><code>O(n²)</code> — tidak lebih lambat dari n²</td></tr>
+        <tr><td><strong>Ω(f(n))</strong></td><td>Batas <strong>bawah</strong> (best-case)</td><td><code>Ω(n)</code> — tidak lebih cepat dari n</td></tr>
+        <tr><td><strong>Θ(f(n))</strong></td><td>Batas <strong>ketat</strong> (average/tight)</td><td><code>Θ(n log n)</code> — persis proporsional n log n</td></tr>
+        </table>
+        
+        <p><strong>Aturan praktis:</strong></p>
+        <ul><li>Hanya <strong>suku dominan</strong>: <code>O(3n² + 5n + 100)</code> → <code>O(n²)</code></li><li><strong>Konstanta diabaikan</strong>: <code>O(1000n)</code> → <code>O(n)</code></li><li><strong>Tambah</strong> untuk sequential: <code>O(n) + O(m)</code> → <code>O(n + m)</code></li><li><strong>Kali</strong> untuk nested: <code>O(n) * O(m)</code> → <code>O(n × m)</code></li></ul>
+        
+        <hr>
+        
+        <h2>3. Hirarki Umum (Dari Cepat ke Lambat)</h2>
+        
+        <pre><code>O(1)       &lt; O(log n) &lt; O(√n)   &lt; O(n)   &lt; O(n log n) &lt; O(n²)    &lt; O(n³)     &lt; O(2ⁿ)      &lt; O(n!)
+        konstan    log        akar       linier  linier-log    kuadratik  kubik      eksponensial faktorial</code></pre>
+        
+        <blockquote><p>⚠️ <strong>n = 10⁶</strong>: <code>O(n)</code> ~ 1 ms, <code>O(n log n)</code> ~ 20 ms, <code>O(n²)</code> ~ 17 menit, <code>O(2ⁿ)</code> &gt; umur alam semesta.</p></blockquote>
+        
+        <hr>
+        
+        <h2>4. Analisis Best / Average / Worst Case</h2>
+        
+        <pre><code class="language-python">def linear_search(arr, target):
+            for i, x in enumerate(arr):
+                if x == target:
+                    return i
+            return -1
+        
+        # Best:    Ω(1)  — target di index 0
+        # Average: Θ(n)  — target di tengah (asumsi uniform)
+        # Worst:   O(n)  — target tidak ada / di akhir</code></pre>
+        
+        <pre><code class="language-python">def binary_search(arr, target):  # PREREQ: arr TERURUT
+            lo, hi = 0, len(arr) - 1
+            while lo &lt;= hi:
+                mid = (lo + hi) // 2
+                if arr[mid] == target:
+                    return mid
+                elif arr[mid] &lt; target:
+                    lo = mid + 1
+                else:
+                    hi = mid - 1
+            return -1
+        
+        # Best:    Ω(1)      — target di mid pertama
+        # Average: Θ(log n) — setengah ruang dibuang tiap iterasi
+        # Worst:   O(log n) — target tidak ada</code></pre>
+        
+        <blockquote><p>💡 <strong>Worst-case</strong> paling penting untuk <em>real-time</em> / <em>safety-critical</em>. <strong>Average-case</strong> untuk <em>throughput</em> umum.</p></blockquote>
+        
+        <hr>
+        
+        <h2>5. Strategi Algoritmik — Bandingkan Alternatif</h2>
+        
+        <table>
+        <tr><th>Strategi</th><th>Prinsip</th><th>Contoh Klasik</th><th>Kelebihan</th><th>Keterbatasan</th></tr>
+        <tr><td><strong>Brute Force</strong></td><td>Coba semua</td><td>TSP naive, substring search</td><td>Sederhana, selalu benar</td><td>Lambat (eksponensial)</td></tr>
+        <tr><td><strong>Divide & Conquer</strong></td><td>Bagi → selesaikan → gabung</td><td>Mergesort, Quicksort, Binary Search</td><td>Paralelisasi mudah, O(n log n)</td><td>Overhead rekursi, stack depth</td></tr>
+        <tr><td><strong>Greedy</strong></td><td>Pilih lokal optimal tiap langkah</td><td>Dijkstra, Huffman, Interval Scheduling</td><td>Cepat, simpel</td><td><strong>Tidak selalu optimal global</strong></td></tr>
+        <tr><td><strong>Dynamic Programming</strong></td><td>Simpan sub-solusi overlapping</td><td>Fibonacci, Knapsack, LCS, Edit Distance</td><td>Optimal untuk submasalah overlapping</td><td>Memori O(n²) sering, butuh <em>optimal substructure</em></td></tr>
+        <tr><td><strong>Backtracking</strong></td><td>Coba & mundur (DFS + pruning)</td><td>N-Queens, Sudoku, Subset Sum</td><td>Lengkap (cari semua solusi)</td><td>Eksponensial tanpa pruning baik</td></tr>
+        <tr><td><strong>Randomized</strong></td><td>Acak untuk hindari worst-case</td><td>Quicksort randomized, Monte Carlo</td><td>Menghindari worst-case deterministik</td><td>Non-deterministik, butuh seed</td></tr>
+        </table>
+        
+        <hr>
+        
+        <h2>6. Sorting — Bandingkan 4 Algoritma Utama</h2>
+        
+        <table>
+        <tr><th>Algoritma</th><th>Best</th><th>Average</th><th>Worst</th><th>Ruang</th><th>Stabil?</th><th>Catatan</th></tr>
+        <tr><td><strong>Timsort</strong> (Python <code>sorted</code>/<code>list.sort</code>)</td><td>O(n)</td><td>O(n log n)</td><td>O(n log n)</td><td>O(n)</td><td>✅</td><td>Hybrid merge+insertion, adaptive untuk data <em>almost sorted</em></td></tr>
+        <tr><td><strong>Quicksort</strong></td><td>O(n log n)</td><td>O(n log n)</td><td><strong>O(n²)</strong></td><td>O(log n)</td><td>❌</td><td>In-place, cache-friendly, randomized pivot hindari worst</td></tr>
+        <tr><td><strong>Mergesort</strong></td><td>O(n log n)</td><td>O(n log n)</td><td>O(n log n)</td><td>O(n)</td><td>✅</td><td>Stabil, cocok <em>linked list</em> & external sort</td></tr>
+        <tr><td><strong>Heapsort</strong></td><td>O(n log n)</td><td>O(n log n)</td><td>O(n log n)</td><td>O(1)</td><td>❌</td><td>Garansi O(n log n), tapi konstanta besar</td></tr>
+        </table>
+        
+        <pre><code class="language-python">import random, timeit
+        
+        data = list(range(10000))
+        random.shuffle(data)
+        
+        # Python built-in (Timsort) — paling cepat untuk data umum
+        t1 = timeit.timeit(lambda: sorted(data), number=100)
+        
+        # Quicksort manual (educational)
+        def quicksort(arr):
+            if len(arr) &lt;= 1:
+                return arr
+            pivot = arr[len(arr)//2]
+            left = [x for x in arr if x &lt; pivot]
+            mid  = [x for x in arr if x == pivot]
+            right= [x for x in arr if x &gt; pivot]
+            return quicksort(left) + mid + quicksort(right)
+        
+        t2 = timeit.timeit(lambda: quicksort(data), number=100)
+        print(f&quot;Timsort: {t1:.3f}s, Quicksort manual: {t2:.3f}s&quot;)
+        # Timsort biasanya 5-10x lebih cepat (C vs Python overhead)</code></pre>
+        
+        <blockquote><p>💡 <strong>Di Python: pakai <code>sorted()</code> / <code>list.sort()</code></strong>. Hanya implementasikan manual untuk <em>belajar</em> atau kebutuhan khusus (mis. <em>custom comparator</em> kompleks di versi lama).</p></blockquote>
+        
+        <hr>
+        
+        <h2>7. Hashing & Dictionary — Di Balik Layar <code>dict</code></h2>
+        
+        <pre><code class="language-python"># Python dict = hash table open addressing (since 3.6: compact dict)
+        # Key harus hashable (immutable: int, str, tuple of immutables)
+        # Value bisa apa saja
+        
+        # Collision handling: open addressing + probing
+        # Load factor ~ 2/3 → resize (amortized O(1) insert/lookup)
+        
+        # Custom __hash__ &amp; __eq__
+        class Siswa:
+            def __init__(self, nis, nama):
+                self.nis = nis
+                self.nama = nama
+        
+            def __eq__(self, other):
+                return isinstance(other, Siswa) and self.nis == other.nis
+        
+            def __hash__(self):
+                return hash(self.nis)  # konsisten dengan __eq__
+        
+        s1 = Siswa(&quot;123&quot;, &quot;Ani&quot;)
+        s2 = Siswa(&quot;123&quot;, &quot;Ani Baru&quot;)
+        d = {s1: &quot;Kelas A&quot;}
+        print(d[s2])  # &quot;Kelas A&quot; — key dianggap sama!</code></pre>
+        
+        <blockquote><p>⚠️ <strong>Jebakan:</strong> <code>list</code> & <code>dict</code> <strong>tidak hashable</strong> → tidak bisa jadi key. Pakai <code>tuple</code> / <code>frozenset</code> / <code>dataclass(frozen=True)</code>.</p></blockquote>
+        
+        <hr>
+        
+        <h2>8. Benchmarking Jujur di Python</h2>
+        
+        <pre><code class="language-python">import timeit
+        import statistics
+        
+        def bench(func, *args, repeat=10, number=1000):
+            &quot;&quot;&quot;Jalankan benchmark statistik.&quot;&quot;&quot;
+            times = timeit.repeat(lambda: func(*args), repeat=repeat, number=number)
+            return {
+                &quot;mean&quot;: statistics.mean(times) / number * 1_000_000,  # µs per call
+                &quot;stdev&quot;: statistics.stdev(times) / number * 1_000_000 if repeat &gt; 1 else 0,
+                &quot;min&quot;: min(times) / number * 1_000_000,
+                &quot;max&quot;: max(times) / number * 1_000_000,
+            }
+        
+        # Contoh: list comprehension vs loop
+        def via_comp(n): return [x*2 for x in range(n)]
+        def via_loop(n):
+            res = []
+            for x in range(n):
+                res.append(x*2)
+            return res
+        
+        print(bench(via_comp, 1000))
+        print(bench(via_loop, 1000))</code></pre>
+        
+        <pre><code class="language-python">import cProfile, pstats, io
+        
+        profiler = cProfile.Profile()
+        profiler.enable()
+        
+        # ... kode yang di-profile ...
+        
+        profiler.disable()
+        s = io.StringIO()
+        ps = pstats.Stats(profiler, stream=s).sort_stats(&#x27;cumulative&#x27;)
+        ps.print_stats(20)
+        print(s.getvalue())</code></pre>
+        
+        <blockquote><p>💡 <strong><code>timeit</code></strong> untuk mikro-benchmark (fungsi kecil). <strong><code>cProfile</code></strong> untuk profiling program utuh — cari <em>hotspot</em>.</p></blockquote>
+        
+        <hr>
+        
+        <h2>9. Studi Kasus: Cari Pasangan yang Jumlahnya <code>target</code></h2>
+        
+        <pre><code class="language-python"># Masalah: Diberi list int, cari 2 angka yg jumlahnya = target. Return indices.
+        # Asumsi: tepat 1 solusi, tidak boleh pakai elemen sama 2x.
+        
+        # Strategi 1: Brute Force O(n²)
+        def two_sum_brute(arr, target):
+            for i in range(len(arr)):
+                for j in range(i+1, len(arr)):
+                    if arr[i] + arr[j] == target:
+                        return (i, j)
+            return None
+        
+        # Strategi 2: Hash Table O(n) — trade-off ruang O(n)
+        def two_sum_hash(arr, target):
+            seen = {}  # value -&gt; index
+            for i, x in enumerate(arr):
+                need = target - x
+                if need in seen:
+                    return (seen[need], i)
+                seen[x] = i
+            return None
+        
+        # Strategi 3: Sort + Two Pointer O(n log n) — jika boleh ubah urutan / return values
+        def two_sum_sort(arr, target):
+            indexed = sorted(enumerate(arr), key=lambda p: p[1])
+            l, r = 0, len(indexed)-1
+            while l &lt; r:
+                s = indexed[l][1] + indexed[r][1]
+                if s == target:
+                    return (indexed[l][0], indexed[r][0])
+                elif s &lt; target:
+                    l += 1
+                else:
+                    r -= 1
+            return None</code></pre>
+        
+        <p><strong>Analisis Tertulis (Contoh Format CP):</strong></p>
+        
+        <table>
+        <tr><th>Strategi</th><th>Waktu</th><th>Ruang</th><th>Kelebihan</th><th>Keterbatasan</th><th>Keputusan</th></tr>
+        <tr><td>Brute Force</td><td>O(n²)</td><td>O(1)</td><td>Tanpa memori extra, simpel</td><td>Lambat untuk n &gt; 10⁴</td><td>❌ Tolak</td></tr>
+        <tr><td>Hash Table</td><td><strong>O(n)</strong></td><td>O(n)</td><td>Paling cepas, satu pass</td><td>Butuh memori extra</td><td>✅ <strong>Pilih</strong> (default)</td></tr>
+        <tr><td>Sort + Two Pointer</td><td>O(n log n)</td><td>O(n)</td><td>Tanpa hash, deterministik</td><td>Perlu sort, mengubah urutan</td><td>✅ Alternatif jika memori kritis</td></tr>
+        </table>
+        
+        <blockquote><p>🏆 <strong>Format justifikasi CP:</strong> Tabel perbandingan → <strong>pilih satu</strong> → tulis alasan (efisiensi, keterbatasan, konteks).</p></blockquote>
+        
+        <hr>
+        
+        <h2>🧪 Latihan</h2>
+        
+        <ol><li><strong>Analisis Kompleksitas</strong> — Tentukan best/average/worst Big-O untuk:</li></ol>
+        <ul><li><code>for i in range(n): for j in range(i, n): print(i, j)</code></li><li><code>while n &gt; 1: n //= 2</code></li><li>Rekursif <code>def f(n): return 1 if n&lt;=1 else f(n-1)+f(n-2)</code> (Fibonacci naive)</li></ul>
+        
+        <ol><li><strong>Implementasikan Mergesort</strong> — Versi <em>top-down</em> rekursif & <em>bottom-up</em> iteratif. Bandingkan performa vs <code>sorted()</code> untuk n=10⁵.</li></ol>
+        
+        <ol><li><strong>Knapsack 0/1</strong> — DP bottom-up <code>O(nW)</code> ruang <code>O(W)</code> (1D array). Uji dengan n=100, W=1000.</li></ol>
+        
+        <ol><li><strong>Benchmark Dictionary vs List Lookup</strong> — Buat 10⁶ item. Cari 1000 key acak. Ukur <code>timeit</code> rata-rata.</li></ol>
+        
+        <ol><li><strong>Collision Demo</strong> — Buat class dengan <code>__hash__</code> konstan (return 42). Masukkan 1000 instance ke <code>set</code>. Ukur performa vs hash bervariasi.</li></ol>
+        
+        <ol><li><strong>Justifikasi Tertulis</strong> — Persoalan: "Cari median streaming data (data datang satu-satu)". Bandingkan: (a) sort tiap kali, (b) two heaps (min-heap + max-heap), (c) Quickselect. Tulis tabel keputusan.</li></ol>
+        
+        <ol><li><strong>cProfile Project</strong> — Jalankan <code>python -m cProfile -o prof.bin modul13/main.py</code> (proyek akhir). Buka dengan <code>snakeviz prof.bin</code> atau <code>pstats</code>. Identifikasi 3 fungsi paling mahal.</li></ol>
+        
+        <hr>
+        
+        <h2>✅ Checklist Paham</h2>
+        
+        <ul><li>[ ] Bisa hitung Big-O dari kode (loop, rekursi, nested)</li><li>[ ] Bisa jelaskan beda O / Ω / Θ dengan contoh sendiri</li><li>[ ] Paham kapan <em>greedy</em> gagal (contoh: coin change non-kanonik)</li><li>[ ] Paham DP butuh <em>optimal substructure</em> + <em>overlapping subproblems</em></li><li>[ ] Bisa bandingkan 4 sorting utama: Timsort, Quicksort, Mergesort, Heapsort</li><li>[ ] Tahu Python <code>dict</code> = hash table open addressing, load factor ~0.66</li><li>[ ] Bisa bikin <code>__hash__</code> & <code>__eq__</code> konsisten untuk custom class</li><li>[ ] Bisa pakai <code>timeit.repeat</code> + statistik untuk benchmark jujur</li><li>[ ] Bisa pakai <code>cProfile</code> cari bottleneck program besar</li><li>[ ] Bisa tulis <strong>tabel justifikasi</strong> memilih algoritma (format CP)</li></ul>
+        
+        <p><strong>Kalau semua tercentang → lanjut ke Modul 16 (Basis Data).</strong></p>
+    <nav class="modul-nav">
+        <a href="14-struktur-data-lanjutan.html">« 📊 Struktur Data Lanjutan</a>
+        <span class="modul-nav-center">⬅ <a href="../index.html">Index</a></span>
+        <a href="16-basis-data.html">🗄️ Basis Data (SQLite) »</a>
+    </nav>
+    </div>
+    <script>
+        document.querySelectorAll('pre code').forEach(function(b){hljs.highlightElement(b);});
+
+        (function() {
+            var btn = document.getElementById('themeToggle');
+            if (!btn) return;
+            var html = document.documentElement;
+            function updateBtn() {
+                btn.textContent = html.getAttribute('data-theme') === 'light' ? '☀️' : '🌙';
+            }
+            updateBtn();
+            btn.addEventListener('click', function() {
+                var current = html.getAttribute('data-theme');
+                var next = current === 'light' ? 'dark' : 'light';
+                html.setAttribute('data-theme', next);
+                localStorage.setItem('theme', next);
+                updateBtn();
+            });
+        })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modul 17: Testing, Dokumentasi &amp; Kualitas Kode — Belajar Python</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐍</text></svg>">
+    <script>
+        (function() {
+            var theme = localStorage.getItem('theme');
+            if (theme === 'light' || (!theme && window.matchMedia('(prefers-color-scheme: light)').matches)) {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+</head>
+<body>
+    <nav class="top-nav">
+        <a href="../index.html">⬅ Kembali ke Index</a>
+        <span class="title-nav">Modul 17: Testing, Dokumentasi &amp; Kualitas Kode</span>
+        <button class="theme-toggle" id="themeToggle" aria-label="Ganti tema">🌙</button>
+    </nav>
+    <div class="container">
+        <h1>Modul 17: Testing, Dokumentasi & Kualitas Kode</h1>
+        
+        <h2>📌 Pemetaan CP Fase F</h2>
+        <table>
+        <tr><th>Elemen</th><th>Kode CP</th><th>Capaian Terkait</th></tr>
+        <tr><td>Algoritma & Pemrograman</td><td>AP</td><td>Memahami, memelihara, menyempurnakan struktur program (aspek statik & dinamis), kualitas kode, dokumentasi</td></tr>
+        </table>
+        
+        <hr>
+        
+        <h2>🏆 Target Pemahaman</h2>
+        
+        <p>Setelah modul ini, kamu bisa:</p>
+        <ul><li>Menulis <strong>unit test</strong> dengan <code>unittest</code> & <code>pytest</code> (fixtures, parametrize, mock)</li><li>Mengukur <strong>code coverage</strong> & memahami <em>branch coverage</em> vs <em>line coverage</em></li><li>Memasang <strong>static type checking</strong> dengan <code>mypy</code> (strict mode)</li><li>Memasang <strong>linting & formatting</strong> otomatis: <code>ruff</code> (lint + format), <code>black</code> (format)</li><li>Menulis <strong>docstring</strong> standar (Google / NumPy) + <em>type hints</em> lengkap</li><li>Memahami <strong>Semantic Versioning</strong> (SemVer) & <em>changelog</em></li><li>Menyiapkan <strong>CI pipeline</strong> minimal (GitHub Actions) yang jalankan: lint → type-check → test → coverage gate</li></ul>
+        
+        <hr>
+        
+        <h2>1. Kenapa Testing & Kualitas Otomatis?</h2>
+        
+        <table>
+        <tr><th>Tanpa Otomatisasi</th><th>Dengan Otomatisasi</th></tr>
+        <tr><td>Test manual → lupa, malas, tidak konsisten</td><td><code>pytest</code> jalan tiap commit → <strong>regression tertangkap</strong></td></tr>
+        <tr><td>Bug deploy ke produksi → murid kecewa</td><td>CI gate → <strong>merge diblokir kalau gagal</strong></td></tr>
+        <tr><td>Kode "spaghetti" → sulit dibaca tim</td><td><code>ruff</code> + <code>black</code> → <strong>style seragam</strong> otomatis</td></tr>
+        <tr><td>Type bug runtime (<code>AttributeError</code>)</td><td><code>mypy</code> → <strong>tangkap sebelum jalan</strong></td></tr>
+        <tr><td>Dokumentasi ketinggalan update</td><td>Docstring + type hints = <strong>dokumentasi hidup</strong></td></tr>
+        </table>
+        
+        <blockquote><p>💡 <strong>Investasi awal 30 menit setup CI = hemat jam debugging nanti.</strong></p></blockquote>
+        
+        <hr>
+        
+        <h2>2. <code>pytest</code> — Modern Testing Framework</h2>
+        
+        <pre><code class="language-bash">pip install pytest pytest-cov pytest-mock</code></pre>
+        
+        <pre><code class="language-python"># tests/test_utils.py
+        import pytest
+        from utils import hitung_rata_rata, grade_dari_nilai
+        
+        # Fixture — data reusable
+        @pytest.fixture
+        def sample_nilai():
+            return [80, 90, 75, 85, 95]
+        
+        # Parametrize — banyak input, satu test
+        @pytest.mark.parametrize(&quot;nilai,expected_grade&quot;, [
+            (95, &quot;A&quot;), (85, &quot;B&quot;), (75, &quot;C&quot;), (65, &quot;D&quot;), (55, &quot;E&quot;),
+            (100, &quot;A&quot;), (0, &quot;E&quot;),
+        ])
+        def test_grade_dari_nilai(nilai, expected_grade):
+            assert grade_dari_nilai(nilai) == expected_grade
+        
+        # Test exception
+        def test_hitung_rata_rata_kosong_raise():
+            with pytest.raises(ValueError, match=&quot;tidak boleh kosong&quot;):
+                hitung_rata_rata([])
+        
+        # Mock — isolate external dependency
+        def test_fetch_data_mock(mocker):
+            mock_response = mocker.Mock()
+            mock_response.json.return_value = {&quot;data&quot;: [1,2,3]}
+            mocker.patch(&quot;requests.get&quot;, return_value=mock_response)
+        
+            from utils import fetch_api
+            result = fetch_api(&quot;https://api.example.com&quot;)
+            assert result == [1,2,3]</code></pre>
+        
+        <p><strong>Jalankan:</strong></p>
+        <pre><code class="language-bash">pytest                          # semua test
+        pytest -v                       # verbose
+        pytest -k &quot;grade&quot;               # filter nama
+        pytest --cov=utils --cov-report=term-missing  # coverage
+        pytest --cov-fail-under=80      # gate: minimal 80% coverage</code></pre>
+        
+        <hr>
+        
+        <h2>3. <code>unittest</code> — Built-in (Tidak Perlu Install)</h2>
+        
+        <pre><code class="language-python"># tests/test_models_unittest.py
+        import unittest
+        from models import Siswa, Kelas
+        
+        class TestSiswa(unittest.TestCase):
+            def setUp(self):
+                self.s = Siswa(&quot;123&quot;, &quot;Ani&quot;, &quot;XI-1&quot;)
+        
+            def test_tambah_nilai_dan_rata_rata(self):
+                self.s.tambah_nilai(&quot;Matematika&quot;, 80)
+                self.s.tambah_nilai(&quot;Fisika&quot;, 90)
+                self.assertAlmostEqual(self.s.rata_rata(), 85.0)
+        
+            def test_rata_rata_kosong_raise(self):
+                with self.assertRaises(ValueError):
+                    self.s.rata_rata()
+        
+            def test_laporan_contains_nama(self):
+                self.s.tambah_nilai(&quot;Matematika&quot;, 80)
+                lap = self.s.laporan()
+                self.assertIn(&quot;Ani&quot;, lap)
+                self.assertIn(&quot;80&quot;, lap)
+        
+        if __name__ == &quot;__main__&quot;:
+            unittest.main()</code></pre>
+        
+        <hr>
+        
+        <h2>4. Coverage — Apa Saja yang Tercakap?</h2>
+        
+        <pre><code class="language-bash"># Line coverage (default)
+        pytest --cov=utils --cov-report=term-missing
+        
+        # Branch coverage (lebih ketat)
+        pytest --cov=utils --cov-branch --cov-report=term-missing</code></pre>
+        
+        <p><strong>Contoh output <code>term-missing</code>:</strong></p>
+        <pre><code>Name                 Stmts   Miss Branch BrPart  Missing
+        --------------------------------------------------------
+        utils.py                25      2      6      2   18-19, 45-46</code></pre>
+        <ul><li><strong>Stmts</strong> = statements</li><li><strong>Miss</strong> = baris tidak dieksekusi</li><li><strong>Branch</strong> = cabang keputusan (if/else)</li><li><strong>BrPart</strong> = cabang parsial (satu sisi saja)</li><li><strong>Missing</strong> = nomor baris yang <em>miss</em></li></ul>
+        
+        <blockquote><p>💡 Target <strong>branch coverage ≥ 80%</strong> lebih sehat dari line coverage saja.</p></blockquote>
+        
+        <hr>
+        
+        <h2>5. <code>mypy</code> — Static Type Checking</h2>
+        
+        <pre><code class="language-bash">pip install mypy</code></pre>
+        
+        <pre><code class="language-ini"># mypy.ini (atau pyproject.toml)
+        [mypy]
+        python_version = 3.10
+        strict = true                    # semua check ketat
+        warn_return_any = true
+        warn_unused_configs = true
+        disallow_untyped_defs = true
+        disallow_incomplete_defs = true
+        check_untyped_defs = true
+        no_implicit_optional = true
+        warn_redundant_casts = true
+        warn_unused_ignores = true</code></pre>
+        
+        <pre><code class="language-python"># utils.py — contoh typed dengan benar
+        from typing import List, Dict, Optional
+        
+        def hitung_rata_rata(nilai: List[float]) -&gt; float:
+            &quot;&quot;&quot;Hitung rata-rata list angka.
+        
+            Args:
+                nilai: List nilai numerik (tidak boleh kosong).
+        
+            Returns:
+                Rata-rata sebagai float.
+        
+            Raises:
+                ValueError: Jika list kosong.
+            &quot;&quot;&quot;
+            if not nilai:
+                raise ValueError(&quot;List nilai tidak boleh kosong&quot;)
+            return sum(nilai) / len(nilai)
+        
+        # Generic function
+        from typing import TypeVar, Sequence
+        
+        T = TypeVar(&quot;T&quot;)
+        
+        def pertama(seq: Sequence[T]) -&gt; Optional[T]:
+            &quot;&quot;&quot;Return elemen pertama atau None jika kosong.&quot;&quot;&quot;
+            return seq[0] if seq else None</code></pre>
+        
+        <p><strong>Jalankan:</strong></p>
+        <pre><code class="language-bash">mypy utils.py models.py main.py
+        # atau
+        mypy .                    # cek seluruh project</code></pre>
+        
+        <blockquote><p>⚠️ <code>strict = true</code> <strong>akan mengeluarkan error</strong> untuk kode tanpa type hints. Tambahkan type hints secara bertahap.</p></blockquote>
+        
+        <hr>
+        
+        <h2>6. <code>ruff</code> — Linter & Formatter Super Cepat (Rust)</h2>
+        
+        <pre><code class="language-bash">pip install ruff</code></pre>
+        
+        <pre><code class="language-toml"># pyproject.toml
+        [tool.ruff]
+        line-length = 100
+        target-version = &quot;py310&quot;
+        select = [
+            &quot;E&quot;,   # pycodestyle errors
+            &quot;W&quot;,   # pycodestyle warnings
+            &quot;F&quot;,   # pyflakes
+            &quot;I&quot;,   # isort (import sorting)
+            &quot;N&quot;,   # pep8-naming
+            &quot;UP&quot;,  # pyupgrade
+            &quot;B&quot;,   # flake8-bugbear
+            &quot;C4&quot;,  # flake8-comprehensions
+            &quot;T20&quot;, # flake8-print (print statement)
+        ]
+        ignore = [&quot;E501&quot;]  # line too long (formatter handle)
+        fixable = [&quot;ALL&quot;]
+        unfixable = []
+        
+        [tool.ruff.format]
+        quote-style = &quot;double&quot;
+        indent-style = &quot;space&quot;
+        skip-magic-trailing-comma = false</code></pre>
+        
+        <p><strong>Jalankan:</strong></p>
+        <pre><code class="language-bash">ruff check .        # lint only
+        ruff check --fix .  # auto-fix
+        ruff format .       # format (like black)
+        ruff format --check .  # check only (CI gate)</code></pre>
+        
+        <blockquote><p>💡 <code>ruff</code> menggantikan <code>flake8</code> + <code>isort</code> + <code>black</code> + <code>pyupgrade</code> — <strong>satu tool, super cepat</strong>.</p></blockquote>
+        
+        <hr>
+        
+        <h2>7. Docstring Standar — Google Style (Direkomendasikan)</h2>
+        
+        <pre><code class="language-python">def hitung_statistik(nilai: List[float]) -&gt; Dict[str, float]:
+            &quot;&quot;&quot;Hitung statistik deskriptif dasar dari list nilai.
+        
+            Args:
+                nilai: List nilai numerik. Minimal 1 elemen.
+        
+            Returns:
+                Dict dengan keys: &#x27;mean&#x27;, &#x27;min&#x27;, &#x27;max&#x27;, &#x27;stdev&#x27; (populasi).
+        
+            Raises:
+                ValueError: Jika list kosong atau hanya 1 elemen (stdev butuh ≥2).
+        
+            Example:
+                &gt;&gt;&gt; hitung_statistik([80, 90, 100])
+                {&#x27;mean&#x27;: 90.0, &#x27;min&#x27;: 80.0, &#x27;max&#x27;: 100.0, &#x27;stdev&#x27;: 8.16...}
+            &quot;&quot;&quot;
+            if not nilai:
+                raise ValueError(&quot;List tidak boleh kosong&quot;)
+            if len(nilai) == 1:
+                raise ValueError(&quot;Butuh minimal 2 nilai untuk stdev&quot;)
+        
+            mean = sum(nilai) / len(nilai)
+            varians = sum((x - mean) ** 2 for x in nilai) / len(nilai)
+            return {
+                &quot;mean&quot;: mean,
+                &quot;min&quot;: min(nilai),
+                &quot;max&quot;: max(nilai),
+                &quot;stdev&quot;: varians ** 0.5,
+            }</code></pre>
+        
+        <p><strong>Generate docs otomatis:</strong></p>
+        <pre><code class="language-bash">pip install pdoc
+        pdoc -o docs/html utils.py models.py
+        # atau
+        pip install mkdocstrings mkdocs
+        mkdocs serve</code></pre>
+        
+        <hr>
+        
+        <h2>8. Semantic Versioning (SemVer) & Changelog</h2>
+        
+        <pre><code>MAJOR.MINOR.PATCH   (contoh: 2.4.1)
+        
+        MAJOR   — Breaking changes (API tidak kompatibel)
+        MINOR   — Fitur baru, backward compatible
+        PATCH   — Bug fix, backward compatible</code></pre>
+        
+        <p><strong>Contoh <code>CHANGELOG.md</code>:</strong></p>
+        <pre><code class="language-markdown"># Changelog
+        
+        ## [2.1.0] - 2025-01-15
+        ### Added
+        - Fitur ekspor rapor ke PDF (`utils.export_pdf`)
+        - CLI flag `--format json|csv|pdf`
+        
+        ### Fixed
+        - Bug perhitungan rata-rata saat nilai negatif (issue #42)
+        
+        ### Changed
+        - `grade_dari_nilai` sekarang return `Literal[&quot;A&quot;,&quot;B&quot;,&quot;C&quot;,&quot;D&quot;,&quot;E&quot;]` (type hint)
+        
+        ## [2.0.0] - 2024-11-01
+        ### Breaking
+        - `Siswa.nilai` berganti dari `Dict[str, int]` ke `Dict[str, List[int]]` (support multiple scores per mapel)
+        - Minimal Python 3.10 (was 3.9)</code></pre>
+        
+        <hr>
+        
+        <h2>9. GitHub Actions CI — Pipeline Minimal</h2>
+        
+        <pre><code class="language-yaml"># .github/workflows/ci.yml
+        name: CI
+        
+        on:
+          push:
+            branches: [main]
+          pull_request:
+            branches: [main]
+        
+        jobs:
+          quality:
+            runs-on: ubuntu-latest
+            steps:
+              - uses: actions/checkout@v4
+        
+              - name: Set up Python
+                uses: actions/setup-python@v5
+                with:
+                  python-version: &quot;3.10&quot;
+        
+              - name: Install deps
+                run: |
+                  python -m pip install --upgrade pip
+                  pip install -r requirements-dev.txt
+                  # requirements-dev.txt: pytest pytest-cov pytest-mock mypy ruff
+        
+              - name: Lint (ruff)
+                run: ruff format --check . &amp;&amp; ruff check .
+        
+              - name: Type check (mypy)
+                run: mypy .
+        
+              - name: Test + Coverage
+                run: pytest --cov=. --cov-fail-under=80 --cov-branch -q
+        
+              - name: Upload coverage
+                uses: codecov/codecov-action@v3
+                if: always()</code></pre>
+        
+        <p><strong><code>requirements-dev.txt</code>:</strong></p>
+        <pre><code>pytest&gt;=7.4
+        pytest-cov&gt;=4.1
+        pytest-mock&gt;=3.12
+        mypy&gt;=1.8
+        ruff&gt;=0.4</code></pre>
+        
+        <blockquote><p>✅ <strong>Gate CI:</strong> Semua harus hijau → baru bisa merge ke <code>main</code>.</p></blockquote>
+        
+        <hr>
+        
+        <h2>10. Pre-commit Hook — Cegah Commit Buruk Secara Lokal</h2>
+        
+        <pre><code class="language-bash">pip install pre-commit</code></pre>
+        
+        <pre><code class="language-yaml"># .pre-commit-config.yaml
+        repos:
+          - repo: https://github.com/astral-sh/ruff-pre-commit
+            rev: v0.4.0
+            hooks:
+              - id: ruff
+                args: [--fix, --exit-non-zero-on-fix]
+              - id: ruff-format
+        
+          - repo: https://github.com/pre-commit/mirrors-mypy
+            rev: v1.8.0
+            hooks:
+              - id: mypy
+                additional_dependencies: [types-requests]
+        
+          - repo: local
+            hooks:
+              - id: pytest
+                name: pytest
+                entry: pytest -q
+                language: system
+                types: [python]
+                stages: [commit]
+                pass_filenames: false
+                always_run: true</code></pre>
+        
+        <p><strong>Install:</strong></p>
+        <pre><code class="language-bash">pre-commit install
+        # sekarang tiap `git commit` auto jalan ruff + mypy + pytest</code></pre>
+        
+        <hr>
+        
+        <h2>🧪 Latihan</h2>
+        
+        <ol><li><strong>Setup Proyek Baru</strong> — Buat folder <code>proyek-baru/</code> dengan <code>pyproject.toml</code>, <code>mypy.ini</code>, <code>requirements-dev.txt</code>. Install deps. Jalankan <code>ruff check .</code>, <code>mypy .</code>, <code>pytest</code> (kosong — OK).</li><li><strong>TDD Sederhana</strong> — Tulis test dulu untuk fungsi <code>fibonacci(n)</code> (return n-th Fibonacci). Lalu implementasikan. Pastikan test pass.</li><li><strong>Coverage Gate</strong> — Tambah fungsi tanpa test. Jalankan <code>pytest --cov-fail-under=80</code>. Lihat gagal. Tambah test → hijau.</li><li><strong>Type Error Hunt</strong> — Buat file <code>buggy.py</code> dengan type error sengaja (mis. <code>def f(x: int) -&gt; str: return x</code>). Jalankan <code>mypy buggy.py</code>. Perbaiki.</li><li><strong>Docstring Coverage</strong> — Pasang <code>pydocstyle</code> atau <code>ruff</code> rule <code>D</code> (docstring). Pastikan semua public function punya docstring Google style.</li><li><strong>CI Simulation</strong> — Push branch ke GitHub, buat PR. Periksa Actions tab — pastikan semua step hijau.</li><li><strong>Pre-commit Test</strong> — Commit file yang sengaja bermasalah (mis. <code>import os, sys</code> di satu baris). Lihat <code>ruff</code> auto-fix. Coba commit yang gagal test — ditolak.</li></ol>
+        
+        <hr>
+        
+        <h2>✅ Checklist Paham</h2>
+        
+        <ul><li>[ ] Bisa tulis test <code>pytest</code> dengan fixture, parametrize, mock</li><li>[ ] Bisa baca & tafsirkan output <code>pytest --cov --cov-branch</code></li><li>[ ] <code>mypy strict</code> pass untuk kode baru (type hints lengkap)</li><li>[ ] <code>ruff check --fix .</code> + <code>ruff format .</code> bersihkan kode otomatis</li><li>[ ] Docstring Google style di semua public function/class</li><li>[ ] SemVer & <code>CHANGELOG.md</code> update tiap rilis</li><li>[ ] GitHub Actions CI: lint → type-check → test+coverage gate</li><li>[ ] <code>pre-commit</code> terpasang & jalan di lokal sebelum push</li><li>[ ] Paham beda line vs branch coverage</li><li>[ ] Bisa jelaskan keuntungan TDD (test-first) vs test-after</li></ul>
+        
+        <p><strong>Kalau semua tercentang → lanjut ke Modul 18 (Jaringan & Model OSI).</strong></p>
+    <nav class="modul-nav">
+        <a href="16-basis-data.html">« 🗄️ Basis Data (SQLite)</a>
+        <span class="modul-nav-center">⬅ <a href="../index.html">Index</a></span>
+        <a href="18-jaringan-osi.html">🌐 Jaringan & Model OSI »</a>
+    </nav>
+    </div>
+    <script>
+        document.querySelectorAll('pre code').forEach(function(b){hljs.highlightElement(b);});
+
+        (function() {
+            var btn = document.getElementById('themeToggle');
+            if (!btn) return;
+            var html = document.documentElement;
+            function updateBtn() {
+                btn.textContent = html.getAttribute('data-theme') === 'light' ? '☀️' : '🌙';
+            }
+            updateBtn();
+            btn.addEventListener('click', function() {
+                var current = html.getAttribute('data-theme');
+                var next = current === 'light' ? 'dark' : 'light';
+                html.setAttribute('data-theme', next);
+                localStorage.setItem('theme', next);
+                updateBtn();
+            });
+        })();
+    </script>
+</body>
+</html>

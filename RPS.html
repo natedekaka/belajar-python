@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RPS — Rencana Pelaksanaan Pembelajaran Informatika Kelas XI — Belajar Python</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐍</text></svg>">
+    <script>
+        (function() {
+            var theme = localStorage.getItem('theme');
+            if (theme === 'light' || (!theme && window.matchMedia('(prefers-color-scheme: light)').matches)) {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+</head>
+<body>
+    <nav class="top-nav">
+        <a href="index.html">⬅ Kembali ke Index</a>
+        <span class="title-nav">RPS — Rencana Pelaksanaan Pembelajaran Informatika Kelas XI</span>
+        <button class="theme-toggle" id="themeToggle" aria-label="Ganti tema">🌙</button>
+    </nav>
+    <div class="container">
+        <h1>RPS — Rencana Pelaksanaan Pembelajaran Informatika Kelas XI</h1>
+        
+        <p><strong>Mata Pelajaran:</strong> Informatika  </p>
+        <p><strong>Fase:</strong> F (Kelas XI–XII)  </p>
+        <p><strong>Semester:</strong> Ganjil & Genap (Kelas XI)  </p>
+        <p><strong>Alokasi Waktu:</strong> 72 JP (2 JP × 36 minggu)  </p>
+        <p><strong>Kurikulum:</strong> Kurikulum Merdeka — Kepmen 033/H/KR/2022  </p>
+        <p><strong>Sumber CP:</strong> Capaian Pembelajaran Informatika Fase F</p>
+        
+        <hr>
+        
+        <h2>1. Identitas Sekolah & Mata Pelajaran</h2>
+        
+        <table>
+        <tr><th>Item</th><th>Detail</th></tr>
+        <tr><td>Nama Sekolah</td><td>[NAMA SEKOLAH]</td></tr>
+        <tr><td>Jenjang</td><td>SMA / MA</td></tr>
+        <tr><td>Kelas</td><td>XI</td></tr>
+        <tr><td>Mata Pelajaran</td><td>Informatika</td></tr>
+        <tr><td>Semester</td><td>Ganjil & Genap</td></tr>
+        <tr><td>Tahun Pelajaran</td><td>[TAHUN]</td></tr>
+        <tr><td>Guru</td><td>[NAMA GURU]</td></tr>
+        <tr><td>Alokasi Waktu</td><td>72 JP (2 JP × 36 minggu)</td></tr>
+        </table>
+        
+        <hr>
+        
+        <h2>2. Capaian Pembelajaran (CP) Fase F — Ringkasan</h2>
+        
+        <table>
+        <tr><th>Elemen</th><th>Kode</th><th>Capaian (Ringkas)</th></tr>
+        <tr><td>Berpikir Komputasional</td><td>BK</td><td>Analisis strategi algoritmik alternatif, justifikasi efisiensi, pilih solusi optimal dengan struktur data kompleks</td></tr>
+        <tr><td>Teknologi Informasi & Komunikasi</td><td>TIK</td><td>(Integrasi di elemen lain)</td></tr>
+        <tr><td>Sistem Komputer</td><td>SK</td><td>Prototipe SW interaksi SBC/controller/kit elektronika</td></tr>
+        <tr><td>Jaringan Komputer & Internet</td><td>JKI</td><td>Konsep lanjutan: topologi, OSI Layer, keamanan siber, kontrol akses, konfigurasi jaringan</td></tr>
+        <tr><td>Analisis Data</td><td>AD</td><td>(Muatan diserap ke AP — library big data)</td></tr>
+        <tr><td>Algoritma & Pemrograman</td><td>AP</td><td>Program modular besar, struktur data abstrak + library standar (AI, big data), translasi bahasa</td></tr>
+        <tr><td>Dampak Sosial Informatika</td><td>DSI</td><td>Kajian kritis kasus sosial TIK terkini, argumentasi berbasis bukti</td></tr>
+        <tr><td>Praktik Lintas Bidang</td><td>PLB</td><td>Proyek tim inklusif end-to-end: analisis → desain → implementasi → testing → dokumentasi → presentasi</td></tr>
+        </table>
+        
+        <hr>
+        
+        <h2>3. Profil Pelajar Pancasila — Integrasi per Unit</h2>
+        
+        <table>
+        <tr><th>Dimensi</th><th>Unit yang Menguatkan</th><th>Indikator Observasi</th></tr>
+        <tr><td>Bernalar Kritis</td><td>6, 9, 10</td><td>Jelaskan trade-off algoritma, kritik kebijakan keamanan, evaluasi solusi teman</td></tr>
+        <tr><td>Kreatif</td><td>5, 10</td><td>Rancang struktur data sendiri, desain arsitektur proyek</td></tr>
+        <tr><td>Mandiri</td><td>4, 5, 7, 8</td><td>Debug mandiri, refactoring, self-review sebelum PR</td></tr>
+        <tr><td>Berkebinekaan Global</td><td>9, 10</td><td>Kolaborasi tim heterogen, dokumentasi bilingual (ID/EN)</td></tr>
+        <tr><td>Bergotong Royong</td><td>10 (PLB)</td><td>Pair programming, code review tim, retrospective</td></tr>
+        <tr><td>Beriman & Bertakwa</td><td>—</td><td>Ruang refleksi di journal proyek (opsional)</td></tr>
+        </table>
+        
+        <hr>
+        
+        <h2>4. Alokasi JP per Unit (72 JP Total)</h2>
+        
+        <table>
+        <tr><th>Unit</th><th>Modul</th><th>Judul</th><th>Elemen CP</th><th>JP</th></tr>
+        <tr><td>1</td><td>0,1,2</td><td>Fondasi: Setup, Variabel, String</td><td>AP (dasar)</td><td>8</td></tr>
+        <tr><td>2</td><td>3,4,11</td><td>Struktur Data Dasar: List/Tuple/Dict/Set, List Comp</td><td>AP, BK</td><td>10</td></tr>
+        <tr><td>3</td><td>5,6</td><td>Kontrol Alur: Percabangan, Perulangan</td><td>BK</td><td>6</td></tr>
+        <tr><td>4</td><td>7,8,10</td><td>Function, Error, Module/pip</td><td>AP</td><td>8</td></tr>
+        <tr><td>5</td><td>12,14</td><td>OOP Dasar + Struktur Data Lanjutan</td><td>AP, BK</td><td>10</td></tr>
+        <tr><td>6</td><td>15</td><td>Kompleksitas Algoritma & Analisis Strategi</td><td>BK, AP</td><td>8</td></tr>
+        <tr><td>7</td><td>16</td><td>Basis Data (SQL & SQLite)</td><td>AP, AD</td><td>6</td></tr>
+        <tr><td>8</td><td>17</td><td>Testing, Dokumentasi & Kualitas Kode</td><td>AP</td><td>4</td></tr>
+        <tr><td>9</td><td>18,19,20</td><td>Jaringan/OSI, Keamanan, Dampak Sosial</td><td>JKI, DSI</td><td>10</td></tr>
+        <tr><td>10</td><td>13</td><td>Proyek Akhir PLB (Kelompok)</td><td>PLB, AP, BK, DSI, SK</td><td>10</td></tr>
+        <tr><td><strong>TOTAL</strong></td><td><strong>72</strong></td></tr>
+        </table>
+        
+        <blockquote><p><strong>Catatan Proyek (Unit 10):</strong> 10 JP = 4 sprint (minggu 29–32) + 2 minggu integrasi & testing + 2 minggu presentasi/demo day + 2 minggu refleksi & penilaian. Proyek dikerjakan berkelompok sepanjang Unit 5–9 (embedded), JP di atas untuk milestone formal.</p></blockquote>
+        
+        <hr>
+        
+        <h2>5. ATP — Alur Tujuan Pembelajaran per Pertemuan (Contoh Semester Ganjil)</h2>
+        
+        <table>
+        <tr><th>Minggu</th><th>JP</th><th>Modul</th><th>Tujuan Pembelajaran (TP)</th><th>Bentuk Asesmen</th></tr>
+        <tr><td>1</td><td>2</td><td>0</td><td>Siapkan lingkungan (Colab / local), jalankan <code>print(&quot;Halo&quot;)</code>, kenal REPL</td><td>Observasi + cek instalasi</td></tr>
+        <tr><td>2</td><td>2</td><td>1</td><td>Deklarasi variabel, tipe <code>int/float/str/bool</code>, <code>type()</code>, konversi tipe</td><td>Latihan Modul 1</td></tr>
+        <tr><td>3</td><td>2</td><td>1</td><td>Operator aritmatika, precedence, input/output, f-string</td><td>Kuis singkat</td></tr>
+        <tr><td>4</td><td>2</td><td>2</td><td>String slicing, method (<code>split</code>, <code>join</code>, <code>replace</code>, <code>strip</code>), formatting</td><td>Latihan Modul 2</td></tr>
+        <tr><td>5</td><td>2</td><td>3</td><td>List: index, slice, <code>append/extend/pop</code>, loop <code>for x in list</code></td><td>Latihan Modul 3</td></tr>
+        <tr><td>6</td><td>2</td><td>3</td><td>Tuple: immutable, unpacking, <code>enumerate</code>, <code>zip</code></td><td>Kuis Modul 3</td></tr>
+        <tr><td>7</td><td>2</td><td>4</td><td>Dictionary: CRUD, <code>get</code>, <code>setdefault</code>, loop <code>items()</code>, Set operasi</td><td>Latihan Modul 4</td></tr>
+        <tr><td>8</td><td>2</td><td>4</td><td>Dictionary comprehension, set operation, nested dict</td><td>Kuis Modul 4</td></tr>
+        <tr><td>9</td><td>2</td><td>11</td><td>List comprehension: filter, transform, nested, walrus operator</td><td>Latihan Modul 11</td></tr>
+        <tr><td>10</td><td>2</td><td>5</td><td><code>if/elif/else</code>, boolean logic, truthy/falsy, ternary operator</td><td>Latihan Modul 5</td></tr>
+        <tr><td>11</td><td>2</td><td>5</td><td>Nested conditional, <em>guard clause</em>, <em>short-circuit</em> evaluation</td><td>Kuis Modul 5</td></tr>
+        <tr><td>12</td><td>2</td><td>6</td><td><code>for</code> loop, <code>range()</code>, <code>while</code>, <code>break/continue</code>, <code>else</code> clause</td><td>Latihan Modul 6</td></tr>
+        <tr><td>13</td><td>2</td><td>6</td><td>Nested loop, pattern printing, loop invariants</td><td>Kuis Modul 6</td></tr>
+        <tr><td>14</td><td>2</td><td>7</td><td><code>def</code>, parameter (pos/kw/default), <code>return</code>, scope (LEGB), <code>lambda</code></td><td>Latihan Modul 7</td></tr>
+        <tr><td>15</td><td>2</td><td>7</td><td><code>*args</code>, <code>**kwargs</code>, docstring, type hints, recursion dasar</td><td>Kuis Modul 7</td></tr>
+        <tr><td>16</td><td>2</td><td>8</td><td><code>try/except/else/finally</code>, exception hierarchy, <code>raise</code>, custom exception</td><td>Latihan Modul 8</td></tr>
+        <tr><td>17</td><td>2</td><td>10</td><td><code>import</code>, <code>from ... import</code>, stdlib (<code>random</code>, <code>datetime</code>, <code>pathlib</code>), <code>pip</code>, virtual env</td><td>Latihan Modul 10</td></tr>
+        <tr><td>18</td><td>2</td><td>12</td><td>Class, <code>__init__</code>, <code>self</code>, method, attribute, <code>__str__</code>, <code>__repr__</code></td><td>Latihan Modul 12</td></tr>
+        <tr><td>19</td><td>2</td><td>12</td><td>Inheritance, <code>super()</code>, method overriding, class variable vs instance</td><td>Latihan Modul 12</td></tr>
+        <tr><td>20</td><td>2</td><td>14</td><td><code>collections</code> (<code>deque</code>, <code>Counter</code>, <code>defaultdict</code>), <code>namedtuple</code></td><td>Latihan Modul 14</td></tr>
+        <tr><td>21</td><td>2</td><td>14</td><td><code>dataclasses</code>, <code>field</code>, <code>frozen=True</code>, <code>typing</code> (<code>TypeVar</code>, <code>Generic</code>, <code>Protocol</code>, <code>TypedDict</code>)</td><td>Latihan Modul 14</td></tr>
+        <tr><td>22</td><td>2</td><td>14</td><td><code>heapq</code> (priority queue), <code>itertools</code> (product, permutations, accumulate)</td><td>Kuis Modul 14</td></tr>
+        <tr><td>23</td><td>2</td><td>15</td><td>Big-O, best/avg/worst, hirarki kompleksitas, analisis loop & rekursi</td><td>Latihan Modul 15</td></tr>
+        <tr><td>24</td><td>2</td><td>15</td><td>Sorting: Timsort, Quicksort, Mergesort, Heapsort — bandingkan & justifikasi</td><td>Latihan Modul 15</td></tr>
+        <tr><td>25</td><td>2</td><td>15</td><td>Hashing & dict internals, collision, <code>heapq</code> aplikasi, benchmark <code>timeit</code>/<code>cProfile</code></td><td>Kuis Modul 15</td></tr>
+        <tr><td>26</td><td>2</td><td>16</td><td>ER diagram → DDL, PK/FK, <code>PRAGMA foreign_keys=ON</code>, <code>sqlite3</code> CRUD</td><td>Latihan Modul 16</td></tr>
+        <tr><td>27</td><td>2</td><td>16</td><td>JOIN (INNER/LEFT), GROUP BY + agregat, subquery, transaksi <code>BEGIN/COMMIT/ROLLBACK</code></td><td>Latihan Modul 16</td></tr>
+        <tr><td>28</td><td>2</td><td>16</td><td>Indexing (<code>EXPLAIN QUERY PLAN</code>), migrasi skema, upsert <code>ON CONFLICT</code></td><td>Kuis Modul 16</td></tr>
+        <tr><td>29</td><td>2</td><td>17</td><td><code>pytest</code> (fixture, parametrize, mock), <code>unittest</code>, coverage (line & branch)</td><td>Latihan Modul 17</td></tr>
+        <tr><td>30</td><td>2</td><td>17</td><td><code>mypy</code> strict, <code>ruff</code> lint+format, docstring Google style, SemVer, <code>pre-commit</code></td><td>Latihan Modul 17</td></tr>
+        <tr><td>31</td><td>2</td><td>18</td><td>7 layer OSI, PDU, protokol per layer, topologi, addressing (MAC/IP/Port)</td><td>Latihan Modul 18</td></tr>
+        <tr><td>32</td><td>2</td><td>18</td><td>Encapsulation, TCP 3-way handshake, state diagram, socket TCP/UDP Python</td><td>Latihan Modul 18</td></tr>
+        <tr><td>33</td><td>2</td><td>19</td><td>CIA Triad, STRIDE, OWASP Top 10, <code>bcrypt</code>, JWT, MFA, RBAC vs ABAC</td><td>Latihan Modul 19</td></tr>
+        <tr><td>34</td><td>2</td><td>19</td><td>TLS/HTTPS, Let's Encrypt, firewall/UFW, VLAN/DMZ, Zero Trust, <code>fail2ban</code></td><td>Kuis Modul 19</td></tr>
+        <tr><td>35</td><td>2</td><td>20</td><td>PERSIA+Etika, 6 studi kasus (COMPAS, Deepfake, CA, Digital Divide, GenAI, Gig)</td><td>Latihan Modul 20</td></tr>
+        <tr><td>36</td><td>2</td><td>20</td><td>CER writing, Position Paper, debat terstruktur, <em>responsible innovation</em> (AREA)</td><td>Kuis Modul 20</td></tr>
+        </table>
+        
+        <p><strong>Semester Genap (Minggu 19–36 di atas) — Lanjut Proyek:</strong></p>
+        
+        <table>
+        <tr><th>Minggu</th><th>JP</th><th>Modul</th><th>Tujuan Pembelajaran</th><th>Bentuk Asesmen</th></tr>
+        <tr><td>19–22</td><td>8</td><td>13 (Proyek)</td><td>Sprint 1–4: Analisis kebutuhan → Desain ER & UI → Implementasi core (models, utils) → Integrasi DB & CLI</td><td>Sprint review (mingguan)</td></tr>
+        <tr><td>23–24</td><td>4</td><td>13</td><td>Integrasi penuh, testing (pytest), bug fixing, dokumentasi (README, docstring)</td><td>Code review tim</td></tr>
+        <tr><td>25–26</td><td>4</td><td>13</td><td>Demo day: presentasi 10 menit + Q&A 5 menit per kelompok</td><td>Presentasi + rubrik</td></tr>
+        <tr><td>27–28</td><td>4</td><td>13</td><td>Refleksi individu (journal), penilaian portofolio (GitHub repo), perbaikan akhir</td><td>Portofolio + refleksi</td></tr>
+        </table>
+        
+        <hr>
+        
+        <h2>6. KKTP — Kriteria Ketuntasan Pembelajaran (Contoh per Modul)</h2>
+        
+        <table>
+        <tr><th>Modul</th><th>KKTP (Minimal)</th></tr>
+        <tr><td>0–2</td><td>Bisa install Python, jalankan REPL, tulis program input/output variabel & string</td></tr>
+        <tr><td>3–4</td><td>Bisa manipulasi list/tuple/dict/set untuk persoalan data sederhana</td></tr>
+        <tr><td>5–6</td><td>Bisa tulis percabangan & perulangan bersarang untuk pola & logika</td></tr>
+        <tr><td>7–8</td><td>Bisa bikin function reusable, handle error, pakai module stdlib</td></tr>
+        <tr><td>10–11</td><td>Bisa list comprehension & module/pip untuk kode Pythonic</td></tr>
+        <tr><td>12</td><td>Bisa desain class dengan inheritance & encapsulation</td></tr>
+        <tr><td>14</td><td>Bisa pilih & pakai <code>deque</code>/<code>Counter</code>/<code>defaultdict</code>/<code>dataclass</code>/<code>heapq</code>/<code>itertools</code> tepat</td></tr>
+        <tr><td>15</td><td>Bisa hitung Big-O, bandingkan sorting, justify pilihan algoritma tabel CER</td></tr>
+        <tr><td>16</td><td>Bisa desain ER → DDL, tulis query JOIN/agregat/subquery, pakai transaksi & parameterized query</td></tr>
+        <tr><td>17</td><td>Bisa tulis test pytest (fixture/parametrize/mock), coverage ≥80%, mypy strict pass, ruff clean</td></tr>
+        <tr><td>18</td><td>Bisa jelaskan OSI 7 layer, TCP vs UDP, tulis socket client/server sederhana</td></tr>
+        <tr><td>19</td><td>Bisa terapkan STRIDE, hash password bcrypt, JWT auth, jelaskan OWASP Top 10 mitigasi</td></tr>
+        <tr><td>20</td><td>Bisa tulis Position Paper CER, debat terstruktur, analisis kasus PERSIA+Etika</td></tr>
+        <tr><td>13</td><td>Bisa kerjakan proyek kelompok end-to-end: Git workflow, CI, demo, portofolio GitHub</td></tr>
+        </table>
+        
+        <hr>
+        
+        <h2>7. Asesmen — Bobot & Jenis</h2>
+        
+        <table>
+        <tr><th>Jenis Asesmen</th><th>Bobot</th><th>Deskripsi</th></tr>
+        <tr><td><strong>Harian / Latihan Modul</strong></td><td>20%</td><td>Checklist latihan per modul (terverifikasi guru)</td></tr>
+        <tr><td><strong>Kuis / Formatif</strong></td><td>15%</td><td>Kuis singkat tiap 2–3 modul (Google Form / kertas)</td></tr>
+        <tr><td><strong>Tugas / Lembar Kerja</strong></td><td>15%</td><td>Lembar kerja siswa per modul (dikumpulkan, dinilai rubrik mini)</td></tr>
+        <tr><td><strong>Proyek Akhir (PLB)</strong></td><td>35%</td><td>Kelompok 3–4 orang: repo GitHub + demo + presentasi + portofolio individu</td></tr>
+        <tr><td><strong>Refleksi & Partisipasi</strong></td><td>15%</td><td>Journal refleksi mingguan, partisipasi debat/diskusi, <em>peer review</em></td></tr>
+        </table>
+        
+        <p><strong>Skala Penilaian:</strong> 0–100 → Konversi ke Predikat (A/B/C/D) per kebijakan sekolah.</p>
+        
+        <hr>
+        
+        <h2>8. Sumber Belajar & Referensi</h2>
+        
+        <ol><li><strong>Modul 0–20</strong> — Repository ini (<code>modul/00-setup.md</code> s.d <code>modul/20-dampak-sosial.md</code>)</li><li><strong>PETA-KURIKULUM.md</strong> — Peta CP, modul, JP, profil Pelajar Pancasila</li><li><strong>Bank Soal</strong> — <code>bank-soal.md</code> (guru), <code>bank-soal-siswa.md</code> (siswa)</li><li><strong>Cheat Sheet</strong> — <code>cheat-sheet.md</code> (syntax reference 1 halaman)</li><li><strong>Error Dictionary</strong> — <code>error-dictionary.md</code> (15+ error Python + solusi)</li><li><strong>Tips Mengajar</strong> — <code>tips-mengajar.md</code> (strategi, analogi, jebakan per modul)</li><li><strong>Mini Projek</strong> — <code>mini-projek.md</code> (13 projek bertingkat)</li><li><strong>Scripts</strong> — <code>scripts/</code> (tools administrasi guru)</li><li><strong>Referensi Eksternal:</strong></li></ol>
+        <ul><li>Kepmen 033/H/KR/2022 (CP Informatika)</li><li>Buku "Informatika Fase F" Kemendikbudristek</li><li>Python Docs (https://docs.python.org/3/)</li><li>Real Python (https://realpython.com/)</li><li>OWASP Top 10 (https://owasp.org/www-project-top-ten/)</li><li>UNESCO AI Ethics (https://unesdoc.unesco.org/ark:/48223/pf0000377897)</li></ul>
+        
+        <hr>
+        
+        <h2>9. Catatan Khusus Guru</h2>
+        
+        <ul><li><strong>Diferensiasi:</strong> Siswa cepat → lanjut ke modul 14+ lebih awal / bantu <em>peer tutoring</em>. Siswa butuh bantuan → <em>pair programming</em> + latihan tambahan <code>scripts/</code> untuk drill.</li><li><strong>Keamanan Lab:</strong> Semua praktik keamanan (Modul 19) <strong>hanya</strong> di lingkungan VM / sandbox terisolasi (TryHackMe, Hack The Box, PicoCTF). <strong>Tidak pernah</strong> serang sistem nyata tanpa izin.</li><li><strong>AI Generatif:</strong> Diperbolehkan sebagai <em>learning companion</em> (jelaskan konsep, debug, <em>refactor</em>). <strong>Wajib</strong> siswa: (1) tulis <em>prompt</em> yang dipakai, (2) verifikasi output, (3) sitasi di kode (<code># Generated with ChatGPT, verified by me</code>). Guru cek pemahaman via <em>live coding</em> / <em>oral exam</em>.</li><li><strong>Portofolio:</strong> Proyek akhir (Modul 13) <strong>wajib</strong> di-push ke GitHub public/private dengan: <code>README.md</code>, <code>requirements.txt</code>, <code>LICENSE</code>, GitHub Actions CI, <em>release</em> v1.0. Jadi bukti kompetensi untuk kuliah / magang.</li></ul>
+        
+        <hr>
+        
+        <p><em>Dokumen ini merupakan </em>living document<em> — update tiap semester berdasarkan evaluasi & kebutuhan siswa.</em></p>
+    </div>
+    <script>
+        document.querySelectorAll('pre code').forEach(function(b){hljs.highlightElement(b);});
+
+        (function() {
+            var btn = document.getElementById('themeToggle');
+            if (!btn) return;
+            var html = document.documentElement;
+            function updateBtn() {
+                btn.textContent = html.getAttribute('data-theme') === 'light' ? '☀️' : '🌙';
+            }
+            updateBtn();
+            btn.addEventListener('click', function() {
+                var current = html.getAttribute('data-theme');
+                var next = current === 'light' ? 'dark' : 'light';
+                html.setAttribute('data-theme', next);
+                localStorage.setItem('theme', next);
+                updateBtn();
+            });
+        })();
+    </script>
+</body>
+</html>

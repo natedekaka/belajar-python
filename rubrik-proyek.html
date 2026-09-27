@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rubrik Penilaian Proyek Akhir — Informatika Kelas XI (Fase F) — Belajar Python</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐍</text></svg>">
+    <script>
+        (function() {
+            var theme = localStorage.getItem('theme');
+            if (theme === 'light' || (!theme && window.matchMedia('(prefers-color-scheme: light)').matches)) {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+</head>
+<body>
+    <nav class="top-nav">
+        <a href="index.html">⬅ Kembali ke Index</a>
+        <span class="title-nav">Rubrik Penilaian Proyek Akhir — Informatika Kelas XI (Fase F)</span>
+        <button class="theme-toggle" id="themeToggle" aria-label="Ganti tema">🌙</button>
+    </nav>
+    <div class="container">
+        <h1>📊 Rubrik Penilaian Proyek Akhir — Informatika Kelas XI (Fase F)</h1>
+        
+        <p><strong>Komponen:</strong> Proyek Akhir PLB (Praktik Lintas Bidang)  </p>
+        <p><strong>Bobot:</strong> 35% dari nilai akhir  </p>
+        <p><strong>Kelompok:</strong> 3–4 orang  </p>
+        <p><strong>Durasi:</strong> 10 JP (4 sprint + integrasi + demo + refleksi)</p>
+        
+        <hr>
+        
+        <h2>🎯 Tujuan Penilaian</h2>
+        
+        <p>Mengukur kemampuan siswa:</p>
+        <ol><li><strong>Teknis:</strong> Mengimplementasikan program modular besar, database, testing, CI/CD</li><li><strong>PLB:</strong> Kolaborasi tim inklusif, <em>software engineering lifecycle</em> end-to-end</li><li><strong>Komunikasi:</strong> Dokumentasi, presentasi, <em>code review</em>, refleksi</li><li><strong>Etika & Karakter:</strong> Integritas akademik, <em>responsible coding</em>, <em>peer support</em></li></ol>
+        
+        <hr>
+        
+        <h2>📋 Rubrik Detail (Total 100 Poin)</h2>
+        
+        <h3>A. Kualitas Teknis & Kode (40 poin)</h3>
+        
+        <table>
+        <tr><th>Sub-Kriteria</th><th>Indikator</th><th>Skor (0–10)</th></tr>
+        <tr><td><strong>A1. Fungsionalitas & Kelengkapan</strong></td><td>Semua <em>user stories</em> Must & Should berjalan tanpa bug kritis; fitur Could sebagai bonus</td></tr>
+        <tr><td><strong>A2. Arsitektur & Modularitas</strong></td><td>Pemisahan <em>concerns</em> (models, repository, services, cli, utils); low coupling, high cohesion; pakai type hints & docstring</td></tr>
+        <tr><td><strong>A3. Database & Query</strong></td><td>ER → DDL benar (PK, FK, index, constraint); parameterized query; transaksi ACID; query efisien (JOIN, agregat, subquery)</td></tr>
+        <tr><td><strong>A4. Testing & Kualitas</strong></td><td><code>pytest</code> branch coverage ≥ 80%; test <em>unit</em> + <em>integration</em>; <code>mypy strict</code> pass; <code>ruff</code> clean; CI green</td></tr>
+        <tr><td><strong>Total A</strong></td><td><strong>___ / 40</strong></td></tr>
+        </table>
+        
+        <h3>B. Proses PLB & Kolaborasi (25 poin)</h3>
+        
+        <table>
+        <tr><th>Sub-Kriteria</th><th>Indikator</th><th>Skor (0–5)</th></tr>
+        <tr><td><strong>B1. Perencanaan & Sprint</strong></td><td><em>Sprint planning</em> jelas; <em>backlog</em> terprioritaskan; <em>Definition of Done</em> disepakati; <em>burndown</em> / progress tracking</td></tr>
+        <tr><td><strong>B2. Git Workflow</strong></td><td><em>Feature branch</em> per fitur; <em>commit message</em> konvensional (Conventional Commits); PR review minimal 1 reviewer; <em>merge</em> via PR (bukan push langsung ke main)</td></tr>
+        <tr><td><strong>B3. Kolaborasi Tim</strong></td><td><em>Standup</em> rutin; <em>pair programming</em> / <em>mob programming</em> minimal 2×; <em>conflict resolution</em> konstruktif; <em>peer support</em> (bantu teman stuck)</td></tr>
+        <tr><td><strong>B4. Dokumentasi Proses</strong></td><td><code>CHANGELOG.md</code> per rilis; <em>meeting notes</em> singkat per sprint; <em>retrospective</em> akhir sprint (start/stop/continue)</td></tr>
+        <tr><td><strong>B5. Etika & Integritas</strong></td><td>Kode original (bukan copy-paste tanpa paham); <em>AI-assisted</em> dicatat & diverifikasi; <em>license</em> & <em>credit</em> library; tidak <em>hardcode</em> secret</td></tr>
+        <tr><td><strong>Total B</strong></td><td><strong>___ / 25</strong></td></tr>
+        </table>
+        
+        <h3>C. Produk & User Experience (15 poin)</h3>
+        
+        <table>
+        <tr><th>Sub-Kriteria</th><th>Indikator</th><th>Skor (0–5)</th></tr>
+        <tr><td><strong>C1. CLI UX</strong></td><td>Menu intuitif; validasi input ramah; error message jelas; output tabel warna (<code>rich</code>/<code>tabulate</code>); <em>help</em> kontekstual</td></tr>
+        <tr><td><strong>C2. Instalasi & Portabilitas</strong></td><td><code>README.md</code> lengkap (prasyarat, install, run, test, troubleshoot); <code>requirements.txt</code> pin version; jalan di Linux/Win/macOS tanpa config manual</td></tr>
+        <tr><td><strong>C3. Dokumentasi Pengguna</strong></td><td><em>User guide</em> singkat (PDF/Markdown): <em>screenshot</em> menu, alur kerja, FAQ; <em>developer guide</em> (arsitektur, kontribusi, testing)</td></tr>
+        <tr><td><strong>Total C</strong></td><td><strong>___ / 15</strong></td></tr>
+        </table>
+        
+        <h3>D. Presentasi & Komunikasi (10 poin)</h3>
+        
+        <table>
+        <tr><th>Sub-Kriteria</th><th>Indikator</th><th>Skor (0–5)</th></tr>
+        <tr><td><strong>D1. Presentasi Demo (10 menit)</strong></td><td>Alur cerita jelas (masalah → solusi → demo live → tantangan → lesson learned); slide visual minimalis; demo <em>live</em> lancar (siapkan <em>fallback</em> video)</td></tr>
+        <tr><td><strong>D2. Q&A (5 menit)</strong></td><td>Jawab teknis & non-teknis percaya diri; jujur soal keterbatasan; terima masukan terbuka</td></tr>
+        <tr><td><strong>Total D</strong></td><td><strong>___ / 10</strong></td></tr>
+        </table>
+        
+        <h3>E. Refleksi Individu & Portofolio (10 poin)</h3>
+        
+        <table>
+        <tr><th>Sub-Kriteria</th><th>Indikator</th><th>Skor (0–5)</th></tr>
+        <tr><td><strong>E1. Refleksi Tertulis (200–300 kata)</strong></td><td><em>What went well</em>, <em>what didn't</em>, <em>what I learned</em>, <em>what I'd do differently</em>; bukti <em>growth mindset</em>; contoh spesifik (bukan generik)</td></tr>
+        <tr><td><strong>E2. Portofolio GitHub</strong></td><td>Repo <em>public</em> (atau <em>private</em> dengan akses guru); <em>release</em> v1.0.0; <em>topics</em> tag; <em>description</em> jelas; <em>README</em> badge (CI, coverage, license); <em>commit history</em> rapi</td></tr>
+        <tr><td><strong>Total E</strong></td><td><strong>___ / 10</strong></td></tr>
+        </table>
+        
+        <hr>
+        
+        <h2>📝 Total Nilai Akhir</h2>
+        
+        <table>
+        <tr><th>Komponen</th><th>Maks</th><th>Diperoleh</th></tr>
+        <tr><td>A. Kualitas Teknis & Kode</td><td>40</td><td>___</td></tr>
+        <tr><td>B. Proses PLB & Kolaborasi</td><td>25</td><td>___</td></tr>
+        <tr><td>C. Produk & User Experience</td><td>15</td><td>___</td></tr>
+        <tr><td>D. Presentasi & Komunikasi</td><td>10</td><td>___</td></tr>
+        <tr><td>E. Refleksi & Portofolio</td><td>10</td><td>___</td></tr>
+        <tr><td><strong>TOTAL</strong></td><td><strong>100</strong></td><td><strong>___</strong></td></tr>
+        </table>
+        
+        <p><strong>Konversi ke Nilai Raport (0–100):</strong> <code>Total</code> (sudah skala 100)</p>
+        
+        <hr>
+        
+        <h2>✅ Checklist <em>Must-Have</em> (Jika Tidak Terpenuhi → Otomatis Batas Nilai)</h2>
+        
+        <table>
+        <tr><th>Item</th><th>Wajib?</th><th>Catatan</th></tr>
+        <tr><td>Repo GitHub dengan minimal 20 commit tersebar 4 sprint</td><td>Ya</td><td>Tidak = max 70</td></tr>
+        <tr><td><code>pytest</code> coverage ≥ 80% branch</td><td>Ya</td><td>Tidak = max 75</td></tr>
+        <tr><td><code>mypy strict</code> pass</td><td>Ya</td><td>Tidak = max 80</td></tr>
+        <tr><td><code>ruff</code> clean (lint + format)</td><td>Ya</td><td>Tidak = max 80</td></tr>
+        <tr><td>CI GitHub Actions green di <code>main</code></td><td>Ya</td><td>Tidak = max 80</td></tr>
+        <tr><td><code>README.md</code> + <code>LICENSE</code> + <code>CHANGELOG.md</code></td><td>Ya</td><td>Tidak = max 85</td></tr>
+        <tr><td>Semua anggota punya minimal 5 commit <em>meaningful</em></td><td>Ya</td><td>Tidak = nilai individu -10</td></tr>
+        <tr><td>Presentasi demo day dihadiri semua anggota</td><td>Ya</td><td>Tidak = nilai individu -15</td></tr>
+        <tr><td>Refleksi individu dikumpulkan tepat waktu</td><td>Ya</td><td>Tidak = nilai individu -10</td></tr>
+        </table>
+        
+        <hr>
+        
+        <h2>🏷️ Deskripsi Predikat (Referensi)</h2>
+        
+        <table>
+        <tr><th>Skor</th><th>Predikat</th><th>Deskripsi</th></tr>
+        <tr><td>90–100</td><td><strong>A (Sangat Baik)</strong></td><td>Produk <em>production-ready</em>, tim <em>high-performing</em>, dokumentasi teliti, presentasi meyakinkan</td></tr>
+        <tr><td>80–89</td><td><strong>B (Baik)</strong></td><td>Produk berfungsi baik, minor bug non-kritis, kolaborasi baik, dokumentasi cukup</td></tr>
+        <tr><td>70–79</td><td><strong>C (Cukup)</strong></td><td>Fitur inti jalan, tapi ada <em>technical debt</em> signifikan / kolaborasi kurang merata / dokumen minim</td></tr>
+        <tr><td>60–69</td><td><strong>D (Kurang)</strong></td><td>Fitur <em>Must</em> tidak lengkap / bug kritis / coverage rendah / tidak ada CI / presentasi tidak siap</td></tr>
+        <tr><td>&lt; 60</td><td><strong>E (Gagal)</strong></td><td>Proyek tidak berfungsi / tidak dikumpulkan / plagiarisme / tidak ada kontribusi individu</td></tr>
+        </table>
+        
+        <blockquote><p><strong>Catatan:</strong> Nilai <strong>individu</strong> = <code>Nilai Kelompok</code> ± <code>Adjustment Individu</code> (berdasarkan commit log, <em>peer evaluation</em>, refleksi, kehadiran <em>standup</em>). Guru berhak menyesuaikan ±15 poin per individu.</p></blockquote>
+        
+        <hr>
+        
+        <h2>📝 <em>Peer Evaluation</em> Formulir (Diisi Setiap Anggota untuk Anggota Lain)</h2>
+        
+        <p><strong>Nama Penilai:</strong> ________________________   <strong>Nama Dinilai:</strong> ________________________  </p>
+        
+        <table>
+        <tr><th>Aspek</th><th>Skala 1–5 (1=Sangat Kurang, 5=Sangat Baik)</th><th>Bukti / Contoh</th></tr>
+        <tr><td>Kontribusi kode (kuantitas & kualitas)</td><td>☐1 ☐2 ☐3 ☐4 ☐5</td></tr>
+        <tr><td>Kehadiran & partisipasi <em>standup</em></td><td>☐1 ☐2 ☐3 ☐4 ☐5</td></tr>
+        <tr><td><em>Code review</em> & <em>feedback</em> konstruktif</td><td>☐1 ☐2 ☐3 ☐4 ☐5</td></tr>
+        <tr><td>Bantuan ke teman (<em>pair programming</em>, debug)</td><td>☐1 ☐2 ☐3 ☐4 ☐5</td></tr>
+        <tr><td>Komunikasi & <em>conflict resolution</em></td><td>☐1 ☐2 ☐3 ☐4 ☐5</td></tr>
+        <tr><td><strong>Rata-rata</strong></td><td><strong>___ / 5</strong></td></tr>
+        </table>
+        
+        <p><strong>Komentar Tambahan (Opsional):</strong>  </p>
+        <p>______________________________________________________________________________</p>
+        <p>______________________________________________________________________________</p>
+        
+        <p><em>Formulir ini rahasia — hanya guru yang melihat. Hasil rata-rata </em>peer evaluation<em> mempengaruhi </em>Adjustment Individu<em> (±10 poin).</em></p>
+        
+        <hr>
+        
+        <h2>📅 Jadwal Penilaian</h2>
+        
+        <table>
+        <tr><th>Tahap</th><th>Minggu</th><th>Penilai</th><th>Output</th></tr>
+        <tr><td>Sprint Review 1–4</td><td>Minggu 1–8</td><td>Guru + Tim</td><td><em>Checkpoint</em> verbal + cek repo</td></tr>
+        <tr><td>Code Review Akhir</td><td>Minggu 9</td><td>Guru</td><td>Review PR final + rubrik A</td></tr>
+        <tr><td>Demo Day</td><td>Minggu 9–10</td><td>Guru + Kelas</td><td>Presentasi + Q&A (rubrik D)</td></tr>
+        <tr><td>Refleksi & <em>Peer Eval</em></td><td>Minggu 10</td><td>Individu</td><td>Formulir + refleksi (rubrik E)</td></tr>
+        <tr><td><strong>Nilai Akhir Diumumkan</strong></td><td>Minggu 11</td><td>Guru</td><td>Nilai individu + kelompok</td></tr>
+        </table>
+        
+        <hr>
+        
+        <p><em>Rubrik ini bersifat </em>living document<em> — boleh disesuaikan guru selama transparan ke siswa sebelum proyek dimulai.</em></p>
+    </div>
+    <script>
+        document.querySelectorAll('pre code').forEach(function(b){hljs.highlightElement(b);});
+
+        (function() {
+            var btn = document.getElementById('themeToggle');
+            if (!btn) return;
+            var html = document.documentElement;
+            function updateBtn() {
+                btn.textContent = html.getAttribute('data-theme') === 'light' ? '☀️' : '🌙';
+            }
+            updateBtn();
+            btn.addEventListener('click', function() {
+                var current = html.getAttribute('data-theme');
+                var next = current === 'light' ? 'dark' : 'light';
+                html.setAttribute('data-theme', next);
+                localStorage.setItem('theme', next);
+                updateBtn();
+            });
+        })();
+    </script>
+</body>
+</html>

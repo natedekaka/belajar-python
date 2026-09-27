@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modul 19: Keamanan Digital &amp; Siber — Belajar Python</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐍</text></svg>">
+    <script>
+        (function() {
+            var theme = localStorage.getItem('theme');
+            if (theme === 'light' || (!theme && window.matchMedia('(prefers-color-scheme: light)').matches)) {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+</head>
+<body>
+    <nav class="top-nav">
+        <a href="../index.html">⬅ Kembali ke Index</a>
+        <span class="title-nav">Modul 19: Keamanan Digital &amp; Siber</span>
+        <button class="theme-toggle" id="themeToggle" aria-label="Ganti tema">🌙</button>
+    </nav>
+    <div class="container">
+        <h1>Modul 19: Keamanan Digital & Siber</h1>
+        
+        <h2>📌 Pemetaan CP Fase F</h2>
+        <table>
+        <tr><th>Elemen</th><th>Kode CP</th><th>Capaian Terkait</th></tr>
+        <tr><td>Jaringan Komputer & Internet</td><td>JKI</td><td>Konsep <em>cyber security</em>, tata kelola kontrol akses data, faktor & konfigurasi keamanan jaringan</td></tr>
+        <tr><td>Dampak Sosial Informatika</td><td>DSI</td><td>Etika digital, <em>white hat</em> vs <em>black hat</em>, privasi, regulasi (UU ITE, PDP)</td></tr>
+        </table>
+        
+        <hr>
+        
+        <h2>🏆 Target Pemahaman</h2>
+        
+        <p>Setelah modul ini, kamu bisa:</p>
+        <ul><li>Menjelaskan <strong>CIA Triad</strong> (Confidentiality, Integrity, Availability) sebagai fondasi keamanan</li><li>Memahami <strong>threat modeling</strong> (STRIDE) & <em>attack surface</em></li><li>Mengenal <strong>OWASP Top 10</strong> (web) & <strong>MITRE ATT&CK</strong> (framework serangan)</li><li>Mengimplementasikan <strong>autentikasi & otorisasi</strong> yang aman: hashing password (<code>bcrypt</code>), JWT, MFA, RBAC/ABAC</li><li>Mengamankan <strong>komunikasi</strong>: TLS/HTTPS, sertifikat, <em>certificate pinning</em></li><li>Memahami <strong>keamanan jaringan</strong>: firewall, IDS/IPS, VPN, <em>zero trust</em>, segmentasi jaringan (DMZ, VLAN)</li><li>Melakukan <strong>secure coding practice</strong>: input validation, output encoding, <em>parameterized query</em>, <em>secrets management</em></li><li>Menjelaskan <strong>etika hacking</strong> (<em>white hat</em>, <em>bug bounty</em>, <em>responsible disclosure</em>) & regulasi Indonesia (UU ITE, UU PDP)</li></ul>
+        
+        <hr>
+        
+        <h2>1. CIA Triad — Fondasi Keamanan</h2>
+        
+        <table>
+        <tr><th>Unsur</th><th>Definisi</th><th>Contoh Pelanggaran</th><th>Kontrol Contoh</th></tr>
+        <tr><td><strong>Confidentiality</strong> (Kerahasiaan)</td><td>Hanya pihak berwenang yang bisa akses data</td><td>Kebocoran database, <em>sniffing</em> Wi-Fi</td><td>Enkripsi (AES, TLS), ACL, <em>data classification</em></td></tr>
+        <tr><td><strong>Integrity</strong> (Integritas)</td><td>Data utuh, tidak diubah tanpa otorisasi</td><td><em>Man-in-the-middle</em> ubah transaksi, <em>ransomware</em> enkripsi file</td><td>Hash (SHA-256), digital signature, <em>immutable logs</em>, <em>WORM storage</em></td></tr>
+        <tr><td><strong>Availability</strong> (Ketersediaan)</td><td>Sistem & data accessible saat dibutuhkan</td><td>DDoS, <em>ransomware</em>, hardware failure</td><td>Redundansi, <em>load balancer</em>, backup & DRP, <em>rate limiting</em></td></tr>
+        </table>
+        
+        <blockquote><p>💡 <strong>Triad trade-off:</strong> Terlalu ketat <em>confidentiality</em> (mis. enkripsi semua, MFA di mana-mana) bisa mengganggu <em>availability</em>. Butuh <em>risk assessment</em> untuk keseimbangan.</p></blockquote>
+        
+        <hr>
+        
+        <h2>2. Threat Modeling — STRIDE</h2>
+        
+        <table>
+        <tr><th>Kategori STRIDE</th><th>Deskripsi</th><th>Contoh</th><th>Mitigasi</th></tr>
+        <tr><td><strong>S</strong>poofing</td><td>Berpura-pura identitas lain</td><td><em>Phishing</em>, <em>IP spoofing</em>, session hijack</td><td>MFA, mutual TLS, <em>certificate pinning</em></td></tr>
+        <tr><td><strong>T</strong>ampering</td><td>Mengubah data tanpa izin</td><td><em>SQL injection</em>, <em>parameter manipulation</em>, <em>MITM</em></td><td>Input validation, <em>parameterized query</em>, HMAC, <em>integrity checks</em></td></tr>
+        <tr><td><strong>R</strong>epudiation</td><td>Menyangkut tindakan yg dilakukan</td><td>Hapus log audit, <em>non-repudiation</em> gagal</td><td><em>Audit logging</em> tamper-proof, digital signature</td></tr>
+        <tr><td><strong>I</strong>nformation Disclosure</td><td>Bocor info sensitif</td><td><em>Error message</em> stack trace, <em>directory listing</em>, <em>insecure direct object reference</em> (IDOR)</td><td><em>Least privilege</em>, <em>error handling</em> generic, <em>output encoding</em></td></tr>
+        <tr><td><strong>D</strong>enial of Service</td><td>Layanan tidak tersedia</td><td><em>Volumetric DDoS</em>, <em>application-layer DoS</em> (slowloris), <em>resource exhaustion</em></td><td><em>Rate limiting</em>, <em>WAF</em>, <em>auto-scaling</em>, <em>circuit breaker</em></td></tr>
+        <tr><td><strong>E</strong>levation of Privilege</td><td>Naik hak akses</td><td><em>Privilege escalation</em> (kernel exploit, <em>sudo misconfig</em>), <em>broken access control</em></td><td><em>Principle of least privilege</em>, <em>RBAC</em>, <em>patch management</em></td></tr>
+        </table>
+        
+        <p><strong>Langkah Threat Modeling (Ringkas):</strong></p>
+        <ol><li><strong>Gambar arsitektur</strong> (DFD — Data Flow Diagram)</li><li><strong>Identifikasi entry points</strong> (API, UI, port jaringan, file upload)</li><li><strong>Terapkan STRIDE</strong> per entry point</li><li><strong>Prioritaskan</strong> (DREAD / CVSS skor)</li><li><strong>Rancang mitigasi</strong> → update arsitektur / kode</li></ol>
+        
+        <hr>
+        
+        <h2>3. OWASP Top 10 (2021) — Ringkas</h2>
+        
+        <table>
+        <tr><th>Rank</th><th>Risiko</th><th>Inti Masalah</th><th>Pencegahan Utama</th></tr>
+        <tr><td><strong>A01</strong></td><td>Broken Access Control</td><td>User akses resource user lain (IDOR)</td><td><em>Deny by default</em>, cek otorisasi <strong>setiap request</strong></td></tr>
+        <tr><td><strong>A02</strong></td><td>Cryptographic Failures</td><td>Enkripsi lemah / tidak ada (HTTP, MD5, SHA1)</td><td>TLS 1.2+, AES-GCM, bcrypt/Argon2 untuk password</td></tr>
+        <tr><td><strong>A03</strong></td><td>Injection</td><td>SQLi, NoSQLi, Command Injection, LDAPi</td><td><strong>Parameterized query</strong>, ORM, input validation, <em>allowlist</em></td></tr>
+        <tr><td><strong>A04</strong></td><td>Insecure Design</td><td>Desain fundamental tidak aman (mis. <em>password reset</em> via email tanpa token)</td><td><em>Threat modeling</em> di fase desain, <em>secure design patterns</em></td></tr>
+        <tr><td><strong>A05</strong></td><td>Security Misconfiguration</td><td>Default creds, directory listing, <em>open S3 bucket</em>, <em>debug mode on</em></td><td><em>Hardening checklist</em>, <em>IaC scanning</em>, <em>config as code</em></td></tr>
+        <tr><td><strong>A06</strong></td><td>Vulnerable Components</td><td>Library lama ber-CVE (Log4Shell, Spring4Shell)</td><td><em>SCA</em> (Software Composition Analysis), <code>pip-audit</code>, <code>dependabot</code></td></tr>
+        <tr><td><strong>A07</strong></td><td>Identification & Auth Failures</td><td><em>Brute force</em>, <em>credential stuffing</em>, <em>weak password policy</em></td><td>MFA, <em>rate limit login</em>, <em>breached password check</em> (HaveIBeenPwned)</td></tr>
+        <tr><td><strong>A08</strong></td><td>Software & Data Integrity Failures</td><td><em>CI/CD compromise</em>, <em>unsigned dependency</em>, <em>auto-update tanpa verifikasi</em></td><td><em>Signed artifacts</em>, <em>SBOM</em>, <em>reproducible builds</em></td></tr>
+        <tr><td><strong>A09</strong></td><td>Security Logging & Monitoring Failures</td><td>Tidak log, log tidak dimonitor, <em>alert fatigue</em></td><td><em>Centralized logging</em> (ELK/Loki), <em>SIEM</em>, <em>actionable alerts</em></td></tr>
+        <tr><td><strong>A10</strong></td><td>Server-Side Request Forgery (SSRF)</td><td>Server fetch URL user-controlled → akses internal metadata (AWS 169.254.169.254)</td><td><em>Allowlist</em> URL, <em>deny private IP ranges</em>, <em>network segmentation</em></td></tr>
+        </table>
+        
+        <hr>
+        
+        <h2>4. Autentikasi & Otorisasi Aman</h2>
+        
+        <h3>Hashing Password — <strong>SELALU <code>bcrypt</code> / <code>argon2</code></strong></h3>
+        
+        <pre><code class="language-python">import bcrypt
+        # argon2: pip install argon2-cffi → argon2.PasswordHasher()
+        
+        def hash_password(plain: str) -&gt; str:
+            # bcrypt default rounds=12 (bisa naikkan via bcrypt.gensalt(rounds=14))
+            salt = bcrypt.gensalt(rounds=12)
+            return bcrypt.hashpw(plain.encode(), salt).decode()
+        
+        def verify_password(plain: str, hashed: str) -&gt; bool:
+            return bcrypt.checkpw(plain.encode(), hashed.encode())</code></pre>
+        
+        <blockquote><p>⚠️ <strong>JANGAN</strong> <code>md5</code>, <code>sha1</code>, <code>sha256</code> <strong>langsung</strong> untuk password — terlalu cepat (GPU crack miliar per detik). <strong>JANGAN</strong> <em>custom crypto</em>.</p></blockquote>
+        
+        <h3>JWT (JSON Web Token) — Stateless Auth</h3>
+        
+        <pre><code class="language-python">import jwt
+        import datetime
+        
+        SECRET = &quot;ganti-dengan-env-secret-32-byte-minimum&quot;  # dari env var!
+        
+        def buat_token(user_id: str, roles: list[str]) -&gt; str:
+            payload = {
+                &quot;sub&quot;: user_id,
+                &quot;roles&quot;: roles,
+                &quot;iat&quot;: datetime.datetime.utcnow(),
+                &quot;exp&quot;: datetime.datetime.utcnow() + datetime.timedelta(hours=1),
+            }
+            return jwt.encode(payload, SECRET, algorithm=&quot;HS256&quot;)
+        
+        def verifikasi_token(token: str) -&gt; dict | None:
+            try:
+                return jwt.decode(token, SECRET, algorithms=[&quot;HS256&quot;])
+            except jwt.ExpiredSignatureError:
+                return None
+            except jwt.InvalidTokenError:
+                return None</code></pre>
+        
+        <blockquote><p>💡 <strong>JWT best practice:</strong> <code>HS256</code> untuk internal, <code>RS256</code> (asymmetric) untuk multi-service. <strong>Selalu</strong> <code>exp</code> claim. Simpan <em>refresh token</em> di DB (revokable).</p></blockquote>
+        
+        <h3>RBAC vs ABAC</h3>
+        
+        <table>
+        <tr><th>Model</th><th>Prinsip</th><th>Contoh</th><th>Cocok Untuk</th></tr>
+        <tr><td><strong>RBAC</strong> (Role-Based)</td><td>Hak akses oleh <em>role</em> (admin, guru, siswa)</td><td><code>if &quot;admin&quot; in user.roles: allow</code></td><td>Aplikasi standar, hierarchy jelas</td></tr>
+        <tr><td><strong>ABAC</strong> (Attribute-Based)</td><td>Keputusan oleh <em>attribute</em> (user.dept == resource.dept AND time &lt; 17:00)</td><td>Kebijakan kompleks, konteks-dinamis</td><td>Enterprise besar, <em>zero trust</em></td></tr>
+        </table>
+        
+        <hr>
+        
+        <h2>5. TLS / HTTPS — Enkripsi Transit</h2>
+        
+        <pre><code class="language-bash"># Generate self-signed cert (dev only)
+        openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -nodes -subj &quot;/CN=localhost&quot;</code></pre>
+        
+        <pre><code class="language-python"># Python HTTPS server sederhana (dev)
+        import http.server, ssl
+        
+        server = http.server.HTTPServer((&#x27;localhost&#x27;, 8443), http.server.SimpleHTTPRequestHandler)
+        server.socket = ssl.wrap_socket(server.socket, keyfile=&quot;key.pem&quot;, certfile=&quot;cert.pem&quot;, server_side=True)
+        server.serve_forever()</code></pre>
+        
+        <p><strong>Production:</strong> Gunakan <strong>Let's Encrypt</strong> (Certbot) → gratis, auto-renew 90 hari.</p>
+        <pre><code class="language-bash">sudo certbot --nginx -d example.com -d www.example.com</code></pre>
+        
+        <blockquote><p>🔒 <strong>TLS 1.2 minimum</strong>, TLS 1.3 prefer. Cipher suite: <code>TLS_AES_256_GCM_SHA384</code>, <code>TLS_CHACHA20_POLY1305_SHA256</code>.</p></blockquote>
+        
+        <hr>
+        
+        <h2>6. Keamanan Jaringan — Defense in Depth</h2>
+        
+        <table>
+        <tr><th>Lapisan</th><th>Teknologi / Praktik</th></tr>
+        <tr><td><strong>Perimeter</strong></td><td>Firewall (stateful), <em>Next-Gen Firewall</em> (app-aware), <em>WAF</em> (ModSecurity / Cloudflare)</td></tr>
+        <tr><td><strong>Network Segmentation</strong></td><td><strong>VLAN</strong> (pisah: server, client, IoT, management), <strong>DMZ</strong> (public-facing), <em>Zero Trust</em> (micro-segmentation)</td></tr>
+        <tr><td><strong>Monitoring</strong></td><td><strong>IDS/IPS</strong> (Suricata, Zeek), <em>NetFlow</em> analysis, <em>SIEM</em> (Elastic, Splunk, Wazuh)</td></tr>
+        <tr><td><strong>Remote Access</strong></td><td><strong>VPN</strong> (WireGuard, OpenVPN) + MFA, <em>Zero Trust Network Access</em> (Tailscale, Cloudflare Tunnel)</td></tr>
+        <tr><td><strong>Endpoint</strong></td><td><em>EDR</em> (CrowdStrike, Defender for Endpoint), <em>disk encryption</em> (BitLocker, LUKS), <em>auto-update</em></td></tr>
+        </table>
+        
+        <p><strong>Zero Trust Principles:</strong></p>
+        <ol><li><strong>Verify explicitly</strong> — selalu autentikasi & otorisasi (tidak percaya IP/internal)</li><li><strong>Least privilege</strong> — akses minimal yang dibutuhkan</li><li><strong>Assume breach</strong> — desain seolah sudah kompromi (segmentasi, monitoring, <em>blast radius</em> minimal)</li></ol>
+        
+        <hr>
+        
+        <h2>7. Secure Coding Checklist (Python)</h2>
+        
+        <table>
+        <tr><th>Praktik</th><th>Contoh Benar</th><th>Contoh Salah</th></tr>
+        <tr><td><strong>Input Validation</strong></td><td><code>pydantic</code> model / <code>allowlist</code> regex</td><td><code>eval(user_input)</code>, <code>exec()</code></td></tr>
+        <tr><td><strong>SQL Injection</strong></td><td><code>cursor.execute(&quot;SELECT * FROM users WHERE id = ?&quot;, (uid,))</code></td><td><code>f&quot;SELECT * FROM users WHERE id = {uid}&quot;</code></td></tr>
+        <tr><td><strong>Command Injection</strong></td><td><code>subprocess.run([&quot;ping&quot;, &quot;-c&quot;, &quot;3&quot;, host], capture_output=True)</code></td><td><code>os.system(f&quot;ping -c 3 {host}&quot;)</code></td></tr>
+        <tr><td><strong>Path Traversal</strong></td><td><code>safe_path = (BASE_DIR / user_path).resolve(); assert safe_path.is_relative_to(BASE_DIR)</code></td><td><code>open(user_path).read()</code></td></tr>
+        <tr><td><strong>Secrets Management</strong></td><td><code>os.getenv(&quot;DB_PASSWORD&quot;)</code> / <strong>Vault</strong> / <strong>AWS Secrets Manager</strong></td><td><code>password = &quot;hardcoded123&quot;</code> di kode / <code>.env</code> di commit</td></tr>
+        <tr><td><strong>Error Handling</strong></td><td><code>except Exception: logger.exception(&quot;...&quot;); raise</code> / generic user message</td><td><code>except: print(traceback.format_exc())</code> di UI</td></tr>
+        <tr><td><strong>Dependencies</strong></td><td><code>pip-audit</code>, <code>pip install --require-hashes</code>, <code>dependabot</code> alerts</td><td><code>pip install -r requirements.txt</code> tanpa review CVE</td></tr>
+        </table>
+        
+        <pre><code class="language-python"># Contoh pydantic validation (FastAPI style)
+        from pydantic import BaseModel, EmailStr, Field
+        
+        class DaftarSiswa(BaseModel):
+            nis: str = Field(pattern=r&quot;^\d{10}$&quot;)  # 10 digit
+            nama: str = Field(min_length=2, max_length=100)
+            email: EmailStr
+            kelas_id: str = Field(pattern(r&quot;^XI-\d$&quot;) )</code></pre>
+        
+        <hr>
+        
+        <h2>8. Etika & Regulasi Indonesia</h2>
+        
+        <table>
+        <tr><th>Aspek</th><th>Penjelasan</th></tr>
+        <tr><td><strong>White Hat / Ethical Hacker</strong></td><td>Hacking dengan <strong>izin tertulis</strong> (<em>scope</em> jelas), <em>responsible disclosure</em> (lapor ke vendor, tunggu patch, baru publish)</td></tr>
+        <tr><td><strong>Bug Bounty</strong></td><td>Platform: HackerOne, Bugcrowd, YesWeHack. Bayaran per <em>valid vulnerability</em></td></tr>
+        <tr><td><strong>UU ITE (No. 11/2008 + No. 1/2024)</strong></td><td>Pasal 27–30: konten terlarang, pencemaran nama baik, akses ilegal, penyadapan. <strong>Sanksi pidana</strong></td></tr>
+        <tr><td><strong>UU PDP (No. 27/2022)</strong></td><td>Hak subjek data (akses, hapus, portabilitas), <em>consent</em>, <em>data controller/processor</em> kewajiban, <em>DPO</em>, <em>cross-border transfer</em></td></tr>
+        <tr><td><strong>Sertifikasi</strong></td><td><strong>BNSP</strong> (BNSP-014: <em>Cyber Security Analyst</em>), <strong>CompTIA Security+</strong>, <strong>(ISC)² CISSP</strong>, <strong>EC-Council CEH</strong></td></tr>
+        </table>
+        
+        <blockquote><p>💡 <strong>Etika guru:</strong> Ajarkan siswa <strong>hanya</strong> di lingkungan <em>lab</em> terisolasi (VM, <em>capture the flag</em> platform seperti Hack The Box, TryHackMe, PicoCTF). <strong>Tidak pernah</strong> serang sistem tanpa izin.</p></blockquote>
+        
+        <hr>
+        
+        <h2>9. Praktik: Hardening Checklist Mini (Server Linux)</h2>
+        
+        <pre><code class="language-bash"># 1. Update &amp; minimal install
+        apt update &amp;&amp; apt upgrade -y
+        apt install --no-install-recommends openssh-server ufw fail2ban aide
+        
+        # 2. SSH hardening (/etc/ssh/sshd_config)
+        # PermitRootLogin no
+        # PasswordAuthentication no
+        # PubkeyAuthentication yes
+        # Port 2222  # non-standard
+        # AllowUsers guruadmin
+        systemctl reload ssh
+        
+        # 3. Firewall (UFW)
+        ufw default deny incoming
+        ufw default allow outgoing
+        ufw allow 2222/tcp   # SSH
+        ufw allow 80,443/tcp # HTTP/HTTPS
+        ufw enable
+        
+        # 4. Fail2ban (SSH brute force)
+        # /etc/fail2ban/jail.local
+        # [sshd]
+        # enabled = true
+        # port = 2222
+        # maxretry = 3
+        # bantime = 1h
+        systemctl enable --now fail2ban
+        
+        # 5. AIDE (file integrity)
+        aideinit
+        mv /var/lib/aide/aide.db.new /var/lib/aide/aide.db
+        # cron harian: aide --check
+        
+        # 6. Auditd (audit log)
+        apt install auditd
+        auditctl -w /etc/passwd -p wa -k passwd_changes
+        auditctl -w /etc/shadow -p wa -k shadow_changes</code></pre>
+        
+        <hr>
+        
+        <h2>🧪 Latihan</h2>
+        
+        <ol><li><strong>Threat Model Mini</strong> — Aplikasi "Rapor Online" (guru input nilai, siswa lihat rapor). Buat DFD sederhana. Terapkan STRIDE pada 3 entry point. Tulis tabel mitigasi.</li><li><strong>OWASP Demo</strong> — Buat Flask app sederhana dengan 3 kerentanan sengaja: (a) SQLi di <code>/search?q=</code>, (b) IDOR di <code>/rapor/&lt;nis&gt;</code>, (c) XSS reflected di <code>/hello?name=</code>. Eksploitasi masing-masing. Lalu perbaiki.</li><li><strong>Password Hashing</strong> — Implementasikan <code>register(username, password)</code> & <code>login(username, password)</code> pakai <code>bcrypt</code>. Tambah <em>rate limit</em> 5 percobaan per 15 menit per IP (pakai <code>flask-limiter</code> atau Redis).</li><li><strong>JWT Auth</strong> — Buat endpoint <code>/login</code> → return JWT. Endpoint <code>/profile</code> → butuh <code>Authorization: Bearer &lt;token&gt;</code>. Test <em>expired token</em>, <em>tampered token</em>, <em>missing token</em>.</li><li><strong>TLS Lab</strong> — Generate self-signed cert. Jalankan <code>python -m http.server</code> dengan SSL. Akses via <code>curl -k https://localhost:8443</code>. Periksa sertifikat dengan <code>openssl x509 -in cert.pem -text -noout</code>.</li><li><strong>Network Scan</strong> — Di VM terisolasi: <code>nmap -sS -sV -O target_ip</code>. Identifikasi port terbuka, layanan, OS. Tulis rekomendasi <em>hardening</em> (tutup port tidak perlu, update layanan lama).</li><li><strong>Log Analysis</strong> — Diberi <code>auth.log</code> (SSH login attempts). Pakai Python (<code>re</code> / <code>pandas</code>) ekstrak: IP paling banyak <em>failed login</em>, waktu serangan, apakah <em>distributed</em> (banyak IP) atau <em>single source</em>.</li><li><strong>Responsible Disclosure Draft</strong> — Temukan bug (mis. <em>IDOR</em> di situs sekolah dummy). Tulis email <em>disclosure</em> ke admin: deskripsi, <em>steps to reproduce</em>, <em>impact</em>, <em>suggested fix</em>, <em>timeline request</em> (90 hari).</li></ol>
+        
+        <hr>
+        
+        <h2>✅ Checklist Paham</h2>
+        
+        <ul><li>[ ] Bisa jelaskan CIA Triad & trade-off nya</li><li>[ ] Bisa terapkan STRIDE pada arsitektur sederhana</li><li>[ ] Hafal OWASP Top 10 2021 & pencegahan utamanya</li><li>[ ] Bisa implementasikan <code>bcrypt</code> hash & verify password</li><li>[ ] Bisa bikin & verifikasi JWT (HS256) dengan <code>exp</code> claim</li><li>[ ] Paham beda RBAC vs ABAC & kapan pakai mana</li><li>[ ] Bisa setup TLS/HTTPS (self-signed dev + Let's Encrypt prod)</li><li>[ ] Paham <em>defense in depth</em>: firewall, segmentasi (VLAN/DMZ), IDS/IPS, VPN, Zero Trust</li><li>[ ] Bisa tulis <em>secure code</em> Python: parameterized query, pydantic validation, secrets dari env</li><li>[ ] Tahu UU ITE & UU PDP poin kunci + etika <em>white hat</em> / <em>bug bounty</em></li></ul>
+        
+        <p><strong>Kalau semua tercentang → lanjut ke Modul 20 (Dampak Sosial TIK — Studi Kasus & Argumentasi Kritis).</strong></p>
+    <nav class="modul-nav">
+        <a href="18-jaringan-osi.html">« 🌐 Jaringan & Model OSI</a>
+        <span class="modul-nav-center">⬅ <a href="../index.html">Index</a></span>
+        <a href="20-dampak-sosial.html">🌍 Dampak Sosial TIK »</a>
+    </nav>
+    </div>
+    <script>
+        document.querySelectorAll('pre code').forEach(function(b){hljs.highlightElement(b);});
+
+        (function() {
+            var btn = document.getElementById('themeToggle');
+            if (!btn) return;
+            var html = document.documentElement;
+            function updateBtn() {
+                btn.textContent = html.getAttribute('data-theme') === 'light' ? '☀️' : '🌙';
+            }
+            updateBtn();
+            btn.addEventListener('click', function() {
+                var current = html.getAttribute('data-theme');
+                var next = current === 'light' ? 'dark' : 'light';
+                html.setAttribute('data-theme', next);
+                localStorage.setItem('theme', next);
+                updateBtn();
+            });
+        })();
+    </script>
+</body>
+</html>

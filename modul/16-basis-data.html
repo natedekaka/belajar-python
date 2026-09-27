@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modul 16: Basis Data — SQL &amp; SQLite — Belajar Python</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐍</text></svg>">
+    <script>
+        (function() {
+            var theme = localStorage.getItem('theme');
+            if (theme === 'light' || (!theme && window.matchMedia('(prefers-color-scheme: light)').matches)) {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+</head>
+<body>
+    <nav class="top-nav">
+        <a href="../index.html">⬅ Kembali ke Index</a>
+        <span class="title-nav">Modul 16: Basis Data — SQL &amp; SQLite</span>
+        <button class="theme-toggle" id="themeToggle" aria-label="Ganti tema">🌙</button>
+    </nav>
+    <div class="container">
+        <h1>Modul 16: Basis Data — SQL & SQLite</h1>
+        
+        <h2>📌 Pemetaan CP Fase F</h2>
+        <table>
+        <tr><th>Elemen</th><th>Kode CP</th><th>Capaian Terkait</th></tr>
+        <tr><td>Algoritma & Pemrograman</td><td>AP</td><td>Mengembangkan program modular besar, library pengolahan data bervolume besar</td></tr>
+        <tr><td>Analisis Data</td><td>AD</td><td>(Muatan AD diserap ke AP) — menginput, memproses, memvisualisasi data, query, indexing</td></tr>
+        </table>
+        
+        <hr>
+        
+        <h2>🏆 Target Pemahaman</h2>
+        
+        <p>Setelah modul ini, kamu bisa:</p>
+        <ul><li>Menjelaskan <strong>model relasional</strong>: tabel, baris, kolom, primary key, foreign key</li><li>Mendesain <strong>ER Diagram</strong> (Entitas-Relasi) & menerjemahkannya ke skema SQL</li><li>Menulis <strong>DDL</strong> (<code>CREATE TABLE</code>, <code>ALTER</code>, <code>DROP</code>, <code>INDEX</code>) & <strong>DML</strong> (<code>INSERT</code>, <code>SELECT</code>, <code>UPDATE</code>, <code>DELETE</code>)</li><li>Memahami <strong>normalisasi</strong> (1NF, 2NF, 3NF) & <em>denormalisasi</em> untuk performa</li><li>Pakai <strong>SQLite</strong> via <code>sqlite3</code> modul bawaan Python — <em>zero-config</em>, file-based</li><li>Mengamankan query dengan <strong>parameterized query</strong> (hindari SQL Injection)</li><li>Menggunakan <strong>transaksi</strong> (<code>BEGIN</code>, <code>COMMIT</code>, <code>ROLLBACK</code>) untuk konsistensi</li><li>Memahami <strong>indexing</strong> (B-Tree) & kapan <em>index</em> membantu / merugikan</li><li>Memvisualisasikan hasil query ke Python (<code>pandas</code> opsional, atau manual)</li></ul>
+        
+        <hr>
+        
+        <h2>1. Kenapa Basis Data Relasional?</h2>
+        
+        <table>
+        <tr><th>Masalah File CSV / JSON</th><th>Solusi Relasional (SQL)</th></tr>
+        <tr><td>Cari data = baca seluruh file O(n)</td><td><strong>Index</strong> → O(log n)</td></tr>
+        <tr><td>Duplikasi data → inkonsisten</td><td><strong>Normalisasi</strong> + <strong>FK constraint</strong></td></tr>
+        <tr><td>Multi-user baca/tulis bersamaan → korup</td><td><strong>Transaksi ACID</strong></td></tr>
+        <tr><td>Relasi antar entitas manual</td><td><strong>JOIN</strong> deklaratif</td></tr>
+        <tr><td>Schema tidak tertulis</td><td><strong>DDL</strong> = kontrak eksplisit</td></tr>
+        </table>
+        
+        <blockquote><p>💡 <strong>SQLite</strong> = serverless, file tunggal, ACID compliant, cocok untuk embedded / desktop / prototipe. Produksi skala besar → PostgreSQL / MySQL.</p></blockquote>
+        
+        <hr>
+        
+        <h2>2. Desain ER → Skema (Contoh: Sistem Nilai)</h2>
+        
+        <pre><code>┌─────────────┐       ┌─────────────┐       ┌─────────────┐
+        │   Siswa     │       │   Kelas     │       │  MataPelajaran
+        ├─────────────┤       ├─────────────┤       ├─────────────┤
+        │ PK nis      │       │ PK id_kelas │       │ PK id_mapel │
+        │ nama        │       │ nama_kelas  │       │ nama_mapel  │
+        │ fk id_kelas │◄──────│ wali_kelas  │       │ sks         │
+        └─────────────┘       └─────────────┘       └─────────────┘
+                                   ▲
+                                   │
+                            ┌──────┴──────┐
+                            │   Nilai     │
+                            ├─────────────┤
+                            │ PK id_nilai │
+                            │ FK nis      │
+                            │ FK id_mapel │
+                            │ nilai       │
+                            │ semester    │
+                            └─────────────┘</code></pre>
+        
+        <p><strong>Aturan ER → Tabel:</strong></p>
+        <ul><li>Entitas → Tabel</li><li>Atribut → Kolom</li><li>Primary Key → <code>PRIMARY KEY</code></li><li>Relasi 1:N → <em>Foreign Key</em> di sisi "many"</li><li>Relasi M:N → <strong>Tabel junction</strong> (2 FK + PK komposit)</li></ul>
+        
+        <hr>
+        
+        <h2>3. DDL — Buat Skema di SQLite</h2>
+        
+        <pre><code class="language-python">import sqlite3
+        from contextlib import closing
+        
+        DB_PATH = &quot;sekolah.db&quot;
+        
+        def init_db():
+            with closing(sqlite3.connect(DB_PATH)) as conn:
+                conn.execute(&quot;PRAGMA foreign_keys = ON&quot;)  # wajib untuk FK enforce
+                cur = conn.cursor()
+        
+                # Siswa
+                cur.execute(&quot;&quot;&quot;
+                    CREATE TABLE IF NOT EXISTS siswa (
+                        nis       TEXT PRIMARY KEY,
+                        nama      TEXT NOT NULL,
+                        id_kelas  TEXT NOT NULL,
+                        FOREIGN KEY (id_kelas) REFERENCES kelas(id_kelas) ON DELETE RESTRICT
+                    )
+                &quot;&quot;&quot;)
+        
+                # Kelas
+                cur.execute(&quot;&quot;&quot;
+                    CREATE TABLE IF NOT EXISTS kelas (
+                        id_kelas   TEXT PRIMARY KEY,
+                        nama_kelas TEXT NOT NULL,
+                        wali_kelas TEXT
+                    )
+                &quot;&quot;&quot;)
+        
+                # Mata Pelajaran
+                cur.execute(&quot;&quot;&quot;
+                    CREATE TABLE IF NOT EXISTS mata_pelajaran (
+                        id_mapel  TEXT PRIMARY KEY,
+                        nama_mapel TEXT NOT NULL,
+                        sks       INTEGER DEFAULT 2
+                    )
+                &quot;&quot;&quot;)
+        
+                # Nilai (junction + atribut)
+                cur.execute(&quot;&quot;&quot;
+                    CREATE TABLE IF NOT EXISTS nilai (
+                        id_nilai   INTEGER PRIMARY KEY AUTOINCREMENT,
+                        nis        TEXT NOT NULL,
+                        id_mapel   TEXT NOT NULL,
+                        nilai      REAL CHECK (nilai &gt;= 0 AND nilai &lt;= 100),
+                        semester   TEXT NOT NULL,  -- &quot;2024/2025-1&quot;
+                        FOREIGN KEY (nis)      REFERENCES siswa(nis) ON DELETE CASCADE,
+                        FOREIGN KEY (id_mapel) REFERENCES mata_pelajaran(id_mapel) ON DELETE CASCADE,
+                        UNIQUE (nis, id_mapel, semester)  -- satu nilai per mapel per semester
+                    )
+                &quot;&quot;&quot;)
+        
+                # Index untuk query cepat
+                cur.execute(&quot;CREATE INDEX IF NOT EXISTS idx_nilai_nis ON nilai(nis)&quot;)
+                cur.execute(&quot;CREATE INDEX IF NOT EXISTS idx_nilai_mapel ON nilai(id_mapel)&quot;)
+        
+                conn.commit()
+                print(&quot;✅ Skema siap&quot;)
+        
+        if __name__ == &quot;__main__&quot;:
+            init_db()</code></pre>
+        
+        <blockquote><p>⚠️ <strong><code>PRAGMA foreign_keys = ON</code></strong> wajib di SQLite — default OFF!</p></blockquote>
+        
+        <hr>
+        
+        <h2>4. DML — Insert, Select, Update, Delete (Parameterized!)</h2>
+        
+        <pre><code class="language-python">def tambah_siswa(nis, nama, id_kelas):
+            with closing(sqlite3.connect(DB_PATH)) as conn:
+                conn.execute(&quot;PRAGMA foreign_keys = ON&quot;)
+                conn.execute(
+                    &quot;INSERT INTO siswa (nis, nama, id_kelas) VALUES (?, ?, ?)&quot;,
+                    (nis, nama, id_kelas)
+                )
+                conn.commit()
+        
+        def cari_siswa(nis):
+            with closing(sqlite3.connect(DB_PATH)) as conn:
+                conn.row_factory = sqlite3.Row  # akses by nama kolom
+                cur = conn.execute(&quot;SELECT * FROM siswa WHERE nis = ?&quot;, (nis,))
+                return cur.fetchone()  # Row object → dict-like
+        
+        def update_nama_siswa(nis, nama_baru):
+            with closing(sqlite3.connect(DB_PATH)) as conn:
+                conn.execute(&quot;PRAGMA foreign_keys = ON&quot;)
+                cur = conn.execute(
+                    &quot;UPDATE siswa SET nama = ? WHERE nis = ?&quot;,
+                    (nama_baru, nis)
+                )
+                conn.commit()
+                return cur.rowcount  # 0 jika tidak ditemukan
+        
+        def hapus_siswa(nis):
+            with closing(sqlite3.connect(DB_PATH)) as conn:
+                conn.execute(&quot;PRAGMA foreign_keys = ON&quot;)
+                cur = conn.execute(&quot;DELETE FROM siswa WHERE nis = ?&quot;, (nis,))
+                conn.commit()
+                return cur.rowcount</code></pre>
+        
+        <blockquote><p>🔒 <strong>SELALU pakai <code>?</code> placeholder</strong> — <strong>JANGAN</strong> f-string / <code>%</code> formatting. Itu <strong>SQL Injection</strong>.</p></blockquote>
+        
+        <hr>
+        
+        <h2>5. Query Kompleks — JOIN, Agregat, Subquery</h2>
+        
+        <pre><code class="language-python">def rapor_siswa(nis, semester):
+            &quot;&quot;&quot;Return list of dict: mapel, nilai, grade.&quot;&quot;&quot;
+            sql = &quot;&quot;&quot;
+                SELECT mp.nama_mapel, n.nilai,
+                       CASE
+                           WHEN n.nilai &gt;= 90 THEN &#x27;A&#x27;
+                           WHEN n.nilai &gt;= 80 THEN &#x27;B&#x27;
+                           WHEN n.nilai &gt;= 70 THEN &#x27;C&#x27;
+                           WHEN n.nilai &gt;= 60 THEN &#x27;D&#x27;
+                           ELSE &#x27;E&#x27;
+                       END AS grade
+                FROM nilai n
+                JOIN mata_pelajaran mp ON n.id_mapel = mp.id_mapel
+                WHERE n.nis = ? AND n.semester = ?
+                ORDER BY mp.nama_mapel
+            &quot;&quot;&quot;
+            with closing(sqlite3.connect(DB_PATH)) as conn:
+                conn.row_factory = sqlite3.Row
+                cur = conn.execute(sql, (nis, semester))
+                return [dict(row) for row in cur.fetchall()]
+        
+        def statistik_kelas(id_kelas, semester):
+            &quot;&quot;&quot;Rata-rata per mapel untuk satu kelas.&quot;&quot;&quot;
+            sql = &quot;&quot;&quot;
+                SELECT mp.nama_mapel,
+                       AVG(n.nilai) AS rata2,
+                       MIN(n.nilai) AS min_nilai,
+                       MAX(n.nilai) AS max_nilai,
+                       COUNT(*)     AS jumlah_siswa
+                FROM nilai n
+                JOIN siswa s ON n.nis = s.nis
+                JOIN mata_pelajaran mp ON n.id_mapel = mp.id_mapel
+                WHERE s.id_kelas = ? AND n.semester = ?
+                GROUP BY mp.id_mapel, mp.nama_mapel
+                ORDER BY rata2 DESC
+            &quot;&quot;&quot;
+            with closing(sqlite3.connect(DB_PATH)) as conn:
+                conn.row_factory = sqlite3.Row
+                cur = conn.execute(sql, (id_kelas, semester))
+                return [dict(row) for row in cur.fetchall()]
+        
+        # Subquery: siswa yang nilai di BAWAH rata-rata kelas per mapel
+        def siswa_perlu_bimbingan(semester):
+            sql = &quot;&quot;&quot;
+                SELECT s.nis, s.nama, mp.nama_mapel, n.nilai, k.nama_kelas
+                FROM nilai n
+                JOIN siswa s ON n.nis = s.nis
+                JOIN kelas k ON s.id_kelas = k.id_kelas
+                JOIN mata_pelajaran mp ON n.id_mapel = mp.id_mapel
+                WHERE n.semester = ?
+                  AND n.nilai &lt; (
+                      SELECT AVG(n2.nilai)
+                      FROM nilai n2
+                      JOIN siswa s2 ON n2.nis = s2.nis
+                      WHERE n2.id_mapel = n.id_mapel
+                        AND n2.semester = n.semester
+                        AND s2.id_kelas = s.id_kelas
+                  )
+                ORDER BY k.nama_kelas, mp.nama_mapel, n.nilai
+            &quot;&quot;&quot;
+            with closing(sqlite3.connect(DB_PATH)) as conn:
+                conn.row_factory = sqlite3.Row
+                cur = conn.execute(sql, (semester,))
+                return [dict(row) for row in cur.fetchall()]</code></pre>
+        
+        <hr>
+        
+        <h2>6. Transaksi — ACID di SQLite</h2>
+        
+        <pre><code class="language-python">def pindah_kelas_siswa(nis, id_kelas_baru):
+            &quot;&quot;&quot;Atomic: update siswa + log ke tabel audit (contoh).&quot;&quot;&quot;
+            with closing(sqlite3.connect(DB_PATH)) as conn:
+                conn.execute(&quot;PRAGMA foreign_keys = ON&quot;)
+                try:
+                    conn.execute(&quot;BEGIN&quot;)
+                    # 1. Update siswa
+                    conn.execute(
+                        &quot;UPDATE siswa SET id_kelas = ? WHERE nis = ?&quot;,
+                        (id_kelas_baru, nis)
+                    )
+                    # 2. Insert log (asumsi tabel audit ada)
+                    conn.execute(
+                        &quot;INSERT INTO audit_log (nis, aksi, detail, waktu) VALUES (?, ?, ?, datetime(&#x27;now&#x27;))&quot;,
+                        (nis, &quot;PINDAH_KELAS&quot;, id_kelas_baru)
+                    )
+                    conn.execute(&quot;COMMIT&quot;)
+                    return True
+                except sqlite3.Error as e:
+                    conn.execute(&quot;ROLLBACK&quot;)
+                    print(f&quot;❌ Transaksi gagal: {e}&quot;)
+                    return False</code></pre>
+        
+        <blockquote><p>💡 <strong><code>BEGIN</code> → <code>COMMIT</code> / <code>ROLLBACK</code></strong> = satu unit kerja. Gagal di tengah → <strong>semua dibatalkan</strong>.</p></blockquote>
+        
+        <hr>
+        
+        <h2>7. Indexing — Kapan Membantu, Kapan Merugikan</h2>
+        
+        <table>
+        <tr><th>Situasi</th><th>Index Membantu?</th><th>Alasan</th></tr>
+        <tr><td><code>WHERE kolom = ?</code> / <code>kolom IN (...)</code></td><td>✅ Ya</td><td>B-Tree seek O(log n)</td></tr>
+        <tr><td><code>WHERE kolom &gt; ?</code> / <code>BETWEEN</code></td><td>✅ Ya</td><td>Range scan</td></tr>
+        <tr><td><code>ORDER BY kolom</code></td><td>✅ Ya</td><td>Hindari sort</td></tr>
+        <tr><td><code>JOIN ON a.kolom = b.kolom</code></td><td>✅ Ya</td><td>Hash join / merge join cepat</td></tr>
+        <tr><td><code>WHERE kolom LIKE &#x27;%abc&#x27;</code></td><td>❌ Tidak</td><td>Leading wildcard → full scan</td></tr>
+        <tr><td><code>WHERE UPPER(kolom) = &#x27;X&#x27;</code></td><td>❌ Tidak</td><td>Fungsi di kolom → index tidak dipakai (pakai <em>expression index</em> / <code>COLLATE NOCASE</code>)</td></tr>
+        <tr><td>Tabel kecil (&lt; 1000 baris)</td><td>⚠️ Mungkin tidak</td><td>Overhead index &gt; full scan</td></tr>
+        <tr><td>Kolom <em>low cardinality</em> (boolean, gender)</td><td>❌ Tidak</td><td>Selektivitas rendah → planner abaikan</td></tr>
+        </table>
+        
+        <pre><code class="language-python"># Cek query plan
+        with closing(sqlite3.connect(DB_PATH)) as conn:
+            cur = conn.execute(&quot;EXPLAIN QUERY PLAN SELECT * FROM nilai WHERE nis = &#x27;123&#x27;&quot;)
+            for row in cur:
+                print(row)
+        # Output contoh: (0, 0, 0, &#x27;SEARCH TABLE nilai USING INDEX idx_nilai_nis (nis=?)&#x27;)</code></pre>
+        
+        <hr>
+        
+        <h2>8. Migrasi Skema — <code>ALTER TABLE</code> & Versioning</h2>
+        
+        <pre><code class="language-python">def migrasi_tambah_kolom_email():
+            with closing(sqlite3.connect(DB_PATH)) as conn:
+                conn.execute(&quot;PRAGMA foreign_keys = ON&quot;)
+                # SQLite ALTER TABLE terbatas: ADD COLUMN, RENAME, DROP COLUMN (3.35+)
+                conn.execute(&quot;ALTER TABLE siswa ADD COLUMN email TEXT&quot;)
+                conn.commit()
+        
+        # Untuk migrasi kompleks (ubah tipe, rename kolom, dll):
+        # 1. Buat tabel baru dengan skema final
+        # 2. COPY data dari lama → baru (transformasi jika perlu)
+        # 3. DROP tabel lama, RENAME tabel baru
+        # 4. Recreate index &amp; trigger</code></pre>
+        
+        <blockquote><p>💡 Produksi: pakai <strong>Alembic</strong> / <strong>sqlalchemy-migrate</strong> untuk versioning otomatis.</p></blockquote>
+        
+        <hr>
+        
+        <h2>9. Integrasi ke Proyek Modul 13 (Upgrade)</h2>
+        
+        <pre><code class="language-python"># models.py — ganti CSV/JSON ke SQLite
+        import sqlite3
+        from dataclasses import dataclass
+        from contextlib import closing
+        
+        @dataclass
+        class Siswa:
+            nis: str
+            nama: str
+            id_kelas: str
+            # nilai di-load lazy via Kelas / repository
+        
+        class KelasRepository:
+            def __init__(self, db_path=&quot;sekolah.db&quot;):
+                self.db_path = db_path
+        
+            def _conn(self):
+                c = sqlite3.connect(self.db_path)
+                c.execute(&quot;PRAGMA foreign_keys = ON&quot;)
+                c.row_factory = sqlite3.Row
+                return c
+        
+            def semua_siswa(self, id_kelas):
+                with closing(self._conn()) as conn:
+                    cur = conn.execute(
+                        &quot;SELECT nis, nama, id_kelas FROM siswa WHERE id_kelas = ? ORDER BY nama&quot;,
+                        (id_kelas,)
+                    )
+                    return [Siswa(**row) for row in cur.fetchall()]
+        
+            def tambah_nilai(self, nis, id_mapel, nilai, semester):
+                with closing(self._conn()) as conn:
+                    conn.execute(&quot;&quot;&quot;
+                        INSERT INTO nilai (nis, id_mapel, nilai, semester)
+                        VALUES (?, ?, ?, ?)
+                        ON CONFLICT(nis, id_mapel, semester) DO UPDATE SET nilai = excluded.nilai
+                    &quot;&quot;&quot;, (nis, id_mapel, nilai, semester))
+                    conn.commit()</code></pre>
+        
+        <blockquote><p>💡 <code>ON CONFLICT ... DO UPDATE</code> = <strong>upsert</strong> (insert atau update). SQLite 3.24+.</p></blockquote>
+        
+        <hr>
+        
+        <h2>🧪 Latihan</h2>
+        
+        <ol><li><strong>Desain ER</strong> — Buat ER diagram untuk "Perpustakaan": Buku, Anggota, Peminjaman, Kategori. Tulis DDL-nya.</li><li><strong>CRUD Lengkap</strong> — Implementasikan <code>BukuRepository</code> dengan <code>tambah</code>, <code>cari_by_isbn</code>, <code>update_stok</code>, <code>hapus</code>, <code>cari_by_judul</code> (LIKE).</li><li><strong>Transaksi Peminjaman</strong> — <code>pinjam_buku(anggota_id, isbn)</code>: cek stok &gt; 0, kurangi stok, insert ke <code>peminjaman</code> — semua dalam 1 transaksi.</li><li><strong>Laporan Terlambat</strong> — Query: daftar peminjaman yang <code>tanggal_kembali &lt; today</code> AND <code>status != &#x27;dikembalikan&#x27;</code>. Tampilkan nama anggota, judul buku, hari terlambat.</li><li><strong>Index vs No Index</strong> — Buat tabel 100k baris. Query <code>WHERE nama = &#x27;X&#x27;</code> sebelum & sesudah <code>CREATE INDEX</code>. Ukur <code>timeit</code>.</li><li><strong>SQL Injection Demo</strong> — Coba <code>cari_siswa(&quot;&#x27; OR &#x27;1&#x27;=&#x27;1&quot;)</code> dengan kode <strong>tanpa</strong> parameterized query (pakai f-string). Lihat apa yang terjadi. Lalu perbaiki.</li><li><strong>Normalisasi Praktik</strong> — Diberi tabel <code>penjualan(no_nota, tgl, id_pelanggan, nama_pelanggan, id_barang, nama_barang, harga, qty)</code>. Normalisasi ke 3NF. Tulis DDL hasilnya.</li></ol>
+        
+        <hr>
+        
+        <h2>✅ Checklist Paham</h2>
+        
+        <ul><li>[ ] Bisa gambar ER diagram & turunkan ke DDL <code>CREATE TABLE</code> + FK + INDEX</li><li>[ ] Selalu pakai <strong>parameterized query</strong> (<code>?</code>) — tidak pernah f-string di SQL</li><li>[ ] <code>PRAGMA foreign_keys = ON</code> di setiap koneksi</li><li>[ ] Transaksi: <code>BEGIN</code> → operasi → <code>COMMIT</code> / <code>ROLLBACK</code> pada <code>except</code></li><li>[ ] <code>JOIN</code> (INNER, LEFT), <code>GROUP BY</code> + agregat (<code>AVG</code>, <code>COUNT</code>, <code>SUM</code>)</li><li>[ ] Subquery di <code>WHERE</code> & <code>SELECT</code> untuk perbandingan ke rata-rata</li><li>[ ] <code>EXPLAIN QUERY PLAN</code> baca & tafsirkan output</li><li>[ ] Tahu kapan index membantu vs merugikan</li><li>[ ] <code>ON CONFLICT ... DO UPDATE</code> untuk upsert</li><li>[ ] Rencana migrasi skema tanpa kehilangan data</li></ul>
+        
+        <p><strong>Kalau semua tercentang → lanjut ke Modul 17 (Testing, Dokumentasi & Kualitas Kode).</strong></p>
+    <nav class="modul-nav">
+        <a href="15-kompleksitas-algoritma.html">« ⚙️ Kompleksitas Algoritma</a>
+        <span class="modul-nav-center">⬅ <a href="../index.html">Index</a></span>
+        <a href="17-testing-dokumentasi.html">🧪 Testing & Dokumentasi »</a>
+    </nav>
+    </div>
+    <script>
+        document.querySelectorAll('pre code').forEach(function(b){hljs.highlightElement(b);});
+
+        (function() {
+            var btn = document.getElementById('themeToggle');
+            if (!btn) return;
+            var html = document.documentElement;
+            function updateBtn() {
+                btn.textContent = html.getAttribute('data-theme') === 'light' ? '☀️' : '🌙';
+            }
+            updateBtn();
+            btn.addEventListener('click', function() {
+                var current = html.getAttribute('data-theme');
+                var next = current === 'light' ? 'dark' : 'light';
+                html.setAttribute('data-theme', next);
+                localStorage.setItem('theme', next);
+                updateBtn();
+            });
+        })();
+    </script>
+</body>
+</html>

@@ -96,6 +96,36 @@
             border: 1px solid var(--border);
             background: var(--bg-card);
         }
+        .link-item .link-badge {
+            display: inline-block;
+            padding: 0.1rem 0.5rem;
+            margin-left: 0.4rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            vertical-align: middle;
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+            color: var(--text-dim);
+        }
+        .link-item .link-badge.guru {
+            color: #f0a020;
+            border-color: rgba(240, 160, 32, 0.4);
+        }
+        .link-item .link-badge.siswa {
+            color: #3fb950;
+            border-color: rgba(63, 185, 80, 0.4);
+        }
+        [data-theme="light"] .link-item .link-badge.guru {
+            color: #b26a00;
+            border-color: rgba(178, 106, 0, 0.35);
+        }
+        [data-theme="light"] .link-item .link-badge.siswa {
+            color: #1a7f37;
+            border-color: rgba(26, 127, 55, 0.35);
+        }
 
         /* SECTION */
         .section { padding: 2.5rem 0; }
@@ -275,10 +305,11 @@
         <h1><span class="emoji">🐍</span> Belajar Python</h1>
         <p class="tagline">Kurikulum Python untuk Guru Informatika &mdash; dari nol sampai bisa ngajar dan bikin tools sendiri</p>
         <div class="info">
-            <span>📚 14 Modul</span>
+            <span>📚 21 Modul</span>
             <span>📝 100+ Soal</span>
             <span>⚙️ 5 Script Tools</span>
             <span>🎯 13 Mini Projek</span>
+            <span>📋 RPS 72 JP</span>
             <span>🐧 Omarchy Linux</span>
         </div>
         <div class="badge-group">
@@ -412,6 +443,48 @@
                 <p>Aplikasi CLI Nilai Siswa + Quiz Interaktif &mdash; portofolio ngajar.</p>
                 <span class="meta-tag">4 JP</span>
             </a>
+            <a class="card" href="modul/14-struktur-data-lanjutan.html">
+                <div class="num">MODUL 14</div>
+                <h3>📊 Struktur Data Lanjutan</h3>
+                <p>collections, dataclasses, typing, heapq, itertools &mdash; struktur data abstrak.</p>
+                <span class="meta-tag">3 JP</span>
+            </a>
+            <a class="card" href="modul/15-kompleksitas-algoritma.html">
+                <div class="num">MODUL 15</div>
+                <h3>⚙️ Kompleksitas Algoritma</h3>
+                <p>Big-O, sorting, hashing, analisis strategi alternatif & justifikasi efisiensi.</p>
+                <span class="meta-tag">3 JP</span>
+            </a>
+            <a class="card" href="modul/16-basis-data.html">
+                <div class="num">MODUL 16</div>
+                <h3>🗄️ Basis Data (SQLite)</h3>
+                <p>SQL, ER diagram, normalisasi, transaksi, indexing, parameterized query.</p>
+                <span class="meta-tag">3 JP</span>
+            </a>
+            <a class="card" href="modul/17-testing-dokumentasi.html">
+                <div class="num">MODUL 17</div>
+                <h3>🧪 Testing & Dokumentasi</h3>
+                <p>pytest, coverage, mypy, ruff, docstring, SemVer, CI/CD pipeline.</p>
+                <span class="meta-tag">2 JP</span>
+            </a>
+            <a class="card" href="modul/18-jaringan-osi.html">
+                <div class="num">MODUL 18</div>
+                <h3>🌐 Jaringan & Model OSI</h3>
+                <p>7 layer OSI, topologi, TCP/UDP, socket programming, encapsulation.</p>
+                <span class="meta-tag">3 JP</span>
+            </a>
+            <a class="card" href="modul/19-keamanan-digital.html">
+                <div class="num">MODUL 19</div>
+                <h3>🔐 Keamanan Digital</h3>
+                <p>CIA Triad, STRIDE, OWASP Top 10, bcrypt, JWT, TLS, Zero Trust, UU PDP.</p>
+                <span class="meta-tag">3 JP</span>
+            </a>
+            <a class="card" href="modul/20-dampak-sosial.html">
+                <div class="num">MODUL 20</div>
+                <h3>🌍 Dampak Sosial TIK</h3>
+                <p>Studi kasus, argumentasi kritis (CER), debat, AI ethics, responsible innovation.</p>
+                <span class="meta-tag">3 JP</span>
+            </a>
         </div>
     </section>
 
@@ -461,17 +534,37 @@
 
     <hr class="divider">
 
-    <section class="section">
-        <h2 class="section-title">📎 Referensi &amp; Tools</h2>
+<section class="section">
+        <h2 class="section-title">📎 Referensi & Tools</h2>
         <p class="section-sub">Materi pendukung untuk ngajar dan belajar mandiri</p>
         <div class="link-list">
+            <a class="link-item" href="PETA-KURIKULUM.html">
+                <span class="icon">🗺️</span>
+                <div><div>Peta Kurikulum</div><div class="desc">CP Fase F per elemen, peta modul, alokasi 72 JP, profil Pelajar Pancasila</div></div>
+            </a>
+            <a class="link-item" href="RPS.html">
+                <span class="icon">📋</span>
+                <div><div>RPS 72 JP</div><div class="desc">Rencana Pelaksanaan Pembelajaran lengkap dengan ATP, KKTP, asesmen</div></div>
+            </a>
+            <a class="link-item" href="lembar-kerja-siswa.html">
+                <span class="icon">📝</span>
+                <div><div>Lembar Kerja Siswa</div><div class="desc">Siap cetak A4, ruang tulis, rubrik mini per modul</div></div>
+            </a>
+            <a class="link-item" href="template-proyek.html">
+                <span class="icon">📦</span>
+                <div><div>Template Proyek & Rubrik</div><div class="desc">Template semi-kosong proyek akhir + rubrik penilaian PLB</div></div>
+            </a>
             <a class="link-item" href="cheat-sheet.html">
                 <span class="icon">📄</span>
                 <div><div>Cheat Sheet</div><div class="desc">Cetak 1 halaman bolak-balik &mdash; referensi cepat semua sintaks</div></div>
             </a>
             <a class="link-item" href="bank-soal.html">
                 <span class="icon">📝</span>
-                <div><div>Bank Soal</div><div class="desc">100+ soal pilihan ganda, coding, essay + kunci jawaban</div></div>
+                <div><div>Bank Soal <span class="link-badge guru">Guru</span></div><div class="desc">100+ soal pilihan ganda, coding, essay &mdash; lengkap dengan kunci jawaban</div></div>
+            </a>
+            <a class="link-item" href="bank-soal-siswa.html">
+                <span class="icon">📄</span>
+                <div><div>Bank Soal <span class="link-badge siswa">Siswa</span></div><div class="desc">Soal yang sama tanpa kunci jawaban &mdash; aman untuk dibagikan</div></div>
             </a>
             <a class="link-item" href="error-dictionary.html">
                 <span class="icon">❌</span>
@@ -479,7 +572,7 @@
             </a>
             <a class="link-item" href="tips-mengajar.html">
                 <span class="icon">👨‍🏫</span>
-                <div><div>Tips Mengajar</div><div class="desc">Strategi, analogi, jebakan murid &amp; aktivitas kelas per modul</div></div>
+                <div><div>Tips Mengajar</div><div class="desc">Strategi, analogi, jebakan murid & aktivitas kelas per modul</div></div>
             </a>
             <a class="link-item" href="mini-projek.html">
                 <span class="icon">🎯</span>

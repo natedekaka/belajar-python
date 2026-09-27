@@ -6,6 +6,21 @@ Mengaplikasikan **semua materi** yang sudah dipelajari (dari Modul 1 sampai Modu
 
 ---
 
+## ⚙️ Kebutuhan Sistem
+
+| Kebutuhan | Keterangan |
+|-----------|------------|
+| **Python** | **3.10 atau lebih baru** |
+| Package tambahan | Tidak ada — semua pakai modul bawaan Python |
+| Editor | Apa saja (IDLE bawaan, VS Code, atau teks editor biasa) |
+
+> 💡 Proyek ini memakai fitur `dict[str, ...]` dan `list[...]` yang baru resmi di Python 3.9+,
+> jadi **pastikan versi Python-mu 3.10 ke atas**. Cek dengan `python --version` di terminal.
+>
+> Kalau muncul error `SyntaxError` saat program dijalankan, cek dulu versi Python-mu.
+
+---
+
 ## 📋 Spesifikasi Aplikasi
 
 **Nama:** `sistem_nilai.py`  
@@ -205,6 +220,10 @@ import csv
 import json
 import os
 
+# WAJIB: utils memakai class dari models, jadi harus di-import.
+# Tanpa baris ini, program error: NameError: name 'Siswa' is not defined
+from models import Siswa, Kelas
+
 # Warna ANSI untuk terminal (biar cantik)
 class Warna:
     HIJAU = '\033[92m'
@@ -294,8 +313,23 @@ def baca_json(filename: str):
 #!/usr/bin/env python3
 """Sistem Manajemen Nilai Sekolah — CLI App"""
 
+import os
+
 from models import Siswa, Kelas
-from utils import *
+
+# ⚠️ Jangan pakai `from utils import *`!
+# starred import menyalin SEMUA nama, termasuk `os` dan `csv` yang sebenarnya
+# milik utils. Kalau utils.py dihapus, program langsung error dengan pesan
+# yang membingungkan. Tulis nama yang dipakai saja — lebih jelas dan aman.
+from utils import (
+    Warna,
+    baca_json,
+    minta_angka,
+    simpan_csv,
+    simpan_json,
+    tampilkan_header,
+    tampilkan_menu,
+)
 
 def menu_utama(kelas: Kelas):
     """Menu utama aplikasi"""
@@ -323,7 +357,12 @@ def menu_utama(kelas: Kelas):
         elif pilihan == "5":
             menu_simpan(kelas)
         elif pilihan == "6":
-            menu_muat(kelas)
+            # menu_muat mengembalikan objek Kelas BARU.
+            # Kita harus assign balik ke `kelas`, kalau tidak data yang
+            # baru dimuat akan dibuang dan program tetap pakai data lama.
+            kelas_baru = menu_muat(kelas)
+            if kelas_baru is not None:
+                kelas = kelas_baru
         else:
             print(f"{Warna.MERAH}Pilihan tidak valid!{Warna.END}")
 
@@ -587,8 +626,7 @@ def menu_simpan(kelas: Kelas):
         simpan_json(kelas, "data/kelas.json")
 
 def menu_muat(kelas: Kelas):
-    """Menu muat data"""
-    global kelas_global
+    """Menu muat data. Mengembalikan objek Kelas baru, atau None kalau gagal."""
     tampilkan_header("📂 MUAT DATA")
     
     filename = "data/kelas.json"
@@ -596,10 +634,17 @@ def menu_muat(kelas: Kelas):
     
     if data is None:
         print(f"{Warna.MERAH}File '{filename}' tidak ditemukan.{Warna.END}")
-        return
+        return None
     
-    kelas_global = Kelas.from_dict(data)
-    print(f"{Warna.HIJAU}Data berhasil dimuat! {len(kelas_global.daftar_siswa)} siswa.{Warna.END}")
+    # ⚠️ Jangan pakai `global` di sini.
+    # `kelas` milik menu_utama() dan menunjuk ke objek LAMA.
+    # Assign ke `global` hanya mengubah variabel global, bukan objek yang
+    # sedang dipakai menu_utama — hasilnya data baru terbuang diam-diam.
+    # Solusinya: kembalikan objek barunya, biar pemanggil yang meng-assign.
+
+    kelas_baru = Kelas.from_dict(data)
+    print(f"{Warna.HIJAU}Data berhasil dimuat! {len(kelas_baru.daftar_siswa)} siswa.{Warna.END}")
+    return kelas_baru
 
 # === MAIN ===
 if __name__ == "__main__":

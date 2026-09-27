@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lembar Kerja Siswa — Informatika Kelas XI (Fase F) — Belajar Python</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐍</text></svg>">
+    <script>
+        (function() {
+            var theme = localStorage.getItem('theme');
+            if (theme === 'light' || (!theme && window.matchMedia('(prefers-color-scheme: light)').matches)) {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+</head>
+<body>
+    <nav class="top-nav">
+        <a href="index.html">⬅ Kembali ke Index</a>
+        <span class="title-nav">Lembar Kerja Siswa — Informatika Kelas XI (Fase F)</span>
+        <button class="theme-toggle" id="themeToggle" aria-label="Ganti tema">🌙</button>
+    </nav>
+    <div class="container">
+        <h1>📝 Lembar Kerja Siswa — Informatika Kelas XI (Fase F)</h1>
+        
+        <p><strong>Nama:</strong> ___________________________   <strong>Kelas:</strong> ______   <strong>NIS:</strong> _______________  </p>
+        <p><strong>Semester:</strong> ☐ Ganjil  ☐ Genap   <strong>Tahun Pelajaran:</strong> ___________</p>
+        
+        <hr>
+        
+        <h2>Petunjuk Penggunaan</h2>
+        
+        <ol><li>Lembar kerja ini <strong>wajib dibawa</strong> setiap pertemuan Informatika.</li><li>Isi <strong>identitas</strong> di atas dengan lengkap.</li><li>Kerjakan <strong>Latihan</strong> di modul yang bersangkutan, lalu salin jawaban / kode ke sini.</li><li>Gunakan <strong>pena hitam/ biru</strong>. Tulisan harus terbaca.</li><li>Kumpulkan sesuai jadwal (lihat kolom "Tenggat" per modul).</li><li>Nilai lembar kerja masuk komponen <strong>Tugas (15%)</strong> — lihat rubrik mini di tiap modul.</li></ol>
+        
+        <hr>
+        
+        <h2>📋 Daftar Modul & Status</h2>
+        
+        <table>
+        <tr><th>Modul</th><th>Judul</th><th>Tenggat</th><th>Status</th><th>Nilai</th><th>TTD Guru</th></tr>
+        <tr><td>00</td><td>Setup & Persiapan</td><td>Minggu 1</td><td>☐ Belum / ☐ Selesai</td><td>___ / 10</td></tr>
+        <tr><td>01</td><td>Variabel & Tipe Data</td><td>Minggu 2–3</td><td>☐ Belum / ☐ Selesai</td><td>___ / 10</td></tr>
+        <tr><td>02</td><td>String</td><td>Minggu 4</td><td>☐ Belum / ☐ Selesai</td><td>___ / 10</td></tr>
+        <tr><td>03</td><td>List & Tuple</td><td>Minggu 5–6</td><td>☐ Belum / ☐ Selesai</td><td>___ / 10</td></tr>
+        <tr><td>04</td><td>Dictionary & Set</td><td>Minggu 7–8</td><td>☐ Belum / ☐ Selesai</td><td>___ / 10</td></tr>
+        <tr><td>05</td><td>Percabangan</td><td>Minggu 10–11</td><td>☐ Belum / ☐ Selesai</td><td>___ / 10</td></tr>
+        <tr><td>06</td><td>Perulangan</td><td>Minggu 12–13</td><td>☐ Belum / ☐ Selesai</td><td>___ / 10</td></tr>
+        <tr><td>07</td><td>Function</td><td>Minggu 14–15</td><td>☐ Belum / ☐ Selesai</td><td>___ / 10</td></tr>
+        <tr><td>08</td><td>Error & Exception</td><td>Minggu 16</td><td>☐ Belum / ☐ Selesai</td><td>___ / 10</td></tr>
+        <tr><td>09</td><td>File I/O</td><td>Minggu 17</td><td>☐ Belum / ☐ Selesai</td><td>___ / 10</td></tr>
+        <tr><td>10</td><td>Module & pip</td><td>Minggu 18</td><td>☐ Belum / ☐ Selesai</td><td>___ / 10</td></tr>
+        <tr><td>11</td><td>List Comprehension</td><td>Minggu 19</td><td>☐ Belum / ☐ Selesai</td><td>___ / 10</td></tr>
+        <tr><td>12</td><td>OOP Dasar</td><td>Minggu 20–21</td><td>☐ Belum / ☐ Selesai</td><td>___ / 10</td></tr>
+        <tr><td>13</td><td>Proyek Akhir</td><td>Minggu 29–36</td><td>☐ Belum / ☐ Selesai</td><td>___ / 50</td></tr>
+        <tr><td>14</td><td>Struktur Data Lanjutan</td><td>Minggu 22–23</td><td>☐ Belum / ☐ Selesai</td><td>___ / 10</td></tr>
+        <tr><td>15</td><td>Kompleksitas Algoritma</td><td>Minggu 24–25</td><td>☐ Belum / ☐ Selesai</td><td>___ / 10</td></tr>
+        <tr><td>16</td><td>Basis Data (SQLite)</td><td>Minggu 26–28</td><td>☐ Belum / ☐ Selesai</td><td>___ / 10</td></tr>
+        <tr><td>17</td><td>Testing & Dokumentasi</td><td>Minggu 29–30</td><td>☐ Belum / ☐ Selesai</td><td>___ / 10</td></tr>
+        <tr><td>18</td><td>Jaringan & Model OSI</td><td>Minggu 31–32</td><td>☐ Belum / ☐ Selesai</td><td>___ / 10</td></tr>
+        <tr><td>19</td><td>Keamanan Digital</td><td>Minggu 33–34</td><td>☐ Belum / ☐ Selesai</td><td>___ / 10</td></tr>
+        <tr><td>20</td><td>Dampak Sosial TIK</td><td>Minggu 35–36</td><td>☐ Belum / ☐ Selesai</td><td>___ / 10</td></tr>
+        </table>
+        
+        <blockquote><p><strong>Total Nilai Maksimal Lembar Kerja:</strong> 230 → dikonversi ke skala 100 untuk komponen Tugas (15%)</p></blockquote>
+        
+        <hr>
+        
+        <h2>🧾 Format Jawaban per Modul</h2>
+        
+        <blockquote><p><strong>Salin format ini ke halaman kosong / buku catatan untuk tiap modul.</strong>  </p></blockquote>
+        <blockquote><p>Atau cetak halaman ini per modul (1 modul = 2–3 halaman A4).</p></blockquote>
+        
+        <hr>
+        
+        <h3>MODUL __ : ___________________________________</h3>
+        
+        <p><strong>Tanggal Kerjakan:</strong> ___________   <strong>Durasi:</strong> _______ menit  </p>
+        
+        <h4>1. Ringkasan Konsep Kunci (Isi 3–5 poin)</h4>
+        <ol><li>_________________________________________________________________</li><li>_________________________________________________________________</li><li>_________________________________________________________________</li><li>_________________________________________________________________</li><li>_________________________________________________________________</li></ol>
+        
+        <h4>2. Latihan Kode — Salin / Tulis Kode di Sini</h4>
+        
+        <p><strong>Latihan 1:</strong></p>
+        <pre><code class="language-python"># Tempel kode jawaban di sini</code></pre>
+        
+        <p><strong>Latihan 2:</strong></p>
+        <pre><code class="language-python"># Tempel kode jawaban di sini</code></pre>
+        
+        <p><strong>Latihan 3:</strong></p>
+        <pre><code class="language-python"># Tempel kode jawaban di sini</code></pre>
+        
+        <blockquote><p>Jika butuh lebih ruang, gunakan halaman belakang atau tambah kertas.</p></blockquote>
+        
+        <h4>3. Output / Hasil Jalankan (Screenshot / Copy Terminal)</h4>
+        
+        <pre><code>Tempel output di sini (bisa foto layar dicetak kecil / copy-paste teks)</code></pre>
+        
+        <h4>4. Refleksi Singkat (Isi 2–3 kalimat)</h4>
+        
+        <ul><li>Apa yang <strong>paling sulit</strong> di modul ini? _______________________________________</li></ul>
+        <p>  _________________________________________________________________________</p>
+        <ul><li>Apa yang <strong>paling menarik / baru</strong>? _________________________________________</li></ul>
+        <p>  _________________________________________________________________________</p>
+        <ul><li>Apa yang ingin <strong>dipelajari lebih dalam</strong>? ___________________________________</li></ul>
+        <p>  _________________________________________________________________________</p>
+        
+        <h4>5. Pertanyaan untuk Guru (Jika Ada)</h4>
+        
+        <p>_________________________________________________________________________</p>
+        <p>_________________________________________________________________________</p>
+        
+        <hr>
+        
+        <h4>✅ Checklist Paham (Centang yang Sudah Dikuasai)</h4>
+        
+        <p>☐ Saya bisa jelaskan konsep utama modul ini ke teman  </p>
+        <p>☐ Saya bisa tulis kode tanpa lihat contoh  </p>
+        <p>☐ Saya paham kenapa error muncul & cara perbaikinya  </p>
+        <p>☐ Saya sudah coba-coba variasi sendiri di REPL  </p>
+        <p>☐ Saya siap untuk kuis / latihan lanjutan</p>
+        
+        <hr>
+        
+        <h4>🏷️ Rubrik Mini (Diisi Guru)</h4>
+        
+        <table>
+        <tr><th>Aspek</th><th>Skor (0–2)</th><th>Keterangan</th></tr>
+        <tr><td>Kelengkapan jawaban</td><td>0=kurang, 1=cukup, 2=lengkap + rapi</td></tr>
+        <tr><td>Ketepatan logika kode</td><td>0=salah banyak, 1=sedikit error, 2=benar & efisien</td></tr>
+        <tr><td>Kerapian & komentar</td><td>0=berantakan, 1=cukup, 2=rapi + komentar jelas</td></tr>
+        <tr><td>Refleksi & pertanyaan</td><td>0=kosong, 1=ada tapi dangkal, 2=reflektif & kritis</td></tr>
+        <tr><td><strong>Subtotal</strong></td><td><strong>___ / 8</strong></td></tr>
+        </table>
+        
+        <p><strong>Nilai Modul Ini:</strong> ___ / 10  (Subtotal × 1.25)</p>
+        
+        <p><strong>TTD Guru:</strong> _______________   <strong>Tanggal:</strong> _______________</p>
+        
+        <hr>
+        
+        <h2>📎 Lampiran: Ruang Tambahan (Fotokopi Halaman Ini Secukupnya)</h2>
+        
+        <h3>HALAMAN TAMBAHAN MODUL __</h3>
+        
+        <p><strong>Kode / Catatan Tambahan:</strong></p>
+        
+        <pre><code class="language-python"># Ruang kode tambahan</code></pre>
+        
+        <p><strong>Output Tambahan:</strong></p>
+        
+        <pre><code></code></pre>
+        
+        <p><strong>Catatan / Mindmap / Sketsa:</strong></p>
+        
+        <p>_________________________________________________________________________</p>
+        <p>_________________________________________________________________________</p>
+        <p>_________________________________________________________________________</p>
+        <p>_________________________________________________________________________</p>
+        <p>_________________________________________________________________________</p>
+        <p>_________________________________________________________________________</p>
+        <p>_________________________________________________________________________</p>
+        <p>_________________________________________________________________________</p>
+        <p>_________________________________________________________________________</p>
+        <p>_________________________________________________________________________</p>
+        
+        <hr>
+        
+        <p>*Lembar kerja ini merupakan bagian dari paket ajar Informatika Fase F.  </p>
+        <p>Hak cipta © [NAMA SEKOLAH] [TAHUN] — Hak cipta dilindungi undang-undang.  </p>
+        <p>Dilarang memperbanyak untuk kepentingan komersial tanpa izin.*</p>
+    </div>
+    <script>
+        document.querySelectorAll('pre code').forEach(function(b){hljs.highlightElement(b);});
+
+        (function() {
+            var btn = document.getElementById('themeToggle');
+            if (!btn) return;
+            var html = document.documentElement;
+            function updateBtn() {
+                btn.textContent = html.getAttribute('data-theme') === 'light' ? '☀️' : '🌙';
+            }
+            updateBtn();
+            btn.addEventListener('click', function() {
+                var current = html.getAttribute('data-theme');
+                var next = current === 'light' ? 'dark' : 'light';
+                html.setAttribute('data-theme', next);
+                localStorage.setItem('theme', next);
+                updateBtn();
+            });
+        })();
+    </script>
+</body>
+</html>

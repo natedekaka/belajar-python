@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Template Proyek Akhir — Aplikasi CLI Manajemen Sekolah — Belajar Python</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐍</text></svg>">
+    <script>
+        (function() {
+            var theme = localStorage.getItem('theme');
+            if (theme === 'light' || (!theme && window.matchMedia('(prefers-color-scheme: light)').matches)) {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+        })();
+    </script>
+</head>
+<body>
+    <nav class="top-nav">
+        <a href="index.html">⬅ Kembali ke Index</a>
+        <span class="title-nav">Template Proyek Akhir — Aplikasi CLI Manajemen Sekolah</span>
+        <button class="theme-toggle" id="themeToggle" aria-label="Ganti tema">🌙</button>
+    </nav>
+    <div class="container">
+        <h1>📦 Template Proyek Akhir — Aplikasi CLI Manajemen Sekolah</h1>
+        
+        <p><strong>Kelompok:</strong> ________________________   <strong>Anggota:</strong> ___________________________________________________  </p>
+        <p><strong>Kelas:</strong> ______   <strong>Semester:</strong> ______   <strong>Tahun:</strong> ______</p>
+        
+        <hr>
+        
+        <h2>1. Ringkasan Proyek (Maks 150 Kata)</h2>
+        
+        <blockquote><p>Tuliskan: <strong>Apa</strong> yang dibangun, <strong>untuk siapa</strong>, <strong>masalah apa</strong> yang diselesaikan, <strong>fitur utama</strong> apa saja.</p></blockquote>
+        
+        <p>____________________________________________________________________________________</p>
+        <p>____________________________________________________________________________________</p>
+        <p>____________________________________________________________________________________</p>
+        <p>____________________________________________________________________________________</p>
+        
+        <hr>
+        
+        <h2>2. Analisis Kebutuhan (User Stories)</h2>
+        
+        <table>
+        <tr><th>ID</th><th>Sebagai</th><th>Saya Ingin</th><th>Agar</th><th>Prioritas (Must/Should/Could)</th></tr>
+        <tr><td>US-01</td><td>Guru BK</td><td>input nilai siswa per mapel</td><td>rapor otomatis tercipta</td><td>Must</td></tr>
+        <tr><td>US-02</td><td>Wali Kelas</td><td>lihat statistik kelas</td><td>monitoring performa cepat</td><td>Must</td></tr>
+        <tr><td>US-03</td><td>Siswa</td><td>lihat nilai & rapor sendiri</td><td>transparansi & motivasi</td><td>Should</td></tr>
+        <tr><td>US-04</td><td>Admin</td><td>backup & restore data CSV/JSON</td><td>keamanan data</td><td>Could</td></tr>
+        <tr><td>US-05</td><td>Guru</td><td>ranking siswa per semester</td><td>identifikasi siswa berprestasi / butuh bimbingan</td><td>Should</td></tr>
+        </table>
+        
+        <blockquote><p>Tambah baris sesuai kebutuhan (minimal 5 user stories).</p></blockquote>
+        
+        <hr>
+        
+        <h2>3. Desain Sistem</h2>
+        
+        <h3>3.1 ER Diagram (Gambar / Teks)</h3>
+        <pre><code>[Siswa] 1 ───&lt; [Nilai] &gt;─── 1 [MataPelajaran]
+           │                          │
+           1                          1
+           │                          │
+        [Kelas]                      [Semester]</code></pre>
+        <blockquote><p>Tempel foto diagram draw.io / mermaid / PlantUML di sini.</p></blockquote>
+        
+        <h3>3.2 Arsitektur Kode (Modul)</h3>
+        
+        <pre><code>proyek-akhir/
+        ├── main.py              # Entry point — menu utama
+        ├── models.py            # Class: Siswa, Kelas, MataPelajaran, Nilai
+        ├── repository.py        # Data access (SQLite) — CRUD + query kompleks
+        ├── services.py          # Business logic: hitung rata2, grade, ranking, statistik
+        ├── cli.py               # UI: menu, input validation, pretty print (rich/tabulate)
+        ├── utils.py             # Helper: format, export CSV/JSON, validasi
+        ├── config.py            # Konfigurasi: DB_PATH, GRADE_SCALE, EXPORT_DIR
+        ├── tests/
+        │   ├── test_models.py
+        │   ├── test_repository.py
+        │   ├── test_services.py
+        │   └── conftest.py      # pytest fixtures
+        ├── requirements.txt     # dependencies (rich, tabulate, pytest, etc.)
+        ├── README.md            # Cara install &amp; jalankan
+        ├── LICENSE              # MIT / Apache-2.0
+        └── .github/workflows/ci.yml  # CI pipeline</code></pre>
+        
+        <hr>
+        
+        <h2>4. Rincian Fitur & Checklist Implementasi</h2>
+        
+        <table>
+        <tr><th>Fitur</th><th>Deskripsi Singkat</th><th>Checklist (☑)</th></tr>
+        <tr><td><strong>Manajemen Siswa</strong></td><td>Tambah, lihat, cari (NIS/nama), hapus, pindah kelas</td><td>☐</td></tr>
+        <tr><td><strong>Manajemen Kelas</strong></td><td>CRUD kelas, wali kelas, daftar siswa per kelas</td><td>☐</td></tr>
+        <tr><td><strong>Manajemen Mapel</strong></td><td>CRUD mapel, SKS, guru pengampu</td><td>☐</td></tr>
+        <tr><td><strong>Input Nilai</strong></td><td>Per siswa per mapel per semester, validasi 0–100</td><td>☐</td></tr>
+        <tr><td><strong>Hitung Otomatis</strong></td><td>Rata-rata, grade (A–E), ranking kelas</td><td>☐</td></tr>
+        <tr><td><strong>Cetak Rapor</strong></td><td>Per siswa (detail per mapel + rata2 + grade + ranking)</td><td>☐</td></tr>
+        <tr><td><strong>Statistik Kelas</strong></td><td>Rata2 per mapel, min/max, distribusi grade, siswa butuh bimbingan</td><td>☐</td></tr>
+        <tr><td><strong>Simpan/Buka</strong></td><td>SQLite (default), Export/Import CSV & JSON</td><td>☐</td></tr>
+        <tr><td><strong>Autentikasi</strong></td><td>Login guru (bcrypt hash), session sederhana</td><td>☐</td></tr>
+        <tr><td><strong>Logging</strong></td><td>Audit trail: siapa apa kapan (login, input nilai, hapus)</td><td>☐</td></tr>
+        <tr><td><strong>Testing</strong></td><td>pytest ≥ 80% branch coverage (models, repo, services)</td><td>☐</td></tr>
+        <tr><td><strong>CI/CD</strong></td><td>GitHub Actions: lint (ruff) → type-check (mypy) → test → coverage gate</td><td>☐</td></tr>
+        <tr><td><strong>Dokumentasi</strong></td><td>README (install, run, test), docstring Google style, CHANGELOG.md</td><td>☐</td></tr>
+        </table>
+        
+        <hr>
+        
+        <h2>5. Rencana Sprint (4 Sprint × 2 JP = 8 JP + Buffer)</h2>
+        
+        <table>
+        <tr><th>Sprint</th><th>Minggu</th><th>Fokus</th><th>Deliverable</th><th>PIC</th></tr>
+        <tr><td><strong>Sprint 1</strong></td><td>1–2</td><td>Setup repo, ER → DDL, <code>models.py</code>, <code>repository.py</code> (CRUD dasar)</td><td>Repo GitHub + DB schema + CRUD test pass</td></tr>
+        <tr><td><strong>Sprint 2</strong></td><td>3–4</td><td><code>services.py</code> (logic bisnis), <code>cli.py</code> menu utama, input validasi</td><td>CLI jalan: CRUD siswa/kelas/mapel + input nilai</td></tr>
+        <tr><td><strong>Sprint 3</strong></td><td>5–6</td><td>Rapor, statistik, export/import, auth bcrypt, logging</td><td>Fitur lengkap + test coverage ≥ 80%</td></tr>
+        <tr><td><strong>Sprint 4</strong></td><td>7–8</td><td>Polish UI (rich/tabulate), CI pipeline, README, demo prep</td><td>Repo production-ready + slide presentasi</td></tr>
+        <tr><td><strong>Buffer</strong></td><td>9–10</td><td>Bug fixing, integrasi, demo day, refleksi</td><td>Demo day + portofolio GitHub</td></tr>
+        </table>
+        
+        <blockquote><p><strong>Daily Standup (5 menit tiap JP):</strong> Apa kemarin? Apa hari ini? Blocker apa?</p></blockquote>
+        
+        <hr>
+        
+        <h2>6. Teknologi & Library</h2>
+        
+        <table>
+        <tr><th>Kategori</th><th>Pilihan</th><th>Alasan</th></tr>
+        <tr><td>Bahasa</td><td>Python 3.10+</td><td>Type hints modern, match-case, performance</td></tr>
+        <tr><td>Database</td><td>SQLite (<code>sqlite3</code> stdlib)</td><td>Zero-config, file-based, ACID, cukup untuk skala sekolah</td></tr>
+        <tr><td>CLI UI</td><td><code>rich</code> + <code>tabulate</code></td><td>Warna, tabel cantik, progress bar, prompt</td></tr>
+        <tr><td>Testing</td><td><code>pytest</code> + <code>pytest-cov</code> + <code>pytest-mock</code></td><td>Industri standar, fixture powerful</td></tr>
+        <tr><td>Lint/Format</td><td><code>ruff</code></td><td>Super cepat, all-in-one (lint + format + isort + pyupgrade)</td></tr>
+        <tr><td>Type Check</td><td><code>mypy</code> (strict)</td><td>Tangkap bug sebelum jalan</td></tr>
+        <tr><td>CI</td><td>GitHub Actions</td><td>Gratis, terintegrasi GitHub, matrix testing</td></tr>
+        <tr><td>Versioning</td><td>SemVer + <code>CHANGELOG.md</code></td><td>Profesional, jelas breaking changes</td></tr>
+        </table>
+        
+        <hr>
+        
+        <h2>7. Risiko & Mitigasi</h2>
+        
+        <table>
+        <tr><th>Risiko</th><th>Probabilitas</th><th>Dampak</th><th>Mitigasi</th></tr>
+        <tr><td>Anggota tidak kontribusi merata</td><td>Tinggi</td><td>Sedang</td><td><em>Peer evaluation</em> mingguan, <em>individual commit</em> wajib min 2/sprint</td></tr>
+        <tr><td>Scope creep (tambah fitur di tengah)</td><td>Tinggi</td><td>Sedang</td><td><em>Product backlog</em> diprioritaskan, <em>scope freeze</em> Sprint 3</td></tr>
+        <tr><td>Merge conflict berat</td><td>Sedang</td><td>Tinggi</td><td><em>Feature branch</em> per fitur, PR review wajib, <code>rebase</code> rutin</td></tr>
+        <tr><td>DB corrupt / data hilang</td><td>Rendah</td><td>Sangat Tinggi</td><td>Backup otomatis harian (script), <code>git</code> history, export CSV berkala</td></tr>
+        <tr><td>Library tidak kompatibel</td><td>Rendah</td><td>Sedang</td><td>Pin version di <code>requirements.txt</code>, test di CI matrix Python 3.10–3.12</td></tr>
+        </table>
+        
+        <hr>
+        
+        <h2>8. Kriteria Selesai (<em>Definition of Done</em>)</h2>
+        
+        <ul><li>[ ] Semua <em>user stories</em> <strong>Must</strong> & <strong>Should</strong> terimplementasi & tested</li><li>[ ] <code>pytest --cov --cov-branch --cov-fail-under=80</code> <strong>PASS</strong></li><li>[ ] <code>mypy .</code> <strong>PASS</strong> (strict mode)</li><li>[ ] <code>ruff check . &amp;&amp; ruff format --check .</code> <strong>PASS</strong></li><li>[ ] GitHub Actions CI <strong>green</strong> di branch <code>main</code></li><li>[ ] <code>README.md</code> lengkap: install, run, test, kontribusi, lisensi</li><li>[ ] <code>CHANGELOG.md</code> terupdate (v1.0.0)</li><li>[ ] Demo day: presentasi 10 menit + Q&A 5 menit, repo public/private akses guru</li><li>[ ] Refleksi individu dikumpulkan (Google Form / kertas)</li></ul>
+        
+        <hr>
+        
+        <h2>9. Catatan Tambahan / Ide Ekstra (Opsional)</h2>
+        
+        <ul><li>[ ] <strong>GUI versi</strong> (Tkinter / PyQt / Flet) — <em>bonus</em></li><li>[ ] <strong>Web API</strong> (FastAPI) + frontend sederhana — <em>bonus</em></li><li>[ ] <strong>Dockerize</strong> (<code>Dockerfile</code>, <code>docker-compose.yml</code>) — <em>bonus</em></li><li>[ ] <strong>Notifikasi</strong> (email/Telegram bot) untuk nilai &lt; KKM — <em>bonus</em></li><li>[ ] <strong>Dashboard</strong> (Streamlit / Plotly Dash) untuk visualisasi statistik — <em>bonus</em></li></ul>
+        
+        <hr>
+        
+        <p>*Template ini bebas dimodifikasi sesuai kebutuhan kelompok.  </p>
+        <p>Tujuannya: <strong>struktur jelas</strong>, <strong>beban adil</strong>, <strong>kode berkualitas</strong>, <strong>portofolio bangga</strong>.*</p>
+    </div>
+    <script>
+        document.querySelectorAll('pre code').forEach(function(b){hljs.highlightElement(b);});
+
+        (function() {
+            var btn = document.getElementById('themeToggle');
+            if (!btn) return;
+            var html = document.documentElement;
+            function updateBtn() {
+                btn.textContent = html.getAttribute('data-theme') === 'light' ? '☀️' : '🌙';
+            }
+            updateBtn();
+            btn.addEventListener('click', function() {
+                var current = html.getAttribute('data-theme');
+                var next = current === 'light' ? 'dark' : 'light';
+                html.setAttribute('data-theme', next);
+                localStorage.setItem('theme', next);
+                updateBtn();
+            });
+        })();
+    </script>
+</body>
+</html>
